@@ -5,13 +5,36 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <h2>Welcome to Lexion!</h2>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list #dictionaryList [hidden]="!dictionaries || dictionaries.length === 0">
+
+    <ion-item-sliding *ngFor="let dictionary of dictionaries" #slidingItem>
+
+      <button ion-item (click)="goToLearn(dictionary)">
+        <h3>{{dictionary.name}}</h3>
+        <p>
+          Start learning
+          <!-- {{session.timeStart}} &mdash; {{session.timeEnd}}: {{session.location}} -->
+        </p>
+      </button>
+
+      <ion-item-options>
+        <button ion-button color="favorite" (click)="addFavorite(slidingItem, dictionary)" *ngIf="segment === 'all'">
+          Favorite
+        </button>
+        <button ion-button color="danger" (click)="removeFavorite(slidingItem, dictionary, 'Remove Favorite')" *ngIf="segment === 'favorites'">
+          Remove
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+  <ion-list-header [hidden]="dictionaries && dictionaries.length > 0">
+    No Dictionaries Found
+  </ion-list-header>
 </ion-content>
