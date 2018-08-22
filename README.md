@@ -1,0 +1,2 @@
+# lexion
+ionic lexicon app
