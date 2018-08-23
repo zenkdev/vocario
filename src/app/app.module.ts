@@ -17,6 +17,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DictionaryProvider } from '../providers/dictionary';
 import { InMemoryDataProvider } from '../providers/in-memory-data';
 import { MessageProvider } from '../providers/message';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [MyApp, AboutPage, ContactPage, HomePage, TabsPage],
@@ -24,7 +25,8 @@ import { MessageProvider } from '../providers/message';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataProvider)
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataProvider),
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, AboutPage, ContactPage, HomePage, TabsPage],

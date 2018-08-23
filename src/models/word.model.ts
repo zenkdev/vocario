@@ -1,5 +1,6 @@
 export class Word {
   public text: string;
+  public transcription: string;
   public translation: string;
   public hint: string;
   public count: number;
