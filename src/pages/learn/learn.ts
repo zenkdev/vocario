@@ -1,15 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { DictionaryProvider } from '../../providers/dictionary';
-import { Dictionary, Word } from '../../models';
+import { Dictionary } from '../../models';
 import { randomNumber } from './randomNumber';
-
-/**
- * Generated class for the LearnPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { WordCardComponent } from '../../components/word-card/word-card';
 
 @IonicPage()
 @Component({
@@ -20,12 +14,15 @@ export class LearnPage {
   dictionaryId: number;
   title: string;
   dictionary: Dictionary;
-  currentWord: Word;
+
+  @ViewChild('wordCard')
+  wordCard: WordCardComponent;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dictionaryProvider: DictionaryProvider
+    private dictionaryProvider: DictionaryProvider,
+    public toastCtrl: ToastController
   ) {
     this.dictionaryId = +this.navParams.data.dictionaryId;
     this.title = this.navParams.data.title || 'Learn';
@@ -46,9 +43,21 @@ export class LearnPage {
     const words = this.dictionary && this.dictionary.words;
     if (words && words.length) {
       const rnd = words.length > 1 ? randomNumber(0, words.length - 1) : 0;
-      this.currentWord = words[rnd];
+      this.wordCard.newWord(words[rnd]);
     } else {
-      this.currentWord = null;
+      this.wordCard.newWord(null);
+    }
+  }
+
+  onValidate(valid: boolean) {
+    if (valid) {
+      this.dictionary.wordsLearned = this.dictionary.words.filter(x => x.count > 0).length;
+      const toast = this.toastCtrl.create({
+        message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.words.length}.`,
+        duration: 1000
+      });
+      toast.present();
+      this.changeWord();
     }
   }
 }
