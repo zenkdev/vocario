@@ -16,6 +16,9 @@
           <h2>{{word?.category}}</h2>
         </ion-item>
         <ion-item>
+          <h2>{{word?.partOfSpeach}}</h2>
+        </ion-item>
+        <ion-item>
           <ion-label stacked color="primary">Translate please</ion-label>
           <ion-input [(ngModel)]="userTranslation" #translation="ngModel" name="translation" [placeholder]="translationPlaceHolder"
             type="text">

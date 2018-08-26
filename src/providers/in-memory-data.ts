@@ -14,6 +14,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'be (was, been)',
             transcription: '[biː]',
             translation: 'быть',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -21,6 +23,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'do (did, done)',
             transcription: '[duː]',
             translation: 'делать',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -28,6 +32,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'have (had, had)',
             transcription: '[hæv]',
             translation: 'иметь',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -35,6 +41,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'make (made, made)',
             transcription: '[meɪk]',
             translation: 'делать',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -42,6 +50,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'get (got, got / gotten)',
             transcription: '[gɛt]',
             translation: 'получать, становиться',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -49,6 +59,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'go (went, gone)',
             transcription: '[gəʊ]',
             translation: 'идти',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -56,6 +68,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'take (took, taken)',
             transcription: '[teɪk]',
             translation: 'брать',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -63,6 +77,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'will',
             transcription: '[wɪl]',
             translation: '(образует будущее время)',
+            count: 0,
+            errors: 0,
             category: 'Наиболее употребительные глаголы',
             partOfSpeach: 'Глаголы'
           },
@@ -70,6 +86,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'move',
             transcription: '[muːv]',
             translation: 'двигать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -77,6 +95,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'go (went, gone)',
             transcription: '[gəʊ]',
             translation: 'идти',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -84,6 +104,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'walk',
             transcription: '[wɔːk]',
             translation: 'идти пешком, гулять',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -91,6 +113,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'run (ran, run)',
             transcription: '[rʌn]',
             translation: 'бежать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -98,6 +122,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'turn',
             transcription: '[tɜːn]',
             translation: 'поворачивать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -105,6 +131,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fly (flew, flown)',
             transcription: '[flaɪ]',
             translation: 'летать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -112,6 +140,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'drive (drove, driven)',
             transcription: '[draɪv]',
             translation: 'вести машину',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -119,6 +149,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'swim (swam, swum)',
             transcription: '[swɪm]',
             translation: 'плыть',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -126,6 +158,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'jump',
             transcription: '[ʤʌmp]',
             translation: 'прыгать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -133,6 +167,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sit down (sat, sitten)',
             transcription: '[sɪt daʊn]',
             translation: 'садиться',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -140,6 +176,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lie down (lay, lain)',
             transcription: '[laɪ daʊn]',
             translation: 'ложиться',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -147,6 +185,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stand up (stood, stood)',
             transcription: '[stænd ʌp]',
             translation: 'вставать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -154,6 +194,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stand (stood, stood)',
             transcription: '[stænd]',
             translation: 'стоять',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -161,6 +203,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lie (lay, lain)',
             transcription: '[laɪ]',
             translation: 'лежать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -168,6 +212,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sit (sat, sitten)',
             transcription: '[sɪt]',
             translation: 'сидеть',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -175,6 +221,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'step',
             transcription: '[stɛp]',
             translation: 'делать шаг',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -182,6 +230,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dance',
             transcription: '[dɑːns]',
             translation: 'танцевать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -189,6 +239,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'roll',
             transcription: '[rəʊl]',
             translation: 'катить (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -196,6 +248,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'push',
             transcription: '[pʊʃ]',
             translation: 'толкать, нажимать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -203,6 +257,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pull',
             transcription: '[pʊl]',
             translation: 'тянуть',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -210,6 +266,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'put (put, put)',
             transcription: '[pʊt]',
             translation: 'ставить, класть, помещать',
+            count: 0,
+            errors: 0,
             category: 'Основные глаголы движения',
             partOfSpeach: 'Глаголы'
           },
@@ -217,6 +275,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'take (took, taken)',
             transcription: '[teɪk]',
             translation: 'брать',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -224,6 +284,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'give (gave, given)',
             transcription: '[gɪv]',
             translation: 'давать',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -231,6 +293,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pass',
             transcription: '[pɑːs]',
             translation: 'передавать',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -238,6 +302,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'throw (threw, thrown)',
             transcription: '[θrəʊ]',
             translation: 'бросать',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -245,6 +311,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hit (hit, hit)',
             transcription: '[hɪt]',
             translation: 'бить',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -252,6 +320,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'touch',
             transcription: '[tʌʧ]',
             translation: 'прикасаться',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -259,6 +329,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'point at',
             transcription: '[pɔɪnt æt]',
             translation: 'указывать на что-то',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -266,6 +338,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hold (held, held)',
             transcription: '[həʊld]',
             translation: 'держать',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -273,6 +347,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'knock',
             transcription: '[nɒk]',
             translation: 'стучать (напр. в дверь)',
+            count: 0,
+            errors: 0,
             category: 'Ручные действия',
             partOfSpeach: 'Глаголы'
           },
@@ -280,6 +356,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'say',
             transcription: '[seɪ]',
             translation: 'сказать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -287,6 +365,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'speak (spoke, spoken)',
             transcription: '[spiːk]',
             translation: 'говорить',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -294,6 +374,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tell (told, told)',
             transcription: '[tɛl]',
             translation: 'говорить, рассказывать, велеть',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -301,6 +383,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'talk',
             transcription: '[tɔːk]',
             translation: 'разговаривать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -308,6 +392,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'ask',
             transcription: '[ɑːsk]',
             translation: 'просить, спрашивать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -315,6 +401,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'answer',
             transcription: '[ˈɑːnsə]',
             translation: 'отвечать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -322,6 +410,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'call',
             transcription: '[kɔːl]',
             translation: 'звонить по телефону',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -329,6 +419,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'text',
             transcription: '[tɛkst]',
             translation: 'писать сообщение',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -336,6 +428,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cry',
             transcription: '[kraɪ]',
             translation: 'плакать, кричать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -343,6 +437,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'explain',
             transcription: '[ɪksˈpleɪn]',
             translation: 'объяснять',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -350,6 +446,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'repeat',
             transcription: '[rɪˈpiːt]',
             translation: 'повторять',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -357,6 +455,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'understand (understood, understood)',
             transcription: '[ˌʌndəˈstænd]',
             translation: 'понимать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -364,6 +464,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'teach (taught, taught)',
             transcription: '[tiːʧ]',
             translation: 'учить (обучать)',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -371,6 +473,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'learn',
             transcription: '[lɜːn]',
             translation: 'учить (учиться)',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -378,6 +482,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'study',
             transcription: '[ˈstʌdi]',
             translation: 'изучать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -385,6 +491,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'read (read, read)',
             transcription: '[riːd]',
             translation: 'читать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -392,6 +500,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'write (wrote, written)',
             transcription: '[raɪt]',
             translation: 'писать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -399,6 +509,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'watch',
             transcription: '[wɒʧ]',
             translation: 'смотреть, наблюдать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -406,6 +518,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'listen',
             transcription: '[ˈlɪsn]',
             translation: 'слушать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -413,6 +527,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hear (heard, heard)',
             transcription: '[hɪə]',
             translation: 'слышать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -420,6 +536,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'help',
             transcription: '[hɛlp]',
             translation: 'помогать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -427,6 +545,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'think (thought, thought)',
             transcription: '[θɪŋk]',
             translation: 'думать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -434,6 +554,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'correct',
             transcription: '[kəˈrɛkt]',
             translation: 'исправлять',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -441,6 +563,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'make a mistake (made, made)',
             transcription: '[meɪk ə mɪsˈteɪk]',
             translation: 'делать ошибку',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -448,6 +572,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hint',
             transcription: '[hɪnt]',
             translation: 'подсказывать, намекать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -455,6 +581,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'forget (forgot, forgotten)',
             transcription: '[fəˈgɛt]',
             translation: 'забывать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -462,6 +590,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'remember',
             transcription: '[rɪˈmɛmbə]',
             translation: 'помнить',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -469,6 +599,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'remind',
             transcription: '[ˈrɪmaɪnd]',
             translation: 'напоминать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы речи, общения',
             partOfSpeach: 'Глаголы'
           },
@@ -476,6 +608,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'live',
             transcription: '[lɪv]',
             translation: 'жить',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -483,6 +617,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sleep (slept, slept)',
             transcription: '[sliːp]',
             translation: 'спать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -490,6 +626,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wake up (woke, woken)',
             transcription: '[weɪk ʌp]',
             translation: 'просыпаться',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -497,6 +635,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'go to bed (went, gone)',
             transcription: '[gəʊ tuː bɛd]',
             translation: 'идти спать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -504,6 +644,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'take a shower (took, taken)',
             transcription: '[teɪk ə ˈʃaʊə]',
             translation: 'принимать душ',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -511,6 +653,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'brush one’s teeth',
             transcription: '[brʌʃ wʌnz tiːθ]',
             translation: 'чистить зубы',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -518,6 +662,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'comb one’s hair',
             transcription: '[kəʊm wʌnz heə]',
             translation: 'причесываться',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -525,6 +671,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shave',
             transcription: '[ʃeɪv]',
             translation: 'бриться',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -532,6 +680,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'get dressed (got, got / gotten)',
             transcription: '[gɛt drɛst]',
             translation: 'одеваться',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -539,6 +689,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'put on make-up (put, put)',
             transcription: '[pʊt ɒn ˈmeɪkʌp]',
             translation: 'делать макияж',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -546,6 +698,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'make breakfast (made, made)',
             transcription: '[meɪk ˈbrɛkfəst]',
             translation: 'готовить завтрак',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -553,6 +707,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'have breakfast (had, had)',
             transcription: '[hæv ˈbrɛkfəst]',
             translation: 'завтракать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -560,6 +716,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'go to work (went, gone)',
             transcription: '[gəʊ tuː wɜːk]',
             translation: 'идти на работу',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -567,6 +725,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'work',
             transcription: '[wɜːk]',
             translation: 'работать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -574,6 +734,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'rest',
             transcription: '[rɛst]',
             translation: 'отдыхать',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -581,6 +743,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'take a bath (took, taken)',
             transcription: '[teɪk ə bɑːθ]',
             translation: 'принимать ванну',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -588,6 +752,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cook',
             transcription: '[kʊk]',
             translation: 'готовить (еду)',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -595,6 +761,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'eat (ate, eaten)',
             transcription: '[iːt]',
             translation: 'есть',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -602,6 +770,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'do cleaning, clean (did, done)',
             transcription: '[duː ˈkliːnɪŋ] [kliːn]',
             translation: 'убираться',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -609,6 +779,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'do dishes (did, done)',
             transcription: '[duː dɪʃɪz]',
             translation: 'мыть посуду',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -616,6 +788,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'do the laundry (did, done)',
             transcription: '[duː ðə ˈlɔːndri]',
             translation: 'заниматься стиркой',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -623,6 +797,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'work out',
             transcription: '[wɜːk aʊt]',
             translation: 'заниматься спортом',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -630,6 +806,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'have fun (had, had)',
             transcription: '[hæv fʌn]',
             translation: 'развлекаться, веселиться',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -637,6 +815,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'play',
             transcription: '[pleɪ]',
             translation: 'играть',
+            count: 0,
+            errors: 0,
             category: 'Глаголы, обозначающие повседневные дела',
             partOfSpeach: 'Глаголы'
           },
@@ -644,6 +824,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'begin (began, begun)',
             transcription: '[bɪˈgɪn]',
             translation: 'начинаться (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -651,6 +833,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'start',
             transcription: '[stɑːt]',
             translation: 'начинаться (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -658,6 +842,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'continue',
             transcription: '[kənˈtɪnju(ː)]',
             translation: 'продолжать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -665,6 +851,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'go on (went, gone)',
             transcription: '[gəʊ ɒn]',
             translation: 'продолжать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -672,6 +860,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'end',
             transcription: '[ɛnd]',
             translation: 'заканчивать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -679,6 +869,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'finish',
             transcription: '[ˈfɪnɪʃ]',
             translation: 'заканчивать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -686,6 +878,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stop',
             transcription: '[stɒp]',
             translation: 'прекращать, останавливать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -693,6 +887,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'complete',
             transcription: '[kəmˈpliːt]',
             translation: 'завершать (-ся)',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -700,6 +896,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'postpone',
             transcription: '[pɛʊstˈpəʊn]',
             translation: 'откладывать, переносить',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -707,6 +905,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'put off (put, put)',
             transcription: '[pʊt ɒf]',
             translation: 'откладывать, переносить',
+            count: 0,
+            errors: 0,
             category: 'Этапы действия',
             partOfSpeach: 'Глаголы'
           },
@@ -714,6 +914,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'time',
             transcription: '[taɪm]',
             translation: 'время',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -721,6 +923,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'past',
             transcription: '[pɑːst]',
             translation: 'прошлое',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -728,6 +932,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'future',
             transcription: '[ˈfjuːʧə]',
             translation: 'будущее',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -735,6 +941,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'present',
             transcription: '[ˈprɛznt]',
             translation: 'настоящее',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -742,6 +950,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'age',
             transcription: '[eɪʤ]',
             translation: 'эра, эпоха (также "возраст")',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -749,6 +959,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'millennium',
             transcription: '[mɪlˈiːnɪəːm]',
             translation: 'тысячелетие',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -756,6 +968,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'century',
             transcription: '[ˈsɛnʧʊri]',
             translation: 'век',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -763,6 +977,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'decade',
             transcription: '[ˈdɛkeɪd]',
             translation: 'десятилетие',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -770,6 +986,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'year',
             transcription: '[jɪə]',
             translation: 'год',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -777,6 +995,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'month',
             transcription: '[mʌnθ]',
             translation: 'месяц',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -784,6 +1004,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'week',
             transcription: '[wiːk]',
             translation: 'неделя',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -791,6 +1013,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'day',
             transcription: '[deɪ]',
             translation: 'день',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -798,6 +1022,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hour',
             transcription: '[ˈaʊə]',
             translation: 'час',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -805,6 +1031,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'half an hour',
             transcription: '[hɑːf ən ˈaʊə]',
             translation: 'полчаса',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -812,6 +1040,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'minute',
             transcription: '[ˈmɪnɪt]',
             translation: 'минута',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -819,6 +1049,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'second',
             transcription: '[ˈsɛkənd]',
             translation: 'секунда',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -826,6 +1058,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'watch',
             transcription: '[wɒʧ]',
             translation: 'часы (наручные)',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -833,6 +1067,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'clock',
             transcription: '[klɒk]',
             translation: 'часы (настенные)',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -840,6 +1076,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'calendar',
             transcription: '[ˈkælɪndə]',
             translation: 'календарь',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -847,6 +1085,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'schedule',
             transcription: '[ˈʃɛdjuːl]',
             translation: 'расписание',
+            count: 0,
+            errors: 0,
             category: 'Единицы времени, слова на тему "Время"',
             partOfSpeach: 'Существительные'
           },
@@ -854,6 +1094,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'season',
             transcription: '[ˈsiːzn]',
             translation: 'время года',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -861,6 +1103,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'winter',
             transcription: '[ˈwɪntə]',
             translation: 'зима',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -868,6 +1112,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'spring',
             transcription: '[sprɪŋ]',
             translation: 'весна',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -875,6 +1121,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'summer',
             transcription: '[ˈsʌmə]',
             translation: 'лето',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -882,6 +1130,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fall (Am.) autumn (Br.)',
             transcription: '[fɔːl] [ˈɔːtəm]',
             translation: 'осень',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -889,6 +1139,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'January',
             transcription: '[ˈʤænjʊəri]',
             translation: 'январь',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -896,6 +1148,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'February',
             transcription: '[ˈfɛbrʊəri]',
             translation: 'февраль',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -903,6 +1157,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'March',
             transcription: '[mɑːʧ]',
             translation: 'март',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -910,6 +1166,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'April',
             transcription: '[ˈeɪprəl]',
             translation: 'апрель',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -917,6 +1175,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'May',
             transcription: '[meɪ]',
             translation: 'май',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -924,6 +1184,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'June',
             transcription: '[ʤuːn]',
             translation: 'июнь',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -931,6 +1193,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'July',
             transcription: '[ʤuˈlaɪ]',
             translation: 'июль',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -938,6 +1202,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'August',
             transcription: '[ˈɔːgəst]',
             translation: 'август',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -945,6 +1211,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'September',
             transcription: '[sɛpˈtɛmbə]',
             translation: 'сентябрь',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -952,6 +1220,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'October',
             transcription: '[ɒkˈtəʊbə]',
             translation: 'октябрь',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -959,6 +1229,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'November',
             transcription: '[nəʊˈvɛmbə]',
             translation: 'ноябрь',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -966,6 +1238,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'December',
             transcription: '[dɪˈsɛmbə]',
             translation: 'декабрь',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -973,6 +1247,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Monday',
             transcription: '[ˈmʌndeɪ]',
             translation: 'понедельник',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -980,6 +1256,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Tuesday',
             transcription: '[ˈtjuːzdeɪ]',
             translation: 'вторник',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -987,6 +1265,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Wednesday',
             transcription: '[ˈwɛnzdeɪ]',
             translation: 'среда',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -994,6 +1274,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Thursday',
             transcription: '[ˈθɜːzdeɪ]',
             translation: 'четверг',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -1001,6 +1283,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Friday',
             transcription: '[ˈfraɪdeɪ]',
             translation: 'пятница',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -1008,6 +1292,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Saturday',
             transcription: '[ˈsætədeɪ]',
             translation: 'суббота',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -1015,6 +1301,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Sunday',
             transcription: '[ˈsʌndeɪ]',
             translation: 'воскресенье',
+            count: 0,
+            errors: 0,
             category: 'Месяцы, времена года, дни недели',
             partOfSpeach: 'Существительные'
           },
@@ -1022,6 +1310,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'family',
             transcription: '[ˈfæmɪli]',
             translation: 'семья',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1029,6 +1319,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'love',
             transcription: '[lʌv]',
             translation: 'любовь',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1036,6 +1328,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'human',
             transcription: '[ˈhjuːmən]',
             translation: 'человек',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1043,6 +1337,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'people',
             transcription: '[ˈpiːpl]',
             translation: 'люди, народ',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1050,6 +1346,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'man',
             transcription: '[mæn]',
             translation: 'мужчина, человек',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1057,6 +1355,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'woman',
             transcription: '[ˈwʊmən]',
             translation: 'женщина',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1064,6 +1364,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'boy',
             transcription: '[bɔɪ]',
             translation: 'мальчик',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1071,6 +1373,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'guy',
             transcription: '[gaɪ]',
             translation: 'парень',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1078,6 +1382,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'girl',
             transcription: '[gɜːl]',
             translation: 'девочка, девушка',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1085,6 +1391,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'parents',
             transcription: '[ˈpeərənts]',
             translation: 'родители',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1092,6 +1400,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mother',
             transcription: '[ˈmʌðə]',
             translation: 'мать',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1099,6 +1409,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'father',
             transcription: '[ˈfɑːðə]',
             translation: 'отец',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1106,6 +1418,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mom (Am.), mum (Br.)',
             transcription: '[mɒm], [mʌm]',
             translation: 'мама',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1113,6 +1427,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dad',
             transcription: '[dæd]',
             translation: 'папа',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1120,6 +1436,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'grandmother',
             transcription: '[ˈgrænˌmʌðə]',
             translation: 'бабушка',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1127,6 +1445,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'grandfather',
             transcription: '[ˈgrændˌfɑːðə]',
             translation: 'дедушка',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1134,6 +1454,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'grandparents',
             transcription: '[ˈgrænˌpeərənts]',
             translation: 'бабушки и дедушки',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1141,6 +1463,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'brother',
             transcription: '[ˈbrʌðə]',
             translation: 'брат',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1148,6 +1472,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sister',
             transcription: '[ˈsɪstə]',
             translation: 'сестра',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1155,6 +1481,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'siblings',
             transcription: '[ˈsɪblɪŋz]',
             translation: 'братья и сестры',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1162,6 +1490,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cousin',
             transcription: '[ˈkʌzn]',
             translation: 'кузен (двоюродные братья и сестры)',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1169,6 +1499,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wife',
             transcription: '[waɪf]',
             translation: 'жена',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1176,6 +1508,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'husband',
             transcription: '[ˈhʌzbənd]',
             translation: 'муж',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1183,6 +1517,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'father-in-law',
             transcription: '[ˈfɑːðərɪnlɔː]',
             translation: 'тесть',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1190,6 +1526,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mother-in-law',
             transcription: '[ˈmʌðərɪnlɔː]',
             translation: 'теща',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1197,6 +1535,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'son-in-law',
             transcription: '[ˈsʌnɪnlɔː]',
             translation: 'зять',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1204,6 +1544,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'daughter-in-law',
             transcription: '[ˈdɔːtərɪnlɔː]',
             translation: 'невестка',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1211,6 +1553,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'son',
             transcription: '[sʌn]',
             translation: 'сын',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1218,6 +1562,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'daughter',
             transcription: '[ˈdɔːtə]',
             translation: 'дочь',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1225,6 +1571,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'baby',
             transcription: '[ˈbeɪbi]',
             translation: 'маленький ребенок',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1232,6 +1580,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'children, kids',
             transcription: '[ˈʧɪldrən], [kɪdz]',
             translation: 'дети',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1239,6 +1589,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'teenager',
             transcription: '[ˈtiːnˌeɪʤə]',
             translation: 'подросток',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1246,6 +1598,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'aunt',
             transcription: '[ɑːnt]',
             translation: 'тетя',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1253,6 +1607,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'uncle',
             transcription: '[ˈʌŋkl]',
             translation: 'дядя',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1260,6 +1616,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'niece',
             transcription: '[niːs]',
             translation: 'племянница',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1267,6 +1625,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'nephew',
             transcription: '[ˈnɛvju(ː)] [ˈnɛfju(ː)]',
             translation: 'племянник',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1274,6 +1634,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'girlfriend',
             transcription: '[ˈgɜːlˌfrɛnd]',
             translation: 'девушка (подруга)',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1281,6 +1643,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'boyfriend',
             transcription: '[ˈbɔɪˌfrɛnd]',
             translation: 'парень (бойфренд)',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1288,6 +1652,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'friend',
             transcription: '[frɛnd]',
             translation: 'друг',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1295,6 +1661,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'relatives',
             transcription: '[ˈrɛlətɪvz]',
             translation: 'родственники',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1302,6 +1670,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'engagement',
             transcription: '[ɪnˈgeɪʤmənt]',
             translation: 'помолвка',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1309,6 +1679,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'marriage',
             transcription: '[ˈmærɪʤ]',
             translation: 'женитьба, замужество, брак',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1316,6 +1688,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wedding',
             transcription: '[ˈwɛdɪŋ]',
             translation: 'свадьба',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1323,6 +1697,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fiancée, bride',
             transcription: "[fɪ'ɑːn(t)seɪ], [braɪd]",
             translation: 'невеста',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1330,6 +1706,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fiancé, groom (bridegroom)',
             transcription: "[fɪ'ɑːn(t)seɪ], [grʊm] [ˈbraɪdgrʊm]",
             translation: 'жених',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1337,6 +1715,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'funeral',
             transcription: '[ˈfjuːnərəl]',
             translation: 'похороны',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1344,6 +1724,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'birth',
             transcription: '[bɜːθ]',
             translation: 'рождение',
+            count: 0,
+            errors: 0,
             category: 'Семья, родственники',
             partOfSpeach: 'Существительные'
           },
@@ -1351,6 +1733,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'house',
             transcription: '[haʊs]',
             translation: 'дом',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1358,6 +1742,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'home',
             transcription: '[həʊm]',
             translation: 'дом',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1365,6 +1751,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'apartment (USA), flat (UK)',
             transcription: '[əpˈɑːtmənt], [flæt]',
             translation: 'квартира',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1372,6 +1760,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'roof',
             transcription: '[ruːf]',
             translation: 'крыша',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1379,6 +1769,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'room',
             transcription: '[ruːm]',
             translation: 'комната',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1386,6 +1778,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wall',
             transcription: '[wɔːl]',
             translation: 'стена',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1393,6 +1787,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'floor',
             transcription: '[flɔː]',
             translation: 'пол, этаж',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1400,6 +1796,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stairs',
             transcription: '[steəz]',
             translation: 'лестница, ступеньки',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1407,6 +1805,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'ceiling',
             transcription: '[ˈsiːlɪŋ]',
             translation: 'потолок',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1414,6 +1814,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'window',
             transcription: '[ˈwɪndəʊ]',
             translation: 'окно',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1421,6 +1823,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'door',
             transcription: '[dɔː]',
             translation: 'дверь',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1428,6 +1832,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'doorbell',
             transcription: '[ˈdɔːbɛl]',
             translation: 'дверной звонок',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1435,6 +1841,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lock',
             transcription: '[lɒk]',
             translation: 'замок',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1442,6 +1850,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'key',
             transcription: '[kiː]',
             translation: 'ключ',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1449,6 +1859,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'furniture',
             transcription: '[ˈfɜːnɪʧə]',
             translation: 'мебель',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1456,6 +1868,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'thing',
             transcription: '[θɪŋ]',
             translation: 'вещь, предмет',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1463,6 +1877,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lamp',
             transcription: '[læmp]',
             translation: 'лампа',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1470,6 +1886,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'light bulb',
             transcription: '[laɪt bʌlb]',
             translation: 'лампочка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1477,6 +1895,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'table',
             transcription: '[ˈteɪbl]',
             translation: 'стол',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1484,6 +1904,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'desk',
             transcription: '[dɛsk]',
             translation: 'письменный стол',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1491,6 +1913,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'chair',
             transcription: '[ʧeə]',
             translation: 'стул',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1498,6 +1922,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'armchair',
             transcription: '[ˈɑːmˈʧeə]',
             translation: 'кресло',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1505,6 +1931,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sofa (coach)',
             transcription: '[ˈsəʊfə] [kəʊʧ]',
             translation: 'диван',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1512,6 +1940,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stove (US), cooker (Br)',
             transcription: '[stəʊv]',
             translation: 'кухонная плита',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1519,6 +1949,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'vacuum cleaner',
             transcription: '[ˈvækjʊəm ˈkliːnə]',
             translation: 'пылесос',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1526,6 +1958,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'microwave',
             transcription: '[ˈmaɪkrəʊweɪv]',
             translation: 'микроволновая печь',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1533,6 +1967,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'air conditioner (AC)',
             transcription: '[eə kənˈdɪʃənə] [eɪ-siː]',
             translation: 'кондиционер',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1540,6 +1976,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tap, faucet',
             transcription: '[tæp], [ˈfɔːsɪt]',
             translation: 'водопроводный кран',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1547,6 +1985,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shower',
             transcription: '[ˈʃaʊə]',
             translation: 'душ',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1554,6 +1994,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'washing machine',
             transcription: '[ˈwɒʃɪŋ] [məˈʃiːn]',
             translation: 'стиральная машина',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1561,6 +2003,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'soap',
             transcription: '[səʊp]',
             translation: 'мыло',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1568,6 +2012,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shampoo',
             transcription: '[ʃæmˈpuː]',
             translation: 'шампунь',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1575,6 +2021,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'toiletries',
             transcription: '[ˈtɔɪlɪtriz]',
             translation: 'туалетные принадлежности (мыло, шампунь и проч.)',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1582,6 +2030,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bathroom',
             transcription: '[ˈbɑːθru(ː)m]',
             translation: 'ванная комната \\ туалет',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1589,6 +2039,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mirror',
             transcription: '[ˈmɪrə]',
             translation: 'зеркало',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1596,6 +2048,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hall',
             transcription: '[hɔːl]',
             translation: 'зал, холл',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1603,6 +2057,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hall, hallway',
             transcription: '[hɔːl] [ˈhɔːlweɪ]',
             translation: 'коридор, прихожая',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1610,6 +2066,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'living room',
             transcription: '[ˈlɪvɪŋ ruːm]',
             translation: 'гостиная',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1617,6 +2075,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'kitchen',
             transcription: '[ˈkɪʧɪn]',
             translation: 'кухня',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1624,6 +2084,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bedroom',
             transcription: '[ˈbɛdru(ː)m]',
             translation: 'спальня',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1631,6 +2093,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'neighbour (neighbor)',
             transcription: '[ˈneɪbə]',
             translation: 'сосед',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1638,6 +2102,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wardrobe',
             transcription: '[ˈwɔːdrəʊb]',
             translation: 'шкаф для одежды',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1645,6 +2111,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cupboard',
             transcription: '[ˈkʌbəd]',
             translation: 'шкаф, буфет',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1652,6 +2120,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'closet',
             transcription: '[ˈklɒzɪt]',
             translation: 'шкаф, кладовка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1659,6 +2129,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dishes',
             transcription: '[ˈdɪʃɪz]',
             translation: 'тарелки, посуда',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1666,6 +2138,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cup',
             transcription: '[kʌp]',
             translation: 'чашка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1673,6 +2147,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fork',
             transcription: '[fɔːk]',
             translation: 'вилка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1680,6 +2156,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'spoon',
             transcription: '[spuːn]',
             translation: 'ложка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1687,6 +2165,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'plate',
             transcription: '[pleɪt]',
             translation: 'тарелка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1694,6 +2174,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'knife',
             transcription: '[naɪf]',
             translation: 'нож',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1701,6 +2183,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tools',
             transcription: '[tuːlz]',
             translation: 'инструменты',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1708,6 +2192,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'TV',
             transcription: '[ˌtiːˈviː]',
             translation: 'телевизор',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1715,6 +2201,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'remote control',
             transcription: '[rɪˈməʊt kənˈtrəʊl]',
             translation: 'пульт управления',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1722,6 +2210,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'computer',
             transcription: '[kəmˈpjuːtə]',
             translation: 'компьютер',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1729,6 +2219,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'laptop',
             transcription: '[ˈlæpˌtɒp]',
             translation: 'ноутбук',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1736,6 +2228,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'phone',
             transcription: '[fəʊn]',
             translation: 'телефон',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1743,6 +2237,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bed',
             transcription: '[bɛd]',
             translation: 'кровать',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1750,6 +2246,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'blanket',
             transcription: '[ˈblæŋkɪt]',
             translation: 'одеяло',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1757,6 +2255,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pillow',
             transcription: '[ˈpɪləʊ]',
             translation: 'подушка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1764,6 +2264,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pillowcase',
             transcription: '[ˈpɪləʊkeɪs]',
             translation: 'наволочка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1771,6 +2273,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sheet (bedsheet)',
             transcription: '[ʃiːt]',
             translation: 'простыня',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1778,6 +2282,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'linens',
             transcription: '[ˈlɪnɪnz]',
             translation: 'постельное белье',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1785,6 +2291,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'towel',
             transcription: '[ˈtaʊəl]',
             translation: 'полотенце',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1792,6 +2300,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'movie \\ film',
             transcription: '[ˈmuːvi] [fɪlm]',
             translation: 'фильм',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1799,6 +2309,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'book',
             transcription: '[bʊk]',
             translation: 'книга',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1806,6 +2318,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'camera',
             transcription: '[ˈkæmərə]',
             translation: 'фотоаппарат, видеокамера',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1813,6 +2327,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'newspaper',
             transcription: '[ˈnjuːzˌpeɪpə]',
             translation: 'газета',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1820,6 +2336,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'magazine',
             transcription: '[ˌmægəˈziːn]',
             translation: 'журнал',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1827,6 +2345,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'clothes',
             transcription: '[kləʊðz]',
             translation: 'одежда',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1834,6 +2354,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shirt',
             transcription: '[ʃɜːt]',
             translation: 'рубашка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1841,6 +2363,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pants (trousers)',
             transcription: '[pænts] [ˈtraʊzəz]',
             translation: 'брюки',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1848,6 +2372,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'jacket',
             transcription: '[ˈʤækɪt]',
             translation: 'пиджак',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1855,6 +2381,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sweater (jumper)',
             transcription: '[ˈswɛtə] [ˈʤʌmpə]',
             translation: 'свитер, джемпер',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1862,6 +2390,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hat',
             transcription: '[hæt]',
             translation: 'шляпа',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1869,6 +2399,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cap',
             transcription: '[ˈkæp]',
             translation: 'кепка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1876,6 +2408,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pocket',
             transcription: '[ˈpɒkɪt]',
             translation: 'карман',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1883,6 +2417,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shorts',
             transcription: '[ʃɔːts]',
             translation: 'шорты',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1890,6 +2426,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shoes',
             transcription: '[ʃuːz]',
             translation: 'туфли',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1897,6 +2435,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dress',
             transcription: '[drɛs]',
             translation: 'платье',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1904,6 +2444,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'skirt',
             transcription: '[skɜːt]',
             translation: 'юбка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1911,6 +2453,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'jeans',
             transcription: '[ʤiːnz]',
             translation: 'джинсы',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1918,6 +2462,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'underwear',
             transcription: '[ˈʌndəweə]',
             translation: 'нижнее белье',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1925,6 +2471,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'socks',
             transcription: '[sɒks]',
             translation: 'носки',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1932,6 +2480,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bag',
             transcription: '[bæg]',
             translation: 'сумка',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1939,6 +2489,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'purse',
             transcription: '[pɜːs]',
             translation: 'дамская сумочка, кошелек',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1946,6 +2498,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'coat',
             transcription: '[kəʊt]',
             translation: 'пальто',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1953,6 +2507,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'scarf',
             transcription: '[skɑːf]',
             translation: 'шарф',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1960,6 +2516,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'gloves',
             transcription: '[glʌvz]',
             translation: 'перчатки',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1967,6 +2525,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wallet',
             transcription: '[ˈwɒlɪt]',
             translation: 'бумажник',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1974,6 +2534,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'uniform',
             transcription: '[ˈjuːnɪfɔːm]',
             translation: 'униформа',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1981,6 +2543,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'belt',
             transcription: '[bɛlt]',
             translation: 'ремень',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1988,6 +2552,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'button',
             transcription: '[ˈbʌtn]',
             translation: 'кнопка, пуговица',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -1995,6 +2561,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'zip',
             transcription: '[zɪp]',
             translation: 'застежка молния',
+            count: 0,
+            errors: 0,
             category: 'Дом, одежда, предметы быта',
             partOfSpeach: 'Существительные'
           },
@@ -2002,6 +2570,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'nature',
             transcription: '[ˈneɪʧə]',
             translation: 'природа',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2009,6 +2579,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'North',
             transcription: '[nɔːθ]',
             translation: 'север',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2016,6 +2588,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'South',
             transcription: '[saʊθ]',
             translation: 'юг',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2023,6 +2597,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'West',
             transcription: '[wɛst]',
             translation: 'запад',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2030,6 +2606,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'East',
             transcription: '[iːst]',
             translation: 'восток',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2037,6 +2615,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Sun',
             transcription: '[sʌn]',
             translation: 'солнце',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2044,6 +2624,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Moon',
             transcription: '[muːn]',
             translation: 'луна',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2051,6 +2633,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'star',
             transcription: '[stɑː]',
             translation: 'звезда',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2058,6 +2642,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sky',
             transcription: '[skaɪ]',
             translation: 'небо',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2065,6 +2651,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'Earth',
             transcription: '[ɜːθ]',
             translation: 'Земля',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2072,6 +2660,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'ground',
             transcription: '[graʊnd]',
             translation: 'земля',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2079,6 +2669,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'space',
             transcription: '[speɪs]',
             translation: 'космос, пространство',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2086,6 +2678,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'air',
             transcription: '[eə]',
             translation: 'воздух',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2093,6 +2687,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'plant',
             transcription: '[plɑːnt]',
             translation: 'растение',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2100,6 +2696,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tree',
             transcription: '[triː]',
             translation: 'дерево',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2107,6 +2705,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'flower',
             transcription: '[ˈflaʊə]',
             translation: 'цветок',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2114,6 +2714,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'domestic animal',
             transcription: '[dəʊˈmɛstɪk ˈænɪməl]',
             translation: 'домашнее животное',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2121,6 +2723,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wild animal',
             transcription: '[waɪld ˈænɪməl]',
             translation: 'дикое животное',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2128,6 +2732,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bird',
             transcription: '[bɜːd]',
             translation: 'птица',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2135,6 +2741,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'poultry',
             transcription: '[ˈpəʊltri]',
             translation: 'домашняя птица',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2142,6 +2750,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pet',
             transcription: '[pɛt]',
             translation: 'домашнее животное (питомец)',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2149,6 +2759,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cat',
             transcription: '[kæt]',
             translation: 'кошка',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2156,6 +2768,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dog',
             transcription: '[dɒg]',
             translation: 'собака',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2163,6 +2777,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'horse',
             transcription: '[hɔːs]',
             translation: 'лошадь',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2170,6 +2786,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'chicken',
             transcription: '[ˈʧɪkɪn]',
             translation: 'цыпленок, курица',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2177,6 +2795,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mouse',
             transcription: '[maʊs]',
             translation: 'мышь',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2184,6 +2804,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sea',
             transcription: '[siː]',
             translation: 'море',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2191,6 +2813,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'seashore \\ bank',
             transcription: '[ˈsiːʃɔː] [bæŋk]',
             translation: 'берег',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2198,6 +2822,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'river',
             transcription: '[ˈrɪvə]',
             translation: 'река',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2205,6 +2831,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'snow',
             transcription: '[snəʊ]',
             translation: 'снег',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2212,6 +2840,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sand',
             transcription: '[sænd]',
             translation: 'песок',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2219,6 +2849,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'rain',
             transcription: '[reɪn]',
             translation: 'дождь',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2226,6 +2858,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cold',
             transcription: '[kəʊld]',
             translation: 'холод',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2233,6 +2867,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'heat',
             transcription: '[hiːt]',
             translation: 'жара',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2240,6 +2876,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fire',
             transcription: '[ˈfaɪə]',
             translation: 'огонь, пожар',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2247,6 +2885,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'water',
             transcription: '[ˈwɔːtə]',
             translation: 'вода',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2254,6 +2894,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wind',
             transcription: '[wɪnd]',
             translation: 'ветер',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2261,6 +2903,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'storm',
             transcription: '[stɔːm]',
             translation: 'буря',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2268,6 +2912,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'weather',
             transcription: '[ˈwɛðə]',
             translation: 'погода',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2275,6 +2921,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'weather forecast',
             transcription: '[ˈwɛðə ˈfɔːkɑːst]',
             translation: 'прогноз погоды',
+            count: 0,
+            errors: 0,
             category: 'Природа',
             partOfSpeach: 'Существительные'
           },
@@ -2282,6 +2930,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'city \\ town',
             transcription: '[ˈsɪti] [taʊn]',
             translation: 'город',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2289,6 +2939,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'building',
             transcription: '[ˈbɪldɪŋ]',
             translation: 'здание',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2296,6 +2948,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'street',
             transcription: '[striːt]',
             translation: 'улица',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2303,6 +2957,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'block',
             transcription: '[blɒk]',
             translation: 'квартал',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2310,6 +2966,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'traffic lights',
             transcription: '[ˈtræfɪk laɪts]',
             translation: 'светофор',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2317,6 +2975,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'intersection',
             transcription: '[ˌɪntə(ː)ˈsɛkʃən]',
             translation: 'перекресток',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2324,6 +2984,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'crosswalk',
             transcription: '[ˈkrɒswɔːk]',
             translation: 'пешеходный переход',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2331,6 +2993,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'road sign (traffc sign)',
             transcription: '[rəʊd saɪn]',
             translation: 'дорожный знак',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2338,6 +3002,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'car',
             transcription: '[kɑː]',
             translation: 'автомобиль',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2345,6 +3011,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'public transport',
             transcription: '[ˈpʌblɪk ˈtrænspɔːt]',
             translation: 'общественный транспорт',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2352,6 +3020,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'airport',
             transcription: '[ˈeəpɔːt]',
             translation: 'аэропорт',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2359,6 +3029,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'railway (railroad) station',
             transcription: '[ˈreɪlweɪ (ˈreɪlrəʊd) ˈsteɪʃən]',
             translation: 'вокзал',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2366,6 +3038,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'port',
             transcription: '[pɔːt]',
             translation: 'порт',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2373,6 +3047,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bus station (bus terminal)',
             transcription: '[bʌs ˈsteɪʃən] [bʌs ˈtɜːmɪnl]',
             translation: 'автобусная станция',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2380,6 +3056,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'taxi',
             transcription: '[ˈtæksi]',
             translation: 'такси',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2387,6 +3065,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bridge',
             transcription: '[brɪʤ]',
             translation: 'мост',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2394,6 +3074,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'shop',
             transcription: '[ʃɒp]',
             translation: 'магазин',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2401,6 +3083,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mall',
             transcription: '[mɔːl]',
             translation: 'торговый центр',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2408,6 +3092,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cinema (UK), movie theater (US)',
             transcription: '[ˈsɪnəmə]',
             translation: 'кинотеатр',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2415,6 +3101,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'theatre (theater)',
             transcription: '[ˈθɪətə]',
             translation: 'театр',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2422,6 +3110,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'police department',
             transcription: '[pəˈliːs dˈepətmənt]',
             translation: 'полицейский участок',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2429,6 +3119,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hospital',
             transcription: '[ˈhɒspɪtl]',
             translation: 'больница',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2436,6 +3128,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hotel',
             transcription: '[həʊˈtɛl]',
             translation: 'гостиница',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2443,6 +3137,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'post office',
             transcription: '[pəʊst ˈɒfɪs]',
             translation: 'почта',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2450,6 +3146,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wi-fi',
             transcription: "[ˌwaɪ'faɪ]",
             translation: 'вай-фай',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2457,6 +3155,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'embassy',
             transcription: '[ˈɛmbəsi]',
             translation: 'посольство',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2464,6 +3164,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'ambassador',
             transcription: '[æmˈbæsədə]',
             translation: 'посол',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2471,6 +3173,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'passer-by',
             transcription: '[ˈpɑːsə baɪ]',
             translation: 'прохожий',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2478,6 +3182,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pedestrian',
             transcription: '[pɪˈdɛstrɪən]',
             translation: 'пешеход',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2485,6 +3191,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'police officer',
             transcription: '[pəˈliːs ˈɒfɪsə]',
             translation: 'полицейский',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2492,6 +3200,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'emergency',
             transcription: '[ɪˈmɜːʤənsi]',
             translation: 'чрезвычайная ситуация',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2499,6 +3209,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'map',
             transcription: '[mæp]',
             translation: 'карта',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2506,6 +3218,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'subway',
             transcription: '[ˈsʌbweɪ]',
             translation: 'метро',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2513,6 +3227,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'station',
             transcription: '[ˈsteɪʃən]',
             translation: 'станция',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2520,6 +3236,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stop',
             transcription: '[stɒp]',
             translation: 'остановка',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2527,6 +3245,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sightseeing',
             transcription: '[ˈsaɪtˌsiːɪŋ]',
             translation: 'осмотр достопримечательностей',
+            count: 0,
+            errors: 0,
             category: 'Город',
             partOfSpeach: 'Существительные'
           },
@@ -2534,6 +3254,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'work',
             transcription: '[wɜːk]',
             translation: 'работа',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2541,6 +3263,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'job',
             transcription: '[ʤɒb]',
             translation: 'работа',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2548,6 +3272,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'office',
             transcription: '[ˈɒfɪs]',
             translation: 'офис',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2555,6 +3281,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'workplace',
             transcription: '[ˈwɜːkˌpleɪs]',
             translation: 'рабочее место',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2562,6 +3290,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'working hours',
             transcription: '[ˈwɜːkɪŋ ˈaʊəz]',
             translation: 'рабочие часы',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2569,6 +3299,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'schedule',
             transcription: '[ˈʃɛdjuːl]',
             translation: 'расписание, график',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2576,6 +3308,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'colleague',
             transcription: '[ˈkɒliːg]',
             translation: 'коллега',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2583,6 +3317,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'CV \\ resume',
             transcription: '[siː-viː] [ˈrɛzju(ː)meɪ]',
             translation: 'резюме',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2590,6 +3326,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'payday',
             transcription: '[ˈpeɪdeɪ]',
             translation: 'день зарплаты',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2597,6 +3335,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'paycheck',
             transcription: '[ˈpeɪˌʧɛk]',
             translation: 'зарплатный чек',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2604,6 +3344,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'salary',
             transcription: '[ˈsæləri]',
             translation: 'зарплата',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2611,6 +3353,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'duties',
             transcription: '[ˈdjuːtiz]',
             translation: 'обязанности',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2618,6 +3362,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'employer',
             transcription: '[ɪmˈplɔɪə]',
             translation: 'работодатель',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2625,6 +3371,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'employee',
             transcription: '[ˌɛmplɔɪˈiː]',
             translation: 'работник',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2632,6 +3380,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'social security',
             transcription: '[ˈsəʊʃəl sɪˈkjʊərɪti]',
             translation: 'социальное страхование',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2639,6 +3389,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'job interview',
             transcription: '[ʤɒb ˈɪntəvjuː]',
             translation: 'собеседование на работу',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2646,6 +3398,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'health',
             transcription: '[hɛlθ]',
             translation: 'здоровье',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2653,6 +3407,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'money',
             transcription: '[ˈmʌni]',
             translation: 'деньги',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2660,6 +3416,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cash',
             transcription: '[kæʃ]',
             translation: 'наличные',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2667,6 +3425,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bill',
             transcription: '[bɪl]',
             translation: 'купюра',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2674,6 +3434,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'coin',
             transcription: '[kɔɪn]',
             translation: 'монета',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2681,6 +3443,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'change',
             transcription: '[ʧeɪnʤ]',
             translation: 'сдача, мелочь',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2688,6 +3452,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'payment',
             transcription: '[ˈpeɪmənt]',
             translation: 'платеж',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2695,6 +3461,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'check (cheque)',
             transcription: '[ʧɛk]',
             translation: 'чек',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2702,6 +3470,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bank',
             transcription: '[bæŋk]',
             translation: 'банк',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2709,6 +3479,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'ATM (automated teller machine)',
             transcription: '[eɪ-tiː-ɛm] [ˈɔːtəmeɪtɪd ˈtɛlə məˈʃiːn]',
             translation: 'банкомат',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2716,6 +3488,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bank card',
             transcription: '[bæŋk kɑːd]',
             translation: 'банковская карта',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2723,6 +3497,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tips',
             transcription: '[tɪps]',
             translation: 'чаевые',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2730,6 +3506,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'receipt',
             transcription: '[rɪˈsiːt]',
             translation: 'чек',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2737,6 +3515,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'money transfer',
             transcription: '[ˈmʌni ˈtrænsfə(ː)]',
             translation: 'денежный перевод',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2744,6 +3524,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fine',
             transcription: '[faɪn]',
             translation: 'штраф',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2751,6 +3533,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'budget',
             transcription: '[ˈbʌʤɪt]',
             translation: 'бюджет',
+            count: 0,
+            errors: 0,
             category: 'Работа и деньги',
             partOfSpeach: 'Существительные'
           },
@@ -2758,6 +3542,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'food',
             transcription: '[fuːd]',
             translation: 'еда',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2765,6 +3551,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'breakfast',
             transcription: '[ˈbrɛkfəst]',
             translation: 'завтрак',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2772,6 +3560,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dinner',
             transcription: '[ˈdɪnə]',
             translation: 'обед',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2779,6 +3569,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lunch',
             transcription: '[lʌnʧ]',
             translation: 'ланч',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2786,6 +3578,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'supper',
             transcription: '[ˈsʌpə]',
             translation: 'ужин',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2793,6 +3587,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'meal',
             transcription: '[miːl]',
             translation: 'блюдо, прием пищи',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2800,6 +3596,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'drink, beverage',
             transcription: '[drɪŋk], [ˈbɛvərɪʤ]',
             translation: 'напиток',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2807,6 +3605,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'alcohol',
             transcription: '[ˈælkəhɒl]',
             translation: 'алкоголь',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2814,6 +3614,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'water',
             transcription: '[ˈwɔːtə]',
             translation: 'вода',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2821,6 +3623,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'coffee',
             transcription: '[ˈkɒfi]',
             translation: 'кофе',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2828,6 +3632,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tea',
             transcription: '[tiː]',
             translation: 'чай',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2835,6 +3641,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wine',
             transcription: '[waɪn]',
             translation: 'вино',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2842,6 +3650,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'juice',
             transcription: '[ʤuːs]',
             translation: 'сок',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2849,6 +3659,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'meat',
             transcription: '[miːt]',
             translation: 'мясо',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2856,6 +3668,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cereal',
             transcription: '[ˈsɪərɪəl]',
             translation: 'хлопья',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2863,6 +3677,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bread',
             transcription: '[brɛd]',
             translation: 'хлеб',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2870,6 +3686,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'vegetables',
             transcription: '[ˈvɛʤɪtəblz]',
             translation: 'овощи',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2877,6 +3695,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fruit',
             transcription: '[fruːt]',
             translation: 'фрукты',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2884,6 +3704,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fish',
             transcription: '[fɪʃ]',
             translation: 'рыба',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2891,6 +3713,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'oil',
             transcription: '[ɔɪl]',
             translation: 'растительное масло',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2898,6 +3722,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'butter',
             transcription: '[ˈbʌtə]',
             translation: 'сливочное масло',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2905,6 +3731,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'snack',
             transcription: '[snæk]',
             translation: 'снэк, закуска',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2912,6 +3740,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'candy',
             transcription: '[ˈkændi]',
             translation: 'конфета (леденец)',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2919,6 +3749,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pastry',
             transcription: '[ˈpeɪstri]',
             translation: 'выпечка',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2926,6 +3758,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'diet',
             transcription: '[ˈdaɪət]',
             translation: 'диета',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2933,6 +3767,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fridge, refrigerator',
             transcription: '[frɪʤ], [rɪˈfrɪʤəreɪtə]',
             translation: 'холодильник',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2940,6 +3776,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fork',
             transcription: '[fɔːk]',
             translation: 'вилка',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2947,6 +3785,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'spoon',
             transcription: '[spuːn]',
             translation: 'ложка',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2954,6 +3794,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'glass',
             transcription: '[glɑːs]',
             translation: 'стакан',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2961,6 +3803,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cup',
             transcription: '[kʌp]',
             translation: 'чашка',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2968,6 +3812,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mug',
             transcription: '[mʌg]',
             translation: 'кружка',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2975,6 +3821,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'plate, dish',
             transcription: '[pleɪt], [dɪʃ]',
             translation: 'тарелка',
+            count: 0,
+            errors: 0,
             category: 'Еда и напитки',
             partOfSpeach: 'Существительные'
           },
@@ -2982,6 +3830,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'study',
             transcription: '[ˈstʌdi]',
             translation: 'изучение, исследование',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -2989,6 +3839,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'school',
             transcription: '[skuːl]',
             translation: 'школа',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -2996,6 +3848,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'college',
             transcription: '[ˈkɒlɪʤ]',
             translation: 'колледж',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3003,6 +3857,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'university',
             transcription: '[ˌjuːnɪˈvɜːsɪti]',
             translation: 'университет',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3010,6 +3866,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'education',
             transcription: '[ˌɛdju(ː)ˈkeɪʃən]',
             translation: 'образование',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3017,6 +3875,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'degree',
             transcription: "[dɪ'griː]",
             translation: 'ученая степень',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3024,6 +3884,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'graduate',
             transcription: '[ˈgrædjʊət]',
             translation: 'выпускник',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3031,6 +3893,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'diploma',
             transcription: '[dɪˈpləʊmə]',
             translation: 'диплом',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3038,6 +3902,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'textbook',
             transcription: '[ˈtɛkstbʊk]',
             translation: 'учебник',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3045,6 +3911,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'notebook, copybook',
             transcription: '[ˈnəʊtbʊk], [ˈkɒpɪbʊk]',
             translation: 'тетрадь',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3052,6 +3920,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'notepad',
             transcription: '[ˈnəʊtˌpæd]',
             translation: 'блокнот',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3059,6 +3929,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pen',
             transcription: '[pɛn]',
             translation: 'авторучка',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3066,6 +3938,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pencil',
             transcription: '[ˈpɛnsl]',
             translation: 'карандаш',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3073,6 +3947,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'blackboard',
             transcription: '[ˈblækbɔːd]',
             translation: 'школьная доска',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3080,6 +3956,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'whiteboard',
             transcription: '[ˈwaɪtbɔːd]',
             translation: 'маркерная доска',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3087,6 +3965,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'classroom',
             transcription: '[ˈklɑːsrʊm]',
             translation: 'класс (помещение)',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3094,6 +3974,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'class, lesson',
             transcription: '[klɑːs], [ˈlɛsn]',
             translation: 'урок',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3101,6 +3983,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'grade',
             transcription: '[greɪd]',
             translation: 'класс (этап обучения)',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3108,6 +3992,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mark, grade',
             transcription: '[mɑːk], [greɪd]',
             translation: 'оценка',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3115,6 +4001,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pupil',
             transcription: '[ˈpjuːpl]',
             translation: 'ученик',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3122,6 +4010,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'student',
             transcription: '[ˈstjuːdənt]',
             translation: 'студент',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3129,6 +4019,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'teacher',
             transcription: '[ˈtiːʧə]',
             translation: 'учитель',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3136,6 +4028,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'exam (examination)',
             transcription: '[ɪgˈzæm] [ɪgˌzæmɪˈneɪʃən]',
             translation: 'экзамен',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3143,6 +4037,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'test',
             transcription: '[tɛst]',
             translation: 'тест',
+            count: 0,
+            errors: 0,
             category: 'Образование',
             partOfSpeach: 'Существительные'
           },
@@ -3150,6 +4046,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'color (colour)',
             transcription: '[ˈkʌlə]',
             translation: 'цвет',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3157,6 +4055,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'black',
             transcription: '[blæk]',
             translation: 'черный',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3164,6 +4064,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'white',
             transcription: '[waɪt]',
             translation: 'белый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3171,6 +4073,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'dark',
             transcription: '[dɑːk]',
             translation: 'темный',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3178,6 +4082,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'light',
             transcription: '[laɪt]',
             translation: 'светлый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3185,6 +4091,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'red',
             transcription: '[rɛd]',
             translation: 'красный',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3192,6 +4100,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'orange',
             transcription: '[ˈɒrɪnʤ]',
             translation: 'оранжевый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3199,6 +4109,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'yellow',
             transcription: '[ˈjɛləʊ]',
             translation: 'желтый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3206,6 +4118,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'green',
             transcription: '[griːn]',
             translation: 'зеленый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3213,6 +4127,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'blue',
             transcription: '[bluː]',
             translation: 'голубой, синий',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3220,6 +4136,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'purple',
             transcription: '[ˈpɜːpl]',
             translation: 'фиолетовый (пурпурный)',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3227,6 +4145,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'violet',
             transcription: '[ˈvaɪəlɪt]',
             translation: 'темно-фиолетовый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3234,6 +4154,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pink',
             transcription: '[pɪŋk]',
             translation: 'розовый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3241,6 +4163,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'silver',
             transcription: '[ˈsɪlvə]',
             translation: 'серебристый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3248,6 +4172,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'gold',
             transcription: '[gəʊld]',
             translation: 'золотой',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3255,6 +4181,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'brown',
             transcription: '[braʊn]',
             translation: 'коричневый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3262,6 +4190,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'grey (gray)',
             transcription: '[greɪ]',
             translation: 'серый',
+            count: 0,
+            errors: 0,
             category: 'Цвета',
             partOfSpeach: 'Прилагательные'
           },
@@ -3269,6 +4199,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'big',
             transcription: '[bɪg]',
             translation: 'большой',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3276,6 +4208,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'large, great, huge, enormous',
             transcription: '[lɑːʤ], [greɪt], [hjuːʤ], [ɪˈnɔːməs]',
             translation: 'большой, огромный',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3283,6 +4217,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'small',
             transcription: '[smɔːl]',
             translation: 'маленький',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3290,6 +4226,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'little',
             transcription: '[ˈlɪtl]',
             translation: 'маленький',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3297,6 +4235,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tiny',
             transcription: '[ˈtaɪni]',
             translation: 'крошечный',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3304,6 +4244,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'long',
             transcription: '[lɒŋ]',
             translation: 'длинный, долгий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3311,6 +4253,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tall',
             transcription: '[tɔːl]',
             translation: 'высокий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3318,6 +4262,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'high',
             transcription: '[haɪ]',
             translation: 'высокий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3325,6 +4271,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'short',
             transcription: '[ʃɔːt]',
             translation: 'короткий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3332,6 +4280,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'thin',
             transcription: '[θɪn]',
             translation: 'тонкий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3339,6 +4289,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'thick',
             transcription: '[θɪk]',
             translation: 'толстый',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3346,6 +4298,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'wide, broad',
             transcription: '[waɪd] [brɔːd]',
             translation: 'широкий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3353,6 +4307,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'narrow',
             transcription: '[ˈnærəʊ]',
             translation: 'узкий',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3360,6 +4316,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'heavy',
             transcription: '[ˈhɛvi]',
             translation: 'тяжелый (о весе)',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3367,6 +4325,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'light, lightweight',
             transcription: '[laɪt], [ˈlaɪtweɪt]',
             translation: 'легкий (о весе)',
+            count: 0,
+            errors: 0,
             category: 'Вес и размер',
             partOfSpeach: 'Прилагательные'
           },
@@ -3374,6 +4334,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'good',
             transcription: '[gʊd]',
             translation: 'хороший',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3381,6 +4343,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bad',
             transcription: '[bæd]',
             translation: 'плохой',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3388,6 +4352,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cheap',
             transcription: '[ʧiːp]',
             translation: 'дешевый',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3395,6 +4361,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'expensive',
             transcription: '[ɪksˈpɛnsɪv]',
             translation: 'дорогой (о цене)',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3402,6 +4370,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'convenient, handy, comfortable',
             transcription: '[kənˈviːnjənt], [ˈhændi], [ˈkʌmfətəbl]',
             translation: 'удобный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3409,6 +4379,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tasty',
             transcription: '[ˈteɪsti]',
             translation: 'вкусный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3416,6 +4388,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sweet',
             transcription: '[swiːt]',
             translation: 'сладкий',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3423,6 +4397,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'salty',
             transcription: '[ˈsɔːlti]',
             translation: 'соленый',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3430,6 +4406,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bitter',
             transcription: '[ˈbɪtə]',
             translation: 'горький',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3437,6 +4415,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sour',
             transcription: '[ˈsaʊə]',
             translation: 'кислый',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3444,6 +4424,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hot',
             transcription: '[hɒt]',
             translation: 'горячий, острый (о вкусе)',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3451,6 +4433,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cold',
             transcription: '[kəʊld]',
             translation: 'холодный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3458,6 +4442,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cool',
             transcription: '[kuːl]',
             translation: 'прохладный, клевый (сленг)',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3465,6 +4451,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'distgusting',
             transcription: '[dɪstgˈʌstɪŋ]',
             translation: 'мерзкий (о вкусе)',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3472,6 +4460,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'ugly',
             transcription: '[ˈʌgli]',
             translation: 'отвратительный (о внешности)',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3479,6 +4469,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'beautiful',
             transcription: '[ˈbjuːtəfʊl]',
             translation: 'красивый',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3486,6 +4478,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'scary',
             transcription: '[ˈskeəri]',
             translation: 'страшный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3493,6 +4487,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'funny',
             transcription: '[ˈfʌni]',
             translation: 'смешной',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3500,6 +4496,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'interesting',
             transcription: '[ˈɪntrɪstɪŋ]',
             translation: 'интересный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3507,6 +4505,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'boring',
             transcription: '[ˈbɔːrɪŋ]',
             translation: 'скучный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3514,6 +4514,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'true',
             transcription: '[truː]',
             translation: 'правдивый, истинный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3521,6 +4523,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'false',
             transcription: '[fɔːls]',
             translation: 'ложный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3528,6 +4532,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'useful',
             transcription: '[ˈjuːsfʊl]',
             translation: 'полезный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3535,6 +4541,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'useless',
             transcription: '[ˈjuːslɪs]',
             translation: 'бесполезный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3542,6 +4550,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'soft',
             transcription: '[sɒft]',
             translation: 'мягкий',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3549,6 +4559,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'solid',
             transcription: '[ˈsɒlɪd]',
             translation: 'твердый',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3556,6 +4568,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'liquid',
             transcription: '[ˈlɪkwɪd]',
             translation: 'жидкий',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3563,6 +4577,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hard',
             transcription: '[hɑːd]',
             translation: 'жесткий',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3570,6 +4586,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'easy, simple',
             transcription: '[ˈiːzi], [ˈsɪmpl]',
             translation: 'легкий, простой',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3577,6 +4595,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hard, difficult',
             transcription: '[hɑːd], [ˈdɪfɪkəlt]',
             translation: 'трудный, сложный',
+            count: 0,
+            errors: 0,
             category: 'Различные качества и свойства',
             partOfSpeach: 'Прилагательные'
           },
@@ -3584,6 +4604,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'young',
             transcription: '[jʌŋ]',
             translation: 'молодой',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3591,6 +4613,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'old',
             transcription: '[əʊld]',
             translation: 'старый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3598,6 +4622,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'adult',
             transcription: '[əˈdʌlt]',
             translation: 'взрослый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3605,6 +4631,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lazy',
             transcription: '[ˈleɪzi]',
             translation: 'ленивый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3612,6 +4640,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'hardworking',
             transcription: '[ˈhɑːdˌwɜːkɪŋ]',
             translation: 'трудолюбивый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3619,6 +4649,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'smart',
             transcription: '[smɑːt]',
             translation: 'умный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3626,6 +4658,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'stupid',
             transcription: '[ˈstjuːpɪd]',
             translation: 'глупый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3633,6 +4667,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'kind',
             transcription: '[kaɪnd]',
             translation: 'добрый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3640,6 +4676,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'mean',
             transcription: '[miːn]',
             translation: 'злой, подлый, нехороший',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3647,6 +4685,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'good',
             transcription: '[gʊd]',
             translation: 'хороший, добрый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3654,6 +4694,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bad',
             transcription: '[bæd]',
             translation: 'плохой',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3661,6 +4703,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'nice',
             transcription: '[naɪs]',
             translation: 'приятный, милый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3668,6 +4712,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cute',
             transcription: '[kjuːt]',
             translation: 'милый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3675,6 +4721,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'optimistic',
             transcription: '[ˌɒptɪˈmɪstɪk]',
             translation: 'оптимистичный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3682,6 +4730,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'pessimistic',
             transcription: '[ˌpɛsɪˈmɪstɪk]',
             translation: 'пессимистичный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3689,6 +4739,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'curious',
             transcription: '[ˈkjʊərɪəs]',
             translation: 'любопытный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3696,6 +4748,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'positive',
             transcription: '[ˈpɒzətɪv]',
             translation: 'позитивный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3703,6 +4757,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cruel',
             transcription: '[krʊəl]',
             translation: 'жестокий',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3710,6 +4766,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'calm',
             transcription: '[kɑːm]',
             translation: 'спокойный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3717,6 +4775,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'brave',
             transcription: '[breɪv]',
             translation: 'смелый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3724,6 +4784,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cowardly',
             transcription: '[ˈkaʊəd]',
             translation: 'трусливый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3731,6 +4793,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'cool',
             transcription: '[kuːl]',
             translation: 'клевый, крутой, прикольный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3738,6 +4802,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tough',
             transcription: '[tʌf]',
             translation: 'крутой',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3745,6 +4811,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'honest',
             transcription: '[ˈɒnɪst]',
             translation: 'честный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3752,6 +4820,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'happy',
             transcription: '[ˈhæpi]',
             translation: 'счастливый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3759,6 +4829,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sad',
             transcription: '[sæd]',
             translation: 'печальный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3766,6 +4838,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'angry',
             transcription: '[ˈæŋgri]',
             translation: 'сердитый',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3773,6 +4847,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'scared',
             transcription: '[skeəd]',
             translation: 'испуганный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3780,6 +4856,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tired',
             transcription: '[ˈtaɪəd]',
             translation: 'уставший',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3787,6 +4865,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bored',
             transcription: '[bɔːd]',
             translation: 'скучающий',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3794,6 +4874,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'helpful',
             transcription: '[ˈhɛlpfʊl]',
             translation: 'готовый помочь',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3801,6 +4883,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'reliable',
             transcription: '[rɪˈlaɪəbl]',
             translation: 'надежный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3808,6 +4892,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'responsible',
             transcription: '[rɪsˈpɒnsəbl]',
             translation: 'ответственный',
+            count: 0,
+            errors: 0,
             category: 'Качества, характер человека',
             partOfSpeach: 'Прилагательные'
           },
@@ -3815,6 +4901,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'now',
             transcription: '[naʊ]',
             translation: 'сейчас',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3822,6 +4910,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'then',
             transcription: '[ðɛn]',
             translation: 'тогда',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3829,6 +4919,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'again',
             transcription: '[əˈgɛn]',
             translation: 'снова',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3836,6 +4928,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'always',
             transcription: '[ˈɔːlweɪz]',
             translation: 'всегда',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3843,6 +4937,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'never',
             transcription: '[ˈnɛvə]',
             translation: 'никогда',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3850,6 +4946,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'soon',
             transcription: '[suːn]',
             translation: 'скоро',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3857,6 +4955,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'late',
             transcription: '[leɪt]',
             translation: 'поздно',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3864,6 +4964,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'early',
             transcription: '[ˈɜːli]',
             translation: 'рано',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3871,6 +4973,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'before',
             transcription: '[bɪˈfɔː]',
             translation: 'до',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3878,6 +4982,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'after',
             transcription: '[ˈɑːftə]',
             translation: 'после',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3885,6 +4991,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'yesterday',
             transcription: '[ˈjɛstədeɪ]',
             translation: 'вчера',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3892,6 +5000,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'today',
             transcription: '[təˈdeɪ]',
             translation: 'сегодня',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3899,6 +5009,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tomorrow',
             transcription: '[təˈmɒrəʊ]',
             translation: 'завтра',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3906,6 +5018,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'next week (year)',
             transcription: '[nɛkst wiːk] [jɪə]',
             translation: 'на следующей неделе (в след. году)',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3913,6 +5027,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'every day (week, month)',
             transcription: '[ˈɛvri deɪ] [wiːk] [mʌnθ]',
             translation: 'каждый день (неделю, месяц)',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3920,6 +5036,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'this morning (afternoon)',
             transcription: '[ðɪs ˈmɔːnɪŋ] [ˈɑːftəˈnuːn]',
             translation: 'этим утром (днем)',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3927,6 +5045,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'tonight',
             transcription: '[təˈnaɪt]',
             translation: 'этим вечером (ночью)',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3934,6 +5054,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'sometimes',
             transcription: '[ˈsʌmtaɪmz]',
             translation: 'иногда',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3941,6 +5063,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'often',
             transcription: '[ˈɒf (t)(ə)n]',
             translation: 'часто',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3948,6 +5072,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'rarely, seldom',
             transcription: '[ˈreəli], [ˈsɛldəm]',
             translation: 'редко',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3955,6 +5081,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'recently',
             transcription: '[ˈriːsntli]',
             translation: 'недавно',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3962,6 +5090,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'lately',
             transcription: '[ˈleɪtli]',
             translation: 'в последнее время',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3969,6 +5099,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'once',
             transcription: '[wʌns]',
             translation: 'однажды',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3976,6 +5108,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'usually',
             transcription: '[ˈjuːʒʊəli]',
             translation: 'обычно',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3983,6 +5117,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'already',
             transcription: '[ɔːlˈrɛdi]',
             translation: 'уже',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3990,6 +5126,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'yet',
             transcription: '[jɛt]',
             translation: 'уже',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -3997,6 +5135,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'not yet',
             transcription: '[nɒt jɛt]',
             translation: 'еще не',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -4004,6 +5144,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'still',
             transcription: '[stɪl]',
             translation: 'все еще',
+            count: 0,
+            errors: 0,
             category: 'Наречия времени',
             partOfSpeach: 'Наречия'
           },
@@ -4011,6 +5153,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'here',
             transcription: '[hɪə]',
             translation: 'здесь',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4018,6 +5162,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'there',
             transcription: '[ðeə]',
             translation: 'там',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4025,6 +5171,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'where',
             transcription: '[weə]',
             translation: 'где',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4032,6 +5180,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'around',
             transcription: '[əˈraʊnd]',
             translation: 'вокруг',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4039,6 +5189,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'inside',
             transcription: '[ɪnˈsaɪd]',
             translation: 'внутри',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4046,6 +5198,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'outside',
             transcription: '[ˌaʊtˈsaɪd]',
             translation: 'снаружи',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4053,6 +5207,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'above',
             transcription: '[əˈbʌv]',
             translation: 'над',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4060,6 +5216,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'under, below',
             transcription: '[ˈʌndə], [bɪˈləʊ]',
             translation: 'под',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4067,6 +5225,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'somewhere',
             transcription: '[ˈsʌmweə]',
             translation: 'где-то',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4074,6 +5234,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'anywhere',
             transcription: '[ˈɛnɪweə]',
             translation: 'где-нибудь, хоть где',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4081,6 +5243,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'nowhere',
             transcription: '[ˈnəʊweə]',
             translation: 'нигде',
+            count: 0,
+            errors: 0,
             category: 'Наречия места',
             partOfSpeach: 'Наречия'
           },
@@ -4088,6 +5252,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'only',
             transcription: '[ˈəʊnli]',
             translation: 'только',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4095,6 +5261,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'much',
             transcription: '[mʌʧ]',
             translation: 'много',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4102,6 +5270,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'little',
             transcription: '[ˈlɪtl]',
             translation: 'мало',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4109,6 +5279,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'very',
             transcription: '[ˈvɛri]',
             translation: 'очень',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4116,6 +5288,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'so',
             transcription: '[səʊ]',
             translation: 'так',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4123,6 +5297,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'enough',
             transcription: '[ɪˈnʌf]',
             translation: 'достаточно',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4130,6 +5306,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'almost',
             transcription: '[ˈɔːlməʊst]',
             translation: 'почти',
+            count: 0,
+            errors: 0,
             category: 'Наречия меры и степени',
             partOfSpeach: 'Наречия'
           },
@@ -4137,6 +5315,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'well',
             transcription: '[wɛl]',
             translation: 'хорошо',
+            count: 0,
+            errors: 0,
             category: 'Наречия образа действия',
             partOfSpeach: 'Наречия'
           },
@@ -4144,6 +5324,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'bad',
             transcription: '[bæd]',
             translation: 'плохо',
+            count: 0,
+            errors: 0,
             category: 'Наречия образа действия',
             partOfSpeach: 'Наречия'
           },
@@ -4151,6 +5333,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'fast',
             transcription: '[fɑːst]',
             translation: 'быстро',
+            count: 0,
+            errors: 0,
             category: 'Наречия образа действия',
             partOfSpeach: 'Наречия'
           },
@@ -4158,6 +5342,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'quickly',
             transcription: '[ˈkwɪkli]',
             translation: 'быстро',
+            count: 0,
+            errors: 0,
             category: 'Наречия образа действия',
             partOfSpeach: 'Наречия'
           },
@@ -4165,6 +5351,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'slowly',
             transcription: '[ˈsləʊli]',
             translation: 'медленно',
+            count: 0,
+            errors: 0,
             category: 'Наречия образа действия',
             partOfSpeach: 'Наречия'
           },
@@ -4172,6 +5360,8 @@ export class InMemoryDataProvider extends InMemoryDbService {
             text: 'too ( + наречие)',
             transcription: '[tuː]',
             translation: 'слишком (+ наречие)',
+            count: 0,
+            errors: 0,
             category: 'Наречия образа действия',
             partOfSpeach: 'Наречия'
           }

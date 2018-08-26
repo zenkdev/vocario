@@ -38,26 +38,33 @@ export class WordCardComponent {
   // }
 
   onHelpRequested() {
-    if (this.word && !this.translationPlaceHolder) {
+    if (!this.word) {
+      return;
+    }
+
+    if (!this.translationPlaceHolder) {
       this.word.count = this.word.count + 1;
       this.word.errors = this.word.errors + 1;
       this.translationPlaceHolder = this.word.translation;
+      this.onValidate.emit(false);
     }
   }
 
   onSubmit() {
-    if (this.word) {
-      this.word.count = this.word.count + 1;
-      const valid =
-        this.word.translation &&
-        this.userTranslation &&
-        this.word.translation.toLocaleLowerCase() === this.userTranslation.toLocaleLowerCase();
-      if (!valid) {
-        this.word.errors = this.word.errors + 1;
-        this.translationPlaceHolder = this.word.translation;
-      }
-      this.onValidate.emit(valid);
-      this.userTranslation = '';
+    if (!this.word) {
+      return;
     }
+
+    this.word.count = this.word.count + 1;
+    const valid =
+      this.word.translation &&
+      this.userTranslation &&
+      this.word.translation.toLocaleLowerCase() === this.userTranslation.toLocaleLowerCase();
+    if (!valid) {
+      this.word.errors = this.word.errors + 1;
+      this.translationPlaceHolder = this.word.translation;
+    }
+    this.onValidate.emit(valid);
+    this.userTranslation = '';
   }
 }

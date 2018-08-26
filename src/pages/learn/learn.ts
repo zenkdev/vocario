@@ -50,14 +50,16 @@ export class LearnPage {
   }
 
   onValidate(valid: boolean) {
-    if (valid) {
-      this.dictionary.wordsLearned = this.dictionary.words.filter(x => x.count > 0).length;
-      const toast = this.toastCtrl.create({
-        message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.words.length}.`,
-        duration: 1000
-      });
-      toast.present();
-      this.changeWord();
-    }
+    this.dictionaryProvider.updateDictionary(this.dictionary).subscribe(_ => {
+      if (valid) {
+        this.dictionary.wordsLearned = this.dictionary.words.filter(x => x.count > 0).length;
+        const toast = this.toastCtrl.create({
+          message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.words.length}.`,
+          duration: 1000
+        });
+        toast.present();
+        this.changeWord();
+      }
+    });
   }
 }

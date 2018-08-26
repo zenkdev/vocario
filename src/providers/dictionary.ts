@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -7,21 +8,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageProvider } from './message';
 import { Dictionary } from '../models';
 
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-/*
-  Generated class for the DictionaryProvider provider.
+const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DictionaryProvider {
-
   private dictionariesUrl = 'api/dictionaries'; // URL to web api
+  private dictionariesKey = 'dictionaries';
 
-  constructor(private http: HttpClient, private messageProvider: MessageProvider) {}
+  constructor(private http: HttpClient, private messageProvider: MessageProvider, private storage: Storage) {}
 
   /** GET dictionaries from the server */
   getDictionaries(): Observable<Dictionary[]> {
@@ -46,11 +40,37 @@ export class DictionaryProvider {
 
   /** GET dictionary by id. Will 404 if id not found */
   getDictionary(id: number): Observable<Dictionary> {
-    const url = `${this.dictionariesUrl}/${id}`;
-    return this.http.get<Dictionary>(url).pipe(
-      tap(_ => this.log(`fetched dictionary id=${id}`)),
-      catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
-    );
+    const key = `${this.dictionariesKey}_${id}`;
+    return Observable.create(observer => {
+      this.storage.get(key).then(data => {
+        if (data) {
+          this.log(`dictionary from storage id=${id}`);
+          observer.next(data);
+          observer.complete();
+        } else {
+          const url = `${this.dictionariesUrl}/${id}`;
+          this.http.get<Dictionary>(url).subscribe(
+            json => {
+              this.log(`fetched dictionary id=${id}`);
+              this.storage.set(key, json);
+              observer.next(json);
+            },
+            error => {
+              const operation = `getDictionary id=${id}`;
+              // TODO: send the error to remote logging infrastructure
+              console.error(error); // log to console instead
+
+              // TODO: better job of transforming error for user consumption
+              this.log(`${operation} failed: ${error.message}`);
+
+              // Let the app keep running by returning an empty result.
+              observer.error(error);
+            },
+            () => observer.complete()
+          );
+        }
+      });
+    });
   }
 
   /* GET dictionaries whose name contains search term */
@@ -88,7 +108,9 @@ export class DictionaryProvider {
 
   /** PUT: update the dictionary on the server */
   updateDictionary(dictionary: Dictionary): Observable<any> {
+    const key = `${this.dictionariesKey}_${dictionary.id}`;
     return this.http.put(this.dictionariesUrl, dictionary, httpOptions).pipe(
+      tap(_ => this.storage.set(key, dictionary)),
       tap(_ => this.log(`updated dictionary id=${dictionary.id}`)),
       catchError(this.handleError<any>('updateDictionary'))
     );
