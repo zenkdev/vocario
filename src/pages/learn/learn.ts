@@ -18,6 +18,12 @@ export class LearnPage {
   @ViewChild('wordCard')
   wordCard: WordCardComponent;
 
+  getWordsLearned() {
+    const wordsLearned = (this.dictionary && this.dictionary.wordsLearned) || 0;
+    const totalWords = (this.dictionary && this.dictionary.words && this.dictionary.words.length) || 0;
+    return `${wordsLearned} / ${totalWords}`;
+  }
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -26,10 +32,6 @@ export class LearnPage {
   ) {
     this.dictionaryId = +this.navParams.data.dictionaryId;
     this.title = this.navParams.data.title || 'Learn';
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LearnPage');
   }
 
   ionViewWillEnter() {

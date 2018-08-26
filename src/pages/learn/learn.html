@@ -6,4 +6,8 @@
 
 <ion-content padding>
   <word-card #wordCard (onValidate)="onValidate($event)"></word-card>
+
+  <div paddings>
+    <p>{{getWordsLearned()}}</p>
+  </div>
 </ion-content>
