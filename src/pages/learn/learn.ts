@@ -4,6 +4,7 @@ import { DictionaryProvider } from '../../providers/dictionary';
 import { Dictionary } from '../../models';
 import { randomNumber } from './randomNumber';
 import { WordCardComponent } from '../../components/word-card/word-card';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -42,7 +43,10 @@ export class LearnPage {
   }
 
   changeWord() {
-    const words = this.dictionary && this.dictionary.words;
+    if (!this.dictionary) {
+      return this.navCtrl.setRoot(HomePage);
+    }
+    const words = this.dictionary.words;
     if (words && words.length) {
       const rnd = words.length > 1 ? randomNumber(0, words.length - 1) : 0;
       this.wordCard.newWord(words[rnd]);

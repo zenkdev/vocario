@@ -1,11 +1,13 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Renderer, ElementRef, AfterViewChecked } from '@angular/core';
 import { Word } from '../../models';
+import { NavController } from 'ionic-angular';
+import { HomePage } from '../../pages/home/home';
 
 @Component({
   selector: 'word-card',
   templateUrl: 'word-card.html'
 })
-export class WordCardComponent {
+export class WordCardComponent implements AfterViewChecked {
   @Output()
   onValidate = new EventEmitter<boolean>();
 
@@ -14,7 +16,13 @@ export class WordCardComponent {
   userTranslation: string;
   translationPlaceHolder: string;
 
-  constructor() {}
+  constructor(public navCtrl: NavController, private renderer: Renderer, private elementRef: ElementRef) {}
+
+  ngAfterViewChecked() {
+    console.log('ngAfterViewChecked');
+    const element = this.elementRef.nativeElement.querySelector('input');
+    this.renderer.invokeElementMethod(element, 'focus', []);
+  }
 
   newWord(word: Word) {
     this.word = word;
@@ -39,7 +47,7 @@ export class WordCardComponent {
 
   onHelpRequested() {
     if (!this.word) {
-      return;
+      return this.navCtrl.setRoot(HomePage);
     }
 
     if (!this.translationPlaceHolder) {
@@ -52,7 +60,7 @@ export class WordCardComponent {
 
   onSubmit() {
     if (!this.word) {
-      return;
+      return this.navCtrl.setRoot(HomePage);
     }
 
     this.word.count = this.word.count + 1;
