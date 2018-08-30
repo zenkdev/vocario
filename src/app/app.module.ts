@@ -19,6 +19,7 @@ import { DictionaryProvider } from '../providers/dictionary';
 import { InMemoryDataProvider } from '../providers/in-memory-data';
 import { MessageProvider } from '../providers/message';
 import { ComponentsModule } from '../components/components.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [MyApp, AboutPage, ContactPage, HomePage, TabsPage],
@@ -28,7 +29,8 @@ import { ComponentsModule } from '../components/components.module';
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataProvider),
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, AboutPage, ContactPage, HomePage, TabsPage],

@@ -8,18 +8,11 @@
       <ion-list no-lines>
         <ion-item>
           <h1>{{word?.text}}</h1>
+          <p padding>{{word?.transcription}}</p>
+          <h2>{{word?.partOfSpeach}}: {{word?.category | lowercase}}</h2>
         </ion-item>
         <ion-item>
-          <p>{{word?.transcription}}</p>
-        </ion-item>
-        <ion-item>
-          <h2>{{word?.category}}</h2>
-        </ion-item>
-        <ion-item>
-          <h2>{{word?.partOfSpeach}}</h2>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked color="primary">Translate please</ion-label>
+          <ion-label inline color="primary">Translate please</ion-label>
           <ion-input [(ngModel)]="userTranslation" #translation="ngModel" name="translation" [placeholder]="translationPlaceHolder"
             type="text">
           </ion-input>

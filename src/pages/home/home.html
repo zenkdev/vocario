@@ -15,10 +15,7 @@
 
       <button ion-item (click)="goToLearn(dictionary)">
         <h3>{{dictionary.name}}</h3>
-        <p>
-          Start learning
-          <!-- {{session.timeStart}} &mdash; {{session.timeEnd}}: {{session.location}} -->
-        </p>
+        <p>{{dictionary | statistic}}</p>
       </button>
 
       <ion-item-options>
