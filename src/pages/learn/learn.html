@@ -8,6 +8,6 @@
   <word-card #wordCard (onValidate)="onValidate($event)"></word-card>
 
   <div paddings>
-    <p>{{dictionary | statistic}}</p>
+    <p>{{dictionary?.wordsLearned}} / {{totalWords}}</p>
   </div>
 </ion-content>

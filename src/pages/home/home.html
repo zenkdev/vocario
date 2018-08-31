@@ -6,16 +6,18 @@
 
 <ion-content padding>
   <h2>Welcome to Lexion!</h2>
+
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
   <ion-list #dictionaryList [hidden]="!dictionaries || dictionaries.length === 0">
 
     <ion-item-sliding *ngFor="let dictionary of dictionaries" #slidingItem>
 
       <button ion-item (click)="goToLearn(dictionary)">
         <h3>{{dictionary.name}}</h3>
-        <p>{{dictionary | statistic}}</p>
+        <p>{{dictionary.wordsLearned}} / {{dictionary.words.length}}</p>
       </button>
 
       <ion-item-options>

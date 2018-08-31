@@ -19,10 +19,8 @@ export class LearnPage {
   @ViewChild('wordCard')
   wordCard: WordCardComponent;
 
-  getWordsLearned() {
-    const wordsLearned = (this.dictionary && this.dictionary.wordsLearned) || 0;
-    const totalWords = (this.dictionary && this.dictionary.words && this.dictionary.words.length) || 0;
-    return `${wordsLearned} / ${totalWords}`;
+  get totalWords() {
+    return (this.dictionary && this.dictionary.words && this.dictionary.words.length) || 0;
   }
 
   constructor(
@@ -56,11 +54,14 @@ export class LearnPage {
   }
 
   onValidate(valid: boolean) {
+    if (valid) {
+      this.dictionary.wordsLearned =
+        (this.dictionary.words && this.dictionary.words.filter(x => x.count > 0).length) || 0;
+    }
     this.dictionaryProvider.updateDictionary(this.dictionary).subscribe(_ => {
       if (valid) {
-        this.dictionary.wordsLearned = this.dictionary.words.filter(x => x.count > 0).length;
         const toast = this.toastCtrl.create({
-          message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.words.length}.`,
+          message: `Words learned ${this.dictionary.wordsLearned} of ${this.totalWords}.`,
           duration: 1000
         });
         toast.present();
