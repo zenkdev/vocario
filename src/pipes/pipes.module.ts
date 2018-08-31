@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { StatisticPipe } from './statistic/statistic';
+
 @NgModule({
-	declarations: [StatisticPipe],
+	declarations: [],
 	imports: [],
-	exports: [StatisticPipe]
+	exports: []
 })
 export class PipesModule {}
