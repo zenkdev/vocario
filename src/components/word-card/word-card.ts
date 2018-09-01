@@ -26,7 +26,7 @@ export class WordCardComponent {
 
   newWord(word: Word) {
     this.word = word;
-    if (this.word && this.word.count) {
+    if (this.word && this.word.count > 0) {
       this.header = 'Repeating';
     } else {
       this.header = 'New word';
