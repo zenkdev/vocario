@@ -13,64 +13,46 @@ const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/js
 @Injectable()
 export class DictionaryProvider {
   private dictionariesUrl = 'api/dictionaries'; // URL to web api
-  private dictionariesKey = 'dictionaries';
 
   constructor(private http: HttpClient, private messageProvider: MessageProvider, private storage: Storage) {}
 
   /** GET dictionaries from the server */
   getDictionaries(): Observable<Dictionary[]> {
-    return this.http.get<Dictionary[]>(this.dictionariesUrl).pipe(
-      tap(_ => this.log('fetched dictionaries')),
-      catchError(this.handleError('getDictionaries', []))
-    );
+    return this.getDictionariesFromStorage()
+      .flatMap(data => (data ? Observable.of(data) : this.http.get<Dictionary[]>(this.dictionariesUrl)))
+      .pipe(
+        tap(_ => this.log('fetched dictionaries')),
+        tap((dictionaries: Dictionary[]) => {
+          this.setDictionariesInStrorage(dictionaries);
+        }),
+        catchError(this.handleError('getDictionaries', []))
+      );
   }
 
   /** GET dictionary by id. Return `undefined` when id not found */
   getDictionaryNo404(id: number): Observable<Dictionary> {
     const url = `${this.dictionariesUrl}/?id=${id}`;
-    return this.http.get<Dictionary[]>(url).pipe(
-      map(dictionaries => dictionaries[0]), // returns a {0|1} element array
-      tap(h => {
-        const outcome = h ? `fetched` : `did not find`;
-        this.log(`${outcome} dictionary id=${id}`);
-      }),
-      catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
-    );
+    return this.getDictionariesFromStorage()
+      .flatMap(data => (data ? Observable.of(data.filter(x => x.id === id)) : this.http.get<Dictionary[]>(url)))
+      .pipe(
+        map(dictionaries => dictionaries[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} dictionary id=${id}`);
+        }),
+        catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
+      );
   }
 
   /** GET dictionary by id. Will 404 if id not found */
   getDictionary(id: number): Observable<Dictionary> {
-    const key = `${this.dictionariesKey}_${id}`;
-    return Observable.create(observer => {
-      this.storage.get(key).then(data => {
-        if (data) {
-          this.log(`dictionary from storage id=${id}`);
-          observer.next(data);
-          observer.complete();
-        } else {
-          const url = `${this.dictionariesUrl}/${id}`;
-          this.http.get<Dictionary>(url).subscribe(
-            json => {
-              this.log(`fetched dictionary id=${id}`);
-              this.storage.set(key, json);
-              observer.next(json);
-            },
-            error => {
-              const operation = `getDictionary id=${id}`;
-              // TODO: send the error to remote logging infrastructure
-              console.error(error); // log to console instead
-
-              // TODO: better job of transforming error for user consumption
-              this.log(`${operation} failed: ${error.message}`);
-
-              // Let the app keep running by returning an empty result.
-              observer.error(error);
-            },
-            () => observer.complete()
-          );
-        }
-      });
-    });
+    const url = `${this.dictionariesUrl}/${id}`;
+    return this.getDictionariesFromStorage()
+      .flatMap(data => (data ? Observable.of(data.find(x => x.id === id)) : this.http.get<Dictionary>(url)))
+      .pipe(
+        tap(_ => this.log(`fetched dictionary id=${id}`)),
+        catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
+      );
   }
 
   /* GET dictionaries whose name contains search term */
@@ -79,10 +61,15 @@ export class DictionaryProvider {
       // if not search term, return empty dictionary array.
       return Observable.of([]);
     }
-    return this.http.get<Dictionary[]>(`${this.dictionariesUrl}/?name=${term}`).pipe(
-      tap(_ => this.log(`found dictionaries matching "${term}"`)),
-      catchError(this.handleError<Dictionary[]>('searchDictionaries', []))
-    );
+    const url = `${this.dictionariesUrl}/?name=${term}`;
+    return this.getDictionariesFromStorage()
+      .flatMap(
+        data => (data ? Observable.of(data.filter(x => x.name.indexOf(term) !== -1)) : this.http.get<Dictionary[]>(url))
+      )
+      .pipe(
+        tap(_ => this.log(`found dictionaries matching "${term}"`)),
+        catchError(this.handleError<Dictionary[]>('searchDictionaries', []))
+      );
   }
 
   //////// Save methods //////////
@@ -108,9 +95,16 @@ export class DictionaryProvider {
 
   /** PUT: update the dictionary on the server */
   updateDictionary(dictionary: Dictionary): Observable<any> {
-    const key = `${this.dictionariesKey}_${dictionary.id}`;
     return this.http.put(this.dictionariesUrl, dictionary, httpOptions).pipe(
-      tap(_ => this.storage.set(key, dictionary)),
+      tap(_ => {
+        this.getDictionariesFromStorage().subscribe(data => {
+          if (!data) {
+            data = [];
+          }
+          const newData = [...data.filter(x => x.id !== dictionary.id), dictionary];
+          this.setDictionariesInStrorage(newData);
+        });
+      }),
       tap(_ => this.log(`updated dictionary id=${dictionary.id}`)),
       catchError(this.handleError<any>('updateDictionary'))
     );
@@ -138,5 +132,13 @@ export class DictionaryProvider {
   /** Log a DictionaryService message with the MessageService */
   private log(message: string) {
     this.messageProvider.add(`DictionaryService: ${message}`);
+  }
+
+  private getDictionariesFromStorage(): Observable<Dictionary[]> {
+    return Observable.fromPromise(this.storage.get('lexion-dictionaries'));
+  }
+
+  private setDictionariesInStrorage(value: Dictionary[]): void {
+    this.storage.set('lexion-dictionaries', value);
   }
 }
