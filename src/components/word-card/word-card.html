@@ -4,15 +4,18 @@
   </ion-card-header>
 
   <ion-card-content>
+
+    <h1>{{word?.text}}</h1>
+
+    <p padding>{{word?.transcription}}</p>
+
+    <h3>{{word?.partOfSpeach}}: {{word?.category | lowercase}}</h3>
+
     <form #translateForm="ngForm" novalidate>
-      <ion-list no-lines>
+
+      <ion-list>
         <ion-item>
-          <h1>{{word?.text}}</h1>
-          <p padding>{{word?.transcription}}</p>
-          <h2>{{word?.partOfSpeach}}: {{word?.category | lowercase}}</h2>
-        </ion-item>
-        <ion-item>
-          <ion-label inline color="primary">Translate please</ion-label>
+          <ion-label stacked>Translate please</ion-label>
           <ion-input [(ngModel)]="userTranslation" #translation="ngModel" name="translation" [placeholder]="translationPlaceHolder"
             type="text">
           </ion-input>
@@ -23,6 +26,8 @@
         <button ion-button (click)="onHelpRequested()" type="button" [hidden]="userTranslation" outline>Show me</button>
         <button ion-button (click)="onSubmit()" type="submit" [hidden]="!userTranslation">Validate</button>
       </div>
+
     </form>
+
   </ion-card-content>
 </ion-card>

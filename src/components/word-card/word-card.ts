@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Renderer, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, Output, EventEmitter  } from '@angular/core';
 import { Word } from '../../models';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
@@ -7,7 +7,7 @@ import { HomePage } from '../../pages/home/home';
   selector: 'word-card',
   templateUrl: 'word-card.html'
 })
-export class WordCardComponent implements AfterViewChecked {
+export class WordCardComponent {
   @Output()
   onValidate = new EventEmitter<boolean>();
 
@@ -16,13 +16,13 @@ export class WordCardComponent implements AfterViewChecked {
   userTranslation: string;
   translationPlaceHolder: string;
 
-  constructor(public navCtrl: NavController, private renderer: Renderer, private elementRef: ElementRef) {}
+  constructor(public navCtrl: NavController) {}
 
-  ngAfterViewChecked() {
-    console.log('ngAfterViewChecked');
-    const element = this.elementRef.nativeElement.querySelector('input');
-    this.renderer.invokeElementMethod(element, 'focus', []);
-  }
+  // for future use
+  // ngAfterViewChecked() {
+  //   const element = this.elementRef.nativeElement.querySelector('input');
+  //   this.renderer.invokeElementMethod(element, 'focus', []);
+  // }
 
   newWord(word: Word) {
     this.word = word;
@@ -34,16 +34,6 @@ export class WordCardComponent implements AfterViewChecked {
     this.userTranslation = '';
     this.translationPlaceHolder = '';
   }
-
-  // invalidTranslationValidator(validTranslation: string): ValidatorFn {
-  //   return (control: AbstractControl): { [key: string]: any } | null => {
-  //     const invalid =
-  //       !validTranslation ||
-  //       !control.value ||
-  //       validTranslation.toLocaleLowerCase() !== control.value.toLocaleLowerCase();
-  //     return invalid ? { invalidTranslation: { value: control.value } } : null;
-  //   };
-  // }
 
   onHelpRequested() {
     if (!this.word) {
