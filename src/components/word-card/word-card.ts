@@ -67,7 +67,7 @@ export class WordCardComponent implements AfterViewChecked {
     const valid =
       this.word.translation &&
       this.userTranslation &&
-      this.word.translation.toLocaleLowerCase() === this.userTranslation.toLocaleLowerCase();
+      this.word.translation.trim().toLocaleLowerCase() === this.userTranslation.trim().toLocaleLowerCase();
     if (!valid) {
       this.word.errors = this.word.errors + 1;
       this.translationPlaceHolder = this.word.translation;
