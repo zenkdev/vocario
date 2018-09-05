@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Account</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div padding-top text-center *ngIf="authenticated">
+    <img src="http://www.gravatar.com/avatar?d=mm&s=140">
+    <h2>{{email}}</h2>
+
+    <ion-list inset>
+      <button ion-item (click)="updatePicture()">Update Picture</button>
+      <button ion-item (click)="changeEmail()">Change Email</button>
+      <button ion-item (click)="changePassword()">Change Password</button>
+      <button ion-item (click)="signOut()">Signout</button>
+    </ion-list>
+  </div>
+  <div padding-top text-center *ngIf="!authenticated">
+    <h2>Please login.</h2>
+
+    <ion-list inset>
+      <button ion-item (click)="signIn()">Login</button>
+    </ion-list>
+  </div>
+</ion-content>
