@@ -1,74 +1,122 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { Events } from 'ionic-angular';
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 import fbAuthProvider = firebase.auth.AuthProvider;
 
 @Injectable()
 export class AuthProvider {
-  private user: firebase.User;
-
-  constructor(public afAuth: AngularFireAuth) {
-    afAuth.authState.subscribe(user => {
-      this.user = user;
-    });
+  constructor(public events: Events) {
+    firebase.auth().onAuthStateChanged(
+      user => {
+        this.events.publish('auth:authStateChanged', user);
+      },
+      error => console.log(error)
+    );
   }
 
-  signInWithEmail(credentials) {
+  loginWithEmailAndPassword(email: string, password: string) {
     console.log('Sign in with email');
-    return this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password);
+    return firebase
+      .auth()
+      .setPersistence('local')
+      .then(() => {
+        return firebase.auth().signInWithEmailAndPassword(email, password);
+      });
   }
 
-  signInWithGoogle() {
+  loginWithGoogle() {
     console.log('Sign in with google');
-    return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+    return firebase
+      .auth()
+      .setPersistence('local')
+      .then(() => {
+        return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+      });
   }
 
-  signUp(credentials) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password);
+  signupUser(email: string, password: string): Promise<firebase.auth.UserCredential> {
+    return firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(newUserCredentials => {
+        const { displayName, email } = newUserCredentials.user;
+        return firebase
+          .database()
+          .ref(`/userProfile/${newUserCredentials.user.uid}`)
+          .update({ displayName, email })
+          .then(
+            value => {
+              console.log('success', value);
+              return Promise.resolve(newUserCredentials);
+            },
+            error => {
+              console.log('error', error);
+              return Promise.reject(error);
+            }
+          );
+      });
   }
 
-  get authenticated(): boolean {
-    return this.user !== null;
+  resetPassword(email: string): Promise<void> {
+    return firebase.auth().sendPasswordResetEmail(email);
   }
 
-  getEmail() {
-    return this.user && this.user.email;
-  }
-
-  setEmail(email: string): Promise<void> {
-    this.user.email = email;
-    return this.afAuth.auth.updateCurrentUser(this.user).then(_ => {
-      return Promise.resolve();
-    });
-  }
-
-  signOut(): Promise<void> {
-    return this.afAuth.auth.signOut();
+  logout(): Promise<void> {
+    const userId: string = firebase.auth().currentUser.uid;
+    firebase
+      .database()
+      .ref(`/userProfile/${userId}`)
+      .off();
+    return firebase.auth().signOut();
   }
 
   private oauthSignIn(provider: fbAuthProvider): Promise<void> {
     if (!(<any>window).cordova) {
-      return this.afAuth.auth.signInWithPopup(provider).then(_ => {
-        return Promise.resolve();
-      });
+      return firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(newUserCredentials => {
+          const { displayName, email } = newUserCredentials.user;
+          return firebase
+            .database()
+            .ref(`/userProfile/${newUserCredentials.user.uid}`)
+            .update({ displayName, email })
+            .then(
+              value => {
+                console.log('success', value);
+                return Promise.resolve();
+              },
+              error => {
+                console.log('error', error);
+                return Promise.reject(error);
+              }
+            );
+        });
     } else {
-      return this.afAuth.auth.signInWithRedirect(provider).then(() => {
-        return this.afAuth.auth
-          .getRedirectResult()
-          .then(result => {
-            // // This gives you a Google Access Token.
-            // // You can use it to access the Google API.
-            // let token = result.credential.accessToken;
-            // // The signed-in user info.
-            // let user = result.user;
-            // console.log(token, user);
-            console.log(result.user);
-          })
-          .catch(function(error) {
-            // Handle Errors here.
-            alert(error.message);
-          });
-      });
+      return firebase
+        .auth()
+        .signInWithRedirect(provider)
+        .then(() => {
+          return firebase
+            .auth()
+            .getRedirectResult()
+            .then(result => {
+              // // This gives you a Google Access Token.
+              // // You can use it to access the Google API.
+              // let token = result.credential.accessToken;
+              // // The signed-in user info.
+              // let user = result.user;
+              // console.log(token, user);
+              console.log(result.user);
+            })
+            .catch(function(error) {
+              // Handle Errors here.
+              alert(error.message);
+            });
+        });
     }
   }
 }

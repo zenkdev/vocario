@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { IonicPage, NavController, LoadingController, AlertController, Loading, Alert } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TabsPage } from '../tabs/tabs';
+import { EmailValidator } from '../../validators/EmailValidator';
 
 @IonicPage()
 @Component({
@@ -10,37 +11,76 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  loginForm: FormGroup;
-  loginError: string;
+  public loginForm: FormGroup;
+  public loading: Loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthProvider, fb: FormBuilder) {
-    this.loginForm = fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
+  constructor(
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    public authProvider: AuthProvider,
+    formBuilder: FormBuilder
+  ) {
+    this.loginForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
     });
   }
 
-  login() {
-    let data = this.loginForm.value;
-
-    if (!data.email) {
-      return;
-    }
-
-    let credentials = {
-      email: data.email,
-      password: data.password
-    };
-    this.auth
-      .signInWithEmail(credentials)
-      .then(() => this.navCtrl.setRoot(HomePage), error => (this.loginError = error.message));
-  }
-
-  signup() {
+  goToSignup(): void {
     this.navCtrl.push('SignupPage');
   }
 
-  loginWithGoogle() {
-    this.auth.signInWithGoogle().then(_ => this.navCtrl.setRoot(HomePage), error => console.log(error.message));
+  goToResetPassword(): void {
+    this.navCtrl.push('ResetPasswordPage');
+  }
+
+  loginWithEmailAndPassword(): void {
+    if (!this.loginForm.valid) {
+      console.log(`Form is not valid yet, current value: ${this.loginForm.value}`);
+    } else {
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      this.authProvider.loginWithEmailAndPassword(email, password).then(
+        _ => {
+          this.loading.dismiss().then(() => {
+            this.navCtrl.setRoot(TabsPage);
+          });
+        },
+        error => {
+          this.loading.dismiss().then(() => {
+            const alert: Alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [{ text: 'Ok', role: 'cancel' }]
+            });
+            alert.present();
+          });
+        }
+      );
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+    }
+  }
+
+  loginWithGoogle(): void {
+    this.authProvider.loginWithGoogle().then(
+      _ => {
+        this.loading.dismiss().then(() => {
+          this.navCtrl.setRoot(TabsPage);
+        });
+      },
+      error => {
+        this.loading.dismiss().then(() => {
+          const alert: Alert = this.alertCtrl.create({
+            message: error.message,
+            buttons: [{ text: 'Ok', role: 'cancel' }]
+          });
+          alert.present();
+        });
+      }
+    );
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
   }
 }

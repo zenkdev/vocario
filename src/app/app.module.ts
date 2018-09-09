@@ -20,11 +20,8 @@ import { MessageProvider } from '../providers/message';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
-
 import { AuthProvider } from '../providers/auth/auth';
+import { ProfileProvider } from '../providers/profile/profile';
 
 @NgModule({
   declarations: [MyApp, AboutPage, HomePage, TabsPage],
@@ -36,8 +33,6 @@ import { AuthProvider } from '../providers/auth/auth';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataProvider),
     ComponentsModule,
     PipesModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, AboutPage, HomePage, TabsPage],
@@ -47,7 +42,8 @@ import { AuthProvider } from '../providers/auth/auth';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DictionaryProvider,
     MessageProvider,
-    AuthProvider
+    AuthProvider,
+    ProfileProvider
   ]
 })
 export class AppModule {}

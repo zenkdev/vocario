@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Alert, AlertController, IonicPage, Loading, LoadingController, NavController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
-import { HomePage } from '../home/home';
+import { EmailValidator } from '../../validators/EmailValidator';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage()
 @Component({
@@ -10,24 +11,46 @@ import { HomePage } from '../home/home';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-  signupError: string;
-  form: FormGroup;
+  public signupForm: FormGroup;
+  public loading: Loading;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthProvider, fb: FormBuilder) {
-    this.form = fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+  constructor(
+    public navCtrl: NavController,
+    public authProvider: AuthProvider,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    formBuilder: FormBuilder
+  ) {
+    this.signupForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
     });
   }
+  signupUser(): void {
+    if (!this.signupForm.valid) {
+      console.log(`Need to complete the form, current value: ${this.signupForm.value}`);
+    } else {
+      const email: string = this.signupForm.value.email;
+      const password: string = this.signupForm.value.password;
 
-  signup() {
-    let data = this.form.value;
-    let credentials = {
-      email: data.email,
-      password: data.password
-    };
-    this.auth
-      .signUp(credentials)
-      .then(() => this.navCtrl.setRoot(HomePage), error => (this.signupError = error.message));
+      this.authProvider.signupUser(email, password).then(
+        user => {
+          this.loading.dismiss().then(() => {
+            this.navCtrl.setRoot(TabsPage);
+          });
+        },
+        error => {
+          this.loading.dismiss().then(() => {
+            const alert: Alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [{ text: 'Ok', role: 'cancel' }]
+            });
+            alert.present();
+          });
+        }
+      );
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+    }
   }
 }
