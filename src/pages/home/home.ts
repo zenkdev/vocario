@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, Refresher, ItemSliding } from 'ionic-angular';
 import { Dictionary } from '../../models';
-import { DictionaryProvider } from '../../providers/dictionary';
+import { DictionaryProvider, StatProvider } from '../../providers';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,11 @@ export class HomePage {
   segment = 'all';
   dictionaries: Dictionary[];
 
-  constructor(public navCtrl: NavController, private dictionaryProvider: DictionaryProvider) {}
+  constructor(
+    public navCtrl: NavController,
+    private dictionaryProvider: DictionaryProvider,
+    private statProvider: StatProvider
+  ) {}
 
   ionViewWillEnter() {
     this.getDictionaries();
@@ -23,6 +27,11 @@ export class HomePage {
     const observable = this.dictionaryProvider.getDictionaries();
     observable.subscribe(dictionaries => {
       this.dictionaries = dictionaries;
+      this.dictionaries.forEach(dictionary => {
+        this.statProvider.getWordsLearned(dictionary.id).subscribe(n => {
+          dictionary.wordsLearned = n;
+        });
+      });
     });
     return observable;
   }
@@ -100,4 +109,5 @@ export class HomePage {
     // // now present the alert on top of all other content
     // alert.present();
   }
+
 }

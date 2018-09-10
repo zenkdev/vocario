@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter  } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Word } from '../../models';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
@@ -58,11 +58,12 @@ export class WordCardComponent {
       this.word.translation &&
       this.userTranslation &&
       this.word.translation.trim().toLocaleLowerCase() === this.userTranslation.trim().toLocaleLowerCase();
+
     if (!valid) {
       this.word.errors = this.word.errors + 1;
       this.translationPlaceHolder = this.word.translation;
+      this.userTranslation = '';
     }
     this.onValidate.emit(valid);
-    this.userTranslation = '';
   }
 }

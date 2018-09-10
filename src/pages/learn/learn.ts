@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { DictionaryProvider } from '../../providers/dictionary';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Loading } from 'ionic-angular';
+import { DictionaryProvider, StatProvider } from '../../providers';
 import { Dictionary } from '../../models';
 import { randomNumber } from './randomNumber';
 import { WordCardComponent } from '../../components/word-card/word-card';
@@ -12,32 +12,37 @@ import { HomePage } from '../home/home';
   templateUrl: 'learn.html'
 })
 export class LearnPage {
-  dictionaryId: number;
+  dictionaryId: string;
   title: string;
   dictionary: Dictionary;
+  public loading: Loading;
 
   @ViewChild('wordCard')
   wordCard: WordCardComponent;
 
-  get totalWords() {
-    return (this.dictionary && this.dictionary.words && this.dictionary.words.length) || 0;
-  }
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
     private dictionaryProvider: DictionaryProvider,
-    public toastCtrl: ToastController
+    private statProvider: StatProvider
   ) {
-    this.dictionaryId = +this.navParams.data.dictionaryId;
+    this.dictionaryId = this.navParams.data.dictionaryId;
     this.title = this.navParams.data.title || 'Learn';
   }
 
   ionViewWillEnter() {
-    this.dictionaryProvider.getDictionary(this.dictionaryId).subscribe(data => {
-      this.dictionary = data;
-      this.changeWord();
+    this.dictionaryProvider.getDictionary(this.dictionaryId).subscribe(dictionary => {
+      this.dictionary = dictionary;
+      this.statProvider.getWordsLearned(this.dictionaryId).subscribe(n => {
+        this.dictionary.wordsLearned = n;
+        this.changeWord();
+      });
     });
+
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
   }
 
   changeWord() {
@@ -51,22 +56,27 @@ export class LearnPage {
     } else {
       this.wordCard.newWord(null);
     }
+
+    this.loading && this.loading.dismiss(() => (this.loading = null));
   }
 
   onValidate(valid: boolean) {
     if (valid) {
-      this.dictionary.wordsLearned =
-        (this.dictionary.words && this.dictionary.words.filter(x => x.count > 0).length) || 0;
-    }
-    this.dictionaryProvider.updateDictionary(this.dictionary).subscribe(_ => {
-      if (valid) {
-        const toast = this.toastCtrl.create({
-          message: `Words learned ${this.dictionary.wordsLearned} of ${this.totalWords}.`,
-          duration: 1000
+      const n = this.dictionary.wordsLearned + 1;
+      this.statProvider.setWordsLearned(this.dictionaryId, n).subscribe(() => {
+        this.dictionary.wordsLearned = n;
+        this.dictionaryProvider.updateDictionary(this.dictionary).subscribe(_ => {
+          if (valid) {
+            const toast = this.toastCtrl.create({
+              message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.totalWords}.`,
+              duration: 1000
+            });
+            toast.present();
+
+            this.changeWord();
+          }
         });
-        toast.present();
-        this.changeWord();
-      }
-    });
+      });
+    }
   }
 }

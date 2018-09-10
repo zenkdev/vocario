@@ -8,51 +8,86 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageProvider } from './message';
 import { Dictionary } from '../models';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
+
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
 @Injectable()
 export class DictionaryProvider {
   private dictionariesUrl = 'api/dictionaries'; // URL to web api
+  public dictionaryListRef: firebase.database.Reference;
 
-  constructor(private http: HttpClient, private messageProvider: MessageProvider, private storage: Storage) {}
+  constructor(private http: HttpClient, private messageProvider: MessageProvider, private storage: Storage) {
+    this.dictionaryListRef = firebase.database().ref(`/dictionaryList`);
+  }
 
   /** GET dictionaries from the server */
-  getDictionaries(): Observable<Dictionary[]> {
-    return this.getDictionariesFromStorage()
-      .flatMap(data => (data ? Observable.of(data) : this.http.get<Dictionary[]>(this.dictionariesUrl)))
-      .pipe(
-        tap(_ => this.log('fetched dictionaries')),
-        tap((dictionaries: Dictionary[]) => {
-          this.setDictionariesInStrorage(dictionaries);
-        }),
-        catchError(this.handleError('getDictionaries', []))
-      );
+  // getDictionaries(): Observable<Dictionary[]> {
+  //   return this.getDictionariesFromStorage()
+  //     .flatMap(data => (data ? Observable.of(data) : this.http.get<Dictionary[]>(this.dictionariesUrl)))
+  //     .pipe(
+  //       tap(_ => this.log('fetched dictionaries')),
+  //       tap((dictionaries: Dictionary[]) => {
+  //         this.setDictionariesInStrorage(dictionaries);
+  //       }),
+  //       catchError(this.handleError('getDictionaries', []))
+  //     );
+  // }
+
+  getDictionaries() {
+    return new Observable<Dictionary[]>(observer => {
+      this.dictionaryListRef
+        .once('value')
+        .then(dictionarytListSnapshot => {
+          const dictionarytList = [];
+          dictionarytListSnapshot.forEach(snap => {
+            dictionarytList.push({ id: snap.key, ...snap.val() });
+          });
+          observer.next(dictionarytList);
+        })
+        .catch(error => observer.error(error));
+    });
   }
 
   /** GET dictionary by id. Return `undefined` when id not found */
-  getDictionaryNo404(id: number): Observable<Dictionary> {
-    const url = `${this.dictionariesUrl}/?id=${id}`;
-    return this.getDictionariesFromStorage()
-      .flatMap(data => (data ? Observable.of(data.filter(x => x.id === id)) : this.http.get<Dictionary[]>(url)))
-      .pipe(
-        map(dictionaries => dictionaries[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} dictionary id=${id}`);
-        }),
-        catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
-      );
-  }
+  // getDictionaryNo404(id: number): Observable<Dictionary> {
+  //   const url = `${this.dictionariesUrl}/?id=${id}`;
+  //   return this.getDictionariesFromStorage()
+  //     .flatMap(data => (data ? Observable.of(data.filter(x => x.id === id)) : this.http.get<Dictionary[]>(url)))
+  //     .pipe(
+  //       map(dictionaries => dictionaries[0]), // returns a {0|1} element array
+  //       tap(h => {
+  //         const outcome = h ? `fetched` : `did not find`;
+  //         this.log(`${outcome} dictionary id=${id}`);
+  //       }),
+  //       catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
+  //     );
+  // }
 
   /** GET dictionary by id. Will 404 if id not found */
-  getDictionary(id: number): Observable<Dictionary> {
-    const url = `${this.dictionariesUrl}/${id}`;
-    return this.getDictionariesFromStorage()
-      .flatMap(data => (data ? Observable.of(data.find(x => x.id === id)) : this.http.get<Dictionary>(url)))
-      .pipe(
-        tap(_ => this.log(`fetched dictionary id=${id}`)),
-        catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
-      );
+  // getDictionary(id: number): Observable<Dictionary> {
+  //   const url = `${this.dictionariesUrl}/${id}`;
+  //   return this.getDictionariesFromStorage()
+  //     .flatMap(data => (data ? Observable.of(data.find(x => x.id === id)) : this.http.get<Dictionary>(url)))
+  //     .pipe(
+  //       tap(_ => this.log(`fetched dictionary id=${id}`)),
+  //       catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
+  //     );
+  // }
+
+  getDictionary(id: string): Observable<Dictionary> {
+    return new Observable<Dictionary>(observer => {
+      this.dictionaryListRef
+        .child(id)
+        .once('value')
+        .then(snap => {
+          observer.next(snap && { id: snap.key, ...snap.val() });
+        })
+        .catch(error => observer.error(error));
+    });
   }
 
   /* GET dictionaries whose name contains search term */

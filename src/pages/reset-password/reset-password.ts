@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Alert, AlertController, IonicPage, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthProvider } from '../../providers/auth/auth';
+
+import { AuthProvider } from '../../providers';
 import { EmailValidator } from '../../validators/EmailValidator';
 
 @IonicPage()

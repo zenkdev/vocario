@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, AlertController, Loading, Alert } from 'ionic-angular';
-import { AuthProvider } from '../../providers/auth/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { TabsPage } from '../tabs/tabs';
+import { AuthProvider } from '../../providers';
 import { EmailValidator } from '../../validators/EmailValidator';
 
 @IonicPage()
