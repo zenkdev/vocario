@@ -7,15 +7,20 @@ admin.initializeApp({
   databaseURL: 'https://lexion-app.firebaseio.com'
 });
 
-new Promise(resolve => {
-  var db = admin.database();
-  var dictionaryListRef = db.ref('/dictionaryList');
-  var wordListRef = db.ref('/wordList');
-  dictionaryListRef.once('value', function(snapshot) {
-    const val = snapshot.val();
-    if (val) {
-      console.log(val);
-    } else {
+var db = admin.database();
+var dictionaryListRef = db.ref('/dictionaryList');
+var wordListRef = db.ref('/wordList');
+
+function UploadDb() {
+  return new Promise((resolve, reject) => {
+    dictionaryListRef.once('value', function(snapshot) {
+      const val = snapshot.val();
+      if (val) {
+        console.error(val);
+        reject(val);
+        return;
+      }
+
       let dictionaryCount = 0;
       dictionaries.forEach(dictionary => {
         const dictionaryVal = { name: dictionary.name, totalWords: dictionary.words.length };
@@ -40,9 +45,16 @@ new Promise(resolve => {
           });
         });
       });
-    }
+    });
   });
-}).then(() => {
-  console.log('Firebase database successefuly updated.');
-  process.exit(0);
-});
+}
+
+UploadDb()
+  .then(() => {
+    console.info('Firebase database successfully uploaded');
+    process.exit(0);
+  })
+  .catch(reason => {
+    console.error('Firebase database upload error:', reason);
+    process.exit(0);
+  });
