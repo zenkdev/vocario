@@ -11,6 +11,35 @@ var db = admin.database();
 var dictionaryListRef = db.ref('/dictionaryList');
 var wordListRef = db.ref('/wordList');
 
+function UploadWord(dictionaryKey, word) {
+  return new Promise((resolve, reject) => {
+    wordListRef
+      .push()
+      .set({ ...word, dictionaryKey })
+      .then(_ => resolve())
+      .catch(reason => reject(reason));
+  });
+}
+
+function UploadDictionary(dictionary) {
+  return new Promise((resolve, reject) => {
+    dictionaryListRef.push().then(
+      dictionaryRef => {
+        dictionaryRef.set({ name: dictionary.name, totalWords: dictionary.words.length }).then(
+          () => {
+            const promises = dictionary.words.map(word => UploadWord(dictionaryRef.key, word));
+            Promise.all(promises)
+              .then(_ => resolve())
+              .catch(reason => reject(reason));
+          },
+          reason => reject(reason)
+        );
+      },
+      reason => reject(reason)
+    );
+  });
+}
+
 function UploadDb() {
   return new Promise((resolve, reject) => {
     dictionaryListRef.once('value', function(snapshot) {
@@ -21,30 +50,10 @@ function UploadDb() {
         return;
       }
 
-      let dictionaryCount = 0;
-      dictionaries.forEach(dictionary => {
-        const dictionaryVal = { name: dictionary.name, totalWords: dictionary.words.length };
-        dictionaryListRef.push().then(data => {
-          data.set(dictionaryVal).then(() => {
-            let wordCount = 0;
-            dictionary.words.forEach(word => {
-              const wordVal = { ...word, duid: data.key };
-              wordListRef
-                .push()
-                .set(wordVal)
-                .then(() => {
-                  wordCount++;
-                  if (dictionary.words.length === wordCount) {
-                    dictionaryCount++;
-                    if (dictionaries.length === dictionaryCount) {
-                      resolve();
-                    }
-                  }
-                });
-            });
-          });
-        });
-      });
+      const promises = dictionaries.map(UploadDictionary);
+      Promise.all(promises)
+        .then(_ => resolve())
+        .catch(reason => reject(reason));
     });
   });
 }
