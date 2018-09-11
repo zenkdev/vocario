@@ -36,3 +36,4 @@ UserInterfaceState.xcuserstate
 
 .firebase
 src/environments/environment.ts
+scripts/serviceAccountKey.json
