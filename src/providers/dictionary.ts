@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { MessageProvider } from './message';
-import { Dictionary } from '../models';
+import { Dictionary, Word } from '../models';
 
-import firebase from 'firebase/app';
+import firebase, { database } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
@@ -18,10 +18,14 @@ const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/js
 @Injectable()
 export class DictionaryProvider {
   private dictionariesUrl = 'api/dictionaries'; // URL to web api
+  private db: database.Database;
   public dictionaryListRef: firebase.database.Reference;
+  public wordListRef: firebase.database.Reference;
 
   constructor(private http: HttpClient, private messageProvider: MessageProvider, private storage: Storage) {
+    this.db = firebase.database();
     this.dictionaryListRef = firebase.database().ref(`/dictionaryList`);
+    this.wordListRef = firebase.database().ref(`/wordList`);
   }
 
   /** GET dictionaries from the server */
@@ -38,17 +42,29 @@ export class DictionaryProvider {
   // }
 
   getDictionaries() {
+    const uid = firebase.auth().currentUser.uid;
     return new Observable<Dictionary[]>(observer => {
-      this.dictionaryListRef
-        .once('value')
-        .then(dictionarytListSnapshot => {
-          const dictionarytList = [];
-          dictionarytListSnapshot.forEach(snap => {
-            dictionarytList.push({ id: snap.key, ...snap.val() });
-          });
-          observer.next(dictionarytList);
-        })
-        .catch(error => observer.error(error));
+      firebase
+        .database()
+        .ref(`/dictionaryList`)
+        .once(
+          'value',
+          snapshot => {
+            const dictionarytList = [];
+            snapshot.forEach(snap => {
+              const dictionaryListEntity = { id: snap.key, ...snap.val() };
+              this.getWordsLearned(firebase.database().ref(`/dictionaryList/${dictionaryListEntity.id}`), uid).then(
+                data => {
+                  dictionaryListEntity.wordsLearned = data;
+                  dictionarytList.push(dictionaryListEntity);
+                },
+                error => observer.error(error)
+              );
+            });
+            observer.next(dictionarytList);
+          },
+          error => observer.error(error)
+        );
     });
   }
 
@@ -79,14 +95,25 @@ export class DictionaryProvider {
   // }
 
   getDictionary(id: string): Observable<Dictionary> {
+    const uid = firebase.auth().currentUser.uid;
     return new Observable<Dictionary>(observer => {
-      this.dictionaryListRef
-        .child(id)
-        .once('value')
-        .then(snap => {
-          observer.next(snap && { id: snap.key, ...snap.val() });
-        })
-        .catch(error => observer.error(error));
+      firebase
+        .database()
+        .ref(`/dictionary/${id}`)
+        .once(
+          'value',
+          snap => {
+            const dictionaryEntity = { id: snap.key, ...snap.val() };
+            this.getWordsLearned(firebase.database().ref(`/dictionaryList/${dictionaryEntity.id}`), uid).then(
+              data => {
+                dictionaryEntity.wordsLearned = data;
+                observer.next(dictionaryEntity);
+              },
+              error => observer.error(error)
+            );
+          },
+          error => observer.error(error)
+        );
     });
   }
 
@@ -143,6 +170,18 @@ export class DictionaryProvider {
       tap(_ => this.log(`updated dictionary id=${dictionary.id}`)),
       catchError(this.handleError<any>('updateDictionary'))
     );
+  }
+
+  private getWordsLearned(dictionaryRef, uid) {
+    return new Promise((resolve, reject) => {
+      dictionaryRef.child(`wordsLearned/${uid}`).once(
+        'value',
+        snap => {
+          resolve(snap.val() || 0);
+        },
+        error => reject(error)
+      );
+    });
   }
 
   /**

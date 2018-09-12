@@ -8,41 +8,26 @@ admin.initializeApp({
 });
 
 var db = admin.database();
-var dictionaryListRef = db.ref('/dictionaryList');
-var wordListRef = db.ref('/wordList');
-
-function UploadWord(dictionaryKey, word) {
-  return new Promise((resolve, reject) => {
-    wordListRef
-      .push()
-      .set({ ...word, dictionaryKey })
-      .then(_ => resolve())
-      .catch(reason => reject(reason));
-  });
-}
 
 function UploadDictionary(dictionary) {
-  return new Promise((resolve, reject) => {
-    dictionaryListRef.push().then(
-      dictionaryRef => {
-        dictionaryRef.set({ name: dictionary.name, totalWords: dictionary.words.length }).then(
-          () => {
-            const promises = dictionary.words.map(word => UploadWord(dictionaryRef.key, word));
-            Promise.all(promises)
-              .then(_ => resolve())
-              .catch(reason => reject(reason));
-          },
-          reason => reject(reason)
-        );
-      },
-      reason => reject(reason)
-    );
-  });
+  // A dictionary entity.
+  var dictionaryListEntity = { name: dictionary.name, totalWords: dictionary.words.length };
+  var dictionaryEntity = { ...dictionaryListEntity, words: dictionary.words };
+
+  // Get a key for a new Dictionary.
+  var newPostKey = db.ref().child('dictionaryList').push().key;
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  var updates = {};
+  updates['/dictionaryList/' + newPostKey] = dictionaryListEntity;
+  updates['/dictionary/' + newPostKey] = dictionaryEntity;
+
+  return db.ref().update(updates);
 }
 
 function UploadDb() {
   return new Promise((resolve, reject) => {
-    dictionaryListRef.once('value', function(snapshot) {
+    db.ref('/dictionaryList').once('value', function(snapshot) {
       const val = snapshot.val();
       if (val) {
         console.error(val);

@@ -3,6 +3,7 @@ import { NavController, Refresher, ItemSliding } from 'ionic-angular';
 import { Dictionary } from '../../models';
 import { DictionaryProvider, StatProvider } from '../../providers';
 import { Observable } from 'rxjs';
+import { error } from 'util';
 
 @Component({
   selector: 'page-home',
@@ -25,14 +26,12 @@ export class HomePage {
 
   getDictionaries(): Observable<any> {
     const observable = this.dictionaryProvider.getDictionaries();
-    observable.subscribe(dictionaries => {
-      this.dictionaries = dictionaries;
-      this.dictionaries.forEach(dictionary => {
-        this.statProvider.getWordsLearned(dictionary.id).subscribe(n => {
-          dictionary.wordsLearned = n;
-        });
-      });
-    });
+    observable.subscribe(
+      dictionaries => {
+        this.dictionaries = dictionaries;
+      },
+      error => alert(error)
+    );
     return observable;
   }
 
@@ -109,5 +108,4 @@ export class HomePage {
     // // now present the alert on top of all other content
     // alert.present();
   }
-
 }

@@ -1,4 +1,5 @@
 export class Word {
+  public id: string;
   public text: string;
   public transcription: string;
   public translation: string;

@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, Loading } from 'ionic-angular';
 import { DictionaryProvider, StatProvider } from '../../providers';
-import { Dictionary } from '../../models';
+import { Dictionary, Word } from '../../models';
 import { randomNumber } from './randomNumber';
 import { WordCardComponent } from '../../components/word-card/word-card';
 import { HomePage } from '../home/home';
+import { error } from 'util';
 
 @IonicPage()
 @Component({
@@ -15,6 +16,7 @@ export class LearnPage {
   dictionaryId: string;
   title: string;
   dictionary: Dictionary;
+  word: Word;
   public loading: Loading;
 
   @ViewChild('wordCard')
@@ -33,13 +35,13 @@ export class LearnPage {
   }
 
   ionViewWillEnter() {
-    this.dictionaryProvider.getDictionary(this.dictionaryId).subscribe(dictionary => {
-      this.dictionary = dictionary;
-      this.statProvider.getWordsLearned(this.dictionaryId).subscribe(n => {
-        this.dictionary.wordsLearned = n;
+    this.dictionaryProvider.getDictionary(this.dictionaryId).subscribe(
+      dictionary => {
+        this.dictionary = dictionary;
         this.changeWord();
-      });
-    });
+      },
+      error => console.error(error)
+    );
 
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -49,34 +51,33 @@ export class LearnPage {
     if (!this.dictionary) {
       return this.navCtrl.setRoot(HomePage);
     }
-    const words = this.dictionary.words;
-    if (words && words.length) {
-      const rnd = words.length > 1 ? randomNumber(0, words.length - 1) : 0;
-      this.wordCard.newWord(words[rnd]);
+    if (this.dictionary.totalWords) {
+      const rnd = this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
+      this.word = this.dictionary.words[rnd];
+      this.wordCard.newWord(this.word);
     } else {
       this.wordCard.newWord(null);
     }
-
     this.loading && this.loading.dismiss(() => (this.loading = null));
   }
 
   onValidate(valid: boolean) {
-    if (valid) {
-      const n = this.dictionary.wordsLearned + 1;
-      this.statProvider.setWordsLearned(this.dictionaryId, n).subscribe(() => {
-        this.dictionary.wordsLearned = n;
-        this.dictionaryProvider.updateDictionary(this.dictionary).subscribe(_ => {
-          if (valid) {
-            const toast = this.toastCtrl.create({
-              message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.totalWords}.`,
-              duration: 1000
-            });
-            toast.present();
+    this.statProvider.updateStats(this.dictionary, this.word, valid).subscribe(
+      newWordsLearned => {
+        this.dictionary.wordsLearned = newWordsLearned;
+        if (valid) {
+          const toast = this.toastCtrl.create({
+            message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.totalWords}.`,
+            duration: 1000
+          });
+          toast.present();
 
-            this.changeWord();
-          }
-        });
-      });
-    }
+          this.changeWord();
+        }
+      },
+      error => {
+        alert(error);
+      }
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ElementRef, AfterViewChecked, Renderer } from '@angular/core';
 import { Word } from '../../models';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
@@ -7,7 +7,7 @@ import { HomePage } from '../../pages/home/home';
   selector: 'word-card',
   templateUrl: 'word-card.html'
 })
-export class WordCardComponent {
+export class WordCardComponent implements AfterViewChecked {
   @Output()
   onValidate = new EventEmitter<boolean>();
 
@@ -16,13 +16,13 @@ export class WordCardComponent {
   userTranslation: string;
   translationPlaceHolder: string;
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public elementRef: ElementRef, public renderer: Renderer) {}
 
   // for future use
-  // ngAfterViewChecked() {
-  //   const element = this.elementRef.nativeElement.querySelector('input');
-  //   this.renderer.invokeElementMethod(element, 'focus', []);
-  // }
+  ngAfterViewChecked() {
+    const element = this.elementRef.nativeElement.querySelector('input');
+    this.renderer.invokeElementMethod(element, 'focus', []);
+  }
 
   newWord(word: Word) {
     this.word = word;
@@ -41,8 +41,6 @@ export class WordCardComponent {
     }
 
     if (!this.translationPlaceHolder) {
-      this.word.count = this.word.count + 1;
-      this.word.errors = this.word.errors + 1;
       this.translationPlaceHolder = this.word.translation;
       this.onValidate.emit(false);
     }
@@ -53,14 +51,12 @@ export class WordCardComponent {
       return this.navCtrl.setRoot(HomePage);
     }
 
-    this.word.count = this.word.count + 1;
     const valid =
       this.word.translation &&
       this.userTranslation &&
       this.word.translation.trim().toLocaleLowerCase() === this.userTranslation.trim().toLocaleLowerCase();
 
     if (!valid) {
-      this.word.errors = this.word.errors + 1;
       this.translationPlaceHolder = this.word.translation;
       this.userTranslation = '';
     }

@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 
-import firebase from 'firebase/app';
+import firebase, { User } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import fbAuthProvider = firebase.auth.AuthProvider;
 
 @Injectable()
 export class AuthProvider {
+  public user: User;
+
   constructor(public events: Events) {
     firebase.auth().onAuthStateChanged(
       user => {
-        this.events.publish('auth:authStateChanged', user);
+        this.user = user;
+        this.events.publish('auth:authStateChanged', this.user);
       },
       error => console.log(error)
     );
