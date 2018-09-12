@@ -1,270 +1,264 @@
 [
   {
+    "id": "s500",
     "name": "Словарь 500",
     "words": [
       {
         "text": "be (was, been)",
-        "transcription": "[biː] ",
+        "transcription": "[biː]",
         "translation": "быть",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "do (did, done)",
-        "transcription": "[duː] ",
+        "transcription": "[duː]",
         "translation": "делать",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "have (had, had)",
-        "transcription": "[hæv] ",
+        "transcription": "[hæv]",
         "translation": "иметь",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "make (made, made)",
-        "transcription": "[meɪk] ",
+        "transcription": "[meɪk]",
         "translation": "делать",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "get (got, got / gotten)",
-        "transcription": "[gɛt] ",
+        "transcription": "[gɛt]",
         "translation": "получать, становиться",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "go (went, gone)",
-        "transcription": "[gəʊ] ",
+        "transcription": "[gəʊ]",
         "translation": "идти",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "take (took, taken)",
-        "transcription": "[teɪk] ",
+        "transcription": "[teɪk]",
         "translation": "брать",
         "category": "Наиболее употребительные глаголы",
         "partOfSpeach": "Глаголы"
       },
       {
-        "text": "will",
-        "transcription": "[wɪl] ",
-        "translation": "(образует будущее время)",
-        "category": "Наиболее употребительные глаголы",
-        "partOfSpeach": "Глаголы"
-      },
-      {
         "text": "move",
-        "transcription": "[muːv] ",
-        "translation": "двигать (-ся)",
+        "transcription": "[muːv]",
+        "translation": "двигать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "go (went, gone)",
-        "transcription": "[gəʊ] ",
+        "transcription": "[gəʊ]",
         "translation": "идти",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "walk",
-        "transcription": "[wɔːk] ",
-        "translation": "идти пешком, гулять",
+        "transcription": "[wɔːk]",
+        "translation": "гулять",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "run (ran, run)",
-        "transcription": "[rʌn] ",
+        "transcription": "[rʌn]",
         "translation": "бежать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "turn",
-        "transcription": "[tɜːn] ",
+        "transcription": "[tɜːn]",
         "translation": "поворачивать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "fly (flew, flown)",
-        "transcription": "[flaɪ] ",
+        "transcription": "[flaɪ]",
         "translation": "летать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "drive (drove, driven)",
-        "transcription": "[draɪv] ",
+        "transcription": "[draɪv]",
         "translation": "вести машину",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "swim (swam, swum)",
-        "transcription": "[swɪm] ",
+        "transcription": "[swɪm]",
         "translation": "плыть",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "jump",
-        "transcription": "[ʤʌmp] ",
+        "transcription": "[ʤʌmp]",
         "translation": "прыгать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "sit down (sat, sitten)",
-        "transcription": "[sɪt daʊn] ",
+        "transcription": "[sɪt daʊn]",
         "translation": "садиться",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "lie down (lay, lain)",
-        "transcription": "[laɪ daʊn] ",
+        "transcription": "[laɪ daʊn]",
         "translation": "ложиться",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "stand up (stood, stood)",
-        "transcription": "[stænd ʌp] ",
+        "transcription": "[stænd ʌp]",
         "translation": "вставать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "stand (stood, stood)",
-        "transcription": "[stænd] ",
+        "transcription": "[stænd]",
         "translation": "стоять",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "lie (lay, lain)",
-        "transcription": "[laɪ] ",
+        "transcription": "[laɪ]",
         "translation": "лежать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "sit (sat, sitten)",
-        "transcription": "[sɪt] ",
+        "transcription": "[sɪt]",
         "translation": "сидеть",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "step",
-        "transcription": "[stɛp] ",
+        "transcription": "[stɛp]",
         "translation": "делать шаг",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "dance",
-        "transcription": "[dɑːns] ",
+        "transcription": "[dɑːns]",
         "translation": "танцевать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "roll",
-        "transcription": "[rəʊl] ",
-        "translation": "катить (-ся)",
+        "transcription": "[rəʊl]",
+        "translation": "катить",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "push",
-        "transcription": "[pʊʃ] ",
-        "translation": "толкать, нажимать",
+        "transcription": "[pʊʃ]",
+        "translation": "толкать",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "pull",
-        "transcription": "[pʊl] ",
+        "transcription": "[pʊl]",
         "translation": "тянуть",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "put (put, put)",
-        "transcription": "[pʊt] ",
-        "translation": "ставить, класть, помещать",
+        "transcription": "[pʊt]",
+        "translation": "класть",
         "category": "Основные глаголы движения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "take (took, taken)",
-        "transcription": "[teɪk] ",
+        "transcription": "[teɪk]",
         "translation": "брать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "give (gave, given)",
-        "transcription": "[gɪv] ",
+        "transcription": "[gɪv]",
         "translation": "давать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "pass",
-        "transcription": "[pɑːs] ",
+        "transcription": "[pɑːs]",
         "translation": "передавать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "throw (threw, thrown)",
-        "transcription": "[θrəʊ] ",
+        "transcription": "[θrəʊ]",
         "translation": "бросать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "hit (hit, hit)",
-        "transcription": "[hɪt] ",
+        "transcription": "[hɪt]",
         "translation": "бить",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "touch",
-        "transcription": "[tʌʧ] ",
+        "transcription": "[tʌʧ]",
         "translation": "прикасаться",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "point at",
-        "transcription": "[pɔɪnt æt] ",
-        "translation": "указывать на что-то",
+        "transcription": "[pɔɪnt æt]",
+        "translation": "указывать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "hold (held, held)",
-        "transcription": "[həʊld] ",
+        "transcription": "[həʊld]",
         "translation": "держать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "knock",
-        "transcription": "[nɒk] ",
-        "translation": "стучать (напр. в дверь)",
+        "transcription": "[nɒk]",
+        "translation": "стучать",
         "category": "Ручные действия",
         "partOfSpeach": "Глаголы"
       },
@@ -285,7 +279,7 @@
       {
         "text": "tell (told, told)",
         "transcription": "[tɛl] ",
-        "translation": "говорить, рассказывать, велеть",
+        "translation": "рассказывать",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -299,7 +293,7 @@
       {
         "text": "ask",
         "transcription": "[ɑːsk] ",
-        "translation": "просить, спрашивать",
+        "translation": "спрашивать",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -313,7 +307,7 @@
       {
         "text": "call",
         "transcription": "[kɔːl] ",
-        "translation": "звонить по телефону",
+        "translation": "звонить",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -327,7 +321,7 @@
       {
         "text": "cry",
         "transcription": "[kraɪ] ",
-        "translation": "плакать, кричать",
+        "translation": "плакать",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -355,14 +349,14 @@
       {
         "text": "teach (taught, taught)",
         "transcription": "[tiːʧ] ",
-        "translation": "учить (обучать)",
+        "translation": "учить",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "learn",
         "transcription": "[lɜːn] ",
-        "translation": "учить (учиться)",
+        "translation": "учиться",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -390,7 +384,7 @@
       {
         "text": "watch",
         "transcription": "[wɒʧ] ",
-        "translation": "смотреть, наблюдать",
+        "translation": "наблюдать",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -439,7 +433,7 @@
       {
         "text": "hint",
         "transcription": "[hɪnt] ",
-        "translation": "подсказывать, намекать",
+        "translation": "подсказывать",
         "category": "Глаголы речи, общения",
         "partOfSpeach": "Глаголы"
       },
@@ -466,274 +460,274 @@
       },
       {
         "text": "live",
-        "transcription": "[lɪv] ",
+        "transcription": "[lɪv]",
         "translation": "жить",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "sleep (slept, slept)",
-        "transcription": "[sliːp] ",
+        "transcription": "[sliːp]",
         "translation": "спать",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "wake up (woke, woken)",
-        "transcription": "[weɪk ʌp] ",
+        "transcription": "[weɪk ʌp]",
         "translation": "просыпаться",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "go to bed (went, gone)",
-        "transcription": "[gəʊ tuː bɛd] ",
+        "transcription": "[gəʊ tuː bɛd]",
         "translation": "идти спать",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "take a shower (took, taken)",
-        "transcription": "[teɪk ə ˈʃaʊə] ",
+        "transcription": "[teɪk ə ˈʃaʊə]",
         "translation": "принимать душ",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "brush one’s teeth",
-        "transcription": "[brʌʃ wʌnz tiːθ] ",
+        "transcription": "[brʌʃ wʌnz tiːθ]",
         "translation": "чистить зубы",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "comb one’s hair",
-        "transcription": "[kəʊm wʌnz heə] ",
+        "transcription": "[kəʊm wʌnz heə]",
         "translation": "причесываться",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "shave",
-        "transcription": "[ʃeɪv] ",
+        "transcription": "[ʃeɪv]",
         "translation": "бриться",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "get dressed (got, got / gotten)",
-        "transcription": "[gɛt drɛst] ",
+        "transcription": "[gɛt drɛst]",
         "translation": "одеваться",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "put on make-up (put, put)",
-        "transcription": "[pʊt ɒn ˈmeɪkʌp] ",
+        "transcription": "[pʊt ɒn ˈmeɪkʌp]",
         "translation": "делать макияж",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "make breakfast (made, made)",
-        "transcription": "[meɪk ˈbrɛkfəst] ",
+        "transcription": "[meɪk ˈbrɛkfəst]",
         "translation": "готовить завтрак",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "have breakfast (had, had)",
-        "transcription": "[hæv ˈbrɛkfəst] ",
+        "transcription": "[hæv ˈbrɛkfəst]",
         "translation": "завтракать",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "go to work (went, gone)",
-        "transcription": "[gəʊ tuː wɜːk] ",
+        "transcription": "[gəʊ tuː wɜːk]",
         "translation": "идти на работу",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "work",
-        "transcription": "[wɜːk] ",
+        "transcription": "[wɜːk]",
         "translation": "работать",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "rest",
-        "transcription": "[rɛst] ",
+        "transcription": "[rɛst]",
         "translation": "отдыхать",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "take a bath (took, taken)",
-        "transcription": "[teɪk ə bɑːθ] ",
+        "transcription": "[teɪk ə bɑːθ]",
         "translation": "принимать ванну",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "cook",
-        "transcription": "[kʊk] ",
-        "translation": "готовить (еду)",
+        "transcription": "[kʊk]",
+        "translation": "готовить",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "eat (ate, eaten)",
-        "transcription": "[iːt] ",
+        "transcription": "[iːt]",
         "translation": "есть",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "do cleaning, clean (did, done)",
-        "transcription": "[duː ˈkliːnɪŋ] [kliːn] ",
+        "transcription": "[duː ˈkliːnɪŋ] [kliːn]",
         "translation": "убираться",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "do dishes (did, done)",
-        "transcription": "[duː dɪʃɪz] ",
+        "transcription": "[duː dɪʃɪz]",
         "translation": "мыть посуду",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "do the laundry (did, done)",
-        "transcription": "[duː ðə ˈlɔːndri] ",
+        "transcription": "[duː ðə ˈlɔːndri]",
         "translation": "заниматься стиркой",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "work out",
-        "transcription": "[wɜːk aʊt] ",
+        "transcription": "[wɜːk aʊt]",
         "translation": "заниматься спортом",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "have fun (had, had)",
-        "transcription": "[hæv fʌn] ",
-        "translation": "развлекаться, веселиться",
+        "transcription": "[hæv fʌn]",
+        "translation": "развлекаться",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "play",
-        "transcription": "[pleɪ] ",
+        "transcription": "[pleɪ]",
         "translation": "играть",
         "category": "Глаголы, обозначающие повседневные дела",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "begin (began, begun)",
-        "transcription": "[bɪˈgɪn] ",
-        "translation": "начинаться (-ся)",
+        "transcription": "[bɪˈgɪn]",
+        "translation": "начинаться",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "start",
-        "transcription": "[stɑːt] ",
-        "translation": "начинаться (-ся)",
+        "transcription": "[stɑːt]",
+        "translation": "начинать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "continue",
-        "transcription": "[kənˈtɪnju(ː)] ",
-        "translation": "продолжать (-ся)",
+        "transcription": "[kənˈtɪnju(ː)]",
+        "translation": "продолжать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "go on (went, gone)",
-        "transcription": "[gəʊ ɒn] ",
-        "translation": "продолжать (-ся)",
+        "transcription": "[gəʊ ɒn]",
+        "translation": "продолжать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "end",
-        "transcription": "[ɛnd] ",
-        "translation": "заканчивать (-ся)",
+        "transcription": "[ɛnd]",
+        "translation": "прекращать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "finish",
-        "transcription": "[ˈfɪnɪʃ] ",
-        "translation": "заканчивать (-ся)",
+        "transcription": "[ˈfɪnɪʃ]",
+        "translation": "заканчивать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "stop",
-        "transcription": "[stɒp] ",
-        "translation": "прекращать, останавливать (-ся)",
+        "transcription": "[stɒp]",
+        "translation": "останавливать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "complete",
-        "transcription": "[kəmˈpliːt] ",
-        "translation": "завершать (-ся)",
+        "transcription": "[kəmˈpliːt]",
+        "translation": "завершать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "postpone",
-        "transcription": "[pɛʊstˈpəʊn] ",
-        "translation": "откладывать, переносить",
+        "transcription": "[pɛʊstˈpəʊn]",
+        "translation": "переносить",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "put off (put, put)",
-        "transcription": "[pʊt ɒf] ",
-        "translation": "откладывать, переносить",
+        "transcription": "[pʊt ɒf]",
+        "translation": "откладывать",
         "category": "Этапы действия",
         "partOfSpeach": "Глаголы"
       },
       {
         "text": "time",
-        "transcription": "[taɪm] ",
+        "transcription": "[taɪm]",
         "translation": "время",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "past",
-        "transcription": "[pɑːst] ",
+        "transcription": "[pɑːst]",
         "translation": "прошлое",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "future",
-        "transcription": "[ˈfjuːʧə] ",
+        "transcription": "[ˈfjuːʧə]",
         "translation": "будущее",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "present",
-        "transcription": "[ˈprɛznt] ",
+        "transcription": "[ˈprɛznt]",
         "translation": "настоящее",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "age",
-        "transcription": "[eɪʤ] ",
-        "translation": "эра, эпоха (также \"возраст\")",
+        "transcription": "[eɪʤ]",
+        "translation": "возраст",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
@@ -746,126 +740,126 @@
       },
       {
         "text": "century",
-        "transcription": "[ˈsɛnʧʊri] ",
+        "transcription": "[ˈsɛnʧʊri]",
         "translation": "век",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "decade",
-        "transcription": "[ˈdɛkeɪd] ",
+        "transcription": "[ˈdɛkeɪd]",
         "translation": "десятилетие",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "year",
-        "transcription": "[jɪə] ",
+        "transcription": "[jɪə]",
         "translation": "год",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "month",
-        "transcription": "[mʌnθ] ",
+        "transcription": "[mʌnθ]",
         "translation": "месяц",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "week",
-        "transcription": "[wiːk] ",
+        "transcription": "[wiːk]",
         "translation": "неделя",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "day",
-        "transcription": "[deɪ] ",
+        "transcription": "[deɪ]",
         "translation": "день",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "hour",
-        "transcription": "[ˈaʊə] ",
+        "transcription": "[ˈaʊə]",
         "translation": "час",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "half an hour",
-        "transcription": "[hɑːf ən ˈaʊə] ",
+        "transcription": "[hɑːf ən ˈaʊə]",
         "translation": "полчаса",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "minute",
-        "transcription": "[ˈmɪnɪt] ",
+        "transcription": "[ˈmɪnɪt]",
         "translation": "минута",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "second",
-        "transcription": "[ˈsɛkənd] ",
+        "transcription": "[ˈsɛkənd]",
         "translation": "секунда",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "watch",
-        "transcription": "[wɒʧ] ",
-        "translation": "часы (наручные)",
+        "transcription": "[wɒʧ]",
+        "translation": "наручные часы",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "clock",
-        "transcription": "[klɒk] ",
-        "translation": "часы (настенные)",
+        "transcription": "[klɒk]",
+        "translation": "настенные часы",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "calendar",
-        "transcription": "[ˈkælɪndə] ",
+        "transcription": "[ˈkælɪndə]",
         "translation": "календарь",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "schedule",
-        "transcription": "[ˈʃɛdjuːl] ",
+        "transcription": "[ˈʃɛdjuːl]",
         "translation": "расписание",
         "category": "Единицы времени, слова на тему \"Время\"",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "season",
-        "transcription": "[ˈsiːzn] ",
+        "transcription": "[ˈsiːzn]",
         "translation": "время года",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "winter",
-        "transcription": "[ˈwɪntə] ",
+        "transcription": "[ˈwɪntə]",
         "translation": "зима",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "spring",
-        "transcription": "[sprɪŋ] ",
+        "transcription": "[sprɪŋ]",
         "translation": "весна",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "summer",
-        "transcription": "[ˈsʌmə] ",
+        "transcription": "[ˈsʌmə]",
         "translation": "лето",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
@@ -879,217 +873,217 @@
       },
       {
         "text": "January",
-        "transcription": "[ˈʤænjʊəri] ",
+        "transcription": "[ˈʤænjʊəri]",
         "translation": "январь",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "February",
-        "transcription": "[ˈfɛbrʊəri] ",
+        "transcription": "[ˈfɛbrʊəri]",
         "translation": "февраль",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "March",
-        "transcription": "[mɑːʧ] ",
+        "transcription": "[mɑːʧ]",
         "translation": "март",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "April",
-        "transcription": "[ˈeɪprəl] ",
+        "transcription": "[ˈeɪprəl]",
         "translation": "апрель",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "May",
-        "transcription": "[meɪ] ",
+        "transcription": "[meɪ]",
         "translation": "май",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "June",
-        "transcription": "[ʤuːn] ",
+        "transcription": "[ʤuːn]",
         "translation": "июнь",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "July",
-        "transcription": "[ʤuˈlaɪ] ",
+        "transcription": "[ʤuˈlaɪ]",
         "translation": "июль",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "August",
-        "transcription": "[ˈɔːgəst] ",
+        "transcription": "[ˈɔːgəst]",
         "translation": "август",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "September",
-        "transcription": "[sɛpˈtɛmbə] ",
+        "transcription": "[sɛpˈtɛmbə]",
         "translation": "сентябрь",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "October",
-        "transcription": "[ɒkˈtəʊbə] ",
+        "transcription": "[ɒkˈtəʊbə]",
         "translation": "октябрь",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "November",
-        "transcription": "[nəʊˈvɛmbə] ",
+        "transcription": "[nəʊˈvɛmbə]",
         "translation": "ноябрь",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "December",
-        "transcription": "[dɪˈsɛmbə] ",
+        "transcription": "[dɪˈsɛmbə]",
         "translation": "декабрь",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Monday",
-        "transcription": "[ˈmʌndeɪ] ",
+        "transcription": "[ˈmʌndeɪ]",
         "translation": "понедельник",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Tuesday",
-        "transcription": "[ˈtjuːzdeɪ] ",
+        "transcription": "[ˈtjuːzdeɪ]",
         "translation": "вторник",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Wednesday",
-        "transcription": "[ˈwɛnzdeɪ] ",
+        "transcription": "[ˈwɛnzdeɪ]",
         "translation": "среда",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Thursday",
-        "transcription": "[ˈθɜːzdeɪ] ",
+        "transcription": "[ˈθɜːzdeɪ]",
         "translation": "четверг",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Friday",
-        "transcription": "[ˈfraɪdeɪ] ",
+        "transcription": "[ˈfraɪdeɪ]",
         "translation": "пятница",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Saturday",
-        "transcription": "[ˈsætədeɪ] ",
+        "transcription": "[ˈsætədeɪ]",
         "translation": "суббота",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Sunday",
-        "transcription": "[ˈsʌndeɪ] ",
+        "transcription": "[ˈsʌndeɪ]",
         "translation": "воскресенье",
         "category": "Месяцы, времена года, дни недели",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "family",
-        "transcription": "[ˈfæmɪli] ",
+        "transcription": "[ˈfæmɪli]",
         "translation": "семья",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "love",
-        "transcription": "[lʌv] ",
+        "transcription": "[lʌv]",
         "translation": "любовь",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "human",
-        "transcription": "[ˈhjuːmən] ",
+        "transcription": "[ˈhjuːmən]",
         "translation": "человек",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "people",
-        "transcription": "[ˈpiːpl] ",
-        "translation": "люди, народ",
+        "transcription": "[ˈpiːpl]",
+        "translation": "народ",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "man",
-        "transcription": "[mæn] ",
-        "translation": "мужчина, человек",
+        "transcription": "[mæn]",
+        "translation": "мужчина",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "woman",
-        "transcription": "[ˈwʊmən] ",
+        "transcription": "[ˈwʊmən]",
         "translation": "женщина",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "boy",
-        "transcription": "[bɔɪ] ",
+        "transcription": "[bɔɪ]",
         "translation": "мальчик",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "guy",
-        "transcription": "[gaɪ] ",
+        "transcription": "[gaɪ]",
         "translation": "парень",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "girl",
-        "transcription": "[gɜːl] ",
-        "translation": "девочка, девушка",
+        "transcription": "[gɜːl]",
+        "translation": "девочка",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "parents",
-        "transcription": "[ˈpeərənts] ",
+        "transcription": "[ˈpeərənts]",
         "translation": "родители",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mother",
-        "transcription": "[ˈmʌðə] ",
+        "transcription": "[ˈmʌðə]",
         "translation": "мать",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "father",
-        "transcription": "[ˈfɑːðə] ",
+        "transcription": "[ˈfɑːðə]",
         "translation": "отец",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
@@ -1103,217 +1097,217 @@
       },
       {
         "text": "dad",
-        "transcription": "[dæd] ",
+        "transcription": "[dæd]",
         "translation": "папа",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "grandmother",
-        "transcription": "[ˈgrænˌmʌðə] ",
+        "transcription": "[ˈgrænˌmʌðə]",
         "translation": "бабушка",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "grandfather",
-        "transcription": "[ˈgrændˌfɑːðə] ",
+        "transcription": "[ˈgrændˌfɑːðə]",
         "translation": "дедушка",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "grandparents",
-        "transcription": "[ˈgrænˌpeərənts] ",
+        "transcription": "[ˈgrænˌpeərənts]",
         "translation": "бабушки и дедушки",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "brother",
-        "transcription": "[ˈbrʌðə] ",
+        "transcription": "[ˈbrʌðə]",
         "translation": "брат",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "sister",
-        "transcription": "[ˈsɪstə] ",
+        "transcription": "[ˈsɪstə]",
         "translation": "сестра",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "siblings",
-        "transcription": "[ˈsɪblɪŋz] ",
+        "transcription": "[ˈsɪblɪŋz]",
         "translation": "братья и сестры",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cousin",
-        "transcription": "[ˈkʌzn] ",
-        "translation": "кузен (двоюродные братья и сестры)",
+        "transcription": "[ˈkʌzn]",
+        "translation": "кузен",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wife",
-        "transcription": "[waɪf] ",
+        "transcription": "[waɪf]",
         "translation": "жена",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "husband",
-        "transcription": "[ˈhʌzbənd] ",
+        "transcription": "[ˈhʌzbənd]",
         "translation": "муж",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "father-in-law",
-        "transcription": "[ˈfɑːðərɪnlɔː] ",
+        "transcription": "[ˈfɑːðərɪnlɔː]",
         "translation": "тесть",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mother-in-law",
-        "transcription": "[ˈmʌðərɪnlɔː] ",
+        "transcription": "[ˈmʌðərɪnlɔː]",
         "translation": "теща",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "son-in-law",
-        "transcription": "[ˈsʌnɪnlɔː] ",
+        "transcription": "[ˈsʌnɪnlɔː]",
         "translation": "зять",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "daughter-in-law",
-        "transcription": "[ˈdɔːtərɪnlɔː] ",
+        "transcription": "[ˈdɔːtərɪnlɔː]",
         "translation": "невестка",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "son",
-        "transcription": "[sʌn] ",
+        "transcription": "[sʌn]",
         "translation": "сын",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "daughter",
-        "transcription": "[ˈdɔːtə] ",
+        "transcription": "[ˈdɔːtə]",
         "translation": "дочь",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "baby",
-        "transcription": "[ˈbeɪbi] ",
-        "translation": "маленький ребенок",
+        "transcription": "[ˈbeɪbi]",
+        "translation": "малыш",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "children, kids",
-        "transcription": "[ˈʧɪldrən], [kɪdz] ",
+        "transcription": "[ˈʧɪldrən], [kɪdz]",
         "translation": "дети",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "teenager",
-        "transcription": "[ˈtiːnˌeɪʤə] ",
+        "transcription": "[ˈtiːnˌeɪʤə]",
         "translation": "подросток",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "aunt",
-        "transcription": "[ɑːnt] ",
+        "transcription": "[ɑːnt]",
         "translation": "тетя",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "uncle",
-        "transcription": "[ˈʌŋkl] ",
+        "transcription": "[ˈʌŋkl]",
         "translation": "дядя",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "niece",
-        "transcription": "[niːs] ",
+        "transcription": "[niːs]",
         "translation": "племянница",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "nephew",
-        "transcription": "[ˈnɛvju(ː)] [ˈnɛfju(ː)] ",
+        "transcription": "[ˈnɛvju(ː)] [ˈnɛfju(ː)]",
         "translation": "племянник",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "girlfriend",
-        "transcription": "[ˈgɜːlˌfrɛnd] ",
-        "translation": "девушка (подруга)",
+        "transcription": "[ˈgɜːlˌfrɛnd]",
+        "translation": "подруга",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "boyfriend",
-        "transcription": "[ˈbɔɪˌfrɛnd] ",
-        "translation": "парень (бойфренд)",
+        "transcription": "[ˈbɔɪˌfrɛnd]",
+        "translation": "парень",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "friend",
-        "transcription": "[frɛnd] ",
+        "transcription": "[frɛnd]",
         "translation": "друг",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "relatives",
-        "transcription": "[ˈrɛlətɪvz] ",
+        "transcription": "[ˈrɛlətɪvz]",
         "translation": "родственники",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "engagement",
-        "transcription": "[ɪnˈgeɪʤmənt] ",
+        "transcription": "[ɪnˈgeɪʤmənt]",
         "translation": "помолвка",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "marriage",
-        "transcription": "[ˈmærɪʤ] ",
-        "translation": "женитьба, замужество, брак",
+        "transcription": "[ˈmærɪʤ]",
+        "translation": "брак",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wedding",
-        "transcription": "[ˈwɛdɪŋ] ",
+        "transcription": "[ˈwɛdɪŋ]",
         "translation": "свадьба",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fiancée, bride",
-        "transcription": "[fɪ'ɑːn(t)seɪ], [braɪd] ",
+        "transcription": "[fɪ'ɑːn(t)seɪ], [braɪd]",
         "translation": "невеста",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
@@ -1327,28 +1321,28 @@
       },
       {
         "text": "funeral",
-        "transcription": "[ˈfjuːnərəl] ",
+        "transcription": "[ˈfjuːnərəl]",
         "translation": "похороны",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "birth",
-        "transcription": "[bɜːθ] ",
+        "transcription": "[bɜːθ]",
         "translation": "рождение",
         "category": "Семья, родственники",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "house",
-        "transcription": "[haʊs] ",
+        "transcription": "[haʊs]",
         "translation": "дом",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "home",
-        "transcription": "[həʊm] ",
+        "transcription": "[həʊm]",
         "translation": "дом",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1362,133 +1356,133 @@
       },
       {
         "text": "roof",
-        "transcription": "[ruːf] ",
+        "transcription": "[ruːf]",
         "translation": "крыша",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "room",
-        "transcription": "[ruːm] ",
+        "transcription": "[ruːm]",
         "translation": "комната",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wall",
-        "transcription": "[wɔːl] ",
+        "transcription": "[wɔːl]",
         "translation": "стена",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "floor",
-        "transcription": "[flɔː] ",
+        "transcription": "[flɔː]",
         "translation": "пол, этаж",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "stairs",
-        "transcription": "[steəz] ",
-        "translation": "лестница, ступеньки",
+        "transcription": "[steəz]",
+        "translation": "лестница",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "ceiling",
-        "transcription": "[ˈsiːlɪŋ] ",
+        "transcription": "[ˈsiːlɪŋ]",
         "translation": "потолок",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "window",
-        "transcription": "[ˈwɪndəʊ] ",
+        "transcription": "[ˈwɪndəʊ]",
         "translation": "окно",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "door",
-        "transcription": "[dɔː] ",
+        "transcription": "[dɔː]",
         "translation": "дверь",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "doorbell",
-        "transcription": "[ˈdɔːbɛl] ",
+        "transcription": "[ˈdɔːbɛl]",
         "translation": "дверной звонок",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "lock",
-        "transcription": "[lɒk] ",
+        "transcription": "[lɒk]",
         "translation": "замок",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "key",
-        "transcription": "[kiː] ",
+        "transcription": "[kiː]",
         "translation": "ключ",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "furniture",
-        "transcription": "[ˈfɜːnɪʧə] ",
+        "transcription": "[ˈfɜːnɪʧə]",
         "translation": "мебель",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "thing",
-        "transcription": "[θɪŋ] ",
-        "translation": "вещь, предмет",
+        "transcription": "[θɪŋ]",
+        "translation": "предмет",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "lamp",
-        "transcription": "[læmp] ",
+        "transcription": "[læmp]",
         "translation": "лампа",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "light bulb",
-        "transcription": "[laɪt bʌlb] ",
+        "transcription": "[laɪt bʌlb]",
         "translation": "лампочка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "table",
-        "transcription": "[ˈteɪbl] ",
+        "transcription": "[ˈteɪbl]",
         "translation": "стол",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "desk",
-        "transcription": "[dɛsk] ",
+        "transcription": "[dɛsk]",
         "translation": "письменный стол",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "chair",
-        "transcription": "[ʧeə] ",
+        "transcription": "[ʧeə]",
         "translation": "стул",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "armchair",
-        "transcription": "[ˈɑːmˈʧeə] ",
+        "transcription": "[ˈɑːmˈʧeə]",
         "translation": "кресло",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1502,21 +1496,21 @@
       },
       {
         "text": "stove (US), cooker (Br)",
-        "transcription": "[stəʊv] ",
+        "transcription": "[stəʊv]",
         "translation": "кухонная плита",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "vacuum cleaner",
-        "transcription": "[ˈvækjʊəm ˈkliːnə] ",
+        "transcription": "[ˈvækjʊəm ˈkliːnə]",
         "translation": "пылесос",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "microwave",
-        "transcription": "[ˈmaɪkrəʊweɪv] ",
+        "transcription": "[ˈmaɪkrəʊweɪv]",
         "translation": "микроволновая печь",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1530,14 +1524,14 @@
       },
       {
         "text": "tap, faucet",
-        "transcription": "[tæp], [ˈfɔːsɪt] ",
+        "transcription": "[tæp], [ˈfɔːsɪt]",
         "translation": "водопроводный кран",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "shower",
-        "transcription": "[ˈʃaʊə] ",
+        "transcription": "[ˈʃaʊə]",
         "translation": "душ",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1551,210 +1545,210 @@
       },
       {
         "text": "soap",
-        "transcription": "[səʊp] ",
+        "transcription": "[səʊp]",
         "translation": "мыло",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "shampoo",
-        "transcription": "[ʃæmˈpuː] ",
+        "transcription": "[ʃæmˈpuː]",
         "translation": "шампунь",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "toiletries",
-        "transcription": "[ˈtɔɪlɪtriz] ",
-        "translation": "туалетные принадлежности (мыло, шампунь и проч.)",
+        "transcription": "[ˈtɔɪlɪtriz]",
+        "translation": "туалетные принадлежности",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bathroom",
-        "transcription": "[ˈbɑːθru(ː)m] ",
-        "translation": "ванная комната \\ туалет",
+        "transcription": "[ˈbɑːθru(ː)m]",
+        "translation": "ванная комната",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mirror",
-        "transcription": "[ˈmɪrə] ",
+        "transcription": "[ˈmɪrə]",
         "translation": "зеркало",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "hall",
-        "transcription": "[hɔːl] ",
-        "translation": "зал, холл",
+        "transcription": "[hɔːl]",
+        "translation": "зал",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "hall, hallway",
         "transcription": "[hɔːl] [ˈhɔːlweɪ]",
-        "translation": "коридор, прихожая",
+        "translation": "коридор",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "living room",
-        "transcription": "[ˈlɪvɪŋ ruːm] ",
+        "transcription": "[ˈlɪvɪŋ ruːm]",
         "translation": "гостиная",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "kitchen",
-        "transcription": "[ˈkɪʧɪn] ",
+        "transcription": "[ˈkɪʧɪn]",
         "translation": "кухня",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bedroom",
-        "transcription": "[ˈbɛdru(ː)m] ",
+        "transcription": "[ˈbɛdru(ː)m]",
         "translation": "спальня",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "neighbour (neighbor)",
-        "transcription": "[ˈneɪbə] ",
+        "transcription": "[ˈneɪbə]",
         "translation": "сосед",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wardrobe",
-        "transcription": "[ˈwɔːdrəʊb] ",
+        "transcription": "[ˈwɔːdrəʊb]",
         "translation": "шкаф для одежды",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cupboard",
-        "transcription": "[ˈkʌbəd] ",
-        "translation": "шкаф, буфет",
+        "transcription": "[ˈkʌbəd]",
+        "translation": "буфет",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "closet",
-        "transcription": "[ˈklɒzɪt] ",
-        "translation": "шкаф, кладовка",
+        "transcription": "[ˈklɒzɪt]",
+        "translation": "кладовка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "dishes",
-        "transcription": "[ˈdɪʃɪz] ",
-        "translation": "тарелки, посуда",
+        "transcription": "[ˈdɪʃɪz]",
+        "translation": "тарелки",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cup",
-        "transcription": "[kʌp] ",
+        "transcription": "[kʌp]",
         "translation": "чашка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fork",
-        "transcription": "[fɔːk] ",
+        "transcription": "[fɔːk]",
         "translation": "вилка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "spoon",
-        "transcription": "[spuːn] ",
+        "transcription": "[spuːn]",
         "translation": "ложка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "plate",
-        "transcription": "[pleɪt] ",
+        "transcription": "[pleɪt]",
         "translation": "тарелка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "knife",
-        "transcription": "[naɪf] ",
+        "transcription": "[naɪf]",
         "translation": "нож",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "tools",
-        "transcription": "[tuːlz] ",
+        "transcription": "[tuːlz]",
         "translation": "инструменты",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "TV",
-        "transcription": "[ˌtiːˈviː] ",
+        "transcription": "[ˌtiːˈviː]",
         "translation": "телевизор",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "remote control",
-        "transcription": "[rɪˈməʊt kənˈtrəʊl] ",
+        "transcription": "[rɪˈməʊt kənˈtrəʊl]",
         "translation": "пульт управления",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "computer",
-        "transcription": "[kəmˈpjuːtə] ",
+        "transcription": "[kəmˈpjuːtə]",
         "translation": "компьютер",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "laptop",
-        "transcription": "[ˈlæpˌtɒp] ",
+        "transcription": "[ˈlæpˌtɒp]",
         "translation": "ноутбук",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "phone",
-        "transcription": "[fəʊn] ",
+        "transcription": "[fəʊn]",
         "translation": "телефон",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bed",
-        "transcription": "[bɛd] ",
+        "transcription": "[bɛd]",
         "translation": "кровать",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "blanket",
-        "transcription": "[ˈblæŋkɪt] ",
+        "transcription": "[ˈblæŋkɪt]",
         "translation": "одеяло",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pillow",
-        "transcription": "[ˈpɪləʊ] ",
+        "transcription": "[ˈpɪləʊ]",
         "translation": "подушка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pillowcase",
-        "transcription": "[ˈpɪləʊkeɪs] ",
+        "transcription": "[ˈpɪləʊkeɪs]",
         "translation": "наволочка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1768,63 +1762,63 @@
       },
       {
         "text": "linens",
-        "transcription": "[ˈlɪnɪnz] ",
+        "transcription": "[ˈlɪnɪnz]",
         "translation": "постельное белье",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "towel",
-        "transcription": "[ˈtaʊəl] ",
+        "transcription": "[ˈtaʊəl]",
         "translation": "полотенце",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "movie \\ film",
-        "transcription": "[ˈmuːvi] [fɪlm] ",
+        "transcription": "[ˈmuːvi] [fɪlm]",
         "translation": "фильм",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "book",
-        "transcription": "[bʊk] ",
+        "transcription": "[bʊk]",
         "translation": "книга",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "camera",
-        "transcription": "[ˈkæmərə] ",
-        "translation": "фотоаппарат, видеокамера",
+        "transcription": "[ˈkæmərə]",
+        "translation": "видеокамера",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "newspaper",
-        "transcription": "[ˈnjuːzˌpeɪpə] ",
+        "transcription": "[ˈnjuːzˌpeɪpə]",
         "translation": "газета",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "magazine",
-        "transcription": "[ˌmægəˈziːn] ",
+        "transcription": "[ˌmægəˈziːn]",
         "translation": "журнал",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "clothes",
-        "transcription": "[kləʊðz] ",
+        "transcription": "[kləʊðz]",
         "translation": "одежда",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "shirt",
-        "transcription": "[ʃɜːt] ",
+        "transcription": "[ʃɜːt]",
         "translation": "рубашка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1838,7 +1832,7 @@
       },
       {
         "text": "jacket",
-        "transcription": "[ˈʤækɪt] ",
+        "transcription": "[ˈʤækɪt]",
         "translation": "пиджак",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
@@ -1846,517 +1840,517 @@
       {
         "text": "sweater (jumper)",
         "transcription": "[ˈswɛtə] [ˈʤʌmpə]",
-        "translation": "свитер, джемпер",
+        "translation": "свитер",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "hat",
-        "transcription": "[hæt] ",
+        "transcription": "[hæt]",
         "translation": "шляпа",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cap",
-        "transcription": "[ˈkæp] ",
+        "transcription": "[ˈkæp]",
         "translation": "кепка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pocket",
-        "transcription": "[ˈpɒkɪt] ",
+        "transcription": "[ˈpɒkɪt]",
         "translation": "карман",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "shorts",
-        "transcription": "[ʃɔːts] ",
+        "transcription": "[ʃɔːts]",
         "translation": "шорты",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "shoes",
-        "transcription": "[ʃuːz] ",
+        "transcription": "[ʃuːz]",
         "translation": "туфли",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "dress",
-        "transcription": "[drɛs] ",
+        "transcription": "[drɛs]",
         "translation": "платье",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "skirt",
-        "transcription": "[skɜːt] ",
+        "transcription": "[skɜːt]",
         "translation": "юбка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "jeans",
-        "transcription": "[ʤiːnz] ",
+        "transcription": "[ʤiːnz]",
         "translation": "джинсы",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "underwear",
-        "transcription": "[ˈʌndəweə] ",
+        "transcription": "[ˈʌndəweə]",
         "translation": "нижнее белье",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "socks",
-        "transcription": "[sɒks] ",
+        "transcription": "[sɒks]",
         "translation": "носки",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bag",
-        "transcription": "[bæg] ",
+        "transcription": "[bæg]",
         "translation": "сумка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "purse",
-        "transcription": "[pɜːs] ",
-        "translation": "дамская сумочка, кошелек",
+        "transcription": "[pɜːs]",
+        "translation": "дамская сумочка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "coat",
-        "transcription": "[kəʊt] ",
+        "transcription": "[kəʊt]",
         "translation": "пальто",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "scarf",
-        "transcription": "[skɑːf] ",
+        "transcription": "[skɑːf]",
         "translation": "шарф",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "gloves",
-        "transcription": "[glʌvz] ",
+        "transcription": "[glʌvz]",
         "translation": "перчатки",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wallet",
-        "transcription": "[ˈwɒlɪt] ",
+        "transcription": "[ˈwɒlɪt]",
         "translation": "бумажник",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "uniform",
-        "transcription": "[ˈjuːnɪfɔːm] ",
+        "transcription": "[ˈjuːnɪfɔːm]",
         "translation": "униформа",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "belt",
-        "transcription": "[bɛlt] ",
+        "transcription": "[bɛlt]",
         "translation": "ремень",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "button",
-        "transcription": "[ˈbʌtn] ",
-        "translation": "кнопка, пуговица",
+        "transcription": "[ˈbʌtn]",
+        "translation": "кнопка",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "zip",
-        "transcription": "[zɪp] ",
+        "transcription": "[zɪp]",
         "translation": "застежка молния",
         "category": "Дом, одежда, предметы быта",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "nature",
-        "transcription": "[ˈneɪʧə] ",
+        "transcription": "[ˈneɪʧə]",
         "translation": "природа",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "North",
-        "transcription": "[nɔːθ] ",
+        "transcription": "[nɔːθ]",
         "translation": "север",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "South",
-        "transcription": "[saʊθ] ",
+        "transcription": "[saʊθ]",
         "translation": "юг",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "West",
-        "transcription": "[wɛst] ",
+        "transcription": "[wɛst]",
         "translation": "запад",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "East",
-        "transcription": "[iːst] ",
+        "transcription": "[iːst]",
         "translation": "восток",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Sun",
-        "transcription": "[sʌn] ",
+        "transcription": "[sʌn]",
         "translation": "солнце",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Moon",
-        "transcription": "[muːn] ",
+        "transcription": "[muːn]",
         "translation": "луна",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "star",
-        "transcription": "[stɑː] ",
+        "transcription": "[stɑː]",
         "translation": "звезда",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "sky",
-        "transcription": "[skaɪ] ",
+        "transcription": "[skaɪ]",
         "translation": "небо",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "Earth",
-        "transcription": "[ɜːθ] ",
+        "transcription": "[ɜːθ]",
         "translation": "Земля",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "ground",
-        "transcription": "[graʊnd] ",
+        "transcription": "[graʊnd]",
         "translation": "земля",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "space",
-        "transcription": "[speɪs] ",
+        "transcription": "[speɪs]",
         "translation": "космос, пространство",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "air",
-        "transcription": "[eə] ",
+        "transcription": "[eə]",
         "translation": "воздух",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "plant",
-        "transcription": "[plɑːnt] ",
+        "transcription": "[plɑːnt]",
         "translation": "растение",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "tree",
-        "transcription": "[triː] ",
+        "transcription": "[triː]",
         "translation": "дерево",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "flower",
-        "transcription": "[ˈflaʊə] ",
+        "transcription": "[ˈflaʊə]",
         "translation": "цветок",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "domestic animal",
-        "transcription": "[dəʊˈmɛstɪk ˈænɪməl] ",
+        "transcription": "[dəʊˈmɛstɪk ˈænɪməl]",
         "translation": "домашнее животное",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wild animal",
-        "transcription": "[waɪld ˈænɪməl] ",
+        "transcription": "[waɪld ˈænɪməl]",
         "translation": "дикое животное",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bird",
-        "transcription": "[bɜːd] ",
+        "transcription": "[bɜːd]",
         "translation": "птица",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "poultry",
-        "transcription": "[ˈpəʊltri] ",
+        "transcription": "[ˈpəʊltri]",
         "translation": "домашняя птица",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pet",
-        "transcription": "[pɛt] ",
-        "translation": "домашнее животное (питомец)",
+        "transcription": "[pɛt]",
+        "translation": "питомец",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cat",
-        "transcription": "[kæt] ",
+        "transcription": "[kæt]",
         "translation": "кошка",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "dog",
-        "transcription": "[dɒg] ",
+        "transcription": "[dɒg]",
         "translation": "собака",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "horse",
-        "transcription": "[hɔːs] ",
+        "transcription": "[hɔːs]",
         "translation": "лошадь",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "chicken",
-        "transcription": "[ˈʧɪkɪn] ",
-        "translation": "цыпленок, курица",
+        "transcription": "[ˈʧɪkɪn]",
+        "translation": "курица",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mouse",
-        "transcription": "[maʊs] ",
+        "transcription": "[maʊs]",
         "translation": "мышь",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "sea",
-        "transcription": "[siː] ",
+        "transcription": "[siː]",
         "translation": "море",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "seashore \\ bank",
-        "transcription": "[ˈsiːʃɔː] [bæŋk] ",
+        "transcription": "[ˈsiːʃɔː] [bæŋk]",
         "translation": "берег",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "river",
-        "transcription": "[ˈrɪvə] ",
+        "transcription": "[ˈrɪvə]",
         "translation": "река",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "snow",
-        "transcription": "[snəʊ] ",
+        "transcription": "[snəʊ]",
         "translation": "снег",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "sand",
-        "transcription": "[sænd] ",
+        "transcription": "[sænd]",
         "translation": "песок",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "rain",
-        "transcription": "[reɪn] ",
+        "transcription": "[reɪn]",
         "translation": "дождь",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cold",
-        "transcription": "[kəʊld] ",
+        "transcription": "[kəʊld]",
         "translation": "холод",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "heat",
-        "transcription": "[hiːt] ",
+        "transcription": "[hiːt]",
         "translation": "жара",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fire",
-        "transcription": "[ˈfaɪə] ",
-        "translation": "огонь, пожар",
+        "transcription": "[ˈfaɪə]",
+        "translation": "огонь",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "water",
-        "transcription": "[ˈwɔːtə] ",
+        "transcription": "[ˈwɔːtə]",
         "translation": "вода",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wind",
-        "transcription": "[wɪnd] ",
+        "transcription": "[wɪnd]",
         "translation": "ветер",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "storm",
-        "transcription": "[stɔːm] ",
+        "transcription": "[stɔːm]",
         "translation": "буря",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "weather",
-        "transcription": "[ˈwɛðə] ",
+        "transcription": "[ˈwɛðə]",
         "translation": "погода",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "weather forecast",
-        "transcription": "[ˈwɛðə ˈfɔːkɑːst] ",
+        "transcription": "[ˈwɛðə ˈfɔːkɑːst]",
         "translation": "прогноз погоды",
         "category": "Природа",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "city \\ town",
-        "transcription": "[ˈsɪti] [taʊn] ",
+        "transcription": "[ˈsɪti] [taʊn]",
         "translation": "город",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "building",
-        "transcription": "[ˈbɪldɪŋ] ",
+        "transcription": "[ˈbɪldɪŋ]",
         "translation": "здание",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "street",
-        "transcription": "[striːt] ",
+        "transcription": "[striːt]",
         "translation": "улица",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "block",
-        "transcription": "[blɒk] ",
+        "transcription": "[blɒk]",
         "translation": "квартал",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "traffic lights",
-        "transcription": "[ˈtræfɪk laɪts] ",
+        "transcription": "[ˈtræfɪk laɪts]",
         "translation": "светофор",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "intersection",
-        "transcription": "[ˌɪntə(ː)ˈsɛkʃən] ",
+        "transcription": "[ˌɪntə(ː)ˈsɛkʃən]",
         "translation": "перекресток",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "crosswalk",
-        "transcription": "[ˈkrɒswɔːk] ",
+        "transcription": "[ˈkrɒswɔːk]",
         "translation": "пешеходный переход",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "road sign (traffc sign)",
-        "transcription": "[rəʊd saɪn] ",
+        "transcription": "[rəʊd saɪn]",
         "translation": "дорожный знак",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "car",
-        "transcription": "[kɑː] ",
+        "transcription": "[kɑː]",
         "translation": "автомобиль",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "public transport",
-        "transcription": "[ˈpʌblɪk ˈtrænspɔːt] ",
+        "transcription": "[ˈpʌblɪk ˈtrænspɔːt]",
         "translation": "общественный транспорт",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "airport",
-        "transcription": "[ˈeəpɔːt] ",
+        "transcription": "[ˈeəpɔːt]",
         "translation": "аэропорт",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "railway (railroad) station",
-        "transcription": "[ˈreɪlweɪ (ˈreɪlrəʊd) ˈsteɪʃən] ",
+        "transcription": "[ˈreɪlweɪ (ˈreɪlrəʊd) ˈsteɪʃən]",
         "translation": "вокзал",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "port",
-        "transcription": "[pɔːt] ",
+        "transcription": "[pɔːt]",
         "translation": "порт",
         "category": "Город",
         "partOfSpeach": "Существительные"
@@ -2370,42 +2364,42 @@
       },
       {
         "text": "taxi",
-        "transcription": "[ˈtæksi] ",
+        "transcription": "[ˈtæksi]",
         "translation": "такси",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bridge",
-        "transcription": "[brɪʤ] ",
+        "transcription": "[brɪʤ]",
         "translation": "мост",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "shop",
-        "transcription": "[ʃɒp] ",
+        "transcription": "[ʃɒp]",
         "translation": "магазин",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mall",
-        "transcription": "[mɔːl] ",
+        "transcription": "[mɔːl]",
         "translation": "торговый центр",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cinema (UK), movie theater (US)",
-        "transcription": "[ˈsɪnəmə] ",
+        "transcription": "[ˈsɪnəmə]",
         "translation": "кинотеатр",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "theatre (theater)",
-        "transcription": "[ˈθɪətə] ",
+        "transcription": "[ˈθɪətə]",
         "translation": "театр",
         "category": "Город",
         "partOfSpeach": "Существительные"
@@ -2419,21 +2413,21 @@
       },
       {
         "text": "hospital",
-        "transcription": "[ˈhɒspɪtl] ",
+        "transcription": "[ˈhɒspɪtl]",
         "translation": "больница",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "hotel",
-        "transcription": "[həʊˈtɛl] ",
+        "transcription": "[həʊˈtɛl]",
         "translation": "гостиница",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "post office",
-        "transcription": "[pəʊst ˈɒfɪs] ",
+        "transcription": "[pəʊst ˈɒfɪs]",
         "translation": "почта",
         "category": "Город",
         "partOfSpeach": "Существительные"
@@ -2447,252 +2441,252 @@
       },
       {
         "text": "embassy",
-        "transcription": "[ˈɛmbəsi] ",
+        "transcription": "[ˈɛmbəsi]",
         "translation": "посольство",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "ambassador",
-        "transcription": "[æmˈbæsədə] ",
+        "transcription": "[æmˈbæsədə]",
         "translation": "посол",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "passer-by",
-        "transcription": "[ˈpɑːsə baɪ] ",
+        "transcription": "[ˈpɑːsə baɪ]",
         "translation": "прохожий",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pedestrian",
-        "transcription": "[pɪˈdɛstrɪən] ",
+        "transcription": "[pɪˈdɛstrɪən]",
         "translation": "пешеход",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "police officer",
-        "transcription": "[pəˈliːs ˈɒfɪsə] ",
+        "transcription": "[pəˈliːs ˈɒfɪsə]",
         "translation": "полицейский",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "emergency",
-        "transcription": "[ɪˈmɜːʤənsi] ",
+        "transcription": "[ɪˈmɜːʤənsi]",
         "translation": "чрезвычайная ситуация",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "map",
-        "transcription": "[mæp] ",
+        "transcription": "[mæp]",
         "translation": "карта",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "subway",
-        "transcription": "[ˈsʌbweɪ] ",
+        "transcription": "[ˈsʌbweɪ]",
         "translation": "метро",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "station",
-        "transcription": "[ˈsteɪʃən] ",
+        "transcription": "[ˈsteɪʃən]",
         "translation": "станция",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "stop",
-        "transcription": "[stɒp] ",
+        "transcription": "[stɒp]",
         "translation": "остановка",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "sightseeing",
-        "transcription": "[ˈsaɪtˌsiːɪŋ] ",
+        "transcription": "[ˈsaɪtˌsiːɪŋ]",
         "translation": "осмотр достопримечательностей",
         "category": "Город",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "work",
-        "transcription": "[wɜːk] ",
+        "transcription": "[wɜːk]",
         "translation": "работа",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "job",
-        "transcription": "[ʤɒb] ",
+        "transcription": "[ʤɒb]",
         "translation": "работа",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "office",
-        "transcription": "[ˈɒfɪs] ",
+        "transcription": "[ˈɒfɪs]",
         "translation": "офис",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "workplace",
-        "transcription": "[ˈwɜːkˌpleɪs] ",
+        "transcription": "[ˈwɜːkˌpleɪs]",
         "translation": "рабочее место",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "working hours",
-        "transcription": "[ˈwɜːkɪŋ ˈaʊəz] ",
+        "transcription": "[ˈwɜːkɪŋ ˈaʊəz]",
         "translation": "рабочие часы",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "schedule",
-        "transcription": "[ˈʃɛdjuːl] ",
-        "translation": "расписание, график",
+        "transcription": "[ˈʃɛdjuːl]",
+        "translation": "график",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "colleague",
-        "transcription": "[ˈkɒliːg] ",
+        "transcription": "[ˈkɒliːg]",
         "translation": "коллега",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "CV \\ resume",
-        "transcription": "[siː-viː] [ˈrɛzju(ː)meɪ] ",
+        "transcription": "[siː-viː] [ˈrɛzju(ː)meɪ]",
         "translation": "резюме",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "payday",
-        "transcription": "[ˈpeɪdeɪ] ",
+        "transcription": "[ˈpeɪdeɪ]",
         "translation": "день зарплаты",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "paycheck",
-        "transcription": "[ˈpeɪˌʧɛk] ",
+        "transcription": "[ˈpeɪˌʧɛk]",
         "translation": "зарплатный чек",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "salary",
-        "transcription": "[ˈsæləri] ",
+        "transcription": "[ˈsæləri]",
         "translation": "зарплата",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "duties",
-        "transcription": "[ˈdjuːtiz] ",
+        "transcription": "[ˈdjuːtiz]",
         "translation": "обязанности",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "employer",
-        "transcription": "[ɪmˈplɔɪə] ",
+        "transcription": "[ɪmˈplɔɪə]",
         "translation": "работодатель",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "employee",
-        "transcription": "[ˌɛmplɔɪˈiː] ",
+        "transcription": "[ˌɛmplɔɪˈiː]",
         "translation": "работник",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "social security",
-        "transcription": "[ˈsəʊʃəl sɪˈkjʊərɪti] ",
+        "transcription": "[ˈsəʊʃəl sɪˈkjʊərɪti]",
         "translation": "социальное страхование",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "job interview",
-        "transcription": "[ʤɒb ˈɪntəvjuː] ",
-        "translation": "собеседование на работу",
+        "transcription": "[ʤɒb ˈɪntəvjuː]",
+        "translation": "собеседование",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "health",
-        "transcription": "[hɛlθ] ",
+        "transcription": "[hɛlθ]",
         "translation": "здоровье",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "money",
-        "transcription": "[ˈmʌni] ",
+        "transcription": "[ˈmʌni]",
         "translation": "деньги",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cash",
-        "transcription": "[kæʃ] ",
+        "transcription": "[kæʃ]",
         "translation": "наличные",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bill",
-        "transcription": "[bɪl] ",
+        "transcription": "[bɪl]",
         "translation": "купюра",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "coin",
-        "transcription": "[kɔɪn] ",
+        "transcription": "[kɔɪn]",
         "translation": "монета",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "change",
-        "transcription": "[ʧeɪnʤ] ",
-        "translation": "сдача, мелочь",
+        "transcription": "[ʧeɪnʤ]",
+        "translation": "сдача",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "payment",
-        "transcription": "[ˈpeɪmənt] ",
+        "transcription": "[ˈpeɪmənt]",
         "translation": "платеж",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "check (cheque)",
-        "transcription": "[ʧɛk] ",
+        "transcription": "[ʧɛk]",
         "translation": "чек",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bank",
-        "transcription": "[bæŋk] ",
+        "transcription": "[bæŋk]",
         "translation": "банк",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
@@ -2706,301 +2700,301 @@
       },
       {
         "text": "bank card",
-        "transcription": "[bæŋk kɑːd] ",
+        "transcription": "[bæŋk kɑːd]",
         "translation": "банковская карта",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "tips",
-        "transcription": "[tɪps] ",
+        "transcription": "[tɪps]",
         "translation": "чаевые",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "receipt",
-        "transcription": "[rɪˈsiːt] ",
+        "transcription": "[rɪˈsiːt]",
         "translation": "чек",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "money transfer",
-        "transcription": "[ˈmʌni ˈtrænsfə(ː)] ",
+        "transcription": "[ˈmʌni ˈtrænsfə(ː)]",
         "translation": "денежный перевод",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fine",
-        "transcription": "[faɪn] ",
+        "transcription": "[faɪn]",
         "translation": "штраф",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "budget",
-        "transcription": "[ˈbʌʤɪt] ",
+        "transcription": "[ˈbʌʤɪt]",
         "translation": "бюджет",
         "category": "Работа и деньги",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "food",
-        "transcription": "[fuːd] ",
+        "transcription": "[fuːd]",
         "translation": "еда",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "breakfast",
-        "transcription": "[ˈbrɛkfəst] ",
+        "transcription": "[ˈbrɛkfəst]",
         "translation": "завтрак",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "dinner",
-        "transcription": "[ˈdɪnə] ",
+        "transcription": "[ˈdɪnə]",
         "translation": "обед",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "lunch",
-        "transcription": "[lʌnʧ] ",
+        "transcription": "[lʌnʧ]",
         "translation": "ланч",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "supper",
-        "transcription": "[ˈsʌpə] ",
+        "transcription": "[ˈsʌpə]",
         "translation": "ужин",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "meal",
-        "transcription": "[miːl] ",
-        "translation": "блюдо, прием пищи",
+        "transcription": "[miːl]",
+        "translation": "блюдо",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "drink, beverage",
-        "transcription": "[drɪŋk], [ˈbɛvərɪʤ] ",
+        "transcription": "[drɪŋk], [ˈbɛvərɪʤ]",
         "translation": "напиток",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "alcohol",
-        "transcription": "[ˈælkəhɒl] ",
+        "transcription": "[ˈælkəhɒl]",
         "translation": "алкоголь",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "water",
-        "transcription": "[ˈwɔːtə] ",
+        "transcription": "[ˈwɔːtə]",
         "translation": "вода",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "coffee",
-        "transcription": "[ˈkɒfi] ",
+        "transcription": "[ˈkɒfi]",
         "translation": "кофе",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "tea",
-        "transcription": "[tiː] ",
+        "transcription": "[tiː]",
         "translation": "чай",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "wine",
-        "transcription": "[waɪn] ",
+        "transcription": "[waɪn]",
         "translation": "вино",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "juice",
-        "transcription": "[ʤuːs] ",
+        "transcription": "[ʤuːs]",
         "translation": "сок",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "meat",
-        "transcription": "[miːt] ",
+        "transcription": "[miːt]",
         "translation": "мясо",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cereal",
-        "transcription": "[ˈsɪərɪəl] ",
+        "transcription": "[ˈsɪərɪəl]",
         "translation": "хлопья",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "bread",
-        "transcription": "[brɛd] ",
+        "transcription": "[brɛd]",
         "translation": "хлеб",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "vegetables",
-        "transcription": "[ˈvɛʤɪtəblz] ",
+        "transcription": "[ˈvɛʤɪtəblz]",
         "translation": "овощи",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fruit",
-        "transcription": "[fruːt] ",
+        "transcription": "[fruːt]",
         "translation": "фрукты",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fish",
-        "transcription": "[fɪʃ] ",
+        "transcription": "[fɪʃ]",
         "translation": "рыба",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "oil",
-        "transcription": "[ɔɪl] ",
+        "transcription": "[ɔɪl]",
         "translation": "растительное масло",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "butter",
-        "transcription": "[ˈbʌtə] ",
+        "transcription": "[ˈbʌtə]",
         "translation": "сливочное масло",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "snack",
-        "transcription": "[snæk] ",
-        "translation": "снэк, закуска",
+        "transcription": "[snæk]",
+        "translation": "закуска",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "candy",
-        "transcription": "[ˈkændi] ",
-        "translation": "конфета (леденец)",
+        "transcription": "[ˈkændi]",
+        "translation": "леденец",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pastry",
-        "transcription": "[ˈpeɪstri] ",
+        "transcription": "[ˈpeɪstri]",
         "translation": "выпечка",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "diet",
-        "transcription": "[ˈdaɪət] ",
+        "transcription": "[ˈdaɪət]",
         "translation": "диета",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fridge, refrigerator",
-        "transcription": "[frɪʤ], [rɪˈfrɪʤəreɪtə] ",
+        "transcription": "[frɪʤ], [rɪˈfrɪʤəreɪtə]",
         "translation": "холодильник",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "fork",
-        "transcription": "[fɔːk] ",
+        "transcription": "[fɔːk]",
         "translation": "вилка",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "spoon",
-        "transcription": "[spuːn] ",
+        "transcription": "[spuːn]",
         "translation": "ложка",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "glass",
-        "transcription": "[glɑːs] ",
+        "transcription": "[glɑːs]",
         "translation": "стакан",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "cup",
-        "transcription": "[kʌp] ",
+        "transcription": "[kʌp]",
         "translation": "чашка",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mug",
-        "transcription": "[mʌg] ",
+        "transcription": "[mʌg]",
         "translation": "кружка",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "plate, dish",
-        "transcription": "[pleɪt], [dɪʃ] ",
+        "transcription": "[pleɪt], [dɪʃ]",
         "translation": "тарелка",
         "category": "Еда и напитки",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "study",
-        "transcription": "[ˈstʌdi] ",
-        "translation": "изучение, исследование",
+        "transcription": "[ˈstʌdi]",
+        "translation": "изучение",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "school",
-        "transcription": "[skuːl] ",
+        "transcription": "[skuːl]",
         "translation": "школа",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "college",
-        "transcription": "[ˈkɒlɪʤ] ",
+        "transcription": "[ˈkɒlɪʤ]",
         "translation": "колледж",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "university",
-        "transcription": "[ˌjuːnɪˈvɜːsɪti] ",
+        "transcription": "[ˌjuːnɪˈvɜːsɪti]",
         "translation": "университет",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "education",
-        "transcription": "[ˌɛdju(ː)ˈkeɪʃən] ",
+        "transcription": "[ˌɛdju(ː)ˈkeɪʃən]",
         "translation": "образование",
         "category": "Образование",
         "partOfSpeach": "Существительные"
@@ -3014,112 +3008,112 @@
       },
       {
         "text": "graduate",
-        "transcription": "[ˈgrædjʊət] ",
+        "transcription": "[ˈgrædjʊət]",
         "translation": "выпускник",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "diploma",
-        "transcription": "[dɪˈpləʊmə] ",
+        "transcription": "[dɪˈpləʊmə]",
         "translation": "диплом",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "textbook",
-        "transcription": "[ˈtɛkstbʊk] ",
+        "transcription": "[ˈtɛkstbʊk]",
         "translation": "учебник",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "notebook, copybook",
-        "transcription": "[ˈnəʊtbʊk], [ˈkɒpɪbʊk] ",
+        "transcription": "[ˈnəʊtbʊk], [ˈkɒpɪbʊk]",
         "translation": "тетрадь",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "notepad",
-        "transcription": "[ˈnəʊtˌpæd] ",
+        "transcription": "[ˈnəʊtˌpæd]",
         "translation": "блокнот",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pen",
-        "transcription": "[pɛn] ",
+        "transcription": "[pɛn]",
         "translation": "авторучка",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pencil",
-        "transcription": "[ˈpɛnsl] ",
+        "transcription": "[ˈpɛnsl]",
         "translation": "карандаш",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "blackboard",
-        "transcription": "[ˈblækbɔːd] ",
+        "transcription": "[ˈblækbɔːd]",
         "translation": "школьная доска",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "whiteboard",
-        "transcription": "[ˈwaɪtbɔːd] ",
+        "transcription": "[ˈwaɪtbɔːd]",
         "translation": "маркерная доска",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "classroom",
-        "transcription": "[ˈklɑːsrʊm] ",
-        "translation": "класс (помещение)",
+        "transcription": "[ˈklɑːsrʊm]",
+        "translation": "класс",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "class, lesson",
-        "transcription": "[klɑːs], [ˈlɛsn] ",
+        "transcription": "[klɑːs], [ˈlɛsn]",
         "translation": "урок",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "grade",
-        "transcription": "[greɪd] ",
-        "translation": "класс (этап обучения)",
+        "transcription": "[greɪd]",
+        "translation": "ученая степень",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "mark, grade",
-        "transcription": "[mɑːk], [greɪd] ",
+        "transcription": "[mɑːk], [greɪd]",
         "translation": "оценка",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "pupil",
-        "transcription": "[ˈpjuːpl] ",
+        "transcription": "[ˈpjuːpl]",
         "translation": "ученик",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "student",
-        "transcription": "[ˈstjuːdənt] ",
+        "transcription": "[ˈstjuːdənt]",
         "translation": "студент",
         "category": "Образование",
         "partOfSpeach": "Существительные"
       },
       {
         "text": "teacher",
-        "transcription": "[ˈtiːʧə] ",
+        "transcription": "[ˈtiːʧə]",
         "translation": "учитель",
         "category": "Образование",
         "partOfSpeach": "Существительные"
@@ -3133,7 +3127,7 @@
       },
       {
         "text": "test",
-        "transcription": "[tɛst] ",
+        "transcription": "[tɛst]",
         "translation": "тест",
         "category": "Образование",
         "partOfSpeach": "Существительные"
@@ -3147,105 +3141,105 @@
       },
       {
         "text": "black",
-        "transcription": "[blæk] ",
+        "transcription": "[blæk]",
         "translation": "черный",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "white",
-        "transcription": "[waɪt] ",
+        "transcription": "[waɪt]",
         "translation": "белый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "dark",
-        "transcription": "[dɑːk] ",
+        "transcription": "[dɑːk]",
         "translation": "темный",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "light",
-        "transcription": "[laɪt] ",
+        "transcription": "[laɪt]",
         "translation": "светлый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "red",
-        "transcription": "[rɛd] ",
+        "transcription": "[rɛd]",
         "translation": "красный",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "orange",
-        "transcription": "[ˈɒrɪnʤ] ",
+        "transcription": "[ˈɒrɪnʤ]",
         "translation": "оранжевый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "yellow",
-        "transcription": "[ˈjɛləʊ] ",
+        "transcription": "[ˈjɛləʊ]",
         "translation": "желтый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "green",
-        "transcription": "[griːn] ",
+        "transcription": "[griːn]",
         "translation": "зеленый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "blue",
-        "transcription": "[bluː] ",
-        "translation": "голубой, синий",
+        "transcription": "[bluː]",
+        "translation": "синий",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "purple",
-        "transcription": "[ˈpɜːpl] ",
-        "translation": "фиолетовый (пурпурный)",
+        "transcription": "[ˈpɜːpl]",
+        "translation": "фиолетовый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "violet",
-        "transcription": "[ˈvaɪəlɪt] ",
+        "transcription": "[ˈvaɪəlɪt]",
         "translation": "темно-фиолетовый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "pink",
-        "transcription": "[pɪŋk] ",
+        "transcription": "[pɪŋk]",
         "translation": "розовый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "silver",
-        "transcription": "[ˈsɪlvə] ",
+        "transcription": "[ˈsɪlvə]",
         "translation": "серебристый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "gold",
-        "transcription": "[gəʊld] ",
+        "transcription": "[gəʊld]",
         "translation": "золотой",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "brown",
-        "transcription": "[braʊn] ",
+        "transcription": "[braʊn]",
         "translation": "коричневый",
         "category": "Цвета",
         "partOfSpeach": "Прилагательные"
@@ -3259,21 +3253,21 @@
       },
       {
         "text": "big",
-        "transcription": "[bɪg] ",
+        "transcription": "[bɪg]",
         "translation": "большой",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "large, great, huge, enormous",
-        "transcription": "[lɑːʤ], [greɪt], [hjuːʤ], [ɪˈnɔːməs] ",
-        "translation": "большой, огромный",
+        "transcription": "[lɑːʤ], [greɪt], [hjuːʤ], [ɪˈnɔːməs]",
+        "translation": "огромный",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "small",
-        "transcription": "[smɔːl] ",
+        "transcription": "[smɔːl]",
         "translation": "маленький",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
@@ -3287,49 +3281,49 @@
       },
       {
         "text": "tiny",
-        "transcription": "[ˈtaɪni] ",
+        "transcription": "[ˈtaɪni]",
         "translation": "крошечный",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "long",
-        "transcription": "[lɒŋ] ",
-        "translation": "длинный, долгий",
+        "transcription": "[lɒŋ]",
+        "translation": "длинный",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "tall",
-        "transcription": "[tɔːl] ",
+        "transcription": "[tɔːl]",
         "translation": "высокий",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "high",
-        "transcription": "[haɪ] ",
+        "transcription": "[haɪ]",
         "translation": "высокий",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "short",
-        "transcription": "[ʃɔːt] ",
+        "transcription": "[ʃɔːt]",
         "translation": "короткий",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "thin",
-        "transcription": "[θɪn] ",
+        "transcription": "[θɪn]",
         "translation": "тонкий",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "thick",
-        "transcription": "[θɪk] ",
+        "transcription": "[θɪk]",
         "translation": "толстый",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
@@ -3343,84 +3337,84 @@
       },
       {
         "text": "narrow",
-        "transcription": "[ˈnærəʊ] ",
+        "transcription": "[ˈnærəʊ]",
         "translation": "узкий",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "heavy",
-        "transcription": "[ˈhɛvi] ",
-        "translation": "тяжелый (о весе)",
+        "transcription": "[ˈhɛvi]",
+        "translation": "тяжелый",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "light, lightweight",
-        "transcription": "[laɪt], [ˈlaɪtweɪt] ",
-        "translation": "легкий (о весе)",
+        "transcription": "[laɪt], [ˈlaɪtweɪt]",
+        "translation": "легкий",
         "category": "Вес и размер",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "good",
-        "transcription": "[gʊd] ",
+        "transcription": "[gʊd]",
         "translation": "хороший",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "bad",
-        "transcription": "[bæd] ",
+        "transcription": "[bæd]",
         "translation": "плохой",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cheap",
-        "transcription": "[ʧiːp] ",
+        "transcription": "[ʧiːp]",
         "translation": "дешевый",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "expensive",
-        "transcription": "[ɪksˈpɛnsɪv] ",
-        "translation": "дорогой (о цене)",
+        "transcription": "[ɪksˈpɛnsɪv]",
+        "translation": "дорогой",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "convenient, handy, comfortable",
-        "transcription": "[kənˈviːnjənt], [ˈhændi], [ˈkʌmfətəbl] ",
+        "transcription": "[kənˈviːnjənt], [ˈhændi], [ˈkʌmfətəbl]",
         "translation": "удобный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "tasty",
-        "transcription": "[ˈteɪsti] ",
+        "transcription": "[ˈteɪsti]",
         "translation": "вкусный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "sweet",
-        "transcription": "[swiːt] ",
+        "transcription": "[swiːt]",
         "translation": "сладкий",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "salty",
-        "transcription": "[ˈsɔːlti] ",
+        "transcription": "[ˈsɔːlti]",
         "translation": "соленый",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "bitter",
-        "transcription": "[ˈbɪtə] ",
+        "transcription": "[ˈbɪtə]",
         "translation": "горький",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
@@ -3434,728 +3428,728 @@
       },
       {
         "text": "hot",
-        "transcription": "[hɒt] ",
-        "translation": "горячий, острый (о вкусе)",
+        "transcription": "[hɒt]",
+        "translation": "горячий",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cold",
-        "transcription": "[kəʊld] ",
+        "transcription": "[kəʊld]",
         "translation": "холодный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cool",
-        "transcription": "[kuːl] ",
-        "translation": "прохладный, клевый (сленг)",
+        "transcription": "[kuːl]",
+        "translation": "прохладный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "distgusting",
         "transcription": "[dɪstgˈʌstɪŋ]",
-        "translation": "мерзкий (о вкусе)",
+        "translation": "мерзкий",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "ugly",
-        "transcription": "[ˈʌgli] ",
-        "translation": "отвратительный (о внешности)",
+        "transcription": "[ˈʌgli]",
+        "translation": "отвратительный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "beautiful",
-        "transcription": "[ˈbjuːtəfʊl] ",
+        "transcription": "[ˈbjuːtəfʊl]",
         "translation": "красивый",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "scary",
-        "transcription": "[ˈskeəri] ",
+        "transcription": "[ˈskeəri]",
         "translation": "страшный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "funny",
-        "transcription": "[ˈfʌni] ",
+        "transcription": "[ˈfʌni]",
         "translation": "смешной",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "interesting",
-        "transcription": "[ˈɪntrɪstɪŋ] ",
+        "transcription": "[ˈɪntrɪstɪŋ]",
         "translation": "интересный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "boring",
-        "transcription": "[ˈbɔːrɪŋ] ",
+        "transcription": "[ˈbɔːrɪŋ]",
         "translation": "скучный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "true",
-        "transcription": "[truː] ",
-        "translation": "правдивый, истинный",
+        "transcription": "[truː]",
+        "translation": "истинный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "false",
-        "transcription": "[fɔːls] ",
+        "transcription": "[fɔːls]",
         "translation": "ложный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "useful",
-        "transcription": "[ˈjuːsfʊl] ",
+        "transcription": "[ˈjuːsfʊl]",
         "translation": "полезный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "useless",
-        "transcription": "[ˈjuːslɪs] ",
+        "transcription": "[ˈjuːslɪs]",
         "translation": "бесполезный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "soft",
-        "transcription": "[sɒft] ",
+        "transcription": "[sɒft]",
         "translation": "мягкий",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "solid",
-        "transcription": "[ˈsɒlɪd] ",
+        "transcription": "[ˈsɒlɪd]",
         "translation": "твердый",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "liquid",
-        "transcription": "[ˈlɪkwɪd] ",
+        "transcription": "[ˈlɪkwɪd]",
         "translation": "жидкий",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "hard",
-        "transcription": "[hɑːd] ",
+        "transcription": "[hɑːd]",
         "translation": "жесткий",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "easy, simple",
-        "transcription": "[ˈiːzi], [ˈsɪmpl] ",
-        "translation": "легкий, простой",
+        "transcription": "[ˈiːzi], [ˈsɪmpl]",
+        "translation": "простой",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "hard, difficult",
-        "transcription": "[hɑːd], [ˈdɪfɪkəlt] ",
-        "translation": "трудный, сложный",
+        "transcription": "[hɑːd], [ˈdɪfɪkəlt]",
+        "translation": "сложный",
         "category": "Различные качества и свойства",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "young",
-        "transcription": "[jʌŋ] ",
+        "transcription": "[jʌŋ]",
         "translation": "молодой",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "old",
-        "transcription": "[əʊld] ",
+        "transcription": "[əʊld]",
         "translation": "старый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "adult",
-        "transcription": "[əˈdʌlt] ",
+        "transcription": "[əˈdʌlt]",
         "translation": "взрослый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "lazy",
-        "transcription": "[ˈleɪzi] ",
+        "transcription": "[ˈleɪzi]",
         "translation": "ленивый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "hardworking",
-        "transcription": "[ˈhɑːdˌwɜːkɪŋ] ",
+        "transcription": "[ˈhɑːdˌwɜːkɪŋ]",
         "translation": "трудолюбивый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "smart",
-        "transcription": "[smɑːt] ",
+        "transcription": "[smɑːt]",
         "translation": "умный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "stupid",
-        "transcription": "[ˈstjuːpɪd] ",
+        "transcription": "[ˈstjuːpɪd]",
         "translation": "глупый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "kind",
-        "transcription": "[kaɪnd] ",
+        "transcription": "[kaɪnd]",
         "translation": "добрый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "mean",
-        "transcription": "[miːn] ",
-        "translation": "злой, подлый, нехороший",
+        "transcription": "[miːn]",
+        "translation": "злой",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "good",
-        "transcription": "[gʊd] ",
-        "translation": "хороший, добрый",
+        "transcription": "[gʊd]",
+        "translation": "хороший",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "bad",
-        "transcription": "[bæd] ",
+        "transcription": "[bæd]",
         "translation": "плохой",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "nice",
-        "transcription": "[naɪs] ",
-        "translation": "приятный, милый",
+        "transcription": "[naɪs]",
+        "translation": "приятный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cute",
-        "transcription": "[kjuːt] ",
+        "transcription": "[kjuːt]",
         "translation": "милый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "optimistic",
-        "transcription": "[ˌɒptɪˈmɪstɪk] ",
+        "transcription": "[ˌɒptɪˈmɪstɪk]",
         "translation": "оптимистичный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "pessimistic",
-        "transcription": "[ˌpɛsɪˈmɪstɪk] ",
+        "transcription": "[ˌpɛsɪˈmɪstɪk]",
         "translation": "пессимистичный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "curious",
-        "transcription": "[ˈkjʊərɪəs] ",
+        "transcription": "[ˈkjʊərɪəs]",
         "translation": "любопытный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "positive",
-        "transcription": "[ˈpɒzətɪv] ",
+        "transcription": "[ˈpɒzətɪv]",
         "translation": "позитивный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cruel",
-        "transcription": "[krʊəl] ",
+        "transcription": "[krʊəl]",
         "translation": "жестокий",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "calm",
-        "transcription": "[kɑːm] ",
+        "transcription": "[kɑːm]",
         "translation": "спокойный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "brave",
-        "transcription": "[breɪv] ",
+        "transcription": "[breɪv]",
         "translation": "смелый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cowardly",
-        "transcription": "[ˈkaʊəd] ",
+        "transcription": "[ˈkaʊəd]",
         "translation": "трусливый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "cool",
-        "transcription": "[kuːl] ",
-        "translation": "клевый, крутой, прикольный",
+        "transcription": "[kuːl]",
+        "translation": "прикольный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "tough",
-        "transcription": "[tʌf] ",
+        "transcription": "[tʌf]",
         "translation": "крутой",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "honest",
-        "transcription": "[ˈɒnɪst] ",
+        "transcription": "[ˈɒnɪst]",
         "translation": "честный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "happy",
-        "transcription": "[ˈhæpi] ",
+        "transcription": "[ˈhæpi]",
         "translation": "счастливый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "sad",
-        "transcription": "[sæd] ",
+        "transcription": "[sæd]",
         "translation": "печальный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "angry",
-        "transcription": "[ˈæŋgri] ",
+        "transcription": "[ˈæŋgri]",
         "translation": "сердитый",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "scared",
-        "transcription": "[skeəd] ",
+        "transcription": "[skeəd]",
         "translation": "испуганный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "tired",
-        "transcription": "[ˈtaɪəd] ",
+        "transcription": "[ˈtaɪəd]",
         "translation": "уставший",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "bored",
-        "transcription": "[bɔːd] ",
+        "transcription": "[bɔːd]",
         "translation": "скучающий",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "helpful",
-        "transcription": "[ˈhɛlpfʊl] ",
+        "transcription": "[ˈhɛlpfʊl]",
         "translation": "готовый помочь",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "reliable",
-        "transcription": "[rɪˈlaɪəbl] ",
+        "transcription": "[rɪˈlaɪəbl]",
         "translation": "надежный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "responsible",
-        "transcription": "[rɪsˈpɒnsəbl] ",
+        "transcription": "[rɪsˈpɒnsəbl]",
         "translation": "ответственный",
         "category": "Качества, характер человека",
         "partOfSpeach": "Прилагательные"
       },
       {
         "text": "now",
-        "transcription": "[naʊ] ",
+        "transcription": "[naʊ]",
         "translation": "сейчас",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "then",
-        "transcription": "[ðɛn] ",
+        "transcription": "[ðɛn]",
         "translation": "тогда",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "again",
-        "transcription": "[əˈgɛn] ",
+        "transcription": "[əˈgɛn]",
         "translation": "снова",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "always",
-        "transcription": "[ˈɔːlweɪz] ",
+        "transcription": "[ˈɔːlweɪz]",
         "translation": "всегда",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "never",
-        "transcription": "[ˈnɛvə] ",
+        "transcription": "[ˈnɛvə]",
         "translation": "никогда",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "soon",
-        "transcription": "[suːn] ",
+        "transcription": "[suːn]",
         "translation": "скоро",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "late",
-        "transcription": "[leɪt] ",
+        "transcription": "[leɪt]",
         "translation": "поздно",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "early",
-        "transcription": "[ˈɜːli] ",
+        "transcription": "[ˈɜːli]",
         "translation": "рано",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "before",
-        "transcription": "[bɪˈfɔː] ",
+        "transcription": "[bɪˈfɔː]",
         "translation": "до",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "after",
-        "transcription": "[ˈɑːftə] ",
+        "transcription": "[ˈɑːftə]",
         "translation": "после",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "yesterday",
-        "transcription": "[ˈjɛstədeɪ] ",
+        "transcription": "[ˈjɛstədeɪ]",
         "translation": "вчера",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "today",
-        "transcription": "[təˈdeɪ] ",
+        "transcription": "[təˈdeɪ]",
         "translation": "сегодня",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "tomorrow",
-        "transcription": "[təˈmɒrəʊ] ",
+        "transcription": "[təˈmɒrəʊ]",
         "translation": "завтра",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
-        "text": "next week (year)",
+        "text": "next week",
         "transcription": "[nɛkst wiːk] [jɪə]",
-        "translation": "на следующей неделе (в след. году)",
+        "translation": "на следующей неделе",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
-        "text": "every day (week, month)",
+        "text": "every day",
         "transcription": "[ˈɛvri deɪ] [wiːk] [mʌnθ]",
-        "translation": "каждый день (неделю, месяц)",
+        "translation": "каждый день",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
-        "text": "this morning (afternoon)",
+        "text": "this morning",
         "transcription": "[ðɪs ˈmɔːnɪŋ] [ˈɑːftəˈnuːn]",
-        "translation": "этим утром (днем)",
+        "translation": "этим утром",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "tonight",
-        "transcription": "[təˈnaɪt] ",
-        "translation": "этим вечером (ночью)",
+        "transcription": "[təˈnaɪt]",
+        "translation": "этим вечером",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "sometimes",
-        "transcription": "[ˈsʌmtaɪmz] ",
+        "transcription": "[ˈsʌmtaɪmz]",
         "translation": "иногда",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "often",
-        "transcription": "[ˈɒf (t)(ə)n] ",
+        "transcription": "[ˈɒf (t)(ə)n]",
         "translation": "часто",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "rarely, seldom",
-        "transcription": "[ˈreəli], [ˈsɛldəm] ",
+        "transcription": "[ˈreəli], [ˈsɛldəm]",
         "translation": "редко",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "recently",
-        "transcription": "[ˈriːsntli] ",
+        "transcription": "[ˈriːsntli]",
         "translation": "недавно",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "lately",
-        "transcription": "[ˈleɪtli] ",
+        "transcription": "[ˈleɪtli]",
         "translation": "в последнее время",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "once",
-        "transcription": "[wʌns] ",
+        "transcription": "[wʌns]",
         "translation": "однажды",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "usually",
-        "transcription": "[ˈjuːʒʊəli] ",
+        "transcription": "[ˈjuːʒʊəli]",
         "translation": "обычно",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "already",
-        "transcription": "[ɔːlˈrɛdi] ",
+        "transcription": "[ɔːlˈrɛdi]",
         "translation": "уже",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "yet",
-        "transcription": "[jɛt] ",
+        "transcription": "[jɛt]",
         "translation": "уже",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "not yet",
-        "transcription": "[nɒt jɛt] ",
+        "transcription": "[nɒt jɛt]",
         "translation": "еще не",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "still",
-        "transcription": "[stɪl] ",
+        "transcription": "[stɪl]",
         "translation": "все еще",
         "category": "Наречия времени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "here",
-        "transcription": "[hɪə] ",
+        "transcription": "[hɪə]",
         "translation": "здесь",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "there",
-        "transcription": "[ðeə] ",
+        "transcription": "[ðeə]",
         "translation": "там",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "where",
-        "transcription": "[weə] ",
+        "transcription": "[weə]",
         "translation": "где",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "around",
-        "transcription": "[əˈraʊnd] ",
+        "transcription": "[əˈraʊnd]",
         "translation": "вокруг",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "inside",
-        "transcription": "[ɪnˈsaɪd] ",
+        "transcription": "[ɪnˈsaɪd]",
         "translation": "внутри",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "outside",
-        "transcription": "[ˌaʊtˈsaɪd] ",
+        "transcription": "[ˌaʊtˈsaɪd]",
         "translation": "снаружи",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "above",
-        "transcription": "[əˈbʌv] ",
+        "transcription": "[əˈbʌv]",
         "translation": "над",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "under, below",
-        "transcription": "[ˈʌndə], [bɪˈləʊ] ",
+        "transcription": "[ˈʌndə], [bɪˈləʊ]",
         "translation": "под",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "somewhere",
-        "transcription": "[ˈsʌmweə] ",
+        "transcription": "[ˈsʌmweə]",
         "translation": "где-то",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "anywhere",
-        "transcription": "[ˈɛnɪweə] ",
-        "translation": "где-нибудь, хоть где",
+        "transcription": "[ˈɛnɪweə]",
+        "translation": "где-нибудь",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "nowhere",
-        "transcription": "[ˈnəʊweə] ",
+        "transcription": "[ˈnəʊweə]",
         "translation": "нигде",
         "category": "Наречия места",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "only",
-        "transcription": "[ˈəʊnli] ",
+        "transcription": "[ˈəʊnli]",
         "translation": "только",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "much",
-        "transcription": "[mʌʧ] ",
+        "transcription": "[mʌʧ]",
         "translation": "много",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "little",
-        "transcription": "[ˈlɪtl] ",
+        "transcription": "[ˈlɪtl]",
         "translation": "мало",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "very",
-        "transcription": "[ˈvɛri] ",
+        "transcription": "[ˈvɛri]",
         "translation": "очень",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "so",
-        "transcription": "[səʊ] ",
+        "transcription": "[səʊ]",
         "translation": "так",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "enough",
-        "transcription": "[ɪˈnʌf] ",
+        "transcription": "[ɪˈnʌf]",
         "translation": "достаточно",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "almost",
-        "transcription": "[ˈɔːlməʊst] ",
+        "transcription": "[ˈɔːlməʊst]",
         "translation": "почти",
         "category": "Наречия меры и степени",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "well",
-        "transcription": "[wɛl] ",
+        "transcription": "[wɛl]",
         "translation": "хорошо",
         "category": "Наречия образа действия",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "bad",
-        "transcription": "[bæd] ",
+        "transcription": "[bæd]",
         "translation": "плохо",
         "category": "Наречия образа действия",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "fast",
-        "transcription": "[fɑːst] ",
+        "transcription": "[fɑːst]",
         "translation": "быстро",
         "category": "Наречия образа действия",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "quickly",
-        "transcription": "[ˈkwɪkli] ",
+        "transcription": "[ˈkwɪkli]",
         "translation": "быстро",
         "category": "Наречия образа действия",
         "partOfSpeach": "Наречия"
       },
       {
         "text": "slowly",
-        "transcription": "[ˈsləʊli] ",
+        "transcription": "[ˈsləʊli]",
         "translation": "медленно",
         "category": "Наречия образа действия",
         "partOfSpeach": "Наречия"
@@ -4163,7 +4157,7 @@
       {
         "text": "too ( + наречие)",
         "transcription": "[tuː]",
-        "translation": "слишком (+ наречие)",
+        "translation": "слишком",
         "category": "Наречия образа действия",
         "partOfSpeach": "Наречия"
       }

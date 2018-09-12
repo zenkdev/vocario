@@ -77,7 +77,7 @@ export class AuthProvider {
   }
 
   private oauthSignIn(provider: fbAuthProvider): Promise<void> {
-    if (!(<any>window).cordova) {
+    if (false && !(<any>window).cordova) {
       return firebase
         .auth()
         .signInWithPopup(provider)
@@ -106,14 +106,22 @@ export class AuthProvider {
           return firebase
             .auth()
             .getRedirectResult()
-            .then(result => {
-              // // This gives you a Google Access Token.
-              // // You can use it to access the Google API.
-              // let token = result.credential.accessToken;
-              // // The signed-in user info.
-              // let user = result.user;
-              // console.log(token, user);
-              console.log(result.user);
+            .then(newUserCredentials => {
+              const { displayName, email } = newUserCredentials.user;
+              return firebase
+                .database()
+                .ref(`/userProfile/${newUserCredentials.user.uid}`)
+                .update({ displayName, email })
+                .then(
+                  value => {
+                    console.log('success', value);
+                    return Promise.resolve();
+                  },
+                  error => {
+                    console.log('error', error);
+                    return Promise.reject(error);
+                  }
+                );
             })
             .catch(function(error) {
               // Handle Errors here.

@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController, Loading } from 'ionic-angular';
-import { DictionaryProvider, StatProvider } from '../../providers';
+import { DictionaryProvider } from '../../providers';
 import { Dictionary, Word } from '../../models';
 import { randomNumber } from './randomNumber';
 import { WordCardComponent } from '../../components/word-card/word-card';
 import { HomePage } from '../home/home';
-import { error } from 'util';
 
 @IonicPage()
 @Component({
@@ -27,8 +26,7 @@ export class LearnPage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController,
-    private dictionaryProvider: DictionaryProvider,
-    private statProvider: StatProvider
+    private dictionaryProvider: DictionaryProvider
   ) {
     this.dictionaryId = this.navParams.data.dictionaryId;
     this.title = this.navParams.data.title || 'Learn';
@@ -62,7 +60,7 @@ export class LearnPage {
   }
 
   onValidate(valid: boolean) {
-    this.statProvider.updateStats(this.dictionary, this.word, valid).subscribe(
+    this.dictionaryProvider.updateDictionaryStat(this.dictionary, this.word, valid).subscribe(
       newWordsLearned => {
         this.dictionary.wordsLearned = newWordsLearned;
         if (valid) {

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, Refresher, ItemSliding } from 'ionic-angular';
+import { NavController, Refresher, ItemSliding, LoadingController, Loading } from 'ionic-angular';
 import { Dictionary } from '../../models';
-import { DictionaryProvider, StatProvider } from '../../providers';
+import { DictionaryProvider } from '../../providers';
 import { Observable } from 'rxjs';
-import { error } from 'util';
 
 @Component({
   selector: 'page-home',
@@ -14,17 +13,24 @@ export class HomePage {
   segment = 'all';
   dictionaries: Dictionary[];
 
+  public loading: Loading;
+
   constructor(
     public navCtrl: NavController,
-    private dictionaryProvider: DictionaryProvider,
-    private statProvider: StatProvider
+    public loadingCtrl: LoadingController,
+    private dictionaryProvider: DictionaryProvider
   ) {}
 
   ionViewWillEnter() {
-    this.getDictionaries();
+    this.getDictionaries().subscribe(_=>{
+      this.loading && this.loading.dismiss(() => (this.loading = null));
+    });
   }
 
   getDictionaries(): Observable<any> {
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
     const observable = this.dictionaryProvider.getDictionaries();
     observable.subscribe(
       dictionaries => {
@@ -41,6 +47,7 @@ export class HomePage {
       //   this.shownSessions = data.shownSessions;
       //   this.groups = data.groups;
       refresher.complete();
+      this.loading && this.loading.dismiss(() => (this.loading = null));
       //     const toast = this.toastCtrl.create({
       //       message: 'Sessions have been updated.',
       //       duration: 3000

@@ -28,7 +28,8 @@ export class AccountPage {
   }
 
   ionViewDidLoad() {
-    this.profileProvider.getUserProfile().on("value", userProfileSnapshot => {
+    const userProfile = this.profileProvider.getUserProfile();
+    userProfile && userProfile.on("value", userProfileSnapshot => {
       this.userProfile = userProfileSnapshot.val();
       this.birthDate = userProfileSnapshot.val().birthDate;
     });

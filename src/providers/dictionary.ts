@@ -172,6 +172,35 @@ export class DictionaryProvider {
     );
   }
 
+  updateDictionaryStat(dictionary: Dictionary, word: Word, valid: boolean): Observable<number> {
+    const uid = firebase.auth().currentUser.uid;
+    const newWordsLearned = dictionary.wordsLearned + (valid ? 1 : 0);
+    return new Observable<number>(observer => {
+      var dictionaryListRef = firebase.database().ref(`/dictionaryList/${dictionary.id}`);
+      var dictionarRef = firebase.database().ref(`/dictionary/${dictionary.id}`);
+
+      Promise.all([
+        this.updateWordsLearned(dictionaryListRef, uid, newWordsLearned),
+        this.updateWordsLearned(dictionarRef, uid, newWordsLearned)
+      ])
+        .then(_ => observer.next(newWordsLearned))
+        .catch(reason => observer.error(reason));
+
+      // const count = word.count + 1;
+      // const errors = word.errors + (valid ? 0 : 1);
+      // this.wordStatRef
+      //   .child(`${word.id}/todo`)
+      //   .update({ count, errors, lastViewed: new Date().toISOString() }, error => {
+      //     if (error) {
+      //       console.error(error);
+      //       observer.error(error);
+      //     } else {
+      //       observer.next(newWordsLearned);
+      //     }
+      //   });
+    });
+  }
+
   private getWordsLearned(dictionaryRef, uid) {
     return new Promise((resolve, reject) => {
       dictionaryRef.child(`wordsLearned/${uid}`).once(
@@ -184,6 +213,18 @@ export class DictionaryProvider {
     });
   }
 
+  private updateWordsLearned(dictionaryRef, uid, wordsLearned) {
+    return dictionaryRef.transaction(function(dictionary) {
+      if (dictionary) {
+        if (!dictionary.wordsLearned) {
+          dictionary.wordsLearned = {};
+        }
+        dictionary.wordsLearned[uid] = wordsLearned;
+      }
+      return dictionary;
+    });
+  }
+  
   /**
    * Handle Http operation that failed.
    * Let the app continue.

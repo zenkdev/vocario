@@ -20,7 +20,7 @@ import { MessageProvider } from '../providers/message';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 
-import { AuthProvider, ProfileProvider, StatProvider } from '../providers';
+import { AuthProvider, ProfileProvider } from '../providers';
 
 @NgModule({
   declarations: [MyApp, AboutPage, HomePage, TabsPage],
@@ -42,8 +42,7 @@ import { AuthProvider, ProfileProvider, StatProvider } from '../providers';
     DictionaryProvider,
     MessageProvider,
     AuthProvider,
-    ProfileProvider,
-    StatProvider
+    ProfileProvider
   ]
 })
 export class AppModule {}

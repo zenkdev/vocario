@@ -15,7 +15,7 @@ function UploadDictionary(dictionary) {
   var dictionaryEntity = { ...dictionaryListEntity, words: dictionary.words };
 
   // Get a key for a new Dictionary.
-  var newPostKey = db.ref().child('dictionaryList').push().key;
+  var newPostKey = dictionary.id; //db.ref().child('dictionaryList').push().key;
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
@@ -26,21 +26,8 @@ function UploadDictionary(dictionary) {
 }
 
 function UploadDb() {
-  return new Promise((resolve, reject) => {
-    db.ref('/dictionaryList').once('value', function(snapshot) {
-      const val = snapshot.val();
-      if (val) {
-        console.error(val);
-        reject(val);
-        return;
-      }
-
-      const promises = dictionaries.map(UploadDictionary);
-      Promise.all(promises)
-        .then(_ => resolve())
-        .catch(reason => reject(reason));
-    });
-  });
+  const promises = dictionaries.map(UploadDictionary);
+  return Promise.all(promises);
 }
 
 UploadDb()

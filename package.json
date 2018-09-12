@@ -9,7 +9,8 @@
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
-    "firebase-init": "node ./scripts/firebase-init.js"
+    "firebase-init": "node ./scripts/firebase-init.js",
+    "firebase-deploy": "firebase deploy"
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
