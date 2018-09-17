@@ -5,7 +5,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -23,7 +22,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { AuthProvider, ProfileProvider } from '../providers';
 
 @NgModule({
-  declarations: [MyApp, AboutPage, HomePage, TabsPage],
+  declarations: [MyApp, HomePage, TabsPage],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -34,7 +33,7 @@ import { AuthProvider, ProfileProvider } from '../providers';
     PipesModule,
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, AboutPage, HomePage, TabsPage],
+  entryComponents: [MyApp, HomePage, TabsPage],
   providers: [
     StatusBar,
     SplashScreen,

@@ -33,8 +33,8 @@ export class HomePage {
 
     const observable = this.dictionaryProvider.getDictionaries();
     observable.subscribe(
-      dictionaries => {
-        this.dictionaries = dictionaries;
+      data => {
+        this.dictionaries = data;
       },
       error => alert(error)
     );

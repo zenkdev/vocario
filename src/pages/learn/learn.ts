@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController, LoadingController
 import { DictionaryProvider } from '../../providers';
 import { Dictionary, Word } from '../../models';
 import { randomNumber } from './randomNumber';
-import { WordCardComponent } from '../../components/word-card/word-card';
 import { HomePage } from '../home/home';
+import { WordCardComponent } from '../../components/word-card/word-card';
 
 @IonicPage()
 @Component({
@@ -38,7 +38,10 @@ export class LearnPage {
         this.dictionary = dictionary;
         this.changeWord();
       },
-      error => console.error(error)
+      error => {
+        alert(error);
+        this.loading && this.loading.dismiss(() => (this.loading = null));
+      }
     );
 
     this.loading = this.loadingCtrl.create();
@@ -50,7 +53,7 @@ export class LearnPage {
       return this.navCtrl.setRoot(HomePage);
     }
     if (this.dictionary.totalWords) {
-      const rnd = this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
+      const rnd = 0; //this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
       this.word = this.dictionary.words[rnd];
       this.wordCard.newWord(this.word);
     } else {

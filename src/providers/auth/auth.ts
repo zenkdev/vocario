@@ -77,7 +77,7 @@ export class AuthProvider {
   }
 
   private oauthSignIn(provider: fbAuthProvider): Promise<void> {
-    if (false && !(<any>window).cordova) {
+    if (!(<any>window).cordova) {
       return firebase
         .auth()
         .signInWithPopup(provider)
