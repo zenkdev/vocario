@@ -1,133 +1,92 @@
 import { Injectable } from '@angular/core';
-import { Events } from 'ionic-angular';
 
+import { AngularFireAuth } from '@angular/fire/auth';
 import firebase, { User } from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
-import fbAuthProvider = firebase.auth.AuthProvider;
+import UserCredential = firebase.auth.UserCredential;
+
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthProvider {
-  public user: User;
+  public user: Observable<User>;
 
-  constructor(public events: Events) {
-    firebase.auth().onAuthStateChanged(
-      user => {
-        this.user = user;
-        this.events.publish('auth:authStateChanged', this.user);
-      },
-      error => console.log(error)
-    );
+  constructor(public afAuth: AngularFireAuth) {
+    this.user = this.afAuth.user;
   }
 
-  loginWithEmailAndPassword(email: string, password: string) {
+  loginWithEmailAndPassword(email: string, password: string): Promise<UserCredential> {
     console.log('Sign in with email');
-    return firebase
-      .auth()
-      .setPersistence('local')
-      .then(() => {
-        return firebase.auth().signInWithEmailAndPassword(email, password);
-      });
+    return this.afAuth.auth.setPersistence('local').then(() => {
+      return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    });
   }
 
-  loginWithGoogle() {
+  loginWithGoogle(): Promise<UserCredential> {
     console.log('Sign in with google');
-    return firebase
-      .auth()
-      .setPersistence('local')
-      .then(() => {
-        return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
-      });
+    return this.afAuth.auth.setPersistence('local').then(() => {
+      return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+    });
   }
 
-  signupUser(email: string, password: string): Promise<firebase.auth.UserCredential> {
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(newUserCredentials => {
-        const { displayName, email } = newUserCredentials.user;
-        return firebase
-          .database()
-          .ref(`/userProfile/${newUserCredentials.user.uid}`)
-          .update({ displayName, email })
-          .then(
-            value => {
-              console.log('success', value);
-              return Promise.resolve(newUserCredentials);
-            },
-            error => {
-              console.log('error', error);
-              return Promise.reject(error);
-            }
-          );
-      });
+  signupUser(email: string, password: string): Promise<UserCredential> {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(newUserCredential => {
+      const { displayName, email } = newUserCredential.user;
+      return firebase
+        .database()
+        .ref(`/userProfile/${newUserCredential.user.uid}`)
+        .update({ displayName, email })
+        .then(
+          () => {
+            console.log('success', newUserCredential);
+            return Promise.resolve(newUserCredential);
+          },
+          error => {
+            console.log('error', error);
+            return Promise.reject(error);
+          }
+        );
+    });
   }
 
   resetPassword(email: string): Promise<void> {
-    return firebase.auth().sendPasswordResetEmail(email);
+    return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
   logout(): Promise<void> {
-    const userId: string = firebase.auth().currentUser.uid;
+    const userId: string = this.afAuth.auth.currentUser.uid;
     firebase
       .database()
       .ref(`/userProfile/${userId}`)
       .off();
-    return firebase.auth().signOut();
+    return this.afAuth.auth.signOut();
   }
 
-  private oauthSignIn(provider: fbAuthProvider): Promise<void> {
-    if (!(<any>window).cordova) {
+  private oauthSignIn(provider: firebase.auth.AuthProvider): Promise<UserCredential> {
+    let signInPromise;
+    // if (!(<any>window).cordova) {
+    //   signInPromise = this.afAuth.auth.signInWithPopup(provider);
+    // } else {
+    signInPromise = this.afAuth.auth.signInWithRedirect(provider).then(() => {
+      return this.afAuth.auth.getRedirectResult();
+    });
+    // }
+
+    return signInPromise.then(newUserCredential => {
+      const { displayName, email } = newUserCredential.user;
       return firebase
-        .auth()
-        .signInWithPopup(provider)
-        .then(newUserCredentials => {
-          const { displayName, email } = newUserCredentials.user;
-          return firebase
-            .database()
-            .ref(`/userProfile/${newUserCredentials.user.uid}`)
-            .update({ displayName, email })
-            .then(
-              value => {
-                console.log('success', value);
-                return Promise.resolve();
-              },
-              error => {
-                console.log('error', error);
-                return Promise.reject(error);
-              }
-            );
-        });
-    } else {
-      return firebase
-        .auth()
-        .signInWithRedirect(provider)
-        .then(() => {
-          return firebase
-            .auth()
-            .getRedirectResult()
-            .then(newUserCredentials => {
-              const { displayName, email } = newUserCredentials.user;
-              return firebase
-                .database()
-                .ref(`/userProfile/${newUserCredentials.user.uid}`)
-                .update({ displayName, email })
-                .then(
-                  value => {
-                    console.log('success', value);
-                    return Promise.resolve();
-                  },
-                  error => {
-                    console.log('error', error);
-                    return Promise.reject(error);
-                  }
-                );
-            })
-            .catch(function(error) {
-              // Handle Errors here.
-              alert(error.message);
-            });
-        });
-    }
+        .database()
+        .ref(`/userProfile/${newUserCredential.user.uid}`)
+        .update({ displayName, email })
+        .then(
+          () => {
+            console.log('success', newUserCredential);
+            return Promise.resolve(newUserCredential);
+          },
+          error => {
+            console.log('error', error);
+            return Promise.reject(error);
+          }
+        );
+    });
   }
 }

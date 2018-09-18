@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
+
+import { AngularFireAuth } from '@angular/fire/auth';
 import firebase, { User } from 'firebase/app';
-import 'firebase/database';
+import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 
 @Injectable()
 export class ProfileProvider {
   public userProfile: firebase.database.Reference;
   public currentUser: User;
 
-  constructor() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
+  constructor(public afAuth: AngularFireAuth) {
+    this.afAuth.user.subscribe(
+      user => {
         this.currentUser = user;
-        this.userProfile = firebase.database().ref(`/userProfile/${user.uid}`);
-      }
-    });
+        if (user) {
+          this.userProfile = firebase.database().ref(`/userProfile/${user.uid}`);
+        }
+      },
+      error => alert(error)
+    );
   }
 
   getUserProfile(): firebase.database.Reference {
@@ -29,10 +34,7 @@ export class ProfileProvider {
   }
 
   updateEmail(newEmail: string, password: string): Promise<any> {
-    const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
-      this.currentUser.email,
-      password
-    );
+    const credential = EmailAuthProvider.credential(this.currentUser.email, password);
     return this.currentUser
       .reauthenticateWithCredential(credential)
       .then(_ => {
@@ -46,15 +48,11 @@ export class ProfileProvider {
   }
 
   updatePassword(newPassword: string, oldPassword: string): Promise<any> {
-    const credential: firebase.auth.AuthCredential = firebase.auth.EmailAuthProvider.credential(
-      this.currentUser.email,
-      oldPassword
-    );
-
+    const credential = EmailAuthProvider.credential(this.currentUser.email, oldPassword);
     return this.currentUser
       .reauthenticateWithCredential(credential)
-      .then(user => {
-        this.currentUser.updatePassword(newPassword).then(user => {
+      .then(_ => {
+        this.currentUser.updatePassword(newPassword).then(_ => {
           console.log('Password Changed');
         });
       })

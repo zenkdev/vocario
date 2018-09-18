@@ -13,13 +13,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-import { DictionaryProvider } from '../providers/dictionary';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 import { InMemoryDataProvider } from '../providers/in-memory-data';
-import { MessageProvider } from '../providers/message';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 
-import { AuthProvider, ProfileProvider } from '../providers';
+import { AuthProvider, DictionaryProvider, MessageProvider, ProfileProvider } from '../providers';
 
 @NgModule({
   declarations: [MyApp, HomePage, TabsPage],
@@ -31,6 +34,9 @@ import { AuthProvider, ProfileProvider } from '../providers';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataProvider),
     ComponentsModule,
     PipesModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, HomePage, TabsPage],
@@ -38,9 +44,9 @@ import { AuthProvider, ProfileProvider } from '../providers';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthProvider,
     DictionaryProvider,
     MessageProvider,
-    AuthProvider,
     ProfileProvider
   ]
 })

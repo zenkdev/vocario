@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { Platform, Events } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import { environment } from '../environments/environment';
+import { AuthProvider } from '../providers';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,21 +13,15 @@ import { environment } from '../environments/environment';
 export class MyApp {
   rootPage: any;
 
-  constructor(events: Events, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    firebase.initializeApp(environment.firebase);
-
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, auth: AuthProvider) {
+    const subscription = auth.user.subscribe(user => {
       if (!user) {
         this.rootPage = 'LoginPage';
-        unsubscribe();
+        subscription.unsubscribe();
       } else {
         this.rootPage = TabsPage;
-        unsubscribe();
+        subscription.unsubscribe();
       }
-    });
-
-    events.subscribe('auth:authStateChanged', user => {
-      console.log('auth:authStateChanged', user);
     });
 
     platform.ready().then(() => {
