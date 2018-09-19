@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, Refresher, ItemSliding, LoadingController, Loading } from 'ionic-angular';
+
 import { Dictionary } from '../../models';
-import { DictionaryProvider } from '../../providers';
+import { AuthProvider, DictionaryProvider } from '../../providers';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,11 +20,19 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
+    private authProvider: AuthProvider,
     private dictionaryProvider: DictionaryProvider
   ) {}
 
+  ionViewCanEnter() {
+    const subscription = this.authProvider.user.subscribe(user => {
+      subscription.unsubscribe();
+      return !!user;
+    });
+  }
+
   ionViewWillEnter() {
-    this.getDictionaries().subscribe(_=>{
+    this.getDictionaries().subscribe(_ => {
       this.loading && this.loading.dismiss(() => (this.loading = null));
     });
   }
@@ -43,17 +53,8 @@ export class HomePage {
 
   doRefresh(refresher: Refresher) {
     this.getDictionaries().subscribe(() => {
-      // this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      //   this.shownSessions = data.shownSessions;
-      //   this.groups = data.groups;
       refresher.complete();
       this.loading && this.loading.dismiss(() => (this.loading = null));
-      //     const toast = this.toastCtrl.create({
-      //       message: 'Sessions have been updated.',
-      //       duration: 3000
-      //     });
-      //     toast.present();
-      // });
     });
   }
 

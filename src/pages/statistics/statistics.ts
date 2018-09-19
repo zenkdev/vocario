@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, Loading, Refresher } from 'ionic-angular';
-import { DictionaryProvider } from '../../providers';
-import { Observable } from 'rxjs/Observable';
+
+import { AuthProvider, DictionaryProvider } from '../../providers';
 import { Word } from '../../models';
+
+import { Observable } from 'rxjs/Observable';
 
 @IonicPage()
 @Component({
@@ -19,8 +21,16 @@ export class StatisticsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
+    private authProvider: AuthProvider,
     private dictionaryProvider: DictionaryProvider
   ) {}
+
+  ionViewCanEnter() {
+    const subscription = this.authProvider.user.subscribe(user => {
+      subscription.unsubscribe();
+      return !!user;
+    });
+  }
 
   ionViewWillEnter() {
     this.getWordStats().subscribe(_ => {

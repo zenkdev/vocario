@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireAuth } from '@angular/fire/auth';
 import firebase, { User } from 'firebase/app';
 import UserCredential = firebase.auth.UserCredential;
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import { Observable } from 'rxjs';
 
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 export class AuthProvider {
   public user: Observable<User>;
 
-  constructor(public afAuth: AngularFireAuth) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.user = this.afAuth.user;
   }
 
@@ -31,9 +32,7 @@ export class AuthProvider {
   signupUser(email: string, password: string): Promise<UserCredential> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(newUserCredential => {
       const { displayName, email } = newUserCredential.user;
-      return firebase
-        .database()
-        .ref(`/userProfile/${newUserCredential.user.uid}`)
+      return this.db.object(`/userProfile/${newUserCredential.user.uid}`)
         .update({ displayName, email })
         .then(
           () => {
@@ -54,8 +53,7 @@ export class AuthProvider {
 
   logout(): Promise<void> {
     const userId: string = this.afAuth.auth.currentUser.uid;
-    firebase
-      .database()
+    this.db.database
       .ref(`/userProfile/${userId}`)
       .off();
     return this.afAuth.auth.signOut();
@@ -73,9 +71,7 @@ export class AuthProvider {
 
     return signInPromise.then(newUserCredential => {
       const { displayName, email } = newUserCredential.user;
-      return firebase
-        .database()
-        .ref(`/userProfile/${newUserCredential.user.uid}`)
+      return this.db.object(`/userProfile/${newUserCredential.user.uid}`)
         .update({ displayName, email })
         .then(
           () => {

@@ -1,7 +1,7 @@
 import { AuthProvider } from './auth/auth';
-import { ProfileProvider } from './profile/profile';
-import { DictionaryProvider } from './dictionary';
+import { DictionaryProvider } from './dictionary/dictionary';
 import { InMemoryDataProvider } from './in-memory-data';
 import { MessageProvider } from './message';
+import { ProfileProvider } from './profile/profile';
 
-export { AuthProvider, ProfileProvider, DictionaryProvider, InMemoryDataProvider, MessageProvider };
+export { AuthProvider, DictionaryProvider, MessageProvider, ProfileProvider, InMemoryDataProvider };

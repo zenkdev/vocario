@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireAuth } from '@angular/fire/auth';
 import firebase, { User } from 'firebase/app';
 import EmailAuthProvider = firebase.auth.EmailAuthProvider;
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
+
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProfileProvider {
-  public userProfile: firebase.database.Reference;
-  public currentUser: User;
+  private userProfile: AngularFireObject<any>;
+  private currentUser: User;
 
-  constructor(public afAuth: AngularFireAuth) {
-    this.afAuth.user.subscribe(
+  constructor(db: AngularFireDatabase, afAuth: AngularFireAuth) {
+    afAuth.user.subscribe(
       user => {
         this.currentUser = user;
-        if (user) {
-          this.userProfile = firebase.database().ref(`/userProfile/${user.uid}`);
+        if (this.currentUser) {
+          this.userProfile = db.object(`/userProfile/${this.currentUser.uid}`);
         }
       },
       error => alert(error)
     );
   }
 
-  getUserProfile(): firebase.database.Reference {
-    return this.userProfile;
+  getUserProfile(): Observable<any> {
+    return this.userProfile.valueChanges();
   }
 
   updateName(displayName: string): Promise<any> {
@@ -35,29 +38,25 @@ export class ProfileProvider {
 
   updateEmail(newEmail: string, password: string): Promise<any> {
     const credential = EmailAuthProvider.credential(this.currentUser.email, password);
-    return this.currentUser
-      .reauthenticateWithCredential(credential)
-      .then(_ => {
+    return this.currentUser.reauthenticateWithCredential(credential).then(
+      _ => {
         this.currentUser.updateEmail(newEmail).then(_ => {
           this.userProfile.update({ email: newEmail });
         });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      },
+      error => alert(error)
+    );
   }
 
   updatePassword(newPassword: string, oldPassword: string): Promise<any> {
     const credential = EmailAuthProvider.credential(this.currentUser.email, oldPassword);
-    return this.currentUser
-      .reauthenticateWithCredential(credential)
-      .then(_ => {
+    return this.currentUser.reauthenticateWithCredential(credential).then(
+      _ => {
         this.currentUser.updatePassword(newPassword).then(_ => {
           console.log('Password Changed');
         });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+      },
+      error => alert(error)
+    );
   }
 }
