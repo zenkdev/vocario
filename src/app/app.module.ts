@@ -11,14 +11,11 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-import { InMemoryDataProvider } from '../providers/in-memory-data';
 import { ComponentsModule } from '../components/components.module';
 import { PipesModule } from '../pipes/pipes.module';
 
@@ -31,7 +28,6 @@ import { AuthProvider, DictionaryProvider, MessageProvider, ProfileProvider } fr
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataProvider),
     ComponentsModule,
     PipesModule,
     AngularFireModule.initializeApp(environment.firebase),

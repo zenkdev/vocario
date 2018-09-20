@@ -23,7 +23,7 @@
         <expandable [expandHeight]="itemExpandHeight" [expanded]="item.expanded">
           <p padding>{{word?.transcription}}</p>
 
-          <h3 padding-horizontal>{{word?.partOfSpeach}}: {{word?.category | lowercase}}</h3>
+          <h3 padding-horizontal>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h3>
         </expandable>
 
         <p padding-horizontal>Counter: {{word.count}} | Errors: {{word.errors}}</p>

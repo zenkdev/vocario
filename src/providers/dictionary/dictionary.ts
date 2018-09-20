@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
@@ -41,103 +41,27 @@ export class DictionaryProvider {
   /** GET dictionaries from the server */
   getDictionaries(): Observable<Dictionary[]> {
     return this.db
-      .list('dictionaryList')
+      .list<Dictionary>('dictionaryList')
       .snapshotChanges()
       .pipe(
         tap(_ => this.log('fetched dictionaries')),
-        map(snapshot => {
-          return snapshot.map(snap => {
-            const id = snap.payload.id;
-            const data = snap.payload.val();
-            const wordsLearned = data.wordsLearned[this.currentUser.uid] || 0;
-            return { id, ...data, wordsLearned };
-          });
-        }),
+        map(snapshot => Dictionary.fromJsonArray(snapshot, this.currentUser.uid)),
         catchError(this.handleError('getDictionaries', []))
       );
-
-    // return new Observable<Dictionary[]>(observer => {
-    //     this.db
-    //     .list('/dictionaryList')
-    //     .snapshotChanges()
-    //     .subscribe(
-    //       snapshot => {
-    //         const dictionarytList = [];
-    //         snapshot.forEach(snap => {
-    //           const dictionaryListEntity = { id: snap.key, wordsLearned: 0, ...snap.payload };
-    //           this.getWordsLearned(
-    //             firebase.database().ref(`/dictionaryList/${dictionaryListEntity.id}`),
-    //             this.currentUser.uid
-    //           ).then(
-    //             data => {
-    //               dictionaryListEntity.wordsLearned = data;
-    //               dictionarytList.push(dictionaryListEntity);
-    //             },
-    //             error => observer.error(error)
-    //           );
-    //         });
-    //         observer.next(dictionarytList);
-    //       },
-    //       error => observer.error(error)
-    //     );
-    // });
   }
 
-  /** GET dictionary by id. Return `undefined` when id not found */
-  // getDictionaryNo404(id: number): Observable<Dictionary> {
-  //   const url = `${this.dictionariesUrl}/?id=${id}`;
-  //   return this.getDictionariesFromStorage()
-  //     .flatMap(data => (data ? Observable.of(data.filter(x => x.id === id)) : this.http.get<Dictionary[]>(url)))
-  //     .pipe(
-  //       map(dictionaries => dictionaries[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? `fetched` : `did not find`;
-  //         this.log(`${outcome} dictionary id=${id}`);
-  //       }),
-  //       catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
-  //     );
-  // }
-
-  /** GET dictionary by id. Will 404 if id not found */
-  // getDictionary(id: number): Observable<Dictionary> {
-  //   const url = `${this.dictionariesUrl}/${id}`;
-  //   return this.getDictionariesFromStorage()
-  //     .flatMap(data => (data ? Observable.of(data.find(x => x.id === id)) : this.http.get<Dictionary>(url)))
-  //     .pipe(
-  //       tap(_ => this.log(`fetched dictionary id=${id}`)),
-  //       catchError(this.handleError<Dictionary>(`getDictionary id=${id}`))
-  //     );
-  // }
-
+  /** GET dictionary by id. */
   getDictionary(id: string): Observable<Dictionary> {
-    return new Observable<Dictionary>(observer => {
-      firebase
-        .database()
-        .ref(`/dictionaryList/${id}`)
-        .once(
-          'value',
-          snap => {
-            const dictionaryEntity = { id: snap.key, ...snap.val() };
-
-            this.getWords(dictionaryEntity.id)
-              .then(data => {
-                dictionaryEntity.words = data;
-                this.getWordsLearned(
-                  firebase.database().ref(`/dictionaryList/${dictionaryEntity.id}`),
-                  this.currentUser.uid
-                ).then(
-                  data => {
-                    dictionaryEntity.wordsLearned = data;
-                    observer.next(dictionaryEntity);
-                  },
-                  error => observer.error(error)
-                );
-              })
-              .catch(error => observer.error(error));
-          },
-          error => observer.error(error)
+    return this.getDictionaryById(id).pipe(
+      switchMap(dictionary => {
+        return this.getWordsByDictionaryId(id).pipe(
+          map(data => {
+            dictionary.words = data;
+            return dictionary;
+          })
         );
-    });
+      })
+    );
   }
 
   /* GET dictionaries whose name contains search term */
@@ -230,38 +154,28 @@ export class DictionaryProvider {
     });
   }
 
-  private getWords(dictionaryKey: string): Promise<Word[]> {
-    return new Promise((resolve, reject) => {
-      const wordListRef = firebase.database().ref(`/wordList`);
-      wordListRef
-        .orderByChild('dictionaryKey')
-        .equalTo(dictionaryKey)
-        .once(
-          'value',
-          snapshot => {
-            const data = [];
-            snapshot.forEach(function(childSnapshot) {
-              var childKey = childSnapshot.key;
-              var childData = childSnapshot.val();
-              data.push({ id: childKey, ...childData });
-            });
-            resolve(data);
-          },
-          error => reject(error)
-        );
-    });
+  private getDictionaryById(id: string): Observable<Dictionary> {
+    return this.db
+      .object<Dictionary>(`dictionaryList/${id}`)
+      .snapshotChanges()
+      .pipe(
+        tap(_ => this.log(`fetched dictionary id=${id}`)),
+        map(snap => {
+          return Dictionary.fromJson(snap, this.currentUser.uid);
+        }),
+        catchError(this.handleError<Dictionary>(`getDictionaryById id=${id}`))
+      );
   }
 
-  private getWordsLearned(dictionaryRef: any, uid: string): Promise<number> {
-    return new Promise((resolve, reject) => {
-      dictionaryRef.child(`wordsLearned/${uid}`).once(
-        'value',
-        snap => {
-          resolve(snap.val() || 0);
-        },
-        error => reject(error)
+  private getWordsByDictionaryId(dictionaryId: string): Observable<Word[]> {
+    return this.db
+      .list<Word>('wordList', ref => ref.orderByChild('dictionaryId').equalTo(dictionaryId))
+      .snapshotChanges()
+      .pipe(
+        tap(_ => this.log(`fetched words dictionaryId=${dictionaryId}`)),
+        map(snap => Word.fromJsonArray(snap, this.currentUser.uid)),
+        catchError(this.handleError('getWordsByDictionaryId', []))
       );
-    });
   }
 
   private updateWordsLearned(dictionaryId: string, uid: string, wordsLearned: number): Promise<any> {
