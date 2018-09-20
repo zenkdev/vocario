@@ -9,12 +9,12 @@ admin.initializeApp({
 
 var db = admin.database();
 
-function UploadWord(dictionaryKey, word, index) {
+function UploadWord(dictionaryId, word, index) {
   // A word entity.
-  var wordEntity = { ...word, dictionaryKey };
+  var wordEntity = { ...word, dictionaryId };
 
   // Get a key for a new word.
-  var newWordKey = `${dictionaryKey}_${index}`;
+  var newWordKey = `${dictionaryId}_${index}`;
 
   // Write the new word's data in the word list.
   var updates = {};
