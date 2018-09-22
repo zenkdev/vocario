@@ -18,7 +18,7 @@ export class Dictionary {
   static fromJson({ payload }, uid: string): Dictionary {
     const id = payload.key;
     const { name, totalWords, wordsLearned: wordsLearnedObject } = payload.val();
-    const wordsLearned = wordsLearnedObject[uid] || 0;
+    const wordsLearned = (wordsLearnedObject && wordsLearnedObject[uid]) || 0;
     return new Dictionary(id, name, totalWords, wordsLearned);
   }
 

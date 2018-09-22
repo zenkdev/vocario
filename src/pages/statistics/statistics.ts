@@ -33,20 +33,20 @@ export class StatisticsPage {
   }
 
   ionViewWillEnter() {
-    this.getWordStats().subscribe(_ => {
+    this.getStatistics().subscribe(_ => {
       this.loading && this.loading.dismiss(() => (this.loading = null));
     });
   }
 
-  getWordStats(): Observable<any> {
+  getStatistics(): Observable<any> {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
 
-    const observable = this.dictionaryProvider.getWordStats();
+    const observable = this.dictionaryProvider.getStatistics();
     observable.subscribe(
       data => {
         this.wordStats = data;
-        this.wordStatsCount = this.wordStats.length;
+        this.wordStatsCount = this.wordStats ? this.wordStats.length : 0;
       },
       error => alert(error)
     );
@@ -54,7 +54,7 @@ export class StatisticsPage {
   }
 
   doRefresh(refresher: Refresher) {
-    this.getWordStats().subscribe(() => {
+    this.getStatistics().subscribe(() => {
       refresher.complete();
       this.loading && this.loading.dismiss(() => (this.loading = null));
     });

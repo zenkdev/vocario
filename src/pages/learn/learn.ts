@@ -32,7 +32,7 @@ export class LearnPage {
     this.title = this.navParams.data.title || 'Learn';
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.dictionaryProvider.getDictionary(this.dictionaryId).subscribe(
       dictionary => {
         this.dictionary = dictionary;
@@ -53,7 +53,7 @@ export class LearnPage {
       return this.navCtrl.setRoot(HomePage);
     }
     if (this.dictionary.totalWords) {
-      const rnd = 0; //this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
+      const rnd = this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
       this.word = this.dictionary.words[rnd];
       this.wordCard.newWord(this.word);
     } else {
@@ -63,9 +63,14 @@ export class LearnPage {
   }
 
   onValidate(valid: boolean) {
-    this.dictionaryProvider.updateDictionaryStat(this.dictionary, this.word, valid).subscribe(
-      newWordsLearned => {
-        this.dictionary.wordsLearned = newWordsLearned;
+    this.dictionaryProvider.updateDictionaryFromWord(this.dictionary, this.word, valid).subscribe(
+      () => {
+        this.dictionary.wordsLearned += (valid && !this.word.count ? 1 : 0);
+        if (this.dictionary.wordsLearned > this.dictionary.totalWords) {
+          this.dictionary.wordsLearned = this.dictionary.totalWords;
+        }
+        this.word.count++;
+        this.word.errors += valid ? 0 : 1;
         if (valid) {
           const toast = this.toastCtrl.create({
             message: `Words learned ${this.dictionary.wordsLearned} of ${this.dictionary.totalWords}.`,
@@ -76,9 +81,7 @@ export class LearnPage {
           this.changeWord();
         }
       },
-      error => {
-        alert(error);
-      }
+      error => alert(error)
     );
   }
 }
