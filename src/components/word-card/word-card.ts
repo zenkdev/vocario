@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter, ElementRef, AfterViewChecked, Renderer } from '@angular/core';
 import { Word } from '../../models';
 import { NavController } from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
 
 @Component({
   selector: 'word-card',
@@ -37,7 +36,7 @@ export class WordCardComponent implements AfterViewChecked {
 
   onHelpRequested() {
     if (!this.word) {
-      return this.navCtrl.setRoot(HomePage);
+      return;
     }
 
     if (!this.translationPlaceHolder) {
@@ -48,7 +47,7 @@ export class WordCardComponent implements AfterViewChecked {
 
   onSubmit() {
     if (!this.word) {
-      return this.navCtrl.setRoot(HomePage);
+      return;
     }
 
     const valid =

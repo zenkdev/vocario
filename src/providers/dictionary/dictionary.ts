@@ -113,7 +113,7 @@ export class DictionaryProvider {
     );
   }
 
-  updateDictionaryFromWord(dictionary: Dictionary, word: Word, valid: boolean): Observable<number> {
+  updateDictionaryFromWord(dictionary: Dictionary, word: Word, valid: boolean): Observable<any> {
     let wordsLearned = dictionary.wordsLearned + (valid && !word.count ? 1 : 0);
     if (wordsLearned > dictionary.totalWords) {
       wordsLearned = dictionary.totalWords;
@@ -128,7 +128,7 @@ export class DictionaryProvider {
     return forkJoin(observables).pipe(
       tap(_ => this.log(`updated dictionarie stat id=${dictionary.id}`)),
       map(_ => wordsLearned),
-      catchError(this.handleError<number>('updateDictionaryStat'))
+      catchError(this.handleError('updateDictionaryStat'))
     );
   }
 
