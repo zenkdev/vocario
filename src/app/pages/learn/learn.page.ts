@@ -93,7 +93,7 @@ export class LearnPage implements OnInit {
 
   private newWord() {
     if (this.dictionary && this.dictionary.totalWords) {
-      const rnd = 11; // this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
+      const rnd = this.dictionary.totalWords > 1 ? randomNumber(0, this.dictionary.totalWords - 1) : 0;
       this.word = this.dictionary.words[rnd];
       this.wordCard.newWord(this.word);
     } else {
