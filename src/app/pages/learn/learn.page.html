@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button icon-only (click)="onBackButtonClick()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <word-card-edit #wordCard (validate)="onValidate($event)"></word-card-edit>
+
+  <div paddings>
+    <p>{{dictionary?.wordsLearned}} / {{dictionary?.totalWords}}</p>
+  </div>
+</ion-content>

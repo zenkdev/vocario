@@ -1,49 +1,53 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { RouterModule, RouteReuseStrategy, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import { MyApp } from './app.component';
 
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-import { ComponentsModule } from '../components/components.module';
-import { PipesModule } from '../pipes/pipes.module';
+import { AuthGuard } from './guards';
 
-import { AuthProvider, DictionaryProvider, MessageProvider, ProfileProvider } from '../providers';
+import { AuthService } from './services/auth.service';
+import { DictionaryService } from './services/dictionary.service';
+import { MessageService } from './services/message.service';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
-  declarations: [MyApp, HomePage, TabsPage],
+  declarations: [AppComponent],
+  entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    ComponentsModule,
-    PipesModule,
+    AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule
   ],
-  bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, TabsPage],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider,
-    DictionaryProvider,
-    MessageProvider,
-    ProfileProvider
-  ]
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthGuard,
+    AuthService,
+    DictionaryService,
+    MessageService,
+    ProfileService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

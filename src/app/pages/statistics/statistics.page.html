@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Statistics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-list #wordList [hidden]="wordStatsCount === 0">
+
+    <ion-item *ngFor="let word of wordStats" #item (click)="expandItem(item)" detail="false">
+
+      <ion-icon slot="end" name="ios-arrow-down" *ngIf="!item.expanded"></ion-icon>
+      <ion-icon slot="end" name="ios-arrow-up" *ngIf="item.expanded"></ion-icon>
+      <ion-label>
+        <h1>{{word?.text}}</h1>
+
+        <app-expandable [expandHeight]="itemExpandHeight" [expanded]="item.expanded">
+          <p padding>{{word?.transcription}}</p>
+
+          <h3 padding-horizontal>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h3>
+
+          <h2 padding>{{word?.translation}}</h2>
+        </app-expandable>
+
+        <p padding-horizontal>Counter: {{word.count}} | Errors: {{word.errors}}</p>
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list-header [hidden]="wordStatsCount > 0">
+    No Statistics
+  </ion-list-header>
+
+</ion-content>
