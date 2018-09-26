@@ -9,7 +9,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "firebase-init": "node ./scripts/firebase-init.js",
+    "firebase-deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
