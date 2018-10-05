@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
 
@@ -25,7 +24,6 @@ export class LearnPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private dictionaryService: DictionaryService
@@ -45,10 +43,6 @@ export class LearnPage implements OnInit {
         this.loading.dismiss(() => (this.loading = null));
       }
     }
-  }
-
-  onBackButtonClick() {
-    this.location.back();
   }
 
   async onValidate(valid: boolean) {

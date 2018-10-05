@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Statistics</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -33,7 +36,7 @@
   </ion-list>
 
   <ion-list-header [hidden]="wordStatsCount > 0">
-    No Statistics
+    <ion-label>No Statistics</ion-label>
   </ion-list-header>
 
 </ion-content>

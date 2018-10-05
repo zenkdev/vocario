@@ -3,13 +3,11 @@
     {{header}}
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content class="padding-top-zero">
 
     <h1>{{word?.text}}</h1>
 
-    <p padding>{{word?.transcription}}</p>
-
-    <h3>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h3>
+    <p>{{word?.transcription}}</p>
 
     <form #translateForm="ngForm" novalidate>
 
@@ -28,6 +26,8 @@
       </div>
 
     </form>
+
+    <h3>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h3>
 
   </ion-card-content>
 </ion-card>

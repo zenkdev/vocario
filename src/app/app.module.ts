@@ -23,6 +23,7 @@ import { AuthService } from './services/auth.service';
 import { DictionaryService } from './services/dictionary.service';
 import { MessageService } from './services/message.service';
 import { ProfileService } from './services/profile.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +37,8 @@ import { ProfileService } from './services/profile.service';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,

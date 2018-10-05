@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Profile</ion-title>
     <ion-buttons slot="end">
       <ion-button icon-only (click)="logout()">
@@ -15,7 +18,7 @@
   <img src="http://www.gravatar.com/avatar?d=mm&s=140">
   <ion-list>
     <ion-list-header>
-      Personal Information
+      <ion-label>Personal Information</ion-label>
     </ion-list-header>
 
     <ion-item (click)="updateName()">

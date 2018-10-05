@@ -1,12 +1,13 @@
-import { Component, AfterViewChecked, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
+import { Component, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Word } from '../../models';
 
 @Component({
   selector: 'word-card-edit',
   templateUrl: './word-card-edit.component.html',
-  styleUrls: ['./word-card-edit.component.scss']
+  styleUrls: ['./word-card-edit.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class WordCardEditComponent implements AfterViewChecked {
+export class WordCardEditComponent {
   @Output()
   validate = new EventEmitter<boolean>();
 
@@ -15,12 +16,12 @@ export class WordCardEditComponent implements AfterViewChecked {
   userTranslation: string;
   translationPlaceHolder: string;
 
-  constructor(public elementRef: ElementRef, public renderer: Renderer) {}
+  constructor() {}
 
-  ngAfterViewChecked() {
-    const element = this.elementRef.nativeElement.querySelector('ion-input');
-    this.renderer.invokeElementMethod(element, 'focus', []);
-  }
+  // ngAfterViewChecked() {
+  //   const element = this.elementRef.nativeElement.querySelector('ion-input');
+  //   this.renderer.invokeElementMethod(element, 'focus', []);
+  // }
 
   newWord(word: Word) {
     this.word = word;
@@ -60,5 +61,4 @@ export class WordCardEditComponent implements AfterViewChecked {
     }
     this.validate.emit(valid);
   }
-
 }

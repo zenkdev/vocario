@@ -1,21 +1,25 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Home</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Lexion!</h2>
-
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-list #dictionaryList [hidden]="!dictionaries || dictionaries.length === 0">
+    <ion-list-header>
+      <ion-label>Welcome to Lexion!</ion-label>
+    </ion-list-header>
 
     <ion-item-sliding *ngFor="let dictionary of dictionaries" #slidingItem>
 
-      <ion-item detail button (click)="goToLearn(dictionary)">
+      <ion-item button detail (click)="goToLearn(dictionary)">
         <ion-label>
           <h3>{{dictionary.name}}</h3>
           <p>{{dictionary.wordsLearned}} / {{dictionary.totalWords}}</p>
@@ -23,12 +27,12 @@
       </ion-item>
 
       <ion-item-options>
-        <button ion-button color="favorite" (click)="addFavorite(slidingItem, dictionary)" *ngIf="segment === 'all'">
+        <ion-button color="favorite" (click)="addFavorite(slidingItem, dictionary)" *ngIf="segment === 'all'">
           Favorite
-        </button>
-        <button ion-button color="danger" (click)="removeFavorite(slidingItem, dictionary, 'Remove Favorite')" *ngIf="segment === 'favorites'">
+        </ion-button>
+        <ion-button color="danger" (click)="removeFavorite(slidingItem, dictionary, 'Remove Favorite')" *ngIf="segment === 'favorites'">
           Remove
-        </button>
+        </ion-button>
       </ion-item-options>
 
     </ion-item-sliding>
@@ -36,6 +40,8 @@
   </ion-list>
 
   <ion-list-header [hidden]="dictionaries && dictionaries.length > 0">
-    No Dictionaries Found
+    <ion-label>
+      No Dictionaries Found
+    </ion-label>
   </ion-list-header>
 </ion-content>

@@ -64,11 +64,11 @@ export class AuthService {
   private oauthSignIn(provider: firebase.auth.AuthProvider): Promise<UserCredential> {
     let signInPromise;
     // if (!(<any>window).cordova) {
-    //   signInPromise = this.afAuth.auth.signInWithPopup(provider);
+       signInPromise = this.afAuth.auth.signInWithPopup(provider);
     // } else {
-    signInPromise = this.afAuth.auth.signInWithRedirect(provider).then(() => {
-      return this.afAuth.auth.getRedirectResult();
-    });
+    // signInPromise = this.afAuth.auth.signInWithRedirect(provider).then(() => {
+    //   return this.afAuth.auth.getRedirectResult();
+    // });
     // }
 
     return signInPromise.then(newUserCredential => {

@@ -17,7 +17,8 @@ export class AuthGuard implements CanActivate {
       const subscription = this.auth.user.subscribe(user => {
         subscription.unsubscribe();
         if (!user) {
-          this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+          this.router.navigate(['/login']);
+          // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
           resolve(false);
         } else {
           resolve(true);
