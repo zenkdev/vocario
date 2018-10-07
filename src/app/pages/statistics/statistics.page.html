@@ -18,14 +18,14 @@
       <ion-icon slot="end" name="ios-arrow-down" *ngIf="!item.expanded"></ion-icon>
       <ion-icon slot="end" name="ios-arrow-up" *ngIf="item.expanded"></ion-icon>
       <ion-label>
-        <h1>{{word?.text}}</h1>
+        <h2>{{word?.text}}</h2>
 
         <app-expandable [expandHeight]="itemExpandHeight" [expanded]="item.expanded">
-          <p padding>{{word?.transcription}}</p>
+          <p padding-horizontal>{{word?.transcription}}</p>
 
-          <h3 padding-horizontal>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h3>
+          <h4 padding-horizontal>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h4>
 
-          <h2 padding>{{word?.translation}}</h2>
+          <h2 padding-horizontal>{{word?.translation}}</h2>
         </app-expandable>
 
         <p padding-horizontal>Counter: {{word.count}} | Errors: {{word.errors}}</p>
