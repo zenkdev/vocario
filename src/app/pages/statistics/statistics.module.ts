@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ExpandableComponent } from '../../components';
 import { StatisticsPage } from './statistics.page';
 
 const routes: Routes = [
@@ -20,8 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatExpansionModule
   ],
-  declarations: [StatisticsPage, ExpandableComponent]
+  declarations: [StatisticsPage]
 })
 export class StatisticsPageModule {}

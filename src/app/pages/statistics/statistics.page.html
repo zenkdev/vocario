@@ -11,11 +11,35 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <mat-accordion [hidden]="wordStatsCount === 0" multi="true">
+
+    <mat-expansion-panel *ngFor="let word of wordStats">
+      <mat-expansion-panel-header>
+
+        <mat-panel-title>
+          <strong>{{word?.text}}</strong>
+        </mat-panel-title>
+
+        <mat-panel-description>
+          Counter: {{word.count}} | Errors: {{word.errors}}
+        </mat-panel-description>
+
+      </mat-expansion-panel-header>
+
+      <p>{{word?.transcription}}</p>
+
+      <p>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</p>
+
+      <strong>{{word?.translation}}</strong>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
   <ion-list #wordList [hidden]="wordStatsCount === 0">
 
     <ion-item *ngFor="let word of wordStats" #item (click)="expandItem(item)" detail="false">
 
-      <ion-icon slot="end" name="ios-arrow-down" *ngIf="!item.expanded"></ion-icon>
+      <!-- <ion-icon slot="end" name="ios-arrow-down" *ngIf="!item.expanded"></ion-icon>
       <ion-icon slot="end" name="ios-arrow-up" *ngIf="item.expanded"></ion-icon>
       <ion-label>
         <h2>{{word?.text}}</h2>
@@ -29,7 +53,7 @@
         </app-expandable>
 
         <p padding-horizontal>Counter: {{word.count}} | Errors: {{word.errors}}</p>
-      </ion-label>
+      </ion-label> -->
 
     </ion-item>
 
