@@ -49,9 +49,13 @@ export class StatisticsPage implements OnInit {
     });
   }
 
-  async doRefresh(refresher: Refresher) {
+  async doRefresh({ target: refresher }: { target: Refresher }) {
     await this.loadData();
     refresher.complete();
+    if (this.loading) {
+      await this.loading.dismiss();
+      this.loading = null;
+    }
   }
 
   expandItem(item) {

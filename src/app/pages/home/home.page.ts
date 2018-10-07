@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
     });
   }
 
-  async doRefresh(refresher: Refresher) {
+  async doRefresh({ target: refresher }: { target: Refresher }) {
     try {
       this.dictionaries = await this.getDictionaries();
     } catch (error) {
