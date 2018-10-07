@@ -17,7 +17,7 @@
       <mat-expansion-panel-header>
 
         <mat-panel-title>
-          <strong>{{word?.text}}</strong>
+          {{word?.text}}
         </mat-panel-title>
 
         <mat-panel-description>
@@ -28,36 +28,13 @@
 
       <p>{{word?.transcription}}</p>
 
-      <p>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</p>
-
       <strong>{{word?.translation}}</strong>
+
+      <p>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</p>
 
     </mat-expansion-panel>
 
   </mat-accordion>
-  <ion-list #wordList [hidden]="wordStatsCount === 0">
-
-    <ion-item *ngFor="let word of wordStats" #item (click)="expandItem(item)" detail="false">
-
-      <!-- <ion-icon slot="end" name="ios-arrow-down" *ngIf="!item.expanded"></ion-icon>
-      <ion-icon slot="end" name="ios-arrow-up" *ngIf="item.expanded"></ion-icon>
-      <ion-label>
-        <h2>{{word?.text}}</h2>
-
-        <app-expandable [expandHeight]="itemExpandHeight" [expanded]="item.expanded">
-          <p padding-horizontal>{{word?.transcription}}</p>
-
-          <h4 padding-horizontal>{{word?.partOfSpeech}}: {{word?.category | lowercase}}</h4>
-
-          <h2 padding-horizontal>{{word?.translation}}</h2>
-        </app-expandable>
-
-        <p padding-horizontal>Counter: {{word.count}} | Errors: {{word.errors}}</p>
-      </ion-label> -->
-
-    </ion-item>
-
-  </ion-list>
 
   <ion-list-header [hidden]="wordStatsCount > 0">
     <ion-label>No Statistics</ion-label>
