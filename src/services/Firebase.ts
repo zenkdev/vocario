@@ -11,8 +11,8 @@ import { environment } from '../environments/environment';
 import { Dictionary, Word } from '../models';
 
 export class Firebase {
-  private readonly auth: firebase.auth.Auth;
-  private readonly db: firebase.database.Database;
+  public readonly auth: firebase.auth.Auth;
+  public readonly db: firebase.database.Database;
   private currentUser: firebase.User | null = null;
 
   constructor() {
@@ -29,6 +29,10 @@ export class Firebase {
 
   private get uid() {
     return this.currentUser && this.currentUser.uid;
+  }
+
+  public get isAuthenticated() {
+    return this.currentUser != null && !this.currentUser.isAnonymous;
   }
 
   /**

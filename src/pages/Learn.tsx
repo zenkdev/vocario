@@ -85,7 +85,7 @@ const Learn: React.FC = () => {
         <IonToolbar>
           <IonTitle>{title}</IonTitle>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/tabs/(home:home)" />
+            <IonBackButton defaultHref="/home" />
           </IonButtons>
         </IonToolbar>
       </IonHeader>

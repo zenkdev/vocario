@@ -1,3 +1,4 @@
+import authService from './AuthService';
 import firebaseInstance, { Firebase } from './Firebase';
 
-export { firebaseInstance, Firebase };
+export { authService, firebaseInstance, Firebase };

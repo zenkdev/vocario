@@ -14,24 +14,42 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import { home, person, stats } from 'ionicons/icons';
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { Home, Learn, Stats } from './pages';
+import { Home, Learn, Login, Stats } from './pages';
 
 const App: React.FC = () => (
   <IonApp>
-      <IonReactRouter>
+    <IonReactRouter>
+      <IonTabs>
         <IonRouterOutlet>
           <Route path="/home" component={Home} exact={true} />
-          <Route path="/learn" component={Learn} exact={true} />
+          <Route path="/learn" component={Learn} />
           <Route path="/stats" component={Stats} exact={true} />
+          <Route path="/login" component={Login} exact={true} />
           <Route exact path="/" render={() => <Redirect to="/home" />} />
         </IonRouterOutlet>
-      </IonReactRouter>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={home} />
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="stats" href="/stats">
+            <IonIcon icon={stats} />
+            <IonLabel>Statistics</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="profile" href="/profile">
+            <IonIcon icon={person} />
+            <IonLabel>Profile</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+    </IonReactRouter>
   </IonApp>
 );
 
