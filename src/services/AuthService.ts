@@ -4,9 +4,7 @@ import { switchMap } from 'rxjs/operators';
 
 import firebaseInstance from './Firebase';
 
-import AuthProvider = firebase.auth.AuthProvider;
-import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
-import UserCredential = firebase.auth.UserCredential;
+type UserCredential = firebase.auth.UserCredential;
 
 class AuthService {
   public loginWithEmailAndPassword(email: string, password: string): Observable<UserCredential> {
@@ -18,7 +16,9 @@ class AuthService {
 
   public loginWithGoogle(): Observable<UserCredential> {
     console.log('Sign in with google');
-    return from(firebaseInstance.auth.setPersistence('local')).pipe(switchMap(() => this.oauthSignIn(new GoogleAuthProvider())));
+    return from(firebaseInstance.auth.setPersistence('local')).pipe(
+      switchMap(() => this.oauthSignIn(new firebase.auth.GoogleAuthProvider())),
+    );
   }
 
   public signupUser(email: string, password: string): Observable<UserCredential> {
@@ -52,7 +52,7 @@ class AuthService {
     return from(firebaseInstance.auth.signOut());
   }
 
-  private oauthSignIn(provider: AuthProvider): Observable<UserCredential> {
+  private oauthSignIn(provider: firebase.auth.AuthProvider): Observable<UserCredential> {
     let signInPromise;
     // if (!(<any>window).cordova) {
     signInPromise = firebaseInstance.auth.signInWithPopup(provider);
