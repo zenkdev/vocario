@@ -4,7 +4,7 @@ import 'firebase/database';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from 'firebase/app';
-import { forkJoin, from, Observable, of } from 'rxjs';
+import { forkJoin, from, Observable, of, Subject } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
@@ -14,6 +14,7 @@ export class Firebase {
   public readonly auth: firebase.auth.Auth;
   public readonly db: firebase.database.Database;
   private currentUser: firebase.User | null = null;
+  private currentUserSubject: Subject<firebase.User | null> = new Subject();
 
   constructor() {
     firebase.initializeApp(environment.firebase);
@@ -22,7 +23,10 @@ export class Firebase {
     this.db = firebase.database();
 
     this.auth.onAuthStateChanged(
-      user => (this.currentUser = user),
+      user => {
+        this.currentUser = user;
+        this.currentUserSubject.next(user);
+      },
       error => console.error(error),
     );
   }
@@ -31,8 +35,8 @@ export class Firebase {
     return this.currentUser && this.currentUser.uid;
   }
 
-  public get isAuthenticated() {
-    return this.currentUser != null && !this.currentUser.isAnonymous;
+  public currentUserObservable(): Observable<firebase.User | null> {
+    return this.currentUserSubject.asObservable();
   }
 
   /**

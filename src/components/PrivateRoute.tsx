@@ -1,17 +1,21 @@
-import React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { firebaseInstance } from '../services';
+import React, { useContext } from 'react';
+import { Route, RouteProps } from 'react-router-dom';
 
-function isLoggedIn() {
-  return firebaseInstance.isAuthenticated;
-}
+import { FirebaseContext } from './';
+import { Login } from '../pages';
 
-const PrivateRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    // @ts-ignore
-    render={props => (isLoggedIn() ? <Component {...props} /> : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />)}
-  />
-);
+const PrivateRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
+  const context = useContext(FirebaseContext);
+  const isLoggedIn = context.currentUser != null;
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        // @ts-ignore
+        isLoggedIn ? <Component {...props} /> : <Login {...props} />
+      }
+    />
+  );
+};
 
 export default PrivateRoute;
