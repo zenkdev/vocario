@@ -1,46 +1,35 @@
-import { firebaseInstance } from '.';
-import { Observable, from } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
-import { ServiceFactory } from './ServiceFactory';
 import firebase from 'firebase/app';
 
-class ProfileService extends ServiceFactory {
+import { firebaseInstance } from './';
+
+class ProfileService {
   private currentUser: firebase.User | null = null;
+  private userProfile: firebase.database.Reference | null = null;
 
   constructor() {
-    super();
-    firebaseInstance.currentUserObservable().subscribe(user => {
+    firebaseInstance.auth.onAuthStateChanged(user => {
       this.currentUser = user;
+      this.userProfile = user && firebaseInstance.db.ref(`/userProfile/${user.uid}`);
     });
   }
 
-  private get userProfile(): firebase.database.Reference | null {
-    return this.currentUser && firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`);
+  public async updateName(displayName: string): Promise<void> {
+    await this.currentUser!.updateProfile({ displayName });
+    return await this.userProfile!.update({ displayName });
   }
 
-  public updateName(displayName: string): Observable<void> {
-    return from(this.userProfile!.update({ displayName })).pipe(
-      tap(() => this.log('updateName')),
-      switchMap(() => from(this.currentUser!.updateProfile({ displayName }))),
-    );
-  }
-
-  public updateEmail(newEmail: string, password: string): Observable<void> {
+  public async updateEmail(newEmail: string, password: string): Promise<void> {
     const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser!.email!, password);
-    return from(this.currentUser!.reauthenticateWithCredential(credential)).pipe(
-      tap(() => this.log('updateEmail')),
-      switchMap(() => from(this.currentUser!.updateEmail(newEmail))),
-      switchMap(() => from(this.userProfile!.update({ email: newEmail }))),
-    );
+    await this.currentUser!.reauthenticateWithCredential(credential);
+    await this.currentUser!.updateEmail(newEmail);
+    return await this.userProfile!.update({ email: newEmail });
   }
 
-  public updatePassword(newPassword: string, oldPassword: string): Observable<void> {
+  public async updatePassword(newPassword: string, oldPassword: string): Promise<void> {
     const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser!.email!, oldPassword);
-    return from(this.currentUser!.reauthenticateWithCredential(credential)).pipe(
-      tap(() => this.log('updatePassword')),
-      switchMap(() => from(this.currentUser!.updatePassword(newPassword))),
-      tap(() => this.log('Password Changed')),
-    );
+    await this.currentUser!.reauthenticateWithCredential(credential);
+    await this.currentUser!.updatePassword(newPassword);
+    console.log('Password Changed');
   }
 }
 

@@ -14,25 +14,24 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import { home, person, stats } from 'ionicons/icons';
-import React, { useState, useEffect } from 'react';
-import { Redirect, Route } from 'react-router-dom';
 import firebase from 'firebase/app';
+import { home, person, stats } from 'ionicons/icons';
+import React, { useEffect, useState } from 'react';
+import { Redirect, Route } from 'react-router-dom';
 
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { Home, Learn, Login, Profile, Stats } from './pages';
 import { FirebaseContext, PrivateRoute } from './components';
+import { Home, Learn, Login, Profile, ResetPassword, Stats } from './pages';
 import { firebaseInstance } from './services';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<firebase.UserInfo | null>(null);
 
   useEffect(() => {
-    const subscription = firebaseInstance.currentUserObservable().subscribe(user => setCurrentUser(user));
-    return () => subscription.unsubscribe();
-  });
+    return firebaseInstance.auth.onAuthStateChanged(user => setCurrentUser(user));
+  }, []);
 
   return (
     <IonApp>
@@ -44,6 +43,7 @@ const App: React.FC = () => {
               <PrivateRoute path="/learn" component={Learn} />
               <Route path="/login" component={Login} exact={true} />
               <PrivateRoute path="/profile" component={Profile} exact={true} />
+              <Route path="/reset-password" component={ResetPassword} exact={true} />
               <PrivateRoute path="/stats" component={Stats} exact={true} />
               <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>

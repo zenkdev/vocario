@@ -1,54 +1,63 @@
-import React, { useCallback, useState, useContext } from 'react';
+import { logOut } from 'ionicons/icons';
+import React, { useCallback, useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 
 import {
+  IonAvatar,
+  IonBackButton,
   IonButton,
+  IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
   IonList,
+  IonListHeader,
+  IonLoading,
   IonPage,
   IonTitle,
   IonToolbar,
-  IonIcon,
-  IonLoading,
-  IonButtons,
-  IonBackButton,
-  IonListHeader,
-  IonAvatar,
 } from '@ionic/react';
-import { logOut } from 'ionicons/icons';
-import { authService, profileService } from '../services';
-import { useHistory } from 'react-router';
+
 import { FirebaseContext } from '../components';
+import { authService, profileService } from '../services';
 
 const Login: React.FC = () => {
   const history = useHistory();
   const { currentUser } = useContext(FirebaseContext);
+  const [photoURL] = useState((currentUser && currentUser.photoURL) || undefined);
   const [displayName, setPhoneNumber] = useState(currentUser && currentUser.displayName);
+  const [email, setEmail] = useState(currentUser && currentUser.email);
   const [showLoading, setShowLoading] = useState(false);
-  const handleLogout = useCallback(() => {
-    authService.logout().subscribe(
-      () => history.push('/login'),
-      err => console.error(err),
-    );
+  const handleLogout = useCallback(async () => {
+    await authService.logout();
+    history.push('/login');
   }, [history]);
 
-  const photoURL = currentUser && currentUser.photoURL ? currentUser.photoURL : undefined;
-  const email = currentUser && currentUser.email ? currentUser.email : undefined;
+  const handleDisplayNameChange = (evt: CustomEvent<any>) => setPhoneNumber(evt.detail.value || '');
 
-  const handleDisplayNameChange = (evt: CustomEvent<{ value: string | null | undefined }>) => {
-    setPhoneNumber(evt.detail.value || null);
-  };
-
-  const handleDisplayNameBlur = (evt: CustomEvent<void>) => {
+  const handleDisplayNameBlur = async () => {
     if (displayName == null || displayName === currentUser?.displayName) {
       return;
     }
 
     setShowLoading(true);
-    profileService.updateName(displayName).subscribe(() => setShowLoading(false));
+    await profileService.updateName(displayName);
+    setShowLoading(false);
+  };
+
+  const handleEmailChange = (evt: CustomEvent<any>) => setEmail(evt.detail || '');
+
+  const handleEmailBlur = async () => {
+    if (email == null || email === currentUser?.email) {
+      return;
+    }
+
+    setShowLoading(true);
+    await profileService.updateEmail(email, '');
+    setShowLoading(false);
   };
 
   return (
@@ -80,7 +89,7 @@ const Login: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Email</IonLabel>
-            <IonInput type="email" value={email} />
+            <IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />
           </IonItem>
         </IonList>
         <IonLoading isOpen={showLoading} message="Saving..." />
