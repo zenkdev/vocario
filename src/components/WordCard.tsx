@@ -56,30 +56,28 @@ const WordCard: React.FC<WordCardProps> = ({ value, validate }) => {
     <IonCard>
       <IonCardHeader>{header}</IonCardHeader>
       <IonCardContent>
-        <h1>{value?.text}</h1>
-        <p>{value?.transcription}</p>
-        <form noValidate>
-          <IonList>
-            <IonItem>
-              <IonLabel position="stacked">Translate please</IonLabel>
-              <IonInput name="translation" placeholder={placeholder} type="text" value={translation} onIonChange={handleChange} />
-            </IonItem>
-          </IonList>
+        <h3>{value?.text}</h3>
+        <small>{value?.transcription}</small>
+        <IonList lines="full" class="ion-no-margin ion-no-padding">
+          <IonItem>
+            <IonLabel position="stacked">Translate please</IonLabel>
+            <IonInput name="translation" placeholder={placeholder} type="text" value={translation} onIonChange={handleChange} />
+          </IonItem>
+        </IonList>
 
-          <div>
-            {!translation && (
-              <IonButton onClick={handleHelpRequested} type="button" fill="outline">
-                Show me
-              </IonButton>
-            )}
-            {translation && (
-              <IonButton onClick={handleSubmit} type="button">
-                Validate
-              </IonButton>
-            )}
-          </div>
-        </form>
-        <h3>{`${value?.partOfSpeech} : ${value?.category}`}</h3>
+        <div className="ion-padding">
+          {!translation && (
+            <IonButton onClick={handleHelpRequested} type="button" fill="outline">
+              Show me
+            </IonButton>
+          )}
+          {translation && (
+            <IonButton onClick={handleSubmit} type="button">
+              Validate
+            </IonButton>
+          )}
+        </div>
+        <p style={{ fontSize: '60%' }}>{`${value?.partOfSpeech} : ${value?.category}`}</p>
       </IonCardContent>
     </IonCard>
   );

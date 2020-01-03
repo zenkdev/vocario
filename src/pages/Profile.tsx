@@ -77,19 +77,19 @@ const Login: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonList>
-          <IonListHeader>
+        <IonList lines="full" class="ion-no-margin ion-no-padding">
+          <IonListHeader color="light">
             <IonLabel>Personal Information</IonLabel>
           </IonListHeader>
           <IonItem>
             <IonAvatar slot="start">
               <img src={photoURL} alt="avatar" />
             </IonAvatar>
-            <IonLabel position="stacked">Name</IonLabel>
+            <IonLabel position="fixed">Name</IonLabel>
             <IonInput type="text" value={displayName} onIonChange={handleDisplayNameChange} onIonBlur={handleDisplayNameBlur} />
           </IonItem>
           <IonItem>
-            <IonLabel position="stacked">Email</IonLabel>
+            <IonLabel position="fixed">Email</IonLabel>
             <IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />
           </IonItem>
         </IonList>

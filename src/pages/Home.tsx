@@ -54,7 +54,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Home</IonTitle>
           <IonButtons slot="start">
@@ -62,12 +62,12 @@ const Home: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <IonList>
-          <IonListHeader>
+        <IonList lines="full" class="ion-no-margin ion-no-padding">
+          <IonListHeader color="light">
             {dictionaries.length ? <IonLabel>Welcome to Lexion!</IonLabel> : <IonLabel>No Dictionaries Found</IonLabel>}
           </IonListHeader>
           {dictionaries.map(dictionary => (

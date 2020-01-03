@@ -77,7 +77,7 @@ const Learn: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonTitle>{title}</IonTitle>
           <IonButtons slot="start">
@@ -85,9 +85,9 @@ const Learn: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent fullscreen>
         <WordCard validate={handleValidate} value={word} />
-        <div>
+        <div className="ion-padding">
           <p>{`${dictionary?.wordsLearned} / ${dictionary?.totalWords}`}</p>
         </div>
         <IonToast

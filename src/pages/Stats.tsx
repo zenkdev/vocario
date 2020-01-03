@@ -14,6 +14,10 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  IonNote,
+  IonGrid,
+  IonCol,
+  IonRow,
 } from '@ionic/react';
 
 import { Word } from '../models';
@@ -37,7 +41,7 @@ const Stats: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Statistics</IonTitle>
           <IonButtons slot="start">
@@ -45,19 +49,42 @@ const Stats: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <IonList>
-          <IonListHeader>{wordStats.length ? <IonLabel>Welcome to Lexion!</IonLabel> : <IonLabel>No Statistics</IonLabel>}</IonListHeader>
+        <IonList lines="full" class="ion-no-margin ion-no-padding">
+          {!wordStats.length && (
+            <IonListHeader>
+              <IonLabel>No Statistics</IonLabel>
+            </IonListHeader>
+          )}
           {wordStats.map(wordStat => (
-            <IonItem>
-              <IonTitle>{wordStat?.text}</IonTitle>
-              <IonLabel>{`Counter: ${wordStat.count} | Errors: ${wordStat.errors}`}</IonLabel>
-              <p>{wordStat?.transcription}</p>
-              <strong>{wordStat?.translation}</strong>
-              <p>{`${wordStat?.partOfSpeech} : ${wordStat?.category}`}</p>
+            <IonItem key={wordStat.id}>
+              <IonLabel>
+                <IonGrid class="ion-no-margin ion-no-padding">
+                  <IonRow>
+                    <IonCol>
+                      <h3>{wordStat?.text}</h3>
+                      <small>{wordStat?.transcription}</small>
+                    </IonCol>
+                    <IonCol>
+                      <strong>{wordStat?.translation}</strong>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol>
+                      <p style={{ fontSize: '60%', whiteSpace: 'normal' }}>{`${wordStat?.partOfSpeech} : ${wordStat?.category}`}</p>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonLabel>
+              <IonNote slot="end" color="primary">
+                {wordStat.count}
+              </IonNote>
+              <IonNote slot="end" color="danger">
+                {wordStat.errors}
+              </IonNote>
             </IonItem>
           ))}
         </IonList>
