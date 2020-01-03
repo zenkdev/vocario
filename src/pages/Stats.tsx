@@ -18,25 +18,27 @@ import {
   IonGrid,
   IonCol,
   IonRow,
+  IonLoading,
 } from '@ionic/react';
 
 import { Word } from '../models';
-import { firebaseInstance } from '../services';
+import { dictionaryService } from '../services';
 
 const Stats: React.FC = () => {
+  const [showLoading, setShowLoading] = useState(true);
   const [wordStats, setWordStats] = useState<Word[]>([]);
-  const doRefresh = useCallback(({ target: refresher }) => {
-    firebaseInstance.getStatistics().subscribe(data => {
-      setWordStats(data);
-      refresher.complete();
-      // if (this.loading) {
-      //   await this.loading.dismiss();
-      //   this.loading = null;
-      // }
-    });
+  const doRefresh = useCallback(async ({ target: refresher }) => {
+    setShowLoading(true);
+    const data = await dictionaryService.getStatistics();
+    setWordStats(data);
+    refresher.complete();
+    setShowLoading(false);
   }, []);
   useEffect(() => {
-    firebaseInstance.getStatistics().subscribe(data => setWordStats(data));
+    dictionaryService.getStatistics().then(data => {
+      setWordStats(data);
+      setShowLoading(false);
+    });
   }, []);
 
   return (
@@ -88,6 +90,7 @@ const Stats: React.FC = () => {
             </IonItem>
           ))}
         </IonList>
+        <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );

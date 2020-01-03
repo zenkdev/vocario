@@ -20,23 +20,24 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  IonLoading,
+  IonNote,
 } from '@ionic/react';
 
 import { Dictionary } from '../models';
-import { firebaseInstance } from '../services';
+import { dictionaryService } from '../services';
 
 const Home: React.FC = () => {
   const history = useHistory();
+  const [showLoading, setShowLoading] = useState(true);
   const [segment] = useState('all');
   const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
   const doRefresh = useCallback(({ target: refresher }) => {
-    firebaseInstance.getDictionaries().subscribe(data => {
+    setShowLoading(true);
+    dictionaryService.getDictionaries().then(data => {
       setDictionaries(data);
       refresher.complete();
-      // if (this.loading) {
-      //   await this.loading.dismiss();
-      //   this.loading = null;
-      // }
+      setShowLoading(false);
     });
   }, []);
   const goToLearn = useCallback(
@@ -49,7 +50,10 @@ const Home: React.FC = () => {
   const removeFavorite = useCallback(() => {}, []);
 
   useEffect(() => {
-    firebaseInstance.getDictionaries().subscribe(data => setDictionaries(data));
+    dictionaryService.getDictionaries().then(data => {
+      setDictionaries(data);
+      setShowLoading(false);
+    });
   }, []);
 
   return (
@@ -68,15 +72,17 @@ const Home: React.FC = () => {
         </IonRefresher>
         <IonList lines="full" class="ion-no-margin ion-no-padding">
           <IonListHeader color="light">
-            {dictionaries.length ? <IonLabel>Welcome to Lexion!</IonLabel> : <IonLabel>No Dictionaries Found</IonLabel>}
+            <IonLabel>{dictionaries.length ? `Welcome to Lexion!` : `No Dictionaries Found`}</IonLabel>
           </IonListHeader>
           {dictionaries.map(dictionary => (
             <IonItemSliding key={dictionary.id}>
               <IonItem button detail onClick={goToLearn.bind(null, dictionary)}>
                 <IonLabel>
                   <h3>{dictionary.name}</h3>
-                  <p>{`${dictionary.wordsLearned} / ${dictionary.totalWords}`}</p>
                 </IonLabel>
+                <IonNote slot="end" color="primary">
+                  {`${dictionary.wordsLearned} / ${dictionary.totalWords}`}
+                </IonNote>
               </IonItem>
               <IonItemOptions>
                 {segment === 'all' && (
@@ -93,6 +99,7 @@ const Home: React.FC = () => {
             </IonItemSliding>
           ))}
         </IonList>
+        <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );

@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar, IonLoading } from '@ionic/react';
 
 import { WordCard } from '../components';
 import { Dictionary, Word } from '../models';
-import { firebaseInstance } from '../services';
+import { dictionaryService } from '../services';
 
 /**
  * generate a random integer between min and max
@@ -25,6 +25,7 @@ interface LearnLocationState {
 const Learn: React.FC = () => {
   const history = useHistory<LearnLocationState>();
   const [title, setTitle] = useState('Learn');
+  const [showLoading, setShowLoading] = useState(true);
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
   const [toast, setToast] = useState<string>();
@@ -39,26 +40,25 @@ const Learn: React.FC = () => {
   }
 
   const handleValidate = useCallback(
-    (valid: boolean) => {
+    async (valid: boolean) => {
       if (!dictionary || !word) {
         return;
       }
 
-      firebaseInstance.updateDictionaryFromWord(dictionary, word, valid).subscribe(() => {
-        const justLearned = valid && word.count === word.errors;
-        dictionary.wordsLearned += justLearned ? 1 : 0;
-        if (dictionary.wordsLearned > dictionary.totalWords) {
-          dictionary.wordsLearned = dictionary.totalWords;
+      await dictionaryService.updateDictionaryFromWord(dictionary, word, valid);
+      const justLearned = valid && word.count === word.errors;
+      dictionary.wordsLearned += justLearned ? 1 : 0;
+      if (dictionary.wordsLearned > dictionary.totalWords) {
+        dictionary.wordsLearned = dictionary.totalWords;
+      }
+      word.count += 1;
+      word.errors += valid ? 0 : 1;
+      if (valid) {
+        newWord(dictionary);
+        if (justLearned) {
+          setToast(`Words learned ${dictionary.wordsLearned} of ${dictionary.totalWords}.`);
         }
-        word.count += 1;
-        word.errors += valid ? 0 : 1;
-        if (valid) {
-          newWord(dictionary);
-          if (justLearned) {
-            setToast(`Words learned ${dictionary.wordsLearned} of ${dictionary.totalWords}.`);
-          }
-        }
-      });
+      }
     },
     [dictionary, word],
   );
@@ -68,8 +68,9 @@ const Learn: React.FC = () => {
       setTitle(history.location.state.title);
     }
     if (history.location.state && history.location.state.id) {
-      firebaseInstance.getDictionary(history.location.state.id).subscribe(data => {
+      dictionaryService.getDictionary(history.location.state.id).then(data => {
         setDictionary(data);
+        setShowLoading(false);
         newWord(data);
       });
     }
@@ -98,6 +99,7 @@ const Learn: React.FC = () => {
           onDidDismiss={() => setToast(undefined)}
           showCloseButton
         />
+        <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );
