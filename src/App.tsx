@@ -23,7 +23,7 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 
 import { FirebaseContext, PrivateRoute } from './components';
-import { Home, Learn, Login, Profile, ResetPassword, Stats } from './pages';
+import { Home, Learn, Login, Profile, ResetPassword, Stats, Signup } from './pages';
 import { firebaseInstance } from './services';
 
 const App: React.FC = () => {
@@ -44,6 +44,7 @@ const App: React.FC = () => {
               <Route path="/login" component={Login} exact={true} />
               <PrivateRoute path="/profile" component={Profile} exact={true} />
               <Route path="/reset-password" component={ResetPassword} exact={true} />
+              <Route path="/signup" component={Signup} exact={true} />
               <PrivateRoute path="/stats" component={Stats} exact={true} />
               <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
