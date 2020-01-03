@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Add the Firebase products that you want to use
 import 'firebase/auth';
 import 'firebase/database';
@@ -5,15 +7,18 @@ import 'firebase/database';
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from 'firebase/app';
 import { forkJoin, from, Observable, of, Subject } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
-import { environment } from '../environments/environment';
+import environment from '../environments/environment';
 import { Dictionary, Word } from '../models';
 
 export class Firebase {
   public readonly auth: firebase.auth.Auth;
+
   public readonly db: firebase.database.Database;
+
   private currentUser: firebase.User | null = null;
+
   private currentUserSubject: Subject<firebase.User | null> = new Subject();
 
   constructor() {
@@ -27,6 +32,7 @@ export class Firebase {
         this.currentUser = user;
         this.currentUserSubject.next(user);
       },
+      // eslint-disable-next-line no-console
       error => console.error(error),
     );
   }
@@ -44,7 +50,6 @@ export class Firebase {
    */
   public getDictionaries(): Observable<Dictionary[]> {
     return from(this.db.ref('dictionaryList').once('value')).pipe(
-      tap(_ => this.log('fetched dictionaries')),
       map(snapshot => {
         const arr: Dictionary[] = [];
         snapshot.forEach(payload => {
@@ -59,14 +64,14 @@ export class Firebase {
   /** GET dictionary by id. */
   public getDictionary(id: string): Observable<Dictionary> {
     return this.getDictionaryById(id).pipe(
-      switchMap(dictionary => {
-        return this.getWordsByDictionaryId(id).pipe(
+      switchMap(dictionary =>
+        this.getWordsByDictionaryId(id).pipe(
           map(data => {
             dictionary.words = data;
             return dictionary;
           }),
-        );
-      }),
+        ),
+      ),
     );
   }
 
@@ -76,7 +81,6 @@ export class Firebase {
     }
 
     return from(this.db.ref(`statistics/${this.uid}`).once('value')).pipe(
-      tap(_ => this.log(`fetched statistics`)),
       map(snapshot => {
         const arr: Word[] = [];
         snapshot.forEach(payload => {
@@ -84,7 +88,7 @@ export class Firebase {
         });
         return arr;
       }),
-      catchError(this.handleError<Word[]>(`getStatistics`)),
+      catchError(this.handleError<Word[]>('getStatistics')),
     );
   }
 
@@ -101,15 +105,13 @@ export class Firebase {
     observables.push(this.updateStatistics(word, this.uid, valid));
 
     return forkJoin(observables).pipe(
-      tap(_ => this.log(`updated dictionarie stat id=${dictionary.id}`)),
-      map(_ => wordsLearned),
+      map(() => wordsLearned),
       catchError(this.handleError('updateDictionaryStat')),
     );
   }
 
   private getDictionaryById(id: string): Observable<Dictionary> {
     return from(this.db.ref(`dictionaryList/${id}`).once('value')).pipe(
-      tap(_ => this.log(`fetched dictionary id=${id}`)),
       map(snapshot => Dictionary.fromSnapshot(snapshot, this.uid)),
       catchError(this.handleError<Dictionary>(`getDictionaryById id=${id}`)),
     );
@@ -123,7 +125,6 @@ export class Firebase {
         .equalTo(dictionaryId)
         .once('value'),
     ).pipe(
-      tap(_ => this.log(`fetched words dictionaryId=${dictionaryId}`)),
       map(snapshot => {
         const arr: Word[] = [];
         snapshot.forEach(payload => {
@@ -209,25 +210,20 @@ export class Firebase {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
+  // eslint-disable-next-line class-methods-use-this
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+    return (error: Error): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
+      // eslint-disable-next-line no-console
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      // eslint-disable-next-line no-console
+      console.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
-  }
-
-  /**
-   * Log a message with the MessageService
-   */
-  private log(message: string) {
-    // this.messageService.add(`Firebase: ${message}`);
-    console.log(`Firebase: ${message}`);
   }
 }
 

@@ -1,18 +1,21 @@
 import firebase from 'firebase/app';
 
-import { Word } from './index';
+import Word from './word';
 
-export class Dictionary {
+class Dictionary {
   constructor(id?: string, name?: string, totalWords?: number, wordsLearned?: number) {
-    this.id = id!;
-    this.name = name!;
-    this.totalWords = totalWords!;
-    this.wordsLearned = wordsLearned!;
+    this.id = id || '';
+    this.name = name || '';
+    this.totalWords = totalWords || 0;
+    this.wordsLearned = wordsLearned || 0;
   }
 
   public id: string;
+
   public name: string;
+
   public totalWords: number;
+
   public wordsLearned: number;
 
   public words?: Word[];
@@ -24,3 +27,5 @@ export class Dictionary {
     return new Dictionary(id, name, totalWords, wordsLearned);
   }
 }
+
+export default Dictionary;

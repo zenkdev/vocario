@@ -19,6 +19,7 @@ import {
 } from '@ionic/react';
 
 import { authService } from '../services';
+import { IonEvent } from '../types';
 
 const Signup: React.FC = () => {
   const history = useHistory();
@@ -29,7 +30,8 @@ const Signup: React.FC = () => {
   const [error, setError] = useState<string>();
   const signupUser = useCallback(async () => {
     if (!email || !password || password !== confirmPassword) {
-      console.log(`Form is not valid yet`);
+      // eslint-disable-next-line no-console
+      console.log('Form is not valid yet');
       return;
     }
 
@@ -38,15 +40,15 @@ const Signup: React.FC = () => {
       await authService.signupUser(email, password);
       setShowLoading(false);
       history.push('/home');
-    } catch (error) {
+    } catch (err) {
       setShowLoading(false);
-      setError(error.message);
+      setError(err.message);
     }
   }, [history, email, password, confirmPassword]);
 
-  const handleEmailChange = (evt: CustomEvent<any>) => setEmail(evt.detail.value || '');
-  const handlePasswordChange = (evt: CustomEvent<any>) => setPassword(evt.detail.value || '');
-  const handleConfirmPasswordChange = (evt: CustomEvent<any>) => setConfirmPassword(evt.detail.value || '');
+  const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
+  const handlePasswordChange = (evt: IonEvent) => setPassword(evt.detail.value || '');
+  const handleConfirmPasswordChange = (evt: IonEvent) => setConfirmPassword(evt.detail.value || '');
 
   return (
     <IonPage>

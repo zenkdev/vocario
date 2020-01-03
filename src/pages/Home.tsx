@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable react/jsx-no-bind */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
@@ -43,8 +45,8 @@ const Home: React.FC = () => {
     },
     [history],
   );
-  const addFavorite = useCallback((dictionary: Dictionary) => {}, []);
-  const removeFavorite = useCallback((dictionary: Dictionary) => {}, []);
+  const addFavorite = useCallback(() => {}, []);
+  const removeFavorite = useCallback(() => {}, []);
 
   useEffect(() => {
     firebaseInstance.getDictionaries().subscribe(data => setDictionaries(data));
@@ -73,9 +75,7 @@ const Home: React.FC = () => {
               <IonItem button detail onClick={goToLearn.bind(null, dictionary)}>
                 <IonLabel>
                   <h3>{dictionary.name}</h3>
-                  <p>
-                    {dictionary.wordsLearned} / {dictionary.totalWords}
-                  </p>
+                  <p>{`${dictionary.wordsLearned} / ${dictionary.totalWords}`}</p>
                 </IonLabel>
               </IonItem>
               <IonItemOptions>

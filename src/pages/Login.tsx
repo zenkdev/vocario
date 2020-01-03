@@ -18,17 +18,19 @@ import {
 } from '@ionic/react';
 
 import { authService } from '../services';
+import { IonEvent } from '../types';
 
 const Login: React.FC = () => {
   const history = useHistory();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [showLoading, setShowLoading] = useState(false);
-  const handleChangeEmail = (evt: CustomEvent<any>) => setEmail(evt.detail.value || '');
-  const handleChangePassword = (evt: CustomEvent<any>) => setPassword(evt.detail.value || '');
+  const handleChangeEmail = (evt: IonEvent) => setEmail(evt.detail.value || '');
+  const handleChangePassword = (evt: IonEvent) => setPassword(evt.detail.value || '');
   const loginWithEmailAndPassword = useCallback(async () => {
     if (!email || !password) {
-      console.log(`Form is not valid yet`);
+      // eslint-disable-next-line no-console
+      console.log('Form is not valid yet');
       return;
     }
 

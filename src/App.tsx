@@ -14,7 +14,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import firebase from 'firebase/app';
+import { UserInfo } from 'firebase/app';
 import { home, person, stats } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
@@ -23,15 +23,13 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 
 import { FirebaseContext, PrivateRoute } from './components';
-import { Home, Learn, Login, Profile, ResetPassword, Stats, Signup } from './pages';
+import { Home, Learn, Login, Profile, ResetPassword, Signup, Stats } from './pages';
 import { firebaseInstance } from './services';
 
 const App: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<firebase.UserInfo | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
 
-  useEffect(() => {
-    return firebaseInstance.auth.onAuthStateChanged(user => setCurrentUser(user));
-  }, []);
+  useEffect(() => firebaseInstance.auth.onAuthStateChanged(user => setCurrentUser(user)), []);
 
   return (
     <IonApp>
@@ -39,13 +37,13 @@ const App: React.FC = () => {
         <IonReactRouter>
           <IonTabs>
             <IonRouterOutlet>
-              <Route path="/home" component={Home} exact={true} />
+              <Route path="/home" component={Home} exact />
               <PrivateRoute path="/learn" component={Learn} />
-              <Route path="/login" component={Login} exact={true} />
-              <PrivateRoute path="/profile" component={Profile} exact={true} />
-              <Route path="/reset-password" component={ResetPassword} exact={true} />
-              <Route path="/signup" component={Signup} exact={true} />
-              <PrivateRoute path="/stats" component={Stats} exact={true} />
+              <Route path="/login" component={Login} exact />
+              <PrivateRoute path="/profile" component={Profile} exact />
+              <Route path="/reset-password" component={ResetPassword} exact />
+              <Route path="/signup" component={Signup} exact />
+              <PrivateRoute path="/stats" component={Stats} exact />
               <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">

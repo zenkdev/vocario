@@ -19,6 +19,7 @@ import {
 } from '@ionic/react';
 
 import { authService } from '../services';
+import { IonEvent } from '../types';
 
 const ResetPassword: React.FC = () => {
   const history = useHistory();
@@ -28,7 +29,8 @@ const ResetPassword: React.FC = () => {
   const [error, setError] = useState<string>();
   const resetPassword = useCallback(async () => {
     if (!email) {
-      console.log(`Form is not valid yet`);
+      // eslint-disable-next-line no-console
+      console.log('Form is not valid yet');
       return;
     }
 
@@ -38,9 +40,9 @@ const ResetPassword: React.FC = () => {
       // buttons: [{ text: 'Ok', role: 'cancel', handler: () => history.goBack() }]
       setShowLoading(false);
       setShowSuccess(true);
-    } catch (error) {
+    } catch (err) {
       setShowLoading(false);
-      setError(error.message);
+      setError(err.message);
     }
   }, [email]);
   const handleSuccessDismiss = useCallback(() => {
@@ -48,7 +50,7 @@ const ResetPassword: React.FC = () => {
     history.goBack();
   }, [history]);
 
-  const handleEmailChange = (evt: CustomEvent<any>) => setEmail(evt.detail.value || '');
+  const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
 
   return (
     <IonPage>

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { setupConfig } from '@ionic/react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { setupConfig } from '@ionic/react';
 
 setupConfig({ mode: 'ios' });
 

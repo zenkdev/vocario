@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonInput, IonItem, IonLabel, IonList } from '@ionic/react';
 
 import { Word } from '../models';
+import { IonEvent } from '../types';
 
 interface WordCardProps {
   value: Word | undefined;
@@ -39,9 +40,7 @@ const WordCard: React.FC<WordCardProps> = ({ value, validate }) => {
     validate(valid as boolean);
   }, [value, validate, translation]);
 
-  const handleChange = useCallback((evt: CustomEvent<{ value: string | null | undefined }>) => {
-    setTranslation(evt.detail.value || '');
-  }, []);
+  const handleChange = (evt: IonEvent) => setTranslation(evt.detail.value || '');
 
   useEffect(() => {
     if (value && value.count > 0) {
@@ -80,9 +79,7 @@ const WordCard: React.FC<WordCardProps> = ({ value, validate }) => {
             )}
           </div>
         </form>
-        <h3>
-          {value?.partOfSpeech}: {value?.category}
-        </h3>
+        <h3>{`${value?.partOfSpeech} : ${value?.category}`}</h3>
       </IonCardContent>
     </IonCard>
   );

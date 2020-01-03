@@ -12,4 +12,4 @@ const createNamedContext = (name: string) => {
   return context;
 };
 
-export default /*#__PURE__*/ createNamedContext('Firebase');
+export default /* #__PURE__ */ createNamedContext('Firebase');

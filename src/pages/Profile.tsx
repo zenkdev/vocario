@@ -23,6 +23,7 @@ import {
 
 import { FirebaseContext } from '../components';
 import { authService, profileService } from '../services';
+import { IonEvent } from '../types';
 
 const Login: React.FC = () => {
   const history = useHistory();
@@ -36,7 +37,7 @@ const Login: React.FC = () => {
     history.push('/login');
   }, [history]);
 
-  const handleDisplayNameChange = (evt: CustomEvent<any>) => setPhoneNumber(evt.detail.value || '');
+  const handleDisplayNameChange = (evt: IonEvent) => setPhoneNumber(evt.detail.value || '');
 
   const handleDisplayNameBlur = async () => {
     if (displayName == null || displayName === currentUser?.displayName) {
@@ -48,7 +49,7 @@ const Login: React.FC = () => {
     setShowLoading(false);
   };
 
-  const handleEmailChange = (evt: CustomEvent<any>) => setEmail(evt.detail || '');
+  const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
 
   const handleEmailBlur = async () => {
     if (email == null || email === currentUser?.email) {

@@ -54,12 +54,10 @@ const Stats: React.FC = () => {
           {wordStats.map(wordStat => (
             <IonItem>
               <IonTitle>{wordStat?.text}</IonTitle>
-              <IonLabel>Counter: {wordStat.count} | Errors: {wordStat.errors}</IonLabel>
+              <IonLabel>{`Counter: ${wordStat.count} | Errors: ${wordStat.errors}`}</IonLabel>
               <p>{wordStat?.transcription}</p>
               <strong>{wordStat?.translation}</strong>
-              <p>
-                {wordStat?.partOfSpeech}: {wordStat?.category}
-              </p>
+              <p>{`${wordStat?.partOfSpeech} : ${wordStat?.category}`}</p>
             </IonItem>
           ))}
         </IonList>

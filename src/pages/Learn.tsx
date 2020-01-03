@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 
 import { WordCard } from '../components';
 import { Dictionary, Word } from '../models';
@@ -27,6 +27,7 @@ const Learn: React.FC = () => {
   const [title, setTitle] = useState('Learn');
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
+  const [toast, setToast] = useState<string>();
 
   function newWord(dct: Dictionary | undefined) {
     if (dct && dct.words && dct.totalWords) {
@@ -49,17 +50,12 @@ const Learn: React.FC = () => {
         if (dictionary.wordsLearned > dictionary.totalWords) {
           dictionary.wordsLearned = dictionary.totalWords;
         }
-        word.count++;
+        word.count += 1;
         word.errors += valid ? 0 : 1;
         if (valid) {
           newWord(dictionary);
           if (justLearned) {
-            // const toast = await this.toastCtrl.create({
-            //   message: `Words learned ${dictionary.wordsLearned} of ${dictionary.totalWords}.`,
-            //   duration: 1000
-            // });
-            // await toast.present();
-            alert(`Words learned ${dictionary.wordsLearned} of ${dictionary.totalWords}.`);
+            setToast(`Words learned ${dictionary.wordsLearned} of ${dictionary.totalWords}.`);
           }
         }
       });
@@ -92,10 +88,16 @@ const Learn: React.FC = () => {
       <IonContent className="ion-padding">
         <WordCard validate={handleValidate} value={word} />
         <div>
-          <p>
-            {dictionary?.wordsLearned} / {dictionary?.totalWords}
-          </p>
+          <p>{`${dictionary?.wordsLearned} / ${dictionary?.totalWords}`}</p>
         </div>
+        <IonToast
+          isOpen={Boolean(toast)}
+          message={toast}
+          color="primary"
+          duration={1000}
+          onDidDismiss={() => setToast(undefined)}
+          showCloseButton
+        />
       </IonContent>
     </IonPage>
   );
