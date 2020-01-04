@@ -14,41 +14,36 @@ import {
   IonLoading,
   IonPage,
   IonTitle,
-  IonToast,
   IonToolbar,
 } from '@ionic/react';
 
-import { authService } from '../services';
+import { authService, toastService } from '../services';
 import { IonEvent } from '../types';
 
 const ResetPassword: React.FC = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [showLoading, setShowLoading] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [error, setError] = useState<string>();
   const resetPassword = useCallback(async () => {
     if (!email) {
-      // eslint-disable-next-line no-console
-      console.log('Form is not valid yet');
+      toastService.showError('Form is not valid yet!');
       return;
     }
 
     setShowLoading(true);
     try {
       await authService.resetPassword(email);
-      // buttons: [{ text: 'Ok', role: 'cancel', handler: () => history.goBack() }]
       setShowLoading(false);
-      setShowSuccess(true);
-    } catch (err) {
+      toastService.showToast({
+        message: 'Check your email for a password reset link',
+        buttons: [{ text: 'Ok', role: 'cancel', handler: () => history.goBack() }],
+        color: 'success',
+      });
+    } catch (error) {
       setShowLoading(false);
-      setError(err.message);
+      toastService.showInfo(error);
     }
-  }, [email]);
-  const handleSuccessDismiss = useCallback(() => {
-    setShowSuccess(false);
-    history.goBack();
-  }, [history]);
+  }, [history, email]);
 
   const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
 
@@ -75,15 +70,6 @@ const ResetPassword: React.FC = () => {
           </IonButton>
         </div>
         <IonLoading isOpen={showLoading} message="Resetting..." />
-        <IonToast
-          isOpen={showSuccess}
-          message="Check your email for a password reset link"
-          onDidDismiss={handleSuccessDismiss}
-          color="success"
-          closeButtonText="Ok"
-          showCloseButton
-        />
-        <IonToast isOpen={Boolean(error)} message={error} onDidDismiss={() => setError(undefined)} color="danger" showCloseButton />
       </IonContent>
     </IonPage>
   );

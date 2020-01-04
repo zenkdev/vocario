@@ -19,17 +19,31 @@ import { home, person, stats } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { toastController } from '@ionic/core';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import { FirebaseContext, PrivateRoute } from './components';
 import { Home, Learn, Login, Profile, ResetPassword, Signup, Stats } from './pages';
-import { firebaseInstance } from './services';
+import { firebaseInstance, toastService } from './services';
 
 const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
 
-  useEffect(() => firebaseInstance.auth.onAuthStateChanged(user => setCurrentUser(user)), []);
+  useEffect(() => {
+    const unsubscribeAuth = firebaseInstance.auth.onAuthStateChanged(user => setCurrentUser(user));
+    const unsubscribeToast = toastService.onNextToast(options => {
+      toastController.create(options).then(toast => {
+        toast.present();
+      });
+    });
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeToast();
+    };
+  }, []);
 
   return (
     <IonApp>

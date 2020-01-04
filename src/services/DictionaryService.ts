@@ -17,7 +17,7 @@ const timeout = (ms: number) =>
     }, ms);
   });
 
-export class DictionaryService {
+class DictionaryService {
   private readonly db: firebase.database.Database;
 
   private uid: string | null = null;

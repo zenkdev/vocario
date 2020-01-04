@@ -25,7 +25,7 @@ import {
 } from '@ionic/react';
 
 import { Dictionary } from '../models';
-import { dictionaryService } from '../services';
+import { dictionaryService, toastService } from '../services';
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -34,11 +34,18 @@ const Home: React.FC = () => {
   const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
   const doRefresh = useCallback(({ target: refresher }) => {
     setShowLoading(true);
-    dictionaryService.getDictionaries().then(data => {
-      setDictionaries(data);
-      refresher.complete();
-      setShowLoading(false);
-    });
+    dictionaryService
+      .getDictionaries()
+      .then(data => {
+        setShowLoading(false);
+        refresher.complete();
+        setDictionaries(data);
+      })
+      .catch(error => {
+        setShowLoading(false);
+        refresher.complete();
+        toastService.showError(error);
+      });
   }, []);
   const goToLearn = useCallback(
     (dictionary: Dictionary) => {
@@ -50,10 +57,16 @@ const Home: React.FC = () => {
   const removeFavorite = useCallback(() => {}, []);
 
   useEffect(() => {
-    dictionaryService.getDictionaries().then(data => {
-      setDictionaries(data);
-      setShowLoading(false);
-    });
+    dictionaryService
+      .getDictionaries()
+      .then(data => {
+        setShowLoading(false);
+        setDictionaries(data);
+      })
+      .catch(error => {
+        setShowLoading(false);
+        toastService.showError(error);
+      });
   }, []);
 
   return (

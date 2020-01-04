@@ -14,11 +14,10 @@ import {
   IonLoading,
   IonPage,
   IonTitle,
-  IonToast,
   IonToolbar,
 } from '@ionic/react';
 
-import { authService } from '../services';
+import { authService, toastService } from '../services';
 import { IonEvent } from '../types';
 
 const Signup: React.FC = () => {
@@ -27,11 +26,9 @@ const Signup: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showLoading, setShowLoading] = useState(false);
-  const [error, setError] = useState<string>();
   const signupUser = useCallback(async () => {
     if (!email || !password || password !== confirmPassword) {
-      // eslint-disable-next-line no-console
-      console.log('Form is not valid yet');
+      toastService.showError('Form is not valid yet!');
       return;
     }
 
@@ -40,9 +37,9 @@ const Signup: React.FC = () => {
       await authService.signupUser(email, password);
       setShowLoading(false);
       history.push('/home');
-    } catch (err) {
+    } catch (error) {
       setShowLoading(false);
-      setError(err.message);
+      toastService.showError(error);
     }
   }, [history, email, password, confirmPassword]);
 
@@ -81,7 +78,6 @@ const Signup: React.FC = () => {
           </IonButton>
         </div>
         <IonLoading isOpen={showLoading} message="Creating..." />
-        <IonToast isOpen={Boolean(error)} message={error} onDidDismiss={() => setError(undefined)} color="danger" showCloseButton />
       </IonContent>
     </IonPage>
   );

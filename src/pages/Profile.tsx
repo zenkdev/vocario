@@ -22,7 +22,7 @@ import {
 } from '@ionic/react';
 
 import { FirebaseContext } from '../components';
-import { authService, profileService } from '../services';
+import { authService, profileService, toastService } from '../services';
 import { IonEvent } from '../types';
 
 const Login: React.FC = () => {
@@ -33,8 +33,12 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState(currentUser && currentUser.email);
   const [showLoading, setShowLoading] = useState(false);
   const handleLogout = useCallback(async () => {
-    await authService.logout();
-    history.push('/login');
+    try {
+      await authService.logout();
+      history.push('/login');
+    } catch (error) {
+      toastService.showError(error);
+    }
   }, [history]);
 
   const handleDisplayNameChange = (evt: IonEvent) => setPhoneNumber(evt.detail.value || '');
@@ -45,8 +49,13 @@ const Login: React.FC = () => {
     }
 
     setShowLoading(true);
-    await profileService.updateName(displayName);
-    setShowLoading(false);
+    try {
+      await profileService.updateName(displayName);
+      setShowLoading(false);
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
   };
 
   const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
@@ -57,8 +66,13 @@ const Login: React.FC = () => {
     }
 
     setShowLoading(true);
-    await profileService.updateEmail(email, '');
-    setShowLoading(false);
+    try {
+      await profileService.updateEmail(email, '');
+      setShowLoading(false);
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
   };
 
   return (

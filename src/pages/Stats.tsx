@@ -22,23 +22,37 @@ import {
 } from '@ionic/react';
 
 import { Word } from '../models';
-import { dictionaryService } from '../services';
+import { dictionaryService, toastService } from '../services';
 
 const Stats: React.FC = () => {
   const [showLoading, setShowLoading] = useState(true);
   const [wordStats, setWordStats] = useState<Word[]>([]);
-  const doRefresh = useCallback(async ({ target: refresher }) => {
+  const doRefresh = useCallback(({ target: refresher }) => {
     setShowLoading(true);
-    const data = await dictionaryService.getStatistics();
-    setWordStats(data);
-    refresher.complete();
-    setShowLoading(false);
+    dictionaryService
+      .getStatistics()
+      .then(data => {
+        setShowLoading(false);
+        refresher.complete();
+        setWordStats(data);
+      })
+      .catch(error => {
+        setShowLoading(false);
+        refresher.complete();
+        toastService.showError(error);
+      });
   }, []);
   useEffect(() => {
-    dictionaryService.getStatistics().then(data => {
-      setWordStats(data);
-      setShowLoading(false);
-    });
+    dictionaryService
+      .getStatistics()
+      .then(data => {
+        setShowLoading(false);
+        setWordStats(data);
+      })
+      .catch(error => {
+        setShowLoading(false);
+        toastService.showError(error);
+      });
   }, []);
 
   return (

@@ -17,7 +17,7 @@ import {
   IonToolbar,
 } from '@ionic/react';
 
-import { authService } from '../services';
+import { authService, toastService } from '../services';
 import { IonEvent } from '../types';
 
 const Login: React.FC = () => {
@@ -29,27 +29,31 @@ const Login: React.FC = () => {
   const handleChangePassword = (evt: IonEvent) => setPassword(evt.detail.value || '');
   const loginWithEmailAndPassword = useCallback(async () => {
     if (!email || !password) {
-      // eslint-disable-next-line no-console
-      console.log('Form is not valid yet');
+      toastService.showError('Form is not valid yet!');
       return;
     }
 
     setShowLoading(true);
-    await authService.loginWithEmailAndPassword(email, password);
-    setShowLoading(false);
-    history.replace('/home');
-    // // this.router.navigate([this.returnUrl]);
-    // const alert = await this.alertCtrl.create({
-    //   message: error.message,
-    //   buttons: [{ text: 'Ok', role: 'cancel' }],
-    // });
-    // await alert.present();
+    try {
+      await authService.loginWithEmailAndPassword(email, password);
+      setShowLoading(false);
+      history.replace('/home');
+      // this.router.navigate([this.returnUrl]);
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
   }, [history, email, password]);
   const loginWithGoogle = useCallback(async () => {
     setShowLoading(true);
-    await authService.loginWithGoogle();
-    setShowLoading(false);
-    history.replace('/home');
+    try {
+      await authService.loginWithGoogle();
+      setShowLoading(false);
+      history.replace('/home');
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
   }, [history]);
 
   return (
