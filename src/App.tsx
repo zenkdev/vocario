@@ -25,14 +25,18 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 
 import { FirebaseContext, PrivateRoute } from './components';
-import { Home, Learn, Login, Profile, ResetPassword, Signup, Stats } from './pages';
+import { Home, Learn, Login, Profile, ResetPassword, Signup, Stats, Splash } from './pages';
 import { firebaseInstance, toastService } from './services';
 
 const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
-    const unsubscribeAuth = firebaseInstance.auth.onAuthStateChanged(user => setCurrentUser(user));
+    const unsubscribeAuth = firebaseInstance.auth.onAuthStateChanged(user => {
+      setCurrentUser(user);
+      setIsLoading(false);
+    });
     const unsubscribeToast = toastService.onNextToast(options => {
       toastController.create(options).then(toast => {
         toast.present();
@@ -48,34 +52,38 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <FirebaseContext.Provider value={{ currentUser }}>
-        <IonReactRouter>
-          <IonTabs>
-            <IonRouterOutlet>
-              <PrivateRoute path="/home" component={Home} exact />
-              <PrivateRoute path="/learn" component={Learn} />
-              <Route path="/login" component={Login} exact />
-              <PrivateRoute path="/profile" component={Profile} exact />
-              <Route path="/reset-password" component={ResetPassword} exact />
-              <Route path="/signup" component={Signup} exact />
-              <PrivateRoute path="/stats" component={Stats} exact />
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
-            </IonRouterOutlet>
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="home" href="/home">
-                <IonIcon icon={home} />
-                <IonLabel>Home</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="stats" href="/stats">
-                <IonIcon icon={stats} />
-                <IonLabel>Statistics</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="profile" href="/profile">
-                <IonIcon icon={person} />
-                <IonLabel>Profile</IonLabel>
-              </IonTabButton>
-            </IonTabBar>
-          </IonTabs>
-        </IonReactRouter>
+        {isLoading ? (
+          <Splash />
+        ) : (
+          <IonReactRouter>
+            <IonTabs>
+              <IonRouterOutlet>
+                <PrivateRoute path="/home" component={Home} exact />
+                <PrivateRoute path="/learn" component={Learn} />
+                <Route path="/login" component={Login} exact />
+                <PrivateRoute path="/profile" component={Profile} exact />
+                <Route path="/reset-password" component={ResetPassword} exact />
+                <Route path="/signup" component={Signup} exact />
+                <PrivateRoute path="/stats" component={Stats} exact />
+                <Route exact path="/" render={() => <Redirect to="/home" />} />
+              </IonRouterOutlet>
+              <IonTabBar slot="bottom">
+                <IonTabButton tab="home" href="/home">
+                  <IonIcon icon={home} />
+                  <IonLabel>Home</IonLabel>
+                </IonTabButton>
+                <IonTabButton tab="stats" href="/stats">
+                  <IonIcon icon={stats} />
+                  <IonLabel>Statistics</IonLabel>
+                </IonTabButton>
+                <IonTabButton tab="profile" href="/profile">
+                  <IonIcon icon={person} />
+                  <IonLabel>Profile</IonLabel>
+                </IonTabButton>
+              </IonTabBar>
+            </IonTabs>
+          </IonReactRouter>
+        )}
       </FirebaseContext.Provider>
     </IonApp>
   );
