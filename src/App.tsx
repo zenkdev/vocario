@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
     return () => {
       unsubscribeAuth();
-      unsubscribeToast();
+      unsubscribeToast.unsubscribe();
     };
   }, []);
 
@@ -51,7 +51,7 @@ const App: React.FC = () => {
         <IonReactRouter>
           <IonTabs>
             <IonRouterOutlet>
-              <Route path="/home" component={Home} exact />
+              <PrivateRoute path="/home" component={Home} exact />
               <PrivateRoute path="/learn" component={Learn} />
               <Route path="/login" component={Login} exact />
               <PrivateRoute path="/profile" component={Profile} exact />

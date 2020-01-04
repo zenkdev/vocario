@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Color, ToastOptions } from '@ionic/core';
-
-import Observable, { Subscriber } from './Observable';
+import { ToastOptions } from '@ionic/core';
+import Observable from 'zen-observable';
 
 /*
 export interface ToastOptions {
@@ -31,18 +30,23 @@ export interface ToastButton {
     handler?: () => boolean | void | Promise<boolean>;
 }
 */
-type ToastrOptions = {
-  position?: 'top' | 'bottom' | 'middle';
-  color?: Color;
-};
 
 class ToastService {
-  private observable = new Observable<ToastOptions>();
+  private observable: Observable<ToastOptions>;
+
+  private subscriber!: ZenObservable.SubscriptionObserver<ToastOptions>;
+
+  constructor() {
+    this.observable = new Observable<ToastOptions>(subscriber => {
+      this.subscriber = subscriber;
+    });
+  }
 
   public ERROR_DEFAULT_TIMEOUT: number | undefined = 3000;
 
-  public onNextToast(subscriber: Subscriber<ToastOptions>) {
-    return this.observable.subscribe(subscriber);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public onNextToast(onNext: (value: ToastOptions) => void, onError?: (error: any) => void, onComplete?: () => void) {
+    return this.observable.subscribe(onNext, onError, onComplete);
   }
 
   public showInfo(message: string, duration?: number) {
@@ -66,7 +70,7 @@ class ToastService {
   }
 
   public showToast(options: ToastOptions) {
-    this.observable.next(options);
+    this.subscriber.next(options);
   }
 }
 

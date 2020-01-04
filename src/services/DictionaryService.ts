@@ -33,7 +33,8 @@ class DictionaryService {
    * GET dictionaries from the server
    */
   public async getDictionaries(): Promise<Dictionary[]> {
-    await timeout(0);
+    await timeout(1000);
+    // throw new Error('test error');
     const snapshot = await this.db.ref('dictionaryList').once('value');
     const arr: Dictionary[] = [];
     snapshot.forEach(payload => {
