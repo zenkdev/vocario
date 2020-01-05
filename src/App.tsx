@@ -25,18 +25,20 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 
 import { FirebaseContext, PrivateRoute } from './components';
-import { Home, Learn, Login, Profile, ResetPassword, Signup, Stats, Splash } from './pages';
-import { firebaseInstance, toastService } from './services';
+import { Home, Learn, Login, Profile, ResetPassword, Signup, Statistics, Splash } from './pages';
+import { firebaseInstance, toastService, statisticService } from './services';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
+  const [resetCount, setResetCount] = useState(0);
 
   useEffect(() => {
     const unsubscribeAuth = firebaseInstance.auth.onAuthStateChanged(user => {
       setCurrentUser(user);
       setIsLoading(false);
     });
+    const unsubscribeReset = statisticService.onResetProgress(count => setResetCount(count));
     const unsubscribeToast = toastService.onNextToast(options => {
       toastController.create(options).then(toast => {
         toast.present();
@@ -45,13 +47,14 @@ const App: React.FC = () => {
 
     return () => {
       unsubscribeAuth();
+      unsubscribeReset.unsubscribe();
       unsubscribeToast.unsubscribe();
     };
   }, []);
 
   return (
     <IonApp>
-      <FirebaseContext.Provider value={{ currentUser }}>
+      <FirebaseContext.Provider value={{ currentUser, resetCount }}>
         {isLoading ? (
           <Splash />
         ) : (
@@ -64,7 +67,7 @@ const App: React.FC = () => {
                 <PrivateRoute path="/profile" component={Profile} exact />
                 <Route path="/reset-password" component={ResetPassword} exact />
                 <Route path="/signup" component={Signup} exact />
-                <PrivateRoute path="/stats" component={Stats} exact />
+                <PrivateRoute path="/stats" component={Statistics} exact />
                 <Route exact path="/" render={() => <Redirect to="/home" />} />
               </IonRouterOutlet>
               <IonTabBar slot="bottom">

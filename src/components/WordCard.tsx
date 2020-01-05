@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonInput, IonItem, IonLabel, IonList } from '@ionic/react';
 
@@ -43,7 +43,7 @@ const WordCard: React.FC<WordCardProps> = ({ value, validate }) => {
   const handleChange = (evt: IonEvent) => setTranslation(evt.detail.value || '');
 
   useEffect(() => {
-    if (value && value.count > 0) {
+    if (value && value.count != null) {
       setHeader('Repeating');
     } else {
       setHeader('New word');

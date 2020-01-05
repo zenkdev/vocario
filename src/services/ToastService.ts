@@ -44,9 +44,8 @@ class ToastService {
 
   public ERROR_DEFAULT_TIMEOUT: number | undefined = 3000;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public onNextToast(onNext: (value: ToastOptions) => void, onError?: (error: any) => void, onComplete?: () => void) {
-    return this.observable.subscribe(onNext, onError, onComplete);
+  public onNextToast(onNext: (value: ToastOptions) => void) {
+    return this.observable.subscribe(onNext);
   }
 
   public showInfo(message: string, duration?: number) {

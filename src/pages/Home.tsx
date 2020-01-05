@@ -1,34 +1,27 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable react/jsx-no-bind */
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import {
   IonBackButton,
-  IonButton,
   IonButtons,
   IonContent,
   IonHeader,
-  IonItem,
-  IonItemOptions,
-  IonItemSliding,
   IonLabel,
   IonList,
   IonListHeader,
+  IonLoading,
   IonPage,
   IonRefresher,
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  IonLoading,
-  IonNote,
 } from '@ionic/react';
 
+import { DictionaryListItem, FirebaseContext } from '../components';
 import { Dictionary } from '../models';
 import { dictionaryService, toastService } from '../services';
 
 const Home: React.FC = () => {
-  const history = useHistory();
+  const { resetCount } = useContext(FirebaseContext);
   const [showLoading, setShowLoading] = useState(true);
   const [segment] = useState('all');
   const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
@@ -47,13 +40,9 @@ const Home: React.FC = () => {
         toastService.showError(error);
       });
   }, []);
-  const goToLearn = useCallback(
-    (dictionary: Dictionary) => {
-      history.push('/learn', { id: dictionary.id, title: dictionary.name });
-    },
-    [history],
-  );
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const addFavorite = useCallback(() => {}, []);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const removeFavorite = useCallback(() => {}, []);
 
   useEffect(() => {
@@ -67,7 +56,7 @@ const Home: React.FC = () => {
         setShowLoading(false);
         toastService.showError(error);
       });
-  }, []);
+  }, [resetCount]);
 
   return (
     <IonPage>
@@ -83,33 +72,18 @@ const Home: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <IonList lines="full" class="ion-no-margin ion-no-padding">
+        <IonList lines="none" class="ion-no-margin ion-no-padding">
           <IonListHeader color="light">
             <IonLabel>{dictionaries.length ? `Welcome to Lexion!` : `No Dictionaries Found`}</IonLabel>
           </IonListHeader>
           {dictionaries.map(dictionary => (
-            <IonItemSliding key={dictionary.id}>
-              <IonItem button detail onClick={goToLearn.bind(null, dictionary)}>
-                <IonLabel>
-                  <h3>{dictionary.name}</h3>
-                </IonLabel>
-                <IonNote slot="end" color="primary">
-                  {`${dictionary.wordsLearned} / ${dictionary.totalWords}`}
-                </IonNote>
-              </IonItem>
-              <IonItemOptions>
-                {segment === 'all' && (
-                  <IonButton color="favorite" onClick={addFavorite.bind(null, dictionary)}>
-                    Favorite
-                  </IonButton>
-                )}
-                {segment === 'favorites' && (
-                  <IonButton color="danger" onClick={removeFavorite.bind(null, dictionary)}>
-                    Remove
-                  </IonButton>
-                )}
-              </IonItemOptions>
-            </IonItemSliding>
+            <DictionaryListItem
+              key={dictionary.id}
+              item={dictionary}
+              segment={segment}
+              onAddFavorite={addFavorite}
+              onRemoveFavorite={removeFavorite}
+            />
           ))}
         </IonList>
         <IonLoading isOpen={showLoading} message="Loading..." />

@@ -1,6 +1,7 @@
-class Word {
+class Statistic {
   constructor(
     id?: string,
+    dictionaryId?: string,
     text?: string,
     transcription?: string,
     translation?: string,
@@ -9,15 +10,18 @@ class Word {
     count?: number,
   ) {
     this.id = id || '';
+    this.dictionaryId = dictionaryId || '';
     this.text = text || '';
     this.transcription = transcription || '';
     this.translation = translation || '';
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
-    this.count = count;
+    this.count = count || 0;
   }
 
   public id: string;
+
+  public dictionaryId: string;
 
   public text: string;
 
@@ -29,13 +33,14 @@ class Word {
 
   public partOfSpeech: string;
 
-  public count?: number;
+  public count: number;
 
-  static fromSnapshot(payload: firebase.database.DataSnapshot): Word {
+  static fromSnapshot(payload: firebase.database.DataSnapshot): Statistic {
     const id = payload.key as string;
-    const { text, transcription, translation, category, partOfSpeech } = payload.val();
-    return new Word(id, text, transcription, translation, category, partOfSpeech);
+    const { dictionaryId, text, transcription, translation, category, partOfSpeech, count } = payload.val();
+
+    return new Statistic(id, dictionaryId, text, transcription, translation, category, partOfSpeech, count);
   }
 }
 
-export default Word;
+export default Statistic;

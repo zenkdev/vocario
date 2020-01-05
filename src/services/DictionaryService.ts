@@ -5,7 +5,7 @@ import 'firebase/database';
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from 'firebase/app';
 
-import { Dictionary, Word } from '../models';
+import { Dictionary, Word, Statistic } from '../models';
 import firebaseInstance from './Firebase';
 
 // Create a promise that resolves in <ms> milliseconds
@@ -46,43 +46,16 @@ class DictionaryService {
   /** GET dictionary by id. */
   public async getDictionary(id: string): Promise<Dictionary> {
     const dictionary = await this.getDictionaryById(id);
-    const words = await this.getWordsByDictionaryId(id);
-    return { ...dictionary, words };
-  }
-
-  /**
-   * GET statistics from the server
-   */
-  public async getStatistics(): Promise<Word[]> {
-    if (!this.uid) {
-      return [];
-    }
-
-    const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
-    const arr: Word[] = [];
-    snapshot.forEach(payload => {
-      arr.push(Word.fromSnapshot(payload, this.uid));
+    const words = await this.getWords(id);
+    const statistics = await this.getStatistics(id);
+    words.forEach(word => {
+      const stat = statistics[word.id];
+      if (stat) {
+        // eslint-disable-next-line no-param-reassign
+        word.count = stat.count;
+      }
     });
-    return arr;
-  }
-
-  public async updateDictionaryFromWord(dictionary: Dictionary, word: Word, valid: boolean): Promise<void> {
-    if (!this.uid) {
-      return;
-    }
-
-    let wordsLearned = dictionary.wordsLearned + (valid && word.count === word.errors ? 1 : 0);
-    if (wordsLearned > dictionary.totalWords) {
-      wordsLearned = dictionary.totalWords;
-    }
-    const promises: Promise<void>[] = [];
-    if (valid) {
-      promises.push(this.updateDictionaryWordsLearned(dictionary.id, this.uid, wordsLearned));
-    }
-    promises.push(this.updateWord(word.id, this.uid, valid));
-    promises.push(this.updateStatistics(word, this.uid, valid));
-
-    await Promise.all(promises);
+    return { ...dictionary, words };
   }
 
   private async getDictionaryById(id: string): Promise<Dictionary> {
@@ -90,7 +63,7 @@ class DictionaryService {
     return Dictionary.fromSnapshot(snapshot, this.uid);
   }
 
-  private async getWordsByDictionaryId(dictionaryId: string): Promise<Word[]> {
+  private async getWords(dictionaryId: string): Promise<Word[]> {
     const snapshot = await this.db
       .ref('wordList')
       .orderByChild('dictionaryId')
@@ -98,65 +71,24 @@ class DictionaryService {
       .once('value');
     const arr: Word[] = [];
     snapshot.forEach(payload => {
-      arr.push(Word.fromSnapshot(payload, this.uid));
+      arr.push(Word.fromSnapshot(payload));
     });
     return arr;
   }
 
-  private async updateDictionaryWordsLearned(dictionaryId: string, uid: string, wordsLearned: number): Promise<void> {
-    await this.db.ref(`dictionaryList/${dictionaryId}`).transaction(data => {
-      if (data) {
-        if (!data.wordsLearned) {
-          // eslint-disable-next-line no-param-reassign
-          data.wordsLearned = {};
-        }
-        // eslint-disable-next-line no-param-reassign
-        data.wordsLearned[uid] = wordsLearned;
-      }
-      return data;
-    });
-  }
-
-  private async updateWord(wordId: string, uid: string, valid: boolean): Promise<void> {
-    await this.db.ref(`wordList/${wordId}`).transaction(data => {
-      if (data) {
-        if (!data.count) {
-          // eslint-disable-next-line no-param-reassign
-          data.count = {};
-        }
-        if (!data.errors) {
-          // eslint-disable-next-line no-param-reassign
-          data.errors = {};
-        }
-        const count = data.count[uid] || 0;
-        const errors = data.errors[uid] || 0;
-
-        // eslint-disable-next-line no-param-reassign
-        data.count[uid] = count + 1;
-        // eslint-disable-next-line no-param-reassign
-        data.errors[uid] = errors + (valid ? 0 : 1);
-      }
-      return data;
-    });
-  }
-
-  private async updateStatistics(word: Word, uid: string, valid: boolean): Promise<void> {
-    const { id, ...rest } = word;
-    const ref = this.db.ref(`statistics/${uid}`);
-    await ref.child(id).once('value', snapshot => {
-      const updates: Record<string, Partial<Word>> = {};
-      const snap = snapshot.val();
-      if (snap) {
-        updates[id] = {
-          ...rest,
-          count: snap.count + 1,
-          errors: snap.errors + (valid ? 0 : 1),
-        };
-      } else {
-        updates[id] = { ...rest, count: 1, errors: valid ? 0 : 1 };
-      }
-      return ref.update(updates);
-    });
+  private async getStatistics(dictionaryId: string): Promise<Record<string, Statistic>> {
+    const map: Record<string, Statistic> = {};
+    if (this.uid) {
+      const snapshot = await this.db
+        .ref(`statistics/${this.uid}`)
+        .orderByChild('dictionaryId')
+        .equalTo(dictionaryId)
+        .once('value');
+      snapshot.forEach(payload => {
+        map[payload.key as string] = Statistic.fromSnapshot(payload);
+      });
+    }
+    return map;
   }
 }
 

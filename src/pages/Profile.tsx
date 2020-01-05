@@ -3,6 +3,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 
 import {
+  IonAlert,
   IonAvatar,
   IonBackButton,
   IonButton,
@@ -22,7 +23,7 @@ import {
 } from '@ionic/react';
 
 import { FirebaseContext } from '../components';
-import { authService, profileService, toastService } from '../services';
+import { authService, profileService, statisticService, toastService } from '../services';
 import { IonEvent } from '../types';
 
 const Login: React.FC = () => {
@@ -31,6 +32,7 @@ const Login: React.FC = () => {
   const [photoURL] = useState((currentUser && currentUser.photoURL) || undefined);
   const [displayName, setPhoneNumber] = useState(currentUser && currentUser.displayName);
   const [email, setEmail] = useState(currentUser && currentUser.email);
+  const [showAlert, setShowAlert] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const handleLogout = useCallback(async () => {
     try {
@@ -75,6 +77,22 @@ const Login: React.FC = () => {
     }
   };
 
+  const resetProgress = useCallback(async () => {
+    setShowAlert(false);
+    try {
+      await statisticService.resetProgress();
+      toastService.showToast({
+        message: 'All progress successfully reset.',
+        header: 'Reset the progress',
+        duration: 3000,
+        color: 'success',
+        showCloseButton: true,
+      });
+    } catch (error) {
+      toastService.showError(error);
+    }
+  }, []);
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -107,6 +125,27 @@ const Login: React.FC = () => {
             <IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />
           </IonItem>
         </IonList>
+        <div className="ion-padding">
+          <IonButton expand="block" color="primary" onClick={() => setShowAlert(true)}>
+            Reset the progress
+          </IonButton>
+        </div>
+        <IonAlert
+          isOpen={showAlert}
+          header="Reset the progress!"
+          message="Are you sure you want to completely reset all your progress? This operation is irreversible!"
+          buttons={[
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => setShowAlert(false),
+            },
+            {
+              text: 'Reset',
+              handler: resetProgress,
+            },
+          ]}
+        />
         <IonLoading isOpen={showLoading} message="Saving..." />
       </IonContent>
     </IonPage>
