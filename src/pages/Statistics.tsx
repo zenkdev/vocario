@@ -1,9 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import {
-  IonBackButton,
   IonBadge,
-  IonButtons,
   IonCol,
   IonContent,
   IonGrid,
@@ -62,9 +60,6 @@ const Statistics: React.FC = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Statistics</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

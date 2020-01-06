@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useHistory } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 import {
   IonBackButton,
@@ -20,8 +20,7 @@ import {
 import { authService, toastService } from '../services';
 import { IonEvent } from '../types';
 
-const ResetPassword: React.FC = () => {
-  const history = useHistory();
+const ResetPassword: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');
   const [showLoading, setShowLoading] = useState(false);
   const resetPassword = useCallback(async () => {

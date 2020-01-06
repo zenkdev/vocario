@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
 import { SimpleWordCard } from '../components';
 import { Dictionary, Word } from '../models';
-import { dictionaryService, toastService, statisticService } from '../services';
+import { dictionaryService, statisticService, toastService } from '../services';
 import { percent, randomNumber } from '../utils';
 
 interface LearnLocationState {
@@ -13,8 +13,7 @@ interface LearnLocationState {
   title: string;
 }
 
-const Learn: React.FC = () => {
-  const history = useHistory<LearnLocationState>();
+const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
   const [title, setTitle] = useState('Learn');
   const [showLoading, setShowLoading] = useState(true);
   const [dictionary, setDictionary] = useState<Dictionary>();
@@ -78,12 +77,12 @@ const Learn: React.FC = () => {
   );
 
   useEffect(() => {
-    if (history.location.state && history.location.state.title) {
-      setTitle(history.location.state.title);
+    if (location.state && location.state.title) {
+      setTitle(location.state.title);
     }
-    if (history.location.state && history.location.state.id) {
+    if (location.state && location.state.id) {
       dictionaryService
-        .getDictionary(history.location.state.id)
+        .getDictionary(location.state.id)
         .then(data => {
           setShowLoading(false);
           setDictionary(data);
@@ -94,7 +93,7 @@ const Learn: React.FC = () => {
           toastService.showError(error);
         });
     }
-  }, [history.location.state]);
+  }, [location.state]);
 
   return (
     <IonPage>

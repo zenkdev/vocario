@@ -1,11 +1,10 @@
 import { logOut } from 'ionicons/icons';
 import React, { useCallback, useContext, useState } from 'react';
-import { useHistory } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 import {
   IonAlert,
   IonAvatar,
-  IonBackButton,
   IonButton,
   IonButtons,
   IonContent,
@@ -26,8 +25,7 @@ import { FirebaseContext } from '../components';
 import { authService, profileService, statisticService, toastService } from '../services';
 import { IonEvent } from '../types';
 
-const Login: React.FC = () => {
-  const history = useHistory();
+const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const { currentUser } = useContext(FirebaseContext);
   const [photoURL] = useState((currentUser && currentUser.photoURL) || undefined);
   const [displayName, setPhoneNumber] = useState(currentUser && currentUser.displayName);
@@ -98,9 +96,6 @@ const Login: React.FC = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Profile</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
           <IonButtons slot="end">
             <IonButton onClick={handleLogout}>
               <IonIcon icon={logOut} />

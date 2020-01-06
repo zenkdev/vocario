@@ -1,8 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import {
-  IonBackButton,
-  IonButtons,
   IonContent,
   IonHeader,
   IonLabel,
@@ -63,9 +61,6 @@ const Home: React.FC = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Home</IonTitle>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
