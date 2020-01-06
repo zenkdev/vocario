@@ -1,12 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import {
-  IonBadge,
-  IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
-  IonItem,
   IonLabel,
   IonList,
   IonListHeader,
@@ -14,19 +10,25 @@ import {
   IonPage,
   IonRefresher,
   IonRefresherContent,
-  IonRow,
+  IonSegment,
+  IonSegmentButton,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
 
-import { FirebaseContext } from '../components';
-import { Word } from '../models';
+import { FirebaseContext, StatisticListItem } from '../components';
+import { Statistic } from '../models';
 import { statisticService, toastService } from '../services';
+
+const isCompleted = (value: Statistic) => value.count >= 3;
 
 const Statistics: React.FC = () => {
   const { resetCount } = useContext(FirebaseContext);
   const [showLoading, setShowLoading] = useState(true);
-  const [statistics, setStatistics] = useState<Word[]>([]);
+  const [statistics, setStatistics] = useState<Statistic[]>([]);
+  const [segment, setSegment] = useState<string>('learning');
+  const learning = useMemo(() => `Learning ${statistics.reduce((acc, cur) => acc + (!isCompleted(cur) ? 1 : 0), 0)}`, [statistics]);
+  const completed = useMemo(() => `Completed ${statistics.reduce((acc, cur) => acc + (isCompleted(cur) ? 1 : 0), 0)}`, [statistics]);
   const doRefresh = useCallback(({ target: refresher }) => {
     setShowLoading(true);
     statisticService
@@ -42,6 +44,10 @@ const Statistics: React.FC = () => {
         toastService.showError(error);
       });
   }, []);
+  const items = useMemo(
+    () => statistics.filter(cur => (segment === 'learning' && !isCompleted(cur)) || (segment === 'completed' && isCompleted(cur))),
+    [statistics, segment],
+  );
   useEffect(() => {
     statisticService
       .getStatistics()
@@ -66,36 +72,22 @@ const Statistics: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
+        <IonSegment className="ion-padding" value={segment} onIonChange={e => setSegment(e.detail.value || '')}>
+          <IonSegmentButton value="learning">
+            <IonLabel>{learning}</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="completed">
+            <IonLabel>{completed}</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
         <IonList lines="full" class="ion-no-margin ion-no-padding">
-          {!statistics.length && (
+          {!items.length && (
             <IonListHeader>
               <IonLabel>No Statistics</IonLabel>
             </IonListHeader>
           )}
-          {statistics.map(word => (
-            <IonItem key={word.id}>
-              <IonLabel>
-                <IonGrid class="ion-no-margin ion-no-padding">
-                  <IonRow>
-                    <IonCol>
-                      <div>
-                        <strong>{word.text}</strong>
-                      </div>
-                      <small>{word.transcription}</small>
-                    </IonCol>
-                    <IonCol>{word.translation}</IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCol>
-                      <p style={{ fontSize: '60%', whiteSpace: 'normal' }}>{`${word.partOfSpeech} : ${word.category}`}</p>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </IonLabel>
-              <IonBadge slot="end" color="primary">
-                {word.count}
-              </IonBadge>
-            </IonItem>
+          {items.map(item => (
+            <StatisticListItem key={item.id} item={item} showCount={segment !== 'completed'} />
           ))}
         </IonList>
         <IonLoading isOpen={showLoading} message="Loading..." />

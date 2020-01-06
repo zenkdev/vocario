@@ -7,6 +7,7 @@ class Word {
     category?: string,
     partOfSpeech?: string,
     count?: number,
+    firstOccur?: string,
   ) {
     this.id = id || '';
     this.text = text || '';
@@ -15,6 +16,7 @@ class Word {
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
     this.count = count;
+    this.firstOccur = firstOccur;
   }
 
   public id: string;
@@ -30,6 +32,8 @@ class Word {
   public partOfSpeech: string;
 
   public count?: number;
+
+  public firstOccur?: string;
 
   static fromSnapshot(payload: firebase.database.DataSnapshot): Word {
     const id = payload.key as string;

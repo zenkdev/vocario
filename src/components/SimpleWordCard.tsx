@@ -35,7 +35,7 @@ const SimpleWordCard: React.FC<SimpleWordCardProps> = ({ word, options, onNext }
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardSubtitle>{word.count ? 'Repeating' : 'New word'}</IonCardSubtitle>
+        <IonCardSubtitle>{word.count != null ? 'Repeat' : 'New word'}</IonCardSubtitle>
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>

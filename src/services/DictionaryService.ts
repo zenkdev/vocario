@@ -53,6 +53,8 @@ class DictionaryService {
       if (stat) {
         // eslint-disable-next-line no-param-reassign
         word.count = stat.count;
+        // eslint-disable-next-line no-param-reassign
+        word.firstOccur = stat.firstOccur;
       }
     });
     return { ...dictionary, words };
