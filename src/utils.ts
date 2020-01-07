@@ -15,10 +15,3 @@ export function randomNumber(min: number, max: number) {
 export function percent(value?: number, base?: number): number {
   return !value || !base ? 0 : Math.round((value / base) * 100) / 100;
 }
-
-export function isToday(someDate: Date): boolean {
-  const today = new Date();
-  return (
-    someDate.getDate() === today.getDate() && someDate.getMonth() === today.getMonth() && someDate.getFullYear() === today.getFullYear()
-  );
-}

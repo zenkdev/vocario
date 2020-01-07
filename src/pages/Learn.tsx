@@ -1,3 +1,8 @@
+import addDays from 'date-fns/addDays';
+import formatISO from 'date-fns/formatISO';
+import isToday from 'date-fns/isToday';
+import parseISO from 'date-fns/parseISO';
+import startOfToday from 'date-fns/startOfToday';
 import React, { useCallback, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -6,11 +11,12 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import { Congratulations, SimpleWordCard } from '../components';
 import { Dictionary, Word } from '../models';
 import { dictionaryService, statisticService, toastService } from '../services';
-import { percent, randomNumber, isToday as isTodayDate } from '../utils';
+import { percent, randomNumber } from '../utils';
 
 const isNew = (value: Word) => value.count == null;
 const isCompleted = (value: Word) => value.count != null && value.count >= 3;
-const isToday = (value: Word) => value.firstOccur && isTodayDate(new Date(Date.parse(value.firstOccur)));
+const isFirstOccurToday = (value: Word) => value.firstOccur && isToday(parseISO(value.firstOccur));
+const isNextOccurToday = (value: Word) => value.nextOccur && isToday(parseISO(value.nextOccur));
 
 interface LearnLocationState {
   id: string;
@@ -25,8 +31,12 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
 
   function nextWord(dct: Dictionary | undefined) {
     if (dct) {
-      const wordsToday = dct.words.reduce((acc, cur) => acc + (isToday(cur) ? 1 : 0), 0);
-      const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && !isCompleted(cur)));
+      const wordsToday = dct.words.reduce((acc, cur) => acc + (isFirstOccurToday(cur) ? 1 : 0), 0);
+      // eslint-disable-next-line no-console
+      console.table(
+        dct.words.map(cur => ({ ...cur, isNew: isNew(cur), isCompleted: isCompleted(cur), isNextOccurToday: isNextOccurToday(cur) })),
+      );
+      const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && isNextOccurToday(cur) && !isCompleted(cur)));
       if (words.length) {
         const rnd = randomNumber(0, words.length - 1);
         const next = words[rnd];
@@ -64,10 +74,24 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
 
       try {
         if (isNew(word)) {
-          word.firstOccur = new Date().toISOString();
+          word.firstOccur = formatISO(Date.now());
           dictionary.wordsLearned += 1;
         }
         word.count = (word.count || 0) + (valid ? 1 : 0);
+        switch (word.count) {
+          case 0:
+            word.nextOccur = formatISO(Date.now());
+            break;
+          case 1:
+            word.nextOccur = formatISO(addDays(startOfToday(), 1));
+            break;
+          case 2:
+            word.nextOccur = formatISO(addDays(startOfToday(), 3));
+            break;
+          default:
+            word.nextOccur = undefined;
+            break;
+        }
         await statisticService.updateFromWord(dictionary, word);
         nextWord(dictionary);
       } catch (error) {

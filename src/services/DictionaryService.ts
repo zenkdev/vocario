@@ -51,10 +51,11 @@ class DictionaryService {
     words.forEach(word => {
       const stat = statistics[word.id];
       if (stat) {
-        // eslint-disable-next-line no-param-reassign
+        /* eslint-disable no-param-reassign */
         word.count = stat.count;
-        // eslint-disable-next-line no-param-reassign
         word.firstOccur = stat.firstOccur;
+        word.nextOccur = stat.nextOccur;
+        /* eslint-enable no-param-reassign */
       }
     });
     return { ...dictionary, words };
