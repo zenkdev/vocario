@@ -5,7 +5,7 @@
   "homepage": "http://lexion.cf/",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rimraf ./build && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --write \"./src/{,!(node_modules|dist|build|coverage)/**/}*.{js,jsx,ts,tsx,json}\"",
@@ -67,6 +67,7 @@
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
     "typescript": "^3.7.4"
   },
   "husky": {
