@@ -32,17 +32,13 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
   function nextWord(dct: Dictionary | undefined) {
     if (dct) {
       const wordsToday = dct.words.reduce((acc, cur) => acc + (isFirstOccurToday(cur) ? 1 : 0), 0);
-      // eslint-disable-next-line no-console
-      console.table(
-        dct.words.map(cur => ({ ...cur, isNew: isNew(cur), isCompleted: isCompleted(cur), isNextOccurToday: isNextOccurToday(cur) })),
-      );
+      // console.table(
+      //   dct.words.map(cur => ({ ...cur, isNew: isNew(cur), isCompleted: isCompleted(cur), isNextOccurToday: isNextOccurToday(cur) })),
+      // );
       const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && isNextOccurToday(cur) && !isCompleted(cur)));
       if (words.length) {
         const rnd = randomNumber(0, words.length - 1);
-        const next = words[rnd];
-        // eslint-disable-next-line no-console
-        console.log({ wordsToday, wordsCount: words.length, next, isNewWord: isNew(next) });
-        setWord(next);
+        setWord(words[rnd]);
         return;
       }
     }

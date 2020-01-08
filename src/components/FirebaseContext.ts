@@ -3,11 +3,10 @@ import firebase from 'firebase/app';
 
 export interface FirebaseContextValue {
   currentUser: firebase.UserInfo | null;
-  resetCount: number;
 }
 
 const createNamedContext = (name: string) => {
-  const context = React.createContext<FirebaseContextValue>({ currentUser: null, resetCount: 0 });
+  const context = React.createContext<FirebaseContextValue>({ currentUser: null });
   context.displayName = name;
 
   return context;

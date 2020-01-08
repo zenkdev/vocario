@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import {
   IonContent,
@@ -14,16 +14,16 @@ import {
   IonSegmentButton,
   IonTitle,
   IonToolbar,
+  useIonViewWillEnter,
 } from '@ionic/react';
 
-import { FirebaseContext, StatisticListItem } from '../components';
+import { StatisticListItem } from '../components';
 import { Statistic } from '../models';
 import { statisticService, toastService } from '../services';
 
 const isCompleted = (value: Statistic) => value.count >= 3;
 
 const Statistics: React.FC = () => {
-  const { resetCount } = useContext(FirebaseContext);
   const [showLoading, setShowLoading] = useState(true);
   const [statistics, setStatistics] = useState<Statistic[]>([]);
   const [segment, setSegment] = useState<string>('learning');
@@ -48,7 +48,7 @@ const Statistics: React.FC = () => {
     () => statistics.filter(cur => (segment === 'learning' && !isCompleted(cur)) || (segment === 'completed' && isCompleted(cur))),
     [statistics, segment],
   );
-  useEffect(() => {
+  useIonViewWillEnter(() => {
     statisticService
       .getStatistics()
       .then(data => {
@@ -59,7 +59,7 @@ const Statistics: React.FC = () => {
         setShowLoading(false);
         toastService.showError(error);
       });
-  }, [resetCount]);
+  });
 
   return (
     <IonPage>

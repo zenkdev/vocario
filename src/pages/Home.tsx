@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import {
   IonContent,
@@ -12,14 +12,14 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  useIonViewWillEnter,
 } from '@ionic/react';
 
-import { DictionaryListItem, FirebaseContext } from '../components';
+import { DictionaryListItem } from '../components';
 import { Dictionary } from '../models';
 import { dictionaryService, toastService } from '../services';
 
 const Home: React.FC = () => {
-  const { resetCount } = useContext(FirebaseContext);
   const [showLoading, setShowLoading] = useState(true);
   const [segment] = useState('all');
   const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const removeFavorite = useCallback(() => {}, []);
 
-  useEffect(() => {
+  useIonViewWillEnter(() => {
     dictionaryService
       .getDictionaries()
       .then(data => {
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
         setShowLoading(false);
         toastService.showError(error);
       });
-  }, [resetCount]);
+  });
 
   return (
     <IonPage>

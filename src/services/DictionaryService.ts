@@ -8,14 +8,14 @@ import firebase from 'firebase/app';
 import { Dictionary, Word, Statistic } from '../models';
 import firebaseInstance from './Firebase';
 
-// Create a promise that resolves in <ms> milliseconds
-const timeout = (ms: number) =>
-  new Promise(resolve => {
-    const id = setTimeout(() => {
-      clearTimeout(id);
-      resolve(`Timed out in ${ms}ms.`);
-    }, ms);
-  });
+// // Create a promise that resolves in <ms> milliseconds
+// const timeout = (ms: number) =>
+//   new Promise(resolve => {
+//     const id = setTimeout(() => {
+//       clearTimeout(id);
+//       resolve(`Timed out in ${ms}ms.`);
+//     }, ms);
+//   });
 
 class DictionaryService {
   private readonly db: firebase.database.Database;
@@ -29,12 +29,9 @@ class DictionaryService {
     });
   }
 
-  /**
-   * GET dictionaries from the server
-   */
+  /** GET dictionaries from the server */
   public async getDictionaries(): Promise<Dictionary[]> {
-    await timeout(1000);
-    // throw new Error('test error');
+    this.log('getDictionaries');
     const snapshot = await this.db.ref('dictionaryList').once('value');
     const arr: Dictionary[] = [];
     snapshot.forEach(payload => {
@@ -45,6 +42,7 @@ class DictionaryService {
 
   /** GET dictionary by id. */
   public async getDictionary(id: string): Promise<Dictionary> {
+    this.log(`getDictionary(${id})`);
     const dictionary = await this.getDictionaryById(id);
     const words = await this.getWords(id);
     const statistics = await this.getStatistics(id);
@@ -93,6 +91,14 @@ class DictionaryService {
     }
     return map;
   }
+
+  /* eslint-disable class-methods-use-this */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private log(message?: any, ...optionalParams: any[]) {
+    // eslint-disable-next-line no-console
+    console.log(message, ...optionalParams);
+  }
+  /* eslint-enable class-methods-use-this */
 }
 
 export default new DictionaryService();

@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import Observable from 'zen-observable';
 
 import { Dictionary, Statistic, Word } from '../models';
 import firebaseInstance from './Firebase';
@@ -9,32 +8,16 @@ class StatisticService {
 
   private uid: string | null = null;
 
-  private resetCount = 0;
-
-  private readonly observable: Observable<number>;
-
-  private subscriber!: ZenObservable.SubscriptionObserver<number>;
-
   constructor() {
-    this.observable = new Observable<number>(subscriber => {
-      this.subscriber = subscriber;
-      this.subscriber.next(this.resetCount);
-    });
-
     this.db = firebaseInstance.db;
     firebaseInstance.auth.onAuthStateChanged(user => {
       this.uid = user && user.uid;
     });
   }
 
-  public onResetProgress(onNext: (value: number) => void) {
-    return this.observable.subscribe(onNext);
-  }
-
-  /**
-   * GET statistics from the server
-   */
+  /** GET statistics from the server */
   public async getStatistics(): Promise<Statistic[]> {
+    this.log('getStatistics');
     if (!this.uid) {
       return [];
     }
@@ -47,19 +30,15 @@ class StatisticService {
     return arr;
   }
 
-  /**
-   * RESET all the progress
-   */
+  /** RESET all the progress */
   public async resetProgress(): Promise<void> {
+    this.log('resetProgress');
     if (!this.uid) {
       throw new Error('User UID can not be null');
     }
 
     await this.db.ref(`statistics/${this.uid}`).remove();
     await this.cleanupDictionaries(this.uid);
-
-    this.resetCount += 1;
-    this.subscriber.next(this.resetCount);
   }
 
   public async updateFromWord(dictionary: Dictionary, word: Word): Promise<void> {
@@ -116,6 +95,14 @@ class StatisticService {
     }
     await ref.update(updates);
   }
+
+  /* eslint-disable class-methods-use-this */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private log(message?: any, ...optionalParams: any[]) {
+    // eslint-disable-next-line no-console
+    console.log(message, ...optionalParams);
+  }
+  /* eslint-enable class-methods-use-this */
 }
 
 export default new StatisticService();

@@ -21,8 +21,6 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
     }
     const date = parseISO(nextOccur);
     const days = differenceInDays(startOfDay(date), startOfToday());
-    // eslint-disable-next-line no-console
-    console.log({ date, days });
     if (days <= 0) {
       return 'today';
     }
