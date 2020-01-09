@@ -4,6 +4,7 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, Ion
 
 import { Word } from '../models';
 import { compareStringsIgnoreCase } from '../utils';
+import OptionButton from './OptionButton';
 
 enum Answer {
   notAnswered = 0,
@@ -11,43 +12,35 @@ enum Answer {
   invalid = 2,
 }
 
-interface AnswerCardProps {
-  translation: string;
-  success: boolean;
-  onNext: () => void;
+function renderQuestion(options: string[], handleClick: (option: string) => void) {
+  return [
+    <div key="header" className="ion-padding-top">
+      <h2>Choose translation</h2>
+    </div>,
+    <div key="options" className="ion-padding-top">
+      {options.map(option => (
+        <OptionButton key={option} option={option} onClick={handleClick} />
+      ))}
+    </div>,
+  ];
 }
 
-const AnswerCard: React.FC<AnswerCardProps> = ({ translation, success, onNext }) => {
-  return (
-    <>
-      <IonCard color={success ? 'success' : 'danger'} className="ion-no-margin ion-margin-top">
-        <IonCardHeader>
-          <IonCardSubtitle>{success ? 'Correct' : 'Correct answer'}</IonCardSubtitle>
-        </IonCardHeader>
-        <IonCardContent>{translation}</IonCardContent>
-      </IonCard>
-      <div className="ion-padding-top">
-        <IonButton size="small" onClick={onNext}>
-          Next
-        </IonButton>
-      </div>
-    </>
-  );
-};
-
-interface OptionButtonProps {
-  option: string;
-  onClick: (option: string) => void;
+function renderAnswer(answer: Answer, translation: string, handleNext: () => void) {
+  const success = answer === Answer.valid;
+  return [
+    <IonCard key="card" color={success ? 'success' : 'danger'} className="ion-no-margin ion-margin-top">
+      <IonCardHeader>
+        <IonCardSubtitle>{success ? 'Correct' : 'Correct answer'}</IonCardSubtitle>
+      </IonCardHeader>
+      <IonCardContent>{translation}</IonCardContent>
+    </IonCard>,
+    <div key="buttons" className="ion-padding-top">
+      <IonButton size="small" onClick={handleNext}>
+        Next
+      </IonButton>
+    </div>,
+  ];
 }
-
-const OptionButton: React.FC<OptionButtonProps> = ({ option, onClick }) => {
-  const handleClick = useCallback(() => onClick(option), [option, onClick]);
-  return (
-    <IonButton expand="block" size="small" fill="outline" onClick={handleClick}>
-      {option}
-    </IonButton>
-  );
-};
 
 interface SimpleWordCardProps {
   word: Word;
@@ -76,20 +69,7 @@ const SimpleWordCard: React.FC<SimpleWordCardProps> = ({ word, options, onNext }
         <div className="no-padding">
           <small>{transcription}</small>
         </div>
-        {answer === Answer.notAnswered ? (
-          <>
-            <div className="ion-padding-top">
-              <h2>Choose translation</h2>
-            </div>
-            <div className="ion-padding-top">
-              {options.map(option => (
-                <OptionButton key={option} option={option} onClick={handleClick} />
-              ))}
-            </div>
-          </>
-        ) : (
-          <AnswerCard translation={translation} success={answer === Answer.valid} onNext={handleNext} />
-        )}
+        {answer === Answer.notAnswered ? renderQuestion(options, handleClick) : renderAnswer(answer, translation, handleNext)}
         <p className="ion-padding-top" style={{ fontSize: '60%' }}>{`${partOfSpeech} : ${category}`}</p>
       </IonCardContent>
     </IonCard>

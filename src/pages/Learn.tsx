@@ -3,7 +3,7 @@ import formatISO from 'date-fns/formatISO';
 import isToday from 'date-fns/isToday';
 import parseISO from 'date-fns/parseISO';
 import startOfToday from 'date-fns/startOfToday';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
@@ -28,6 +28,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
   const [showLoading, setShowLoading] = useState(true);
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
+  const more = useMemo(() => dictionary && dictionary.words.some(cur => !isCompleted(cur)), [dictionary]);
 
   function nextWord(dct: Dictionary | undefined) {
     if (dct) {
@@ -130,7 +131,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         {dictionary && <IonProgressBar value={percent(dictionary.wordsLearned, dictionary.totalWords)} />}
         {/* <WordCard validate={handleValidate} value={word} /> */}
         {word && <SimpleWordCard onNext={handleNext} word={word} options={getOptions()} />}
-        {!showLoading && !word && <Congratulations />}
+        {!showLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>
     </IonPage>
