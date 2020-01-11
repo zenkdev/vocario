@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonInput, IonItem, IonLabel, IonList } from '@ionic/react';
 
 import { Word } from '../models';
-import { IonEvent } from '../types';
+import { IonInputEvent } from '../types';
 
 interface WordCardProps {
   value: Word | undefined;
@@ -40,7 +40,7 @@ const WordCard: React.FC<WordCardProps> = ({ value, validate }) => {
     validate(valid as boolean);
   }, [value, validate, translation]);
 
-  const handleChange = (evt: IonEvent) => setTranslation(evt.detail.value || '');
+  const handleChange = (evt: IonInputEvent) => setTranslation(evt.detail.value || '');
 
   useEffect(() => {
     if (value && value.count != null) {

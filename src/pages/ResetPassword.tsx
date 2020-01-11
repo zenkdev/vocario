@@ -18,7 +18,7 @@ import {
 } from '@ionic/react';
 
 import { authService, toastService } from '../services';
-import { IonEvent } from '../types';
+import { IonInputEvent } from '../types';
 
 const ResetPassword: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -44,7 +44,7 @@ const ResetPassword: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }, [history, email]);
 
-  const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
+  const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
 
   return (
     <IonPage>

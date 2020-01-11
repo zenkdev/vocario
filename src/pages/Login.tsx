@@ -18,14 +18,14 @@ import {
 } from '@ionic/react';
 
 import { authService, toastService } from '../services';
-import { IonEvent } from '../types';
+import { IonInputEvent } from '../types';
 
 const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [showLoading, setShowLoading] = useState(false);
-  const handleChangeEmail = (evt: IonEvent) => setEmail(evt.detail.value || '');
-  const handleChangePassword = (evt: IonEvent) => setPassword(evt.detail.value || '');
+  const handleChangeEmail = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
+  const handleChangePassword = (evt: IonInputEvent) => setPassword(evt.detail.value || '');
   const goBack = useCallback(() => {
     let { pathname } = location;
     if (pathname === '/login') {
