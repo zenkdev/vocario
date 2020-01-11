@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 
-import Word from './word';
+import Word from './Word.model';
 
 class Dictionary {
   constructor(id?: string, name?: string, totalWords?: number, wordsLearned?: number, words?: Word[]) {
