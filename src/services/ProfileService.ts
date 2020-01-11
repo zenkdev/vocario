@@ -1,17 +1,47 @@
 import firebase from 'firebase/app';
+import Observable from 'zen-observable';
 
-import { firebaseInstance } from '.';
+import { UserProfile } from '../models';
+import firebaseInstance from './Firebase';
+import createLogger from './createLogger';
 
 class ProfileService {
+  private logger = createLogger('ProfileService');
+
   private currentUser: firebase.User | null = null;
 
   private userProfile: firebase.database.Reference | null = null;
 
+  private currentUserChanged$: Observable<UserProfile>;
+
+  private currentUserChangedSubscriber!: ZenObservable.SubscriptionObserver<UserProfile>;
+
   constructor() {
-    firebaseInstance.auth.onAuthStateChanged(user => {
-      this.currentUser = user;
-      this.userProfile = user && firebaseInstance.db.ref(`/userProfile/${user.uid}`);
+    this.handleAuthStateChanged = this.handleAuthStateChanged.bind(this);
+
+    this.currentUserChanged$ = new Observable<UserProfile>(subscriber => {
+      this.currentUserChangedSubscriber = subscriber;
     });
+    firebaseInstance.auth.onAuthStateChanged(this.handleAuthStateChanged);
+  }
+
+  public onCurrentUserChanged(
+    onNext: (value: UserProfile) => void,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError?: (error: any) => void,
+    onComplete?: () => void,
+  ): ZenObservable.Subscription {
+    return this.currentUserChanged$.subscribe(onNext, onError, onComplete);
+  }
+
+  public async getProfile(): Promise<UserProfile> {
+    this.logger.info('getProfile');
+
+    if (!this.currentUser || !this.userProfile) {
+      return new UserProfile();
+    }
+    const snapshot = await this.userProfile.once('value');
+    return UserProfile.fromSnapshot(snapshot);
   }
 
   public async updateName(displayName: string): Promise<void> {
@@ -43,6 +73,30 @@ class ProfileService {
       await this.currentUser.updatePassword(newPassword);
       // eslint-disable-next-line no-console
       console.log('Password Changed');
+    }
+  }
+
+  public async updateSimpleMode(simpleMode: boolean): Promise<void> {
+    this.logger.info('updateSimpleMode', simpleMode);
+    if (this.currentUser && this.userProfile) {
+      await this.userProfile.update({ simpleMode });
+    }
+  }
+
+  private handleAuthStateChanged(user: firebase.User | null) {
+    this.currentUser = user;
+    if (this.userProfile) {
+      this.userProfile.off(); // disconnect prev subscription
+    }
+    this.userProfile = user && firebaseInstance.db.ref(`/userProfile/${user.uid}`);
+
+    if (!this.userProfile) {
+      this.currentUserChangedSubscriber.next(new UserProfile());
+    } else {
+      this.userProfile.on('value', snapshot => {
+        const profile = UserProfile.fromSnapshot(snapshot);
+        this.currentUserChangedSubscriber.next(profile);
+      });
     }
   }
 }
