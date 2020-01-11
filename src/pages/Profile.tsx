@@ -3,7 +3,6 @@ import React, { useCallback, useContext, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import {
-  IonAlert,
   IonAvatar,
   IonButton,
   IonButtons,
@@ -18,18 +17,21 @@ import {
   IonLoading,
   IonPage,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from '@ionic/react';
 
-import { FirebaseContext } from '../components';
-import { authService, profileService, statisticService, toastService } from '../services';
-import { IonEvent } from '../types';
+import { ResetProgress } from '../components';
+import { authService, profileService, toastService } from '../services';
+import { IonInputEvent, IonToggleEvent } from '../types';
+import AppContext from '../AppContext';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const { currentUser } = useContext(FirebaseContext);
-  const [photoURL] = useState((currentUser && currentUser.photoURL) || undefined);
-  const [displayName, setPhoneNumber] = useState(currentUser && currentUser.displayName);
-  const [email, setEmail] = useState(currentUser && currentUser.email);
+  const { currentUser } = useContext(AppContext);
+  const [photoURL] = useState(currentUser.photoURL);
+  const [displayName, setPhoneNumber] = useState(currentUser.displayName);
+  const [email, setEmail] = useState(currentUser.email);
+  const [simpleMode, setSimpleMode] = useState(currentUser.simpleMode);
   const [showAlert, setShowAlert] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const handleLogout = useCallback(async () => {
@@ -41,7 +43,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }, [history]);
 
-  const handleDisplayNameChange = (evt: IonEvent) => setPhoneNumber(evt.detail.value || '');
+  const handleDisplayNameChange = (evt: IonInputEvent) => setPhoneNumber(evt.detail.value || '');
 
   const handleDisplayNameBlur = async () => {
     if (displayName == null || displayName === currentUser?.displayName) {
@@ -58,7 +60,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     }
   };
 
-  const handleEmailChange = (evt: IonEvent) => setEmail(evt.detail.value || '');
+  const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
 
   const handleEmailBlur = async () => {
     if (email == null || email === currentUser?.email) {
@@ -75,21 +77,21 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     }
   };
 
-  const resetProgress = useCallback(async () => {
-    setShowAlert(false);
+  const handleSimpleModeChange = async (evt: IonToggleEvent) => {
+    const newMode = evt.detail.checked;
+    const oldMode = simpleMode;
+
+    setSimpleMode(newMode);
+    setShowLoading(true);
     try {
-      await statisticService.resetProgress();
-      toastService.showToast({
-        message: 'All progress successfully reset.',
-        header: 'Reset the progress',
-        duration: 3000,
-        color: 'success',
-        showCloseButton: true,
-      });
+      await profileService.updateSimpleMode(newMode);
+      setShowLoading(false);
     } catch (error) {
+      setSimpleMode(oldMode); // restore if error occur
+      setShowLoading(false);
       toastService.showError(error);
     }
-  }, []);
+  };
 
   return (
     <IonPage>
@@ -109,15 +111,21 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonLabel>Personal Information</IonLabel>
           </IonListHeader>
           <IonItem>
-            <IonAvatar slot="start">
-              <img src={photoURL} alt="avatar" />
-            </IonAvatar>
-            <IonLabel position="fixed">Name</IonLabel>
+            {photoURL && (
+              <IonAvatar slot="start">
+                <img src={photoURL} alt="avatar" />
+              </IonAvatar>
+            )}
+            <IonLabel position="stacked">Name</IonLabel>
             <IonInput type="text" value={displayName} onIonChange={handleDisplayNameChange} onIonBlur={handleDisplayNameBlur} />
           </IonItem>
           <IonItem>
-            <IonLabel position="fixed">Email</IonLabel>
+            <IonLabel position="stacked">Email</IonLabel>
             <IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />
+          </IonItem>
+          <IonItem>
+            <IonLabel position="fixed">Simple mode</IonLabel>
+            <IonToggle checked={simpleMode} onIonChange={handleSimpleModeChange} />
           </IonItem>
         </IonList>
         <div className="ion-padding">
@@ -125,22 +133,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             Reset the progress
           </IonButton>
         </div>
-        <IonAlert
-          isOpen={showAlert}
-          header="Reset the progress!"
-          message="Are you sure you want to completely reset all your progress? This operation is irreversible!"
-          buttons={[
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => setShowAlert(false),
-            },
-            {
-              text: 'Reset',
-              handler: resetProgress,
-            },
-          ]}
-        />
+        <ResetProgress showAlert={showAlert} onClose={() => setShowAlert(false)} />
         <IonLoading isOpen={showLoading} message="Saving..." />
       </IonContent>
     </IonPage>

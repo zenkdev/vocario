@@ -3,12 +3,13 @@ import formatISO from 'date-fns/formatISO';
 import isToday from 'date-fns/isToday';
 import parseISO from 'date-fns/parseISO';
 import startOfToday from 'date-fns/startOfToday';
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
-import { Congratulations, SimpleWordCard } from '../components';
+import AppContext from '../AppContext';
+import { Congratulations, WordCardNormal, WordCardSimple } from '../components';
 import { Dictionary, Word } from '../models';
 import { dictionaryService, statisticService, toastService } from '../services';
 import { percent, randomNumber } from '../utils';
@@ -24,27 +25,24 @@ interface LearnLocationState {
 }
 
 const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
+  const {
+    currentUser: { simpleMode },
+  } = useContext(AppContext);
   const [title, setTitle] = useState('Learn');
   const [showLoading, setShowLoading] = useState(true);
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
   const more = useMemo(() => dictionary && dictionary.words.some(cur => !isCompleted(cur)), [dictionary]);
 
-  function nextWord(dct: Dictionary | undefined) {
-    if (dct) {
-      const wordsToday = dct.words.reduce((acc, cur) => acc + (isFirstOccurToday(cur) ? 1 : 0), 0);
-      // console.table(
-      //   dct.words.map(cur => ({ ...cur, isNew: isNew(cur), isCompleted: isCompleted(cur), isNextOccurToday: isNextOccurToday(cur) })),
-      // );
-      const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && isNextOccurToday(cur) && !isCompleted(cur)));
-      if (words.length) {
-        const rnd = randomNumber(0, words.length - 1);
-        setWord(words[rnd]);
-        return;
-      }
+  function nextWord(dct: Dictionary) {
+    const wordsToday = dct.words.reduce((acc, cur) => acc + (isFirstOccurToday(cur) ? 1 : 0), 0);
+    const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && isNextOccurToday(cur) && !isCompleted(cur)));
+    if (words.length) {
+      const rnd = randomNumber(0, words.length - 1);
+      setWord(words[rnd]);
+    } else {
+      setWord(undefined);
     }
-
-    setWord(undefined);
   }
 
   const getOptions = useCallback(() => {
@@ -129,8 +127,8 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       </IonHeader>
       <IonContent fullscreen>
         {dictionary && <IonProgressBar value={percent(dictionary.wordsLearned, dictionary.totalWords)} />}
-        {/* <WordCard validate={handleValidate} value={word} /> */}
-        {word && <SimpleWordCard onNext={handleNext} word={word} options={getOptions()} />}
+        {word && !simpleMode && <WordCardNormal onNext={handleNext} word={word} />}
+        {word && simpleMode && <WordCardSimple onNext={handleNext} word={word} options={getOptions()} />}
         {!showLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>

@@ -5,12 +5,7 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, Ion
 import { Word } from '../models';
 import { compareStringsIgnoreCase } from '../utils';
 import OptionButton from './OptionButton';
-
-enum Answer {
-  notAnswered = 0,
-  valid = 1,
-  invalid = 2,
-}
+import { Answer } from '../types';
 
 function renderQuestion(options: string[], handleClick: (option: string) => void) {
   return [
@@ -42,22 +37,21 @@ function renderAnswer(answer: Answer, translation: string, handleNext: () => voi
   ];
 }
 
-interface SimpleWordCardProps {
+interface WordCardSimpleProps {
   word: Word;
   options: string[];
   onNext: (valid: boolean) => void;
 }
 
-const SimpleWordCard: React.FC<SimpleWordCardProps> = ({ word, options, onNext }) => {
+const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }) => {
   const { text: title, transcription, translation, partOfSpeech, category } = word;
-  const [answer, setAnswer] = useState<Answer>(Answer.notAnswered);
+  const [answer, setAnswer] = useState<Answer>(Answer.empty);
+  useEffect(() => setAnswer(Answer.empty), [word]);
 
   const handleClick = useCallback(option => setAnswer(compareStringsIgnoreCase(translation, option) ? Answer.valid : Answer.invalid), [
     translation,
   ]);
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
-
-  useEffect(() => setAnswer(Answer.notAnswered), [word]);
 
   return (
     <IonCard>
@@ -66,14 +60,14 @@ const SimpleWordCard: React.FC<SimpleWordCardProps> = ({ word, options, onNext }
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <div className="no-padding">
+        <div className="ion-no-padding">
           <small>{transcription}</small>
         </div>
-        {answer === Answer.notAnswered ? renderQuestion(options, handleClick) : renderAnswer(answer, translation, handleNext)}
+        {answer === Answer.empty ? renderQuestion(options, handleClick) : renderAnswer(answer, translation, handleNext)}
         <p className="ion-padding-top" style={{ fontSize: '60%' }}>{`${partOfSpeech} : ${category}`}</p>
       </IonCardContent>
     </IonCard>
   );
 };
 
-export default SimpleWordCard;
+export default WordCardSimple;

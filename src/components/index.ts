@@ -3,8 +3,17 @@ import DictionaryListItem from './DictionaryListItem';
 import OptionButton from './OptionButton';
 import PrivateRoute from './PrivateRoute';
 import ResetProgress from './ResetProgress';
-import SimpleWordCard from './SimpleWordCard';
 import StatisticListItem from './StatisticListItem';
-import WordCard from './WordCard';
+import WordCardNormal from './WordCardNormal';
+import WordCardSimple from './WordCardSimple';
 
-export { Congratulations, DictionaryListItem, OptionButton, PrivateRoute, ResetProgress, SimpleWordCard, StatisticListItem, WordCard };
+export {
+  Congratulations,
+  DictionaryListItem,
+  OptionButton,
+  PrivateRoute,
+  ResetProgress,
+  StatisticListItem,
+  WordCardNormal,
+  WordCardSimple,
+};
