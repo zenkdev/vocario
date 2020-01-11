@@ -14,7 +14,6 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import { UserInfo } from 'firebase/app';
 import { home, person, stats } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
@@ -24,16 +23,18 @@ import { toastController } from '@ionic/core';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { FirebaseContext, PrivateRoute } from './components';
+import { PrivateRoute } from './components';
+import { UserProfile } from './models';
 import { Home, Learn, Login, Profile, ResetPassword, Signup, Splash, Statistics } from './pages';
-import { firebaseInstance, toastService } from './services';
+import { profileService, toastService } from './services';
+import AppContext from './AppContext';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<UserInfo | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserProfile>(new UserProfile());
 
   useEffect(() => {
-    const unsubscribeAuth = firebaseInstance.auth.onAuthStateChanged(user => {
+    const unsubscribeUser = profileService.onCurrentUserChanged(user => {
       setCurrentUser(user);
       setIsLoading(false);
     });
@@ -44,14 +45,14 @@ const App: React.FC = () => {
     });
 
     return () => {
-      unsubscribeAuth();
+      unsubscribeUser.unsubscribe();
       unsubscribeToast.unsubscribe();
     };
   }, []);
 
   return (
     <IonApp>
-      <FirebaseContext.Provider value={{ currentUser }}>
+      <AppContext.Provider value={{ currentUser }}>
         {isLoading ? (
           <Splash />
         ) : (
@@ -84,7 +85,7 @@ const App: React.FC = () => {
             </IonTabs>
           </IonReactRouter>
         )}
-      </FirebaseContext.Provider>
+      </AppContext.Provider>
     </IonApp>
   );
 };

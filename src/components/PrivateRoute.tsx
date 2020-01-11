@@ -3,11 +3,11 @@
 import React, { useContext } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 
-import { FirebaseContext } from '.';
 import { Login } from '../pages';
+import AppContext from '../AppContext';
 
 const PrivateRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
-  const { currentUser } = useContext(FirebaseContext);
+  const { currentUser } = useContext(AppContext);
   const isLoggedIn = currentUser != null;
   // @ts-ignore
   return <Route {...rest} render={props => (isLoggedIn ? <Component {...props} /> : <Login {...props} />)} />;

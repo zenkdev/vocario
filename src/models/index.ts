@@ -1,6 +1,6 @@
-import Dictionary from './Dictionary.model';
-import Statistic from './Statistic.model';
-import UserProfile from './UserProfile.model';
-import Word from './Word.model';
+import Dictionary from './Dictionary';
+import Statistic from './Statistic';
+import UserProfile from './UserProfile';
+import Word from './Word';
 
 export { Dictionary, Statistic, UserProfile, Word };
