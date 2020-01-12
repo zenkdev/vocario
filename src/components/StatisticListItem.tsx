@@ -36,22 +36,24 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
         <IonGrid class="ion-no-margin ion-no-padding">
           <IonRow>
             <IonCol>
+              <span className="bold-text normal-text">{item.text}</span>
               <div>
-                <strong>{item.text}</strong>
+                <span className="small-text">{item.transcription}</span>
               </div>
-              <small>{item.transcription}</small>
             </IonCol>
-            <IonCol>{item.translation}</IonCol>
+            <IonCol>
+              <span className="normal-text">{item.translation}</span>
+            </IonCol>
           </IonRow>
           <IonRow>
             <IonCol>
-              <p style={{ fontSize: '60%', whiteSpace: 'normal' }}>{`${item.partOfSpeech} : ${item.category}`}</p>
+              <p className="x-small-text">{`${item.partOfSpeech} : ${item.category}`}</p>
             </IonCol>
           </IonRow>
           {item.nextOccur && (
             <IonRow>
               <IonCol>
-                <p style={{ fontSize: '60%', whiteSpace: 'normal' }}>{`Next occur: ${nextOccurString(item.nextOccur)}`}</p>
+                <p className="x-small-text">{`Next occur: ${nextOccurString(item.nextOccur)}`}</p>
               </IonCol>
             </IonRow>
           )}

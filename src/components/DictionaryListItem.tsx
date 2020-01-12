@@ -1,10 +1,12 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router';
 
-import { IonButton, IonItem, IonItemOptions, IonItemSliding, IonLabel, IonProgressBar } from '@ionic/react';
+import { IonButton, IonItem, IonItemOptions, IonItemSliding, IonLabel, IonProgressBar, IonBadge } from '@ionic/react';
 
 import { Dictionary } from '../models';
 import { percent } from '../utils';
+
+const format = (value: number): string => (value < 1000 ? String(value) : `${Math.round(value / 100) / 10}k`);
 
 interface ListItemProps {
   item: Dictionary;
@@ -33,6 +35,7 @@ const DictionaryListItem: React.FC<ListItemProps> = ({ item, segment, onAddFavor
     <IonItemSliding>
       <IonItem button detail onClick={handleClick}>
         <IonLabel>{item.name}</IonLabel>
+        <IonBadge slot="end">{format(item.totalWords)}</IonBadge>
       </IonItem>
       <IonItemOptions>
         {segment === 'all' && (

@@ -1,97 +1,129 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import 'react-simple-keyboard/build/css/index.css';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonRow } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonGrid, IonRow } from '@ionic/react';
 
 import { Word } from '../models';
 import { Answer } from '../types';
-import { compareStringsIgnoreCase } from '../utils';
-
-const keyboardConfig = {
-  layout: {
-    default: ['q w e r t y u i o p', 'a s d f g h j k l', 'z x c v b n m {backspace}'],
-  },
-  display: { '{backspace}': '⌫' },
-};
+import { isValidAnswer, toCharArray } from '../utils';
+import { AnswerResult, MobileKeyboard } from '.';
 
 const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
+const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
 
-const offset = (index: number, arr: string[]): string => {
-  let result = 0;
-  let pointer = index - 1;
-  while (pointer >= 0) {
-    if (isLetter(arr[pointer])) {
+function fullInput(input: string, text: string) {
+  let str = '';
+  let iInd = 0;
+  let tInd = 0;
+
+  // prepend text
+  while (tInd < text.length) {
+    if (isLetter(text.charAt(tInd))) {
       break;
     }
-    result += 1;
-    pointer -= 1;
+    str += text.charAt(tInd);
+    tInd += 1;
   }
-  return String(result);
-};
 
-function renderChar(ch: string, index: number, arr: string[], input: string) {
+  // copy input
+  while (iInd < input.length) {
+    str += input.charAt(iInd);
+    iInd += 1;
+    tInd += 1;
+
+    // append text
+    while (tInd < text.length) {
+      if (isLetter(text.charAt(tInd))) {
+        break;
+      }
+      str += text.charAt(tInd);
+      tInd += 1;
+    }
+  }
+
+  return str;
+}
+
+function unusedChars(input: string, text: string) {
+  const chars = toCharArray(text.toLocaleLowerCase())
+    .filter(isLetter)
+    .reduce((acc, ch) => {
+      acc[ch] = (acc[ch] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+  const usedChars = toCharArray(input.toLocaleLowerCase()).filter(isLetter);
+  usedChars.forEach(ch => {
+    chars[ch] = (chars[ch] || 0) - 1;
+  });
+
+  return Object.entries(chars)
+    .filter(([, value]) => value > 0)
+    .map(([key]) => key);
+}
+
+function renderChar(ch: string, index: number, input: string) {
   if (isLetter(ch)) {
     return (
-      <IonCol key={index} size="1" offset={offset(index, arr)}>
-        <div style={{ backgroundColor: '#f7f7f7', border: 'solid 1px #ddd', textAlign: 'center', textTransform: 'lowercase' }}>
+      <IonCol key={index}>
+        <div
+          style={{
+            backgroundColor: '#f7f7f7',
+            borderBottom: 'solid 4px #ddd',
+            borderRadius: '2px',
+            textAlign: 'center',
+            textTransform: 'lowercase',
+          }}
+        >
           {input[index] || '?'}
         </div>
       </IonCol>
     );
   }
-  return null;
+  if (isWhiteSpace(ch)) {
+    return <IonCol key={index} />;
+  }
+  return (
+    <IonCol key={index}>
+      <div style={{ textAlign: 'center', textTransform: 'lowercase' }}>{ch}</div>
+    </IonCol>
+  );
 }
 
 function renderQuestion(
   text: string,
   input: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleRef: (r: any) => void,
+  handleRef: (r: Keyboard) => void,
   handleChange: (input: string) => void,
   handleValidate: () => void,
 ) {
+  const maxLength = toCharArray(text).filter(isLetter).length;
+  const buttons = unusedChars(input, text).join(' ');
+  const buttonTheme = buttons
+    ? [
+        {
+          class: 'hg-red',
+          buttons,
+        },
+      ]
+    : undefined;
   return [
     // <div key="header" className="ion-padding-top">
     //   <h2>Type word</h2>
     // </div>,
     <div key="options" className="no-padding">
       <IonGrid>
-        <IonRow class="ion-justify-content-start">
-          {Array.prototype.map.call(text, (ch, index, arr) => renderChar(ch, index, arr, input))}
-        </IonRow>
+        <IonRow class="ion-justify-content-start">{Array.prototype.map.call(text, (ch, index) => renderChar(ch, index, input))}</IonRow>
       </IonGrid>
     </div>,
     <div key="keyboard" className="ion-padding-top">
-      <Keyboard keyboardRef={handleRef} {...keyboardConfig} onChange={handleChange} />
+      <MobileKeyboard keyboardRef={handleRef} buttonTheme={buttonTheme} maxLength={maxLength} onChange={handleChange} />
     </div>,
     <div key="buttons" className="ion-padding-top">
-      <IonButton size="small" onClick={handleValidate}>
+      <IonButton size="small" onClick={handleValidate} disabled={text.length > input.length}>
         Validate
-      </IonButton>
-    </div>,
-  ];
-}
-
-function renderAnswer(answer: Answer, text: string, transcription: string, handleNext: () => void) {
-  const success = answer === Answer.valid;
-  return [
-    <IonCard key="card" color={success ? 'success' : 'danger'} className="ion-no-margin ion-margin-top">
-      <IonCardHeader>
-        <IonCardSubtitle>{success ? 'Correct' : 'Correct answer'}</IonCardSubtitle>
-      </IonCardHeader>
-      <IonCardContent>
-        {text}
-        <div className="ion-padding-top">
-          <small>{transcription}</small>
-        </div>
-      </IonCardContent>
-    </IonCard>,
-    <div key="buttons" className="ion-padding-top">
-      <IonButton size="small" onClick={handleNext}>
-        Next
       </IonButton>
     </div>,
   ];
@@ -104,14 +136,17 @@ interface WordCardNormalProps {
 
 const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   const { text, transcription, translation: title, partOfSpeech, category } = word;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [, setKeyboardRef] = useState<any>();
+  const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   useEffect(() => {
     setInput('');
     setAnswer(Answer.empty);
-  }, [word]);
+    if (keyboardRef) {
+      keyboardRef.clearInput();
+    }
+  }, [word, keyboardRef]);
+  const fInput = useMemo(() => fullInput(input, text), [text, input]);
 
   // const handleHelpRequested = useCallback(() => {
   //   if (!value) {
@@ -123,16 +158,12 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   //   }
   // }, [value, onNext, placeholder]);
 
-  const handleChange = (inp: string) => {
-    setInput(inp);
-  };
-  const handleValidate = useCallback(() => setAnswer(compareStringsIgnoreCase(text, input) ? Answer.valid : Answer.invalid), [text, input]);
+  const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, fInput)), [text, fInput]);
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardSubtitle>{word.count != null ? 'Repeat' : 'New word'}</IonCardSubtitle>
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
@@ -143,10 +174,18 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
             </IonButton>
           )}
         </div> */}
-        {answer === Answer.empty
-          ? renderQuestion(text, input, r => setKeyboardRef(r), handleChange, handleValidate)
-          : renderAnswer(answer, text, transcription, handleNext)}
-        <p className="ion-padding-top" style={{ fontSize: '60%' }}>{`${partOfSpeech} : ${category}`}</p>
+        {answer === Answer.empty ? (
+          renderQuestion(
+            text,
+            fInput,
+            r => setKeyboardRef(r),
+            s => setInput(s),
+            handleValidate,
+          )
+        ) : (
+          <AnswerResult text={text} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />
+        )}
+        <div className="ion-padding-top x-small-text">{`${partOfSpeech} : ${category}`}</div>
       </IonCardContent>
     </IonCard>
   );

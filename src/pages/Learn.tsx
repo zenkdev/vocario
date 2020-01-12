@@ -43,6 +43,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
     } else {
       setWord(undefined);
     }
+    // setWord(new Word('0', '- too ( + наречие) too !', '[tuː]', 'слишком', 'Наречия образа действия', 'Наречия'));
   }
 
   const getOptions = useCallback(() => {
@@ -107,6 +108,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
           setShowLoading(false);
           setDictionary(data);
           nextWord(data);
+          // console.table(data.words);
         })
         .catch(error => {
           setShowLoading(false);

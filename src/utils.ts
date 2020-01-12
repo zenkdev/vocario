@@ -1,5 +1,15 @@
+import { Answer } from './types';
+
+export function toCharArray(value: string | null | undefined): string[] {
+  return value ? value.split('') : [];
+}
+
 export function compareStringsIgnoreCase(str1?: string, str2?: string): boolean {
   return typeof str1 === 'string' && typeof str2 === 'string' && str1.trim().toLocaleLowerCase() === str2.trim().toLocaleLowerCase();
+}
+
+export function isValidAnswer(compareTo: string, userInput: string): Answer {
+  return compareStringsIgnoreCase(compareTo, userInput) ? Answer.valid : Answer.invalid;
 }
 
 /**
