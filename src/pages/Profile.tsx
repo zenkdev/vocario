@@ -1,5 +1,5 @@
 import { logOut } from 'ionicons/icons';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import {
@@ -19,21 +19,25 @@ import {
   IonTitle,
   IonToggle,
   IonToolbar,
+  useIonViewWillEnter,
+  IonRefresher,
+  IonRefresherContent,
 } from '@ionic/react';
 
 import { ResetProgress } from '../components';
 import { authService, profileService, toastService } from '../services';
 import { IonInputEvent, IonToggleEvent } from '../types';
-import AppContext from '../AppContext';
+import { UserProfile } from '../models';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const { currentUser } = useContext(AppContext);
-  const [photoURL] = useState(currentUser.photoURL);
-  const [displayName, setPhoneNumber] = useState(currentUser.displayName);
-  const [email, setEmail] = useState(currentUser.email);
-  const [simpleMode, setSimpleMode] = useState(currentUser.simpleMode);
+  const [profile, setProfile] = useState<UserProfile>(new UserProfile());
+  const [photoURL, setPhotoURL] = useState<string>();
+  const [displayName, setDisplayName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [simpleMode, setSimpleMode] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
+  const [showLoading, setShowLoading] = useState(true);
+  const [showSaving, setShowSaving] = useState(false);
   const handleLogout = useCallback(async () => {
     try {
       await authService.logout();
@@ -43,19 +47,19 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }, [history]);
 
-  const handleDisplayNameChange = (evt: IonInputEvent) => setPhoneNumber(evt.detail.value || '');
+  const handleDisplayNameChange = (evt: IonInputEvent) => setDisplayName(evt.detail.value || '');
 
   const handleDisplayNameBlur = async () => {
-    if (displayName == null || displayName === currentUser?.displayName) {
+    if (displayName == null || displayName === profile.displayName) {
       return;
     }
 
-    setShowLoading(true);
+    setShowSaving(true);
     try {
       await profileService.updateName(displayName);
-      setShowLoading(false);
+      setShowSaving(false);
     } catch (error) {
-      setShowLoading(false);
+      setShowSaving(false);
       toastService.showError(error);
     }
   };
@@ -63,16 +67,16 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
 
   const handleEmailBlur = async () => {
-    if (email == null || email === currentUser?.email) {
+    if (email == null || email === profile.email) {
       return;
     }
 
-    setShowLoading(true);
+    setShowSaving(true);
     try {
       await profileService.updateEmail(email, '');
-      setShowLoading(false);
+      setShowSaving(false);
     } catch (error) {
-      setShowLoading(false);
+      setShowSaving(false);
       toastService.showError(error);
     }
   };
@@ -82,16 +86,53 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     const oldMode = simpleMode;
 
     setSimpleMode(newMode);
-    setShowLoading(true);
+    setShowSaving(true);
     try {
       await profileService.updateSimpleMode(newMode);
-      setShowLoading(false);
+      setShowSaving(false);
     } catch (error) {
       setSimpleMode(oldMode); // restore if error occur
-      setShowLoading(false);
+      setShowSaving(false);
       toastService.showError(error);
     }
   };
+
+  const doRefresh = useCallback(({ target: refresher }) => {
+    setShowLoading(true);
+    profileService
+      .getProfile()
+      .then(data => {
+        setShowLoading(false);
+        refresher.complete();
+        setProfile(data);
+        setPhotoURL(data.photoURL);
+        setDisplayName(data.displayName);
+        setEmail(data.email);
+        setSimpleMode(data.simpleMode);
+      })
+      .catch(error => {
+        setShowLoading(false);
+        refresher.complete();
+        toastService.showError(error);
+      });
+  }, []);
+
+  useIonViewWillEnter(() => {
+    profileService
+      .getProfile()
+      .then(data => {
+        setShowLoading(false);
+        setProfile(data);
+        setPhotoURL(data.photoURL);
+        setDisplayName(data.displayName);
+        setEmail(data.email);
+        setSimpleMode(data.simpleMode);
+      })
+      .catch(error => {
+        setShowLoading(false);
+        toastService.showError(error);
+      });
+  });
 
   return (
     <IonPage>
@@ -106,6 +147,9 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+          <IonRefresherContent />
+        </IonRefresher>
         <IonList lines="full" class="ion-no-margin ion-no-padding">
           <IonListHeader color="light">
             <IonLabel>Personal Information</IonLabel>
@@ -134,7 +178,8 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           </IonButton>
         </div>
         <ResetProgress showAlert={showAlert} onClose={() => setShowAlert(false)} />
-        <IonLoading isOpen={showLoading} message="Saving..." />
+        <IonLoading isOpen={showLoading} message="Loading..." />
+        <IonLoading isOpen={showSaving} message="Saving..." />
       </IonContent>
     </IonPage>
   );

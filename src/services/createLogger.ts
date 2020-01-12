@@ -26,6 +26,10 @@ class Logger {
   public info(message?: any, ...optionalParams: any[]): void {
     console.info(formatMessage(message, this.name), ...optionalParams);
   }
+
+  public error(message?: any, ...optionalParams: any[]): void {
+    console.error(formatMessage(message, this.name), ...optionalParams);
+  }
 }
 
 function createLogger(name?: string, options: LoggerOptions = {}) {

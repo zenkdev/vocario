@@ -25,13 +25,12 @@ interface LearnLocationState {
 }
 
 const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
-  const {
-    currentUser: { simpleMode },
-  } = useContext(AppContext);
+  const { currentUser } = useContext(AppContext);
   const [title, setTitle] = useState('Learn');
   const [showLoading, setShowLoading] = useState(true);
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
+  const simpleMode = useMemo(() => (currentUser ? currentUser.simpleMode : true), [currentUser]);
   const more = useMemo(() => dictionary && dictionary.words.some(cur => !isCompleted(cur)), [dictionary]);
 
   function nextWord(dct: Dictionary) {
@@ -108,7 +107,6 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
           setShowLoading(false);
           setDictionary(data);
           nextWord(data);
-          // console.table(data.words);
         })
         .catch(error => {
           setShowLoading(false);

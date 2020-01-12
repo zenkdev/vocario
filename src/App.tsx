@@ -33,7 +33,7 @@ import AppContext from './AppContext';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<UserProfile>(new UserProfile());
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
 
   useEffect(() => {
     const unsubscribeUser = profileService.onCurrentUserChanged(user => {
