@@ -8,14 +8,41 @@
 }
 
 .small-text {
-  font-size: .75rem !important;
+  font-size: 0.75rem !important;
   white-space: normal;
 }
 
 .x-small-text {
-  font-size: .625rem !important;
+  font-size: 0.625rem !important;
   white-space: normal;
 }
+
+.no-flex-grow {
+  flex-grow: unset;
+}
+
+.char-input div {
+  font-family: monospace;
+  font-size: 1.4rem;
+  text-transform: lowercase;
+}
+
+.char-input-letter div {
+  background-color: #f7f7f7;
+  padding: .2rem;
+}
+
+.char-input-letter::after {
+  content: '';
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: .5rem;
+  border: solid 2px #ddd;
+  border-radius: 2px;
+}
+
+
 
 .simple-keyboard.hg-layout-default .hg-button.hg-red {
   background: rgb(255, 0, 0, 0.7);

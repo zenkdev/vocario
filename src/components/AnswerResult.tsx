@@ -15,7 +15,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
 
   return (
     <>
-      <IonCard key="card" color={valid ? 'success' : 'danger'} className="ion-no-margin ion-margin-top">
+      <IonCard color={valid ? 'success' : 'danger'}>
         <IonCardHeader>
           <IonCardSubtitle>{valid ? 'Correct' : 'Correct answer'}</IonCardSubtitle>
         </IonCardHeader>
@@ -28,10 +28,8 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
           )}
         </IonCardContent>
       </IonCard>
-      <div key="buttons" className="ion-padding-top">
-        <IonButton size="small" onClick={handleNext}>
-          Next
-        </IonButton>
+      <div className="ion-padding-start">
+        <IonButton onClick={handleNext}>Next</IonButton>
       </div>
     </>
   );

@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
-
 import { Word } from '../models';
 import { Answer } from '../types';
 import { isValidAnswer } from '../utils';
@@ -9,10 +7,10 @@ import { AnswerResult, OptionButton } from '.';
 
 function renderQuestion(options: string[], handleClick: (option: string) => void) {
   return [
-    <div key="header" className="ion-padding-top">
-      <h2>Choose translation</h2>
+    <div key="header" className="ion-padding-start">
+      <h3>Choose translation</h3>
     </div>,
-    <div key="options" className="ion-padding-top">
+    <div key="options" className="ion-padding">
       {options.map(option => (
         <OptionButton key={option} option={option} onClick={handleClick} />
       ))}
@@ -35,20 +33,20 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
   return (
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>{title}</IonCardTitle>
-      </IonCardHeader>
-      <IonCardContent>
-        <div className="ion-no-padding small-text">{transcription}</div>
+    <section>
+      <div className="ion-padding">
+        <h1>{title}</h1>
+      </div>
+      <div>
+        <div className="ion-padding small-text">{transcription}</div>
         {answer === Answer.empty ? (
           renderQuestion(options, handleClick)
         ) : (
           <AnswerResult text={translation} valid={answer === Answer.valid} onNext={handleNext} />
         )}
-        <div className="ion-padding-top x-small-text">{`${partOfSpeech} : ${category}`}</div>
-      </IonCardContent>
-    </IonCard>
+        <div className="ion-padding x-small-text">{`${partOfSpeech} : ${category}`}</div>
+      </div>
+    </section>
   );
 };
 
