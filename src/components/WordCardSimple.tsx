@@ -3,19 +3,19 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Word } from '../models';
 import { Answer } from '../types';
 import { isValidAnswer } from '../utils';
-import { AnswerResult, OptionButton } from '.';
+import { AnswerResult, OptionButton, If } from '.';
 
 function renderQuestion(options: string[], handleClick: (option: string) => void) {
-  return [
-    <div key="header" className="ion-padding-start">
-      <h3>Choose translation</h3>
-    </div>,
-    <div key="options" className="ion-padding">
-      {options.map(option => (
-        <OptionButton key={option} option={option} onClick={handleClick} />
-      ))}
-    </div>,
-  ];
+  return (
+    <>
+      <div className="ion-padding-start large-text">Choose translation</div>
+      <div className="ion-padding">
+        {options.map(option => (
+          <OptionButton key={option} option={option} onClick={handleClick} />
+        ))}
+      </div>
+    </>
+  );
 }
 
 interface WordCardSimpleProps {
@@ -34,17 +34,17 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
 
   return (
     <section>
-      <div className="ion-padding">
+      <div className="ion-padding-start ion-padding-end">
         <h1>{title}</h1>
       </div>
       <div>
         <div className="ion-padding small-text">{transcription}</div>
-        {answer === Answer.empty ? (
-          renderQuestion(options, handleClick)
-        ) : (
-          <AnswerResult text={translation} valid={answer === Answer.valid} onNext={handleNext} />
-        )}
-        <div className="ion-padding x-small-text">{`${partOfSpeech} : ${category}`}</div>
+        <If
+          condition={answer === Answer.empty}
+          then={renderQuestion(options, handleClick)}
+          else={<AnswerResult text={translation} valid={answer === Answer.valid} onNext={handleNext} />}
+        />
+        <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>
       </div>
     </section>
   );

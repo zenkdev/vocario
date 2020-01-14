@@ -22,9 +22,10 @@ import {
   useIonViewWillEnter,
   IonRefresher,
   IonRefresherContent,
+  IonSkeletonText,
 } from '@ionic/react';
 
-import { ResetProgress } from '../components';
+import { ResetProgress, If } from '../components';
 import { authService, profileService, toastService } from '../services';
 import { IonInputEvent, IonToggleEvent } from '../types';
 import { UserProfile } from '../models';
@@ -161,15 +162,27 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
               </IonAvatar>
             )}
             <IonLabel position="stacked">Name</IonLabel>
-            <IonInput type="text" value={displayName} onIonChange={handleDisplayNameChange} onIonBlur={handleDisplayNameBlur} />
+            <If
+              condition={!showLoading}
+              then={<IonInput type="text" value={displayName} onIonChange={handleDisplayNameChange} onIonBlur={handleDisplayNameBlur} />}
+              else={<IonSkeletonText animated />}
+            />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Email</IonLabel>
-            <IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />
+            <If
+              condition={!showLoading}
+              then={<IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />}
+              else={<IonSkeletonText animated />}
+            />
           </IonItem>
           <IonItem>
             <IonLabel position="fixed">Simple mode</IonLabel>
-            <IonToggle checked={simpleMode} onIonChange={handleSimpleModeChange} />
+            <If
+              condition={!showLoading}
+              then={<IonToggle checked={simpleMode} onIonChange={handleSimpleModeChange} />}
+              else={<IonSkeletonText animated />}
+            />
           </IonItem>
         </IonList>
         <div className="ion-padding">

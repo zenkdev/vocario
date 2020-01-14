@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonText } from '@ionic/react';
 
 interface AnswerResultProps {
   text: string;
@@ -11,27 +11,27 @@ interface AnswerResultProps {
 }
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onNext }) => {
+  const color = useMemo(() => (valid ? 'success' : 'danger'), [valid]);
+  const title = useMemo(() => (valid ? 'Correct' : 'Correct answer'), [valid]);
   const handleNext = useCallback(() => onNext(valid), [onNext, valid]);
 
   return (
-    <>
-      <IonCard color={valid ? 'success' : 'danger'}>
-        <IonCardHeader>
-          <IonCardSubtitle>{valid ? 'Correct' : 'Correct answer'}</IonCardSubtitle>
-        </IonCardHeader>
-        <IonCardContent>
-          {text}
-          {smallText && (
-            <div className="ion-padding-top">
-              <small>{smallText}</small>
-            </div>
-          )}
-        </IonCardContent>
-      </IonCard>
-      <div className="ion-padding-start">
-        <IonButton onClick={handleNext}>Next</IonButton>
-      </div>
-    </>
+    <IonCard>
+      <IonCardHeader color={color}>
+        <IonCardSubtitle>{title}</IonCardSubtitle>
+      </IonCardHeader>
+      <IonCardContent>
+        <IonText color={color}>{text}</IonText>
+        {smallText && (
+          <div className="ion-padding-top">
+            <small>{smallText}</small>
+          </div>
+        )}
+        <div className="ion-padding-top">
+          <IonButton onClick={handleNext}>Next</IonButton>
+        </div>
+      </IonCardContent>
+    </IonCard>
   );
 };
 

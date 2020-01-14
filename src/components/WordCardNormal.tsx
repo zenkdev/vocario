@@ -149,7 +149,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
 
   return (
     <section>
-      <div className="ion-padding">
+      <div className="ion-padding-start ion-padding-end">
         <h1>{title}</h1>
       </div>
       <div>
@@ -160,18 +160,18 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
             </IonButton>
           )}
         </div> */}
-        {answer === Answer.empty ? (
+        {answer === Answer.empty &&
           renderQuestion(
             text,
             fInput,
             r => setKeyboardRef(r),
             s => setInput(s),
             handleValidate,
-          )
-        ) : (
+          )}
+        {answer !== Answer.empty && (
           <AnswerResult text={text} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />
         )}
-        <div className="ion-padding x-small-text">{`${partOfSpeech} : ${category}`}</div>
+        <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>
       </div>
     </section>
   );

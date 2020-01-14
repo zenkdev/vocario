@@ -38,6 +38,7 @@ class ProfileService {
     if (!this.currentUser) {
       return new UserProfile();
     }
+
     const ref = firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`);
     const snapshot = await ref.once('value');
     return UserProfile.fromSnapshot(snapshot);

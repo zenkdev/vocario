@@ -1,3 +1,8 @@
+.large-text {
+  font-size: 1.2rem !important;
+  white-space: normal;
+}
+
 .normal-text {
   font-size: 1rem !important;
   white-space: normal;
@@ -12,11 +17,6 @@
   white-space: normal;
 }
 
-.x-small-text {
-  font-size: 0.625rem !important;
-  white-space: normal;
-}
-
 .no-flex-grow {
   flex-grow: unset;
 }
@@ -28,7 +28,8 @@
 }
 
 .char-input-letter div {
-  background-color: #f7f7f7;
+  background: #f7f7f7;
+  border-radius: .3rem;
   padding: .2rem;
 }
 
@@ -38,11 +39,13 @@
   width: 100%;
   box-sizing: border-box;
   margin-top: .5rem;
-  border: solid 2px #ddd;
-  border-radius: 2px;
+  border: solid .125rem #ddd;
+  border-radius: .125rem;
 }
 
-
+.simple-keyboard.hg-layout-default {
+  font-family: monospace;
+}
 
 .simple-keyboard.hg-layout-default .hg-button.hg-red {
   background: rgb(255, 0, 0, 0.7);

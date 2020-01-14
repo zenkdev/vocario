@@ -10,7 +10,7 @@ interface OptionButtonProps {
 const OptionButton: React.FC<OptionButtonProps> = ({ option, onClick }) => {
   const handleClick = useCallback(() => onClick(option), [option, onClick]);
   return (
-    <IonButton expand="block" size="small" fill="outline" onClick={handleClick}>
+    <IonButton expand="block" fill="outline" onClick={handleClick}>
       {option}
     </IonButton>
   );

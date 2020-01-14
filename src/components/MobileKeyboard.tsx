@@ -36,6 +36,7 @@ const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttonAttr
   return (
     <Keyboard
       {...keyboardConfig}
+      disableButtonHold
       keyboardRef={keyboardRef}
       buttonAttributes={buttonAttributes}
       buttonTheme={buttonTheme}

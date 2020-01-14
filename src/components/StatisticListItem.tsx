@@ -1,6 +1,5 @@
 import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
-import format from 'date-fns/format';
 import startOfDay from 'date-fns/startOfDay';
 import startOfToday from 'date-fns/startOfToday';
 import React from 'react';
@@ -27,7 +26,7 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
     if (days === 1) {
       return 'tomorrow';
     }
-    return format(date, 'PPPP');
+    return `in ${days} days`;
   }
 
   return (
@@ -47,13 +46,13 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
           </IonRow>
           <IonRow>
             <IonCol>
-              <p className="x-small-text">{`${item.partOfSpeech} : ${item.category}`}</p>
+              <span className="small-text">{`${item.partOfSpeech} : ${item.category}`}</span>
             </IonCol>
           </IonRow>
           {item.nextOccur && (
             <IonRow>
               <IonCol>
-                <p className="x-small-text">{`Next occur: ${nextOccurString(item.nextOccur)}`}</p>
+                <span className="small-text">{`Next occur: ${nextOccurString(item.nextOccur)}`}</span>
               </IonCol>
             </IonRow>
           )}

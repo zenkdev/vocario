@@ -1,6 +1,7 @@
 import AnswerResult from './AnswerResult';
 import Congratulations from './Congratulations';
 import DictionaryListItem from './DictionaryListItem';
+import If from './If';
 import MobileKeyboard from './MobileKeyboard';
 import OptionButton from './OptionButton';
 import PrivateRoute from './PrivateRoute';
@@ -13,6 +14,7 @@ export {
   AnswerResult,
   Congratulations,
   DictionaryListItem,
+  If,
   MobileKeyboard,
   OptionButton,
   PrivateRoute,
