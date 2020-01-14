@@ -8,11 +8,8 @@ import { IonButton, IonCol, IonGrid, IonRow } from '@ionic/react';
 
 import { Word } from '../models';
 import { Answer } from '../types';
-import { isValidAnswer, toCharArray } from '../utils';
-import { AnswerResult, MobileKeyboard } from '.';
-
-const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
-const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
+import { isValidAnswer, toCharArray, isLetter, isWhiteSpace } from '../utils';
+import { AnswerResult, MobileKeyboard, If } from '.';
 
 function fullInput(input: string, text: string) {
   let str = '';
@@ -89,30 +86,21 @@ function renderQuestion(
         },
       ]
     : undefined;
-  return [
-    // <div key="header" className="ion-padding-top">
-    //   <h2>Type word</h2>
-    // </div>,
-    <div key="options" className="no-padding">
-      <IonGrid>
-        <IonRow class="ion-justify-content-start">
-          {toCharArray(text).map((ch, index) => (
-            <IonCol key={`ch${index}`} className={`no-flex-grow char-input${isLetter(ch) ? ' char-input-letter' : ''}`}>
-              <div>{displayChar(ch, index, input)}</div>
-            </IonCol>
-          ))}
-        </IonRow>
-      </IonGrid>
-    </div>,
-    <div key="keyboard" className="ion-padding-top">
-      <MobileKeyboard keyboardRef={handleRef} buttonTheme={buttonTheme} maxLength={maxLength} onChange={handleChange} />
-    </div>,
-    <div key="buttons" className="ion-padding">
-      <IonButton onClick={handleValidate} disabled={text.length > input.length}>
-        Validate
-      </IonButton>
-    </div>,
-  ];
+  return (
+    <>
+      {/* <div key="header" className="ion-padding-top">
+        <h2>Type word</h2>
+      </div> */}
+      <div className="ion-padding-top">
+        <MobileKeyboard keyboardRef={handleRef} buttonTheme={buttonTheme} maxLength={maxLength} onChange={handleChange} />
+      </div>
+      <div className="ion-padding">
+        <IonButton onClick={handleValidate} disabled={text.length > input.length}>
+          Validate
+        </IonButton>
+      </div>
+    </>
+  );
 }
 
 interface WordCardNormalProps {
@@ -160,17 +148,22 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
             </IonButton>
           )}
         </div> */}
-        {answer === Answer.empty &&
-          renderQuestion(
-            text,
-            fInput,
-            r => setKeyboardRef(r),
-            s => setInput(s),
-            handleValidate,
-          )}
-        {answer !== Answer.empty && (
-          <AnswerResult text={text} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />
-        )}
+        <div className="no-padding">
+          <IonGrid>
+            <IonRow class="ion-justify-content-start">
+              {toCharArray(text).map((ch, index) => (
+                <IonCol key={`ch${index}`} className={`no-flex-grow char-input${isLetter(ch) ? ' char-input-letter' : ''}`}>
+                  <div>{displayChar(ch, index, input)}</div>
+                </IonCol>
+              ))}
+            </IonRow>
+          </IonGrid>
+        </div>
+        <If
+          condition={answer === Answer.empty}
+          then={renderQuestion(text, fInput, setKeyboardRef, setInput, handleValidate)}
+          else={<AnswerResult text={text} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
+        />
         <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>
       </div>
     </section>

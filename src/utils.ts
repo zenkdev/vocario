@@ -4,6 +4,9 @@ export function toCharArray(value: string | null | undefined): string[] {
   return value ? value.split('') : [];
 }
 
+export const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
+export const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
+
 export function compareStringsIgnoreCase(str1?: string, str2?: string): boolean {
   return typeof str1 === 'string' && typeof str2 === 'string' && str1.trim().toLocaleLowerCase() === str2.trim().toLocaleLowerCase();
 }

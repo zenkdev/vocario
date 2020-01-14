@@ -10,17 +10,17 @@ interface CongratulationsProps {
 const Congratulations: React.FC<CongratulationsProps> = ({ more }) => {
   const history = useHistory();
   return (
-    <IonCard color="success">
+    <IonCard>
       <IonCardHeader>
         <IonCardTitle>Congratulations!</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <p>You have learned all the words in this dictionary.</p>
-        {more && <p>Come back tomorrow for more tasks.</p>}
+        <p>
+          You have learned all the words in this dictionary.
+          {more && <span>Come back tomorrow for more tasks.</span>}
+        </p>
         <div className="ion-padding-top">
-          <IonButton size="small" onClick={() => history.goBack()}>
-            Back to home
-          </IonButton>
+          <IonButton onClick={() => history.goBack()}>Back to home</IonButton>
         </div>
       </IonCardContent>
     </IonCard>
