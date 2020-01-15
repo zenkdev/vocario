@@ -17,7 +17,7 @@ const Congratulations: React.FC<CongratulationsProps> = ({ more }) => {
       <IonCardContent>
         <p>
           You have learned all the words in this dictionary.
-          {more && <span>Come back tomorrow for more tasks.</span>}
+          {more && <span> Come back tomorrow for more tasks.</span>}
         </p>
         <div className="ion-padding-top">
           <IonButton onClick={() => history.goBack()}>Back to home</IonButton>

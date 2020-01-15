@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import 'react-simple-keyboard/build/css/index.css';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
 const keyboardConfig = {
@@ -13,34 +13,26 @@ const keyboardConfig = {
     '{backspace}': '⌫',
   },
 };
-interface KeyboardButtonAttributes {
-  attribute: string;
-  value: string;
-  buttons: string;
-}
-
-interface KeyboardButtonTheme {
-  class: string;
-  buttons: string;
-}
 
 interface MobileKeyboardProps {
   keyboardRef: (r: Keyboard) => void;
-  buttonAttributes?: KeyboardButtonAttributes[];
-  buttonTheme?: KeyboardButtonTheme[];
-  maxLength?: any;
+  buttons?: string[];
+  inputPattern?: any;
   onChange?: (input: string) => any;
 }
 
-const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttonAttributes, buttonTheme, maxLength, onChange }) => {
+const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttons, inputPattern, onChange }) => {
+  const buttonTheme = useMemo(() => (buttons && buttons.length ? [{ class: 'hg-enabled', buttons: buttons.join(' ') }] : undefined), [
+    buttons,
+  ]);
+
   return (
     <Keyboard
       {...keyboardConfig}
       disableButtonHold
       keyboardRef={keyboardRef}
-      buttonAttributes={buttonAttributes}
       buttonTheme={buttonTheme}
-      maxLength={maxLength}
+      inputPattern={inputPattern}
       onChange={onChange}
     />
   );

@@ -2,8 +2,12 @@ import firebase from 'firebase/app';
 
 import { Dictionary, Statistic, Word } from '../models';
 import firebaseInstance from './Firebase';
+import { omitUndefined } from '../utils';
+import createLogger from './createLogger';
 
 class StatisticService {
+  private logger = createLogger('StatisticService');
+
   private readonly db: firebase.database.Database;
 
   private uid: string | null = null;
@@ -17,7 +21,7 @@ class StatisticService {
 
   /** GET statistics from the server */
   public async getStatistics(): Promise<Statistic[]> {
-    this.log('getStatistics');
+    this.logger.info('getStatistics');
     if (!this.uid) {
       return [];
     }
@@ -32,7 +36,7 @@ class StatisticService {
 
   /** RESET all the progress */
   public async resetProgress(): Promise<void> {
-    this.log('resetProgress');
+    this.logger.info('resetProgress');
     if (!this.uid) {
       throw new Error('User UID can not be null');
     }
@@ -85,24 +89,11 @@ class StatisticService {
   private async updateStatistics(word: Word, uid: string, dictionaryId: string): Promise<void> {
     const { id, ...rest } = word;
     const ref = this.db.ref(`statistics/${uid}`);
-    const snapshot = await ref.child(id).once('value');
-    const updates: Record<string, Partial<Statistic>> = {};
-    const snap = snapshot.val();
-    if (snap) {
-      updates[id] = { ...rest, dictionaryId };
-    } else {
-      updates[id] = { ...rest, dictionaryId };
-    }
+    const updates: Record<string, Partial<Statistic>> = {
+      [id]: omitUndefined({ ...rest, dictionaryId }),
+    };
     await ref.update(updates);
   }
-
-  /* eslint-disable class-methods-use-this */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private log(message?: any, ...optionalParams: any[]) {
-    // eslint-disable-next-line no-console
-    console.log(message, ...optionalParams);
-  }
-  /* eslint-enable class-methods-use-this */
 }
 
 export default new StatisticService();

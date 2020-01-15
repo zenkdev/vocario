@@ -29,8 +29,8 @@
 
 .char-input-letter div {
   background: #f7f7f7;
-  border-radius: .3rem;
-  padding: .2rem;
+  border-radius: 0.3rem;
+  padding: 0.2rem;
 }
 
 .char-input-letter::after {
@@ -38,21 +38,38 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  margin-top: .5rem;
-  border: solid .125rem #ddd;
-  border-radius: .125rem;
+  margin-top: 0.5rem;
+  border: solid 0.125rem #ddd;
+  border-radius: 0.125rem;
 }
 
-.simple-keyboard.hg-layout-default {
+.keyboard-wrapper {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.keyboard-wrapper .simple-keyboard.hg-layout-default {
   font-family: monospace;
 }
 
-.simple-keyboard.hg-layout-default .hg-button.hg-red {
-  background: rgb(255, 0, 0, 0.7);
-  color: white;
+.keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button {
+  background: unset;
+  box-shadow: unset;
+  border: unset;
+  cursor: unset;
 }
 
-.simple-keyboard.hg-layout-default .hg-button.hg-highlight {
-  box-shadow: 0px 0px 40px 5px rgba(255, 255, 0, 0.5);
-  z-index: 1;
+.keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button.hg-activeButton {
+  background: unset;
+}
+
+.keyboard-wrapper .simple-keyboard.hg-layout-default .hg-button.hg-enabled {
+  background: #fff;
+  box-shadow: 0 0 3px -1px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #b5b5b5;
+  cursor: pointer;
+}
+
+.keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button.hg-enabled.hg-activeButton {
+  background: #efefef;
 }

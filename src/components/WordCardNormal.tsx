@@ -76,23 +76,21 @@ function renderQuestion(
   handleChange: (input: string) => void,
   handleValidate: () => void,
 ) {
-  const maxLength = toCharArray(text).filter(isLetter).length;
-  const buttons = unusedChars(input, text).join(' ');
-  const buttonTheme = buttons
-    ? [
-        {
-          class: 'hg-red',
-          buttons,
-        },
-      ]
-    : undefined;
+  const letters = toCharArray(text).filter(isLetter);
+  const inputPattern = new RegExp(`^[${letters.join('')}]{0,${letters.length}}$`);
+
+  const buttons = unusedChars(input, text);
+  if (input) {
+    buttons.push('{backspace}');
+  }
+
   return (
     <>
       {/* <div key="header" className="ion-padding-top">
         <h2>Type word</h2>
       </div> */}
-      <div className="ion-padding-top">
-        <MobileKeyboard keyboardRef={handleRef} buttonTheme={buttonTheme} maxLength={maxLength} onChange={handleChange} />
+      <div className="ion-padding-top keyboard-wrapper">
+        <MobileKeyboard keyboardRef={handleRef} buttons={buttons} inputPattern={inputPattern} onChange={handleChange} />
       </div>
       <div className="ion-padding">
         <IonButton onClick={handleValidate} disabled={text.length > input.length}>
@@ -153,7 +151,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
             <IonRow class="ion-justify-content-start">
               {toCharArray(text).map((ch, index) => (
                 <IonCol key={`ch${index}`} className={`no-flex-grow char-input${isLetter(ch) ? ' char-input-letter' : ''}`}>
-                  <div>{displayChar(ch, index, input)}</div>
+                  <div>{displayChar(ch, index, fInput)}</div>
                 </IonCol>
               ))}
             </IonRow>

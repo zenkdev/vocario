@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Answer } from './types';
 
 export function toCharArray(value: string | null | undefined): string[] {
@@ -27,4 +28,17 @@ export function randomNumber(min: number, max: number) {
 
 export function percent(value?: number, base?: number): number {
   return !value || !base ? 0 : Math.round((value / base) * 100) / 100;
+}
+
+export function omitUndefined<T extends Record<string, any>>(value: T): T {
+  const clone = { ...value };
+  const keys = Object.keys(clone);
+  for (let i = 0; i < keys.length; i += 1) {
+    const key = keys[i];
+    if (clone[key] === undefined) {
+      delete clone[key];
+    }
+  }
+
+  return clone;
 }
