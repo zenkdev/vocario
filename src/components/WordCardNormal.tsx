@@ -1,15 +1,16 @@
 /* eslint-disable react/no-array-index-key */
 import 'react-simple-keyboard/build/css/index.css';
 
+import { helpCircle } from 'ionicons/icons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
-import { IonButton, IonCol, IonGrid, IonRow } from '@ionic/react';
+import { IonButton, IonCol, IonGrid, IonIcon, IonRow } from '@ionic/react';
 
 import { Word } from '../models';
 import { Answer } from '../types';
-import { isValidAnswer, toCharArray, isLetter, isWhiteSpace } from '../utils';
-import { AnswerResult, MobileKeyboard, If } from '.';
+import { isLetter, isValidAnswer, isWhiteSpace, toCharArray } from '../utils';
+import { AnswerResult, If, MobileKeyboard } from '.';
 
 function fullInput(input: string, text: string) {
   let str = '';
@@ -72,27 +73,31 @@ function displayChar(ch: string, index: number, input: string) {
 function renderQuestion(
   text: string,
   input: string,
+  highlight: string | undefined,
   handleRef: (r: Keyboard) => void,
   handleChange: (input: string) => void,
+  handleHelpRequested: () => void,
   handleValidate: () => void,
 ) {
   const letters = toCharArray(text).filter(isLetter);
-  const inputPattern = new RegExp(`^[${letters.join('')}]{0,${letters.length}}$`);
-
-  const buttons = unusedChars(input, text);
-  if (input) {
-    buttons.push('{backspace}');
-  }
+  const inputPattern = new RegExp(`^[${letters.join('')}]{0,${letters.length}}$`, 'gis');
+  const buttons = ['{backspace}', ...unusedChars(input, text)];
 
   return (
     <>
-      {/* <div key="header" className="ion-padding-top">
-        <h2>Type word</h2>
-      </div> */}
-      <div className="ion-padding-top keyboard-wrapper">
-        <MobileKeyboard keyboardRef={handleRef} buttons={buttons} inputPattern={inputPattern} onChange={handleChange} />
+      <div className="ion-text-center">
+        <IonIcon icon={helpCircle} color="success" size="large" onClick={handleHelpRequested} />
       </div>
-      <div className="ion-padding">
+      <div className="keyboard-wrapper">
+        <MobileKeyboard
+          keyboardRef={handleRef}
+          buttons={buttons}
+          highlight={highlight}
+          inputPattern={inputPattern}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="ion-padding ion-text-center">
         <IonButton onClick={handleValidate} disabled={text.length > input.length}>
           Validate
         </IonButton>
@@ -110,6 +115,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   const { text, transcription, translation: title, partOfSpeech, category } = word;
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
+  const [highlight, setHighlight] = useState<string>();
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   useEffect(() => {
     setInput('');
@@ -120,37 +126,35 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   }, [word, keyboardRef]);
   const fInput = useMemo(() => fullInput(input, text), [text, input]);
 
-  // const handleHelpRequested = useCallback(() => {
-  //   if (!value) {
-  //     return;
-  //   }
-  //   if (!placeholder) {
-  //     setPlaceholder(value.translation);
-  //     onNext(false);
-  //   }
-  // }, [value, onNext, placeholder]);
-
+  const handleInput = useCallback((value: string) => {
+    setInput(value);
+    setHighlight(undefined);
+  }, []);
+  const handleHelpRequested = useCallback(() => {
+    let i = fInput.length;
+    while (i < text.length) {
+      const char = text.charAt(i);
+      if (isLetter(char)) {
+        setHighlight(char);
+        break;
+      }
+      i += 1;
+    }
+  }, [fInput, text]);
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, fInput)), [text, fInput]);
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
   return (
     <section>
-      <div className="ion-padding-start ion-padding-end">
+      <div className="ion-text-center">
         <h1>{title}</h1>
       </div>
       <div>
-        {/* <div className="ion-padding">
-          {!translation && (
-            <IonButton onClick={handleHelpRequested} type="button" fill="outline">
-              Show me
-            </IonButton>
-          )}
-        </div> */}
         <div className="no-padding">
           <IonGrid>
-            <IonRow class="ion-justify-content-start">
+            <IonRow class="ion-justify-content-center">
               {toCharArray(text).map((ch, index) => (
-                <IonCol key={`ch${index}`} className={`no-flex-grow char-input${isLetter(ch) ? ' char-input-letter' : ''}`}>
+                <IonCol key={`ch${index}`} className={`char-input${isLetter(ch) ? ' char-input-letter' : ''}`}>
                   <div>{displayChar(ch, index, fInput)}</div>
                 </IonCol>
               ))}
@@ -159,7 +163,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
         </div>
         <If
           condition={answer === Answer.empty}
-          then={renderQuestion(text, fInput, setKeyboardRef, setInput, handleValidate)}
+          then={renderQuestion(text, fInput, highlight, setKeyboardRef, handleInput, handleHelpRequested, handleValidate)}
           else={<AnswerResult text={text} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
         />
         <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>

@@ -10,7 +10,7 @@ interface CongratulationsProps {
 const Congratulations: React.FC<CongratulationsProps> = ({ more }) => {
   const history = useHistory();
   return (
-    <IonCard>
+    <IonCard className="ion-text-center">
       <IonCardHeader>
         <IonCardTitle>Congratulations!</IonCardTitle>
       </IonCardHeader>

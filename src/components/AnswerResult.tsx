@@ -27,7 +27,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
             <small>{smallText}</small>
           </div>
         )}
-        <div className="ion-padding-top">
+        <div className="ion-padding-top ion-text-center">
           <IonButton onClick={handleNext}>Next</IonButton>
         </div>
       </IonCardContent>

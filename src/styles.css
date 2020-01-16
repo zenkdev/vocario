@@ -17,7 +17,7 @@
   white-space: normal;
 }
 
-.no-flex-grow {
+.char-input {
   flex-grow: unset;
 }
 
@@ -44,8 +44,7 @@
 }
 
 .keyboard-wrapper {
-  padding-left: 6px;
-  padding-right: 6px;
+  padding: 5px 5px 0 5px;
 }
 
 .keyboard-wrapper .simple-keyboard.hg-layout-default {
@@ -72,4 +71,9 @@
 
 .keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button.hg-enabled.hg-activeButton {
   background: #efefef;
+}
+
+.keyboard-wrapper .simple-keyboard.hg-layout-default .hg-button.hg-highlight {
+  box-shadow: 0px 0px 40px 5px rgba(255, 255, 0, 0.5);
+  z-index: 1;
 }

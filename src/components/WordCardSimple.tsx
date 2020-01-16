@@ -7,14 +7,11 @@ import { AnswerResult, OptionButton, If } from '.';
 
 function renderQuestion(options: string[], handleClick: (option: string) => void) {
   return (
-    <>
-      <div className="ion-padding-start large-text">Choose translation</div>
-      <div className="ion-padding">
-        {options.map(option => (
-          <OptionButton key={option} option={option} onClick={handleClick} />
-        ))}
-      </div>
-    </>
+    <div className="ion-padding">
+      {options.map(option => (
+        <OptionButton key={option} option={option} onClick={handleClick} />
+      ))}
+    </div>
   );
 }
 
@@ -34,11 +31,11 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
 
   return (
     <section>
-      <div className="ion-padding-start ion-padding-end">
+      <div className="ion-text-center">
         <h1>{title}</h1>
       </div>
       <div>
-        <div className="ion-padding small-text">{transcription}</div>
+        <div className="ion-padding small-text ion-text-center">{transcription}</div>
         <If
           condition={answer === Answer.empty}
           then={renderQuestion(options, handleClick)}
