@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-props-no-spreading */
 import 'react-simple-keyboard/build/css/index.css';
 
@@ -14,17 +13,22 @@ const keyboardConfig = {
   },
 };
 
+interface KeyboardButtonTheme {
+  class: string;
+  buttons: string;
+}
+
 interface MobileKeyboardProps {
   keyboardRef: (r: Keyboard) => void;
   buttons?: string[];
   highlight?: string;
-  inputPattern?: any;
-  onChange?: (input: string) => any;
+  inputPattern?: RegExp;
+  onChange?: (input: string) => void;
 }
 
 const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttons, highlight, inputPattern, onChange }) => {
   const buttonTheme = useMemo(() => {
-    const arr: any[] = [];
+    const arr: KeyboardButtonTheme[] = [];
     if (buttons && buttons.length) {
       arr.push({ class: 'hg-enabled', buttons: buttons.join(' ') });
     }

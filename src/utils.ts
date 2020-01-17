@@ -16,6 +16,39 @@ export function isValidAnswer(compareTo: string, userInput: string): Answer {
   return compareStringsIgnoreCase(compareTo, userInput) ? Answer.valid : Answer.invalid;
 }
 
+export function getFullInput(input: string, text: string) {
+  let str = '';
+  let iInd = 0;
+  let tInd = 0;
+
+  // prepend text
+  while (tInd < text.length) {
+    if (isLetter(text.charAt(tInd))) {
+      break;
+    }
+    str += text.charAt(tInd);
+    tInd += 1;
+  }
+
+  // copy input
+  while (iInd < input.length) {
+    str += input.charAt(iInd);
+    iInd += 1;
+    tInd += 1;
+
+    // append text
+    while (tInd < text.length) {
+      if (isLetter(text.charAt(tInd))) {
+        break;
+      }
+      str += text.charAt(tInd);
+      tInd += 1;
+    }
+  }
+
+  return str;
+}
+
 /**
  * generate a random integer between min and max
  * @param {Number} min

@@ -3,17 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Word } from '../models';
 import { Answer } from '../types';
 import { isValidAnswer } from '../utils';
-import { AnswerResult, OptionButton, If } from '.';
-
-function renderQuestion(options: string[], handleClick: (option: string) => void) {
-  return (
-    <div className="ion-padding">
-      {options.map(option => (
-        <OptionButton key={option} option={option} onClick={handleClick} />
-      ))}
-    </div>
-  );
-}
+import { AnswerResult, QuestionSimple, If } from '.';
 
 interface WordCardSimpleProps {
   word: Word;
@@ -25,7 +15,6 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
   const { text: title, transcription, translation, partOfSpeech, category } = word;
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   useEffect(() => setAnswer(Answer.empty), [word]);
-
   const handleClick = useCallback(option => setAnswer(isValidAnswer(translation, option)), [translation]);
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
@@ -38,8 +27,8 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
         <div className="ion-padding small-text ion-text-center">{transcription}</div>
         <If
           condition={answer === Answer.empty}
-          then={renderQuestion(options, handleClick)}
-          else={<AnswerResult text={translation} valid={answer === Answer.valid} onNext={handleNext} />}
+          then={<QuestionSimple key="question" options={options} onClick={handleClick} />}
+          else={<AnswerResult key="answer" text={translation} valid={answer === Answer.valid} onNext={handleNext} />}
         />
         <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>
       </div>
