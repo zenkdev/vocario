@@ -12,7 +12,7 @@
     "pre-commit": "lint-staged",
     "eslint": "tsc --noEmit && eslint --ext .ts,.tsx,.js,.jsx ./src/**",
     "eslint:fix": "tsc --noEmit && eslint --fix --ext .ts,.tsx,.js,.jsx ./src/**",
-    "firebase-init": "node ./scripts/firebase-init.js",
+    "firebase-upload": "node ./scripts/firebase-upload.js",
     "firebase-deploy": "firebase deploy"
   },
   "private": true,
@@ -56,6 +56,7 @@
     "@types/zen-observable": "^0.8.0",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
+    "csv-parse": "^4.8.5",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.9.0",
