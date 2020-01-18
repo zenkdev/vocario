@@ -34,8 +34,8 @@ const DictionaryListItem: React.FC<ListItemProps> = ({ item, segment, onAddFavor
   return (
     <IonItemSliding>
       <IonItem button detail onClick={handleClick}>
-        <IonLabel>{item.name}</IonLabel>
-        <IonBadge slot="end">{format(item.totalWords)}</IonBadge>
+        <IonLabel className="ion-padding-top ion-padding-bottom">{item.name}</IonLabel>
+        <IonBadge slot="end">{format(item.wordsCount)}</IonBadge>
       </IonItem>
       <IonItemOptions>
         {segment === 'all' && (
@@ -49,7 +49,7 @@ const DictionaryListItem: React.FC<ListItemProps> = ({ item, segment, onAddFavor
           </IonButton>
         )}
       </IonItemOptions>
-      <IonProgressBar color="primary" value={percent(item.wordsLearned, item.totalWords)} />
+      <IonProgressBar color="primary" value={percent(item.wordsLearned, item.wordsCount)} />
     </IonItemSliding>
   );
 };

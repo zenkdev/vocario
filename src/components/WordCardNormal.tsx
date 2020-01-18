@@ -1,11 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
-import { AnswerResult, If, QuestionNormal, WordInput } from '.';
+
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import Keyboard from 'react-simple-keyboard';
 
 import { Word } from '../models';
 import { Answer } from '../types';
-import { getFullInput, isValidAnswer } from '../utils';
+import { getFullInput, getText, getTranscription, isValidAnswer, getTextWithLang } from '../utils';
+import AnswerResult from './AnswerResult';
+import If from './If';
+import QuestionNormal from './QuestionNormal';
+import WordInput from './WordInput';
 
 interface WordCardNormalProps {
   word: Word;
@@ -13,7 +17,10 @@ interface WordCardNormalProps {
 }
 
 const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
-  const { text, transcription, translation: title, partOfSpeech, category } = word;
+  const { translation: title, category } = word;
+  const text = useMemo(() => getText(word), [word]);
+  const textWithLang = useMemo(() => getTextWithLang(word), [word]);
+  const transcription = useMemo(() => getTranscription(word), [word]);
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
@@ -41,9 +48,9 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
         <If
           condition={answer === Answer.empty}
           then={<QuestionNormal text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} onValidate={handleValidate} />}
-          else={<AnswerResult text={text} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
+          else={<AnswerResult text={textWithLang} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
         />
-        <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>
+        <div className="ion-padding small-text">{category}</div>
       </div>
     </section>
   );

@@ -52,7 +52,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
     const options: string[] = [word.translation];
     const numOptions = Math.min(3, dictionary.words.length || 0);
     while (options.length < numOptions) {
-      const rnd = randomNumber(0, dictionary.totalWords - 1);
+      const rnd = randomNumber(0, dictionary.words.length - 1);
       const opt = dictionary.words[rnd];
       if (opt && !options.includes(opt.translation)) {
         options.push(opt.translation);
@@ -126,7 +126,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {dictionary && <IonProgressBar value={percent(dictionary.wordsLearned, dictionary.totalWords)} />}
+        {dictionary && <IonProgressBar value={percent(dictionary.wordsLearned, dictionary.wordsCount)} />}
         {word && !simpleMode && <WordCardNormal onNext={handleNext} word={word} />}
         {word && simpleMode && <WordCardSimple onNext={handleNext} word={word} options={getOptions()} />}
         {!showLoading && !word && <Congratulations more={more} />}

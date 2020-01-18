@@ -1,18 +1,79 @@
-class Word {
-  constructor(
-    id?: string,
-    text?: string,
-    transcription?: string,
-    translation?: string,
-    category?: string,
-    partOfSpeech?: string,
-    count?: number,
-    firstOccur?: string,
-    nextOccur?: string,
-  ) {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { isNumber } from '../utils';
+
+function parseKey(value: string): [string, number] {
+  let index = '';
+  let str = value;
+  while (str && str.length) {
+    const ch = str.charAt(str.length - 1);
+    if (!isNumber(ch)) {
+      break;
+    }
+    index = ch + index;
+    str = str.substring(0, str.length - 1);
+  }
+  return [str, Number(index)];
+}
+
+function parseTexts(payload: any) {
+  return Object.entries(payload).reduce((acc: any[], [k, value]) => {
+    if (k.startsWith('text') || k.startsWith('transcription') || k.startsWith('lang')) {
+      const [key, index] = parseKey(k);
+      const option: any = acc.find(x => x.index === index);
+      if (option) {
+        option[key] = value;
+      } else {
+        acc.push({ index, [key]: value });
+      }
+    }
+    return acc;
+  }, []);
+}
+
+export function texts2POCO(texts: WordText[]) {
+  const poco: any = {};
+  for (let i = 0; i < texts.length; i += 1) {
+    const { index, ...rest } = texts[i];
+    Object.entries(rest).forEach(([key, value]) => {
+      if (index) {
+        poco[`${key}${index}`] = value;
+      } else {
+        poco[key] = value;
+      }
+    });
+  }
+  return poco;
+}
+
+export interface WordText {
+  index: number;
+  text: string;
+  transcription?: string;
+  lang?: string;
+}
+
+export class Word {
+  constructor({
+    id,
+    texts,
+    translation,
+    category,
+    partOfSpeech,
+    count,
+    firstOccur,
+    nextOccur,
+  }: {
+    id?: string;
+    texts?: WordText[];
+    translation?: string;
+    category?: string;
+    partOfSpeech?: string;
+    count?: number;
+    firstOccur?: string;
+    nextOccur?: string;
+  }) {
     this.id = id || '';
-    this.text = text || '';
-    this.transcription = transcription || '';
+    this.texts = texts || [];
     this.translation = translation || '';
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
@@ -23,9 +84,7 @@ class Word {
 
   public id: string;
 
-  public text: string;
-
-  public transcription: string;
+  public texts: WordText[];
 
   public translation: string;
 
@@ -41,9 +100,8 @@ class Word {
 
   static fromSnapshot(payload: firebase.database.DataSnapshot): Word {
     const id = payload.key as string;
-    const { text, transcription, translation, category, partOfSpeech } = payload.val();
-    return new Word(id, text, transcription, translation, category, partOfSpeech);
+    const { translation, category, partOfSpeech, ...rest } = payload.val();
+    const texts = parseTexts(rest);
+    return new Word({ id, translation, category, partOfSpeech, texts });
   }
 }
-
-export default Word;

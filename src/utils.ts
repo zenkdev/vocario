@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Answer } from './types';
+import { Word } from './models';
 
 export function toCharArray(value: string | null | undefined): string[] {
   return value ? value.split('') : [];
@@ -7,6 +8,7 @@ export function toCharArray(value: string | null | undefined): string[] {
 
 export const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
 export const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
+export const isNumber = (ch: string): boolean => /[0-9]/.test(ch);
 
 export function compareStringsIgnoreCase(str1?: string, str2?: string): boolean {
   return typeof str1 === 'string' && typeof str2 === 'string' && str1.trim().toLocaleLowerCase() === str2.trim().toLocaleLowerCase();
@@ -74,4 +76,16 @@ export function omitUndefined<T extends Record<string, any>>(value: T): T {
   }
 
   return clone;
+}
+
+export function getText({ texts }: Word) {
+  return texts.reduce((acc, { text }) => acc + (acc && text ? ', ' : '') + (text || ''), '');
+}
+
+export function getTranscription({ texts }: Word) {
+  return texts.reduce((acc, { transcription }) => acc + (acc && transcription ? ', ' : '') + (transcription || ''), '');
+}
+
+export function getTextWithLang({ texts }: Word) {
+  return texts.reduce((acc, { text, lang }) => acc + (acc && text ? ', ' : '') + (text || '') + (text && lang ? ` (${lang})` : ''), '');
 }

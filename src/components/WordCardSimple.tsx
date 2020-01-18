@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Word } from '../models';
 import { Answer } from '../types';
-import { isValidAnswer } from '../utils';
-import { AnswerResult, QuestionSimple, If } from '.';
+import { getText, getTranscription, isValidAnswer } from '../utils';
+import AnswerResult from './AnswerResult';
+import If from './If';
+import QuestionSimple from './QuestionSimple';
 
 interface WordCardSimpleProps {
   word: Word;
@@ -12,7 +14,9 @@ interface WordCardSimpleProps {
 }
 
 const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }) => {
-  const { text: title, transcription, translation, partOfSpeech, category } = word;
+  const { translation, category } = word;
+  const title = useMemo(() => getText(word), [word]);
+  const transcription = useMemo(() => getTranscription(word), [word]);
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   useEffect(() => setAnswer(Answer.empty), [word]);
   const handleClick = useCallback(option => setAnswer(isValidAnswer(translation, option)), [translation]);
@@ -30,7 +34,7 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
           then={<QuestionSimple key="question" options={options} onClick={handleClick} />}
           else={<AnswerResult key="answer" text={translation} valid={answer === Answer.valid} onNext={handleNext} />}
         />
-        <div className="ion-padding small-text">{`${partOfSpeech} : ${category}`}</div>
+        <div className="ion-padding small-text">{category}</div>
       </div>
     </section>
   );

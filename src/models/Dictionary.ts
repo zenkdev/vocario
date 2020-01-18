@@ -1,12 +1,24 @@
 import firebase from 'firebase/app';
 
-import Word from './Word';
+import { Word } from './Word';
 
 class Dictionary {
-  constructor(id?: string, name?: string, totalWords?: number, wordsLearned?: number, words?: Word[]) {
+  constructor({
+    id,
+    name,
+    wordsCount,
+    wordsLearned,
+    words,
+  }: {
+    id?: string;
+    name?: string;
+    wordsCount?: number;
+    wordsLearned?: number;
+    words?: Word[];
+  }) {
     this.id = id || '';
     this.name = name || '';
-    this.totalWords = totalWords || 0;
+    this.wordsCount = wordsCount || 0;
     this.wordsLearned = wordsLearned || 0;
     this.words = words || [];
   }
@@ -15,7 +27,7 @@ class Dictionary {
 
   public name: string;
 
-  public totalWords: number;
+  public wordsCount: number;
 
   public wordsLearned: number;
 
@@ -23,9 +35,9 @@ class Dictionary {
 
   static fromSnapshot(payload: firebase.database.DataSnapshot, uid: string | null): Dictionary {
     const id = payload.key as string;
-    const { name, totalWords, wordsLearned: wordsLearnedObject } = payload.val();
+    const { name, wordsCount, totalWords, wordsLearned: wordsLearnedObject } = payload.val();
     const wordsLearned = (wordsLearnedObject && uid && wordsLearnedObject[uid]) || 0;
-    return new Dictionary(id, name, totalWords, wordsLearned);
+    return new Dictionary({ id, name, wordsCount: wordsCount || totalWords, wordsLearned });
   }
 }
 
