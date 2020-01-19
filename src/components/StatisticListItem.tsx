@@ -2,11 +2,12 @@ import differenceInDays from 'date-fns/differenceInDays';
 import parseISO from 'date-fns/parseISO';
 import startOfDay from 'date-fns/startOfDay';
 import startOfToday from 'date-fns/startOfToday';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { IonBadge, IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
 import { Statistic } from '../models';
+import { getTextWithLang, getTranscription } from '../utils';
 
 interface StatisticListItemProps {
   item: Statistic;
@@ -14,11 +15,15 @@ interface StatisticListItemProps {
 }
 
 const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }) => {
-  function nextOccurString(nextOccur: string | undefined) {
-    if (!nextOccur) {
+  const { translation, category, count, nextOccur } = item;
+  const textWithLang = useMemo(() => getTextWithLang(item), [item]);
+  const transcription = useMemo(() => getTranscription(item), [item]);
+
+  function nextOccurString(value: string | undefined) {
+    if (!value) {
       return undefined;
     }
-    const date = parseISO(nextOccur);
+    const date = parseISO(value);
     const days = differenceInDays(startOfDay(date), startOfToday());
     if (days <= 0) {
       return 'today';
@@ -35,24 +40,24 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
         <IonGrid class="ion-no-margin ion-no-padding">
           <IonRow>
             <IonCol>
-              <span className="bold-text normal-text">{item.text}</span>
+              <span className="bold-text normal-text">{textWithLang}</span>
               <div>
-                <span className="small-text">{item.transcription}</span>
+                <span className="small-text">{transcription}</span>
               </div>
             </IonCol>
             <IonCol>
-              <span className="normal-text">{item.translation}</span>
+              <span className="normal-text">{translation}</span>
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol>
-              <span className="small-text">{`${item.partOfSpeech} : ${item.category}`}</span>
+              <span className="small-text">{category}</span>
             </IonCol>
           </IonRow>
-          {item.nextOccur && (
+          {nextOccur && (
             <IonRow>
               <IonCol>
-                <span className="small-text">{`Next occur: ${nextOccurString(item.nextOccur)}`}</span>
+                <span className="small-text">{`Next occur: ${nextOccurString(nextOccur)}`}</span>
               </IonCol>
             </IonRow>
           )}
@@ -60,7 +65,7 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
       </IonLabel>
       {showCount && (
         <IonBadge slot="end" color="primary">
-          {item.count}
+          {count}
         </IonBadge>
       )}
     </IonItem>
