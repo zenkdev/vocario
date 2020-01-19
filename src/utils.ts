@@ -53,6 +53,24 @@ export function getFullInput(input: string, text: string) {
   return str;
 }
 
+export function unusedChars(input: string, text: string) {
+  const chars = toCharArray(text.toLocaleLowerCase())
+    .filter(isLetter)
+    .reduce((acc, ch) => {
+      acc[ch] = (acc[ch] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+  const usedChars = toCharArray(input.toLocaleLowerCase()).filter(isLetter);
+  usedChars.forEach(ch => {
+    chars[ch] = (chars[ch] || 0) - 1;
+  });
+
+  return Object.entries(chars)
+    .filter(([, value]) => value > 0)
+    .map(([key]) => key);
+}
+
 /**
  * generate a random integer between min and max
  * @param {Number} min

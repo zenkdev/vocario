@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-wrap-multilines */
 import { logOut } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -16,26 +17,28 @@ import {
   IonListHeader,
   IonLoading,
   IonPage,
+  IonRange,
+  IonRefresher,
+  IonRefresherContent,
+  IonSkeletonText,
   IonTitle,
   IonToggle,
   IonToolbar,
   useIonViewWillEnter,
-  IonRefresher,
-  IonRefresherContent,
-  IonSkeletonText,
 } from '@ionic/react';
 
-import { ResetProgress, If } from '../components';
-import { authService, profileService, toastService } from '../services';
-import { IonInputEvent, IonToggleEvent } from '../types';
+import { If, ResetProgress, Button } from '../components';
 import { UserProfile } from '../models';
+import { authService, profileService, toastService } from '../services';
+import { IonInputEvent, IonRangeEvent, IonToggleEvent } from '../types';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [profile, setProfile] = useState<UserProfile>(new UserProfile());
+  const [profile, setProfile] = useState<UserProfile>(new UserProfile({}));
   const [photoURL, setPhotoURL] = useState<string>();
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [simpleMode, setSimpleMode] = useState(true);
+  const [fontSize, setFontSize] = useState(100);
   const [showAlert, setShowAlert] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
   const [showSaving, setShowSaving] = useState(false);
@@ -98,42 +101,47 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     }
   };
 
-  const doRefresh = useCallback(({ target: refresher }) => {
-    setShowLoading(true);
-    profileService
-      .getProfile()
-      .then(data => {
-        setShowLoading(false);
-        refresher.complete();
-        setProfile(data);
-        setPhotoURL(data.photoURL);
-        setDisplayName(data.displayName);
-        setEmail(data.email);
-        setSimpleMode(data.simpleMode);
-      })
-      .catch(error => {
-        setShowLoading(false);
-        refresher.complete();
-        toastService.showError(error);
-      });
+  const handleFontSizeChange = async (evt: IonRangeEvent) => {
+    const newSize = evt.detail.value as number;
+    const oldSize = fontSize;
+
+    setFontSize(newSize);
+    setShowSaving(true);
+    try {
+      await profileService.updateFontSize(newSize / 100);
+      setShowSaving(false);
+    } catch (error) {
+      setFontSize(oldSize); // restore if error occur
+      setShowSaving(false);
+      toastService.showError(error);
+    }
+  };
+
+  const loadData = useCallback(async () => {
+    try {
+      const data = await profileService.getProfile();
+      setShowLoading(false);
+      setProfile(data);
+      setPhotoURL(data.photoURL);
+      setDisplayName(data.displayName);
+      setEmail(data.email);
+      setSimpleMode(data.simpleMode);
+      setFontSize(data.fontSize * 100);
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
   }, []);
 
-  useIonViewWillEnter(() => {
-    profileService
-      .getProfile()
-      .then(data => {
-        setShowLoading(false);
-        setProfile(data);
-        setPhotoURL(data.photoURL);
-        setDisplayName(data.displayName);
-        setEmail(data.email);
-        setSimpleMode(data.simpleMode);
-      })
-      .catch(error => {
-        setShowLoading(false);
-        toastService.showError(error);
-      });
-  });
+  const doRefresh = useCallback(
+    ({ target: refresher }) => {
+      setShowLoading(true);
+      loadData().finally(() => refresher.complete());
+    },
+    [loadData],
+  );
+
+  useIonViewWillEnter(() => loadData(), [loadData]);
 
   return (
     <IonPage>
@@ -184,11 +192,19 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
               else={<IonSkeletonText animated />}
             />
           </IonItem>
+          <IonItem>
+            <IonLabel position="fixed">Font size</IonLabel>
+            <If
+              condition={!showLoading}
+              then={<IonRange min={80} max={120} value={fontSize} step={10} ticks snaps onIonChange={handleFontSizeChange} />}
+              else={<IonSkeletonText animated />}
+            />
+          </IonItem>
         </IonList>
         <div className="ion-padding">
-          <IonButton expand="block" color="primary" onClick={() => setShowAlert(true)}>
+          <Button expand="block" color="primary" onClick={() => setShowAlert(true)}>
             Reset the progress
-          </IonButton>
+          </Button>
         </div>
         <ResetProgress showAlert={showAlert} onClose={() => setShowAlert(false)} />
         <IonLoading isOpen={showLoading} message="Loading..." />

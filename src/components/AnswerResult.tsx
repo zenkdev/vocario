@@ -1,7 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useCallback, useMemo } from 'react';
 
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonText } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonText } from '@ionic/react';
+import Button from './Button';
 
 interface AnswerResultProps {
   text: string;
@@ -28,7 +28,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
           </div>
         )}
         <div className="ion-padding-top ion-text-center">
-          <IonButton onClick={handleNext}>Next</IonButton>
+          <Button onClick={handleNext}>Next</Button>
         </div>
       </IonCardContent>
     </IonCard>

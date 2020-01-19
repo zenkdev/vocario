@@ -36,7 +36,7 @@ class ProfileService {
     this.logger.info('getProfile');
 
     if (!this.currentUser) {
-      return new UserProfile();
+      return new UserProfile({});
     }
 
     const ref = firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`);
@@ -82,6 +82,14 @@ class ProfileService {
     this.logger.info('updateSimpleMode', simpleMode);
     if (this.currentUser) {
       await this.updateUserProfile({ simpleMode });
+      await this.raiseCurrentUserChanged();
+    }
+  }
+
+  public async updateFontSize(fontSize: number): Promise<void> {
+    this.logger.info('updateFontSize', fontSize);
+    if (this.currentUser) {
+      await this.updateUserProfile({ fontSize });
       await this.raiseCurrentUserChanged();
     }
   }

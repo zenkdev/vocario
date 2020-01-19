@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
-
-import { IonButton } from '@ionic/react';
+import Button from './Button';
 
 interface OptionButtonProps {
   option: string;
@@ -10,9 +9,9 @@ interface OptionButtonProps {
 const OptionButton: React.FC<OptionButtonProps> = ({ option, onClick }) => {
   const handleClick = useCallback(() => onClick(option), [option, onClick]);
   return (
-    <IonButton expand="block" fill="outline" onClick={handleClick}>
+    <Button expand="block" fill="outline" onClick={handleClick}>
       {option}
-    </IonButton>
+    </Button>
   );
 };
 

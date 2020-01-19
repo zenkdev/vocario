@@ -52,6 +52,10 @@ const App: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    document.documentElement.style.fontSize = currentUser ? `${currentUser.fontSize * 14}px` : '';
+  }, [currentUser]);
+
   return (
     <IonApp>
       <AppContext.Provider value={{ currentUser }}>

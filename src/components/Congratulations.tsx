@@ -1,7 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+
+import Button from './Button';
 
 interface CongratulationsProps {
   more?: boolean;
@@ -20,7 +22,7 @@ const Congratulations: React.FC<CongratulationsProps> = ({ more }) => {
           {more && <span> Come back tomorrow for more tasks.</span>}
         </p>
         <div className="ion-padding-top">
-          <IonButton onClick={() => history.goBack()}>Back to home</IonButton>
+          <Button onClick={() => history.goBack()}>Back to home</Button>
         </div>
       </IonCardContent>
     </IonCard>
