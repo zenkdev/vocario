@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
-import { Dictionary, Statistic, texts2POCO, Word } from '../models';
-import { omitUndefined } from '../utils';
+import { Dictionary, Statistic, Word } from '../models';
+import { omitUndefined, textsToPlainJS } from '../utils';
 import createLogger from './createLogger';
 import firebaseInstance from './Firebase';
 
@@ -88,7 +88,7 @@ class StatisticService {
 
   private async updateStatistics(word: Word, uid: string, dictionaryId: string): Promise<void> {
     const { id, texts, ...rest } = word;
-    const poco = texts2POCO(texts);
+    const poco = textsToPlainJS(texts);
     const ref = this.db.ref(`statistics/${uid}`);
     const updates: Record<string, Partial<Statistic>> = {
       [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),

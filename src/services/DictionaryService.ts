@@ -7,6 +7,8 @@ import firebase from 'firebase/app';
 
 import { Dictionary, Word, Statistic } from '../models';
 import firebaseInstance from './Firebase';
+import { isNew } from '../utils';
+import createLogger from './createLogger';
 
 // // Create a promise that resolves in <ms> milliseconds
 // const timeout = (ms: number) =>
@@ -18,6 +20,8 @@ import firebaseInstance from './Firebase';
 //   });
 
 class DictionaryService {
+  private logger = createLogger('DictionaryService');
+
   private readonly db: firebase.database.Database;
 
   private uid: string | null = null;
@@ -31,7 +35,7 @@ class DictionaryService {
 
   /** GET dictionaries from the server */
   public async getDictionaries(): Promise<Dictionary[]> {
-    this.log('getDictionaries');
+    this.logger.info('getDictionaries');
     const snapshot = await this.db.ref('dictionaryList').once('value');
     const arr: Dictionary[] = [];
     snapshot.forEach(payload => {
@@ -42,7 +46,7 @@ class DictionaryService {
 
   /** GET dictionary by id. */
   public async getDictionary(id: string): Promise<Dictionary> {
-    this.log(`getDictionary(${id})`);
+    this.logger.info(`getDictionary(${id})`);
     const dictionary = await this.getDictionaryById(id);
     const words = await this.getWords(id);
     const statistics = await this.getStatistics(id);
@@ -56,6 +60,11 @@ class DictionaryService {
         /* eslint-enable no-param-reassign */
       }
     });
+    // will fix wordsLearned
+    const wordsLearned = words.reduce((acc, word) => acc + (isNew(word) ? 0 : 1), 0);
+    if (dictionary.wordsLearned !== wordsLearned) {
+      dictionary.wordsLearned = wordsLearned;
+    }
     return { ...dictionary, words };
   }
 
@@ -91,14 +100,6 @@ class DictionaryService {
     }
     return map;
   }
-
-  /* eslint-disable class-methods-use-this */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private log(message?: any, ...optionalParams: any[]) {
-    // eslint-disable-next-line no-console
-    console.log(message, ...optionalParams);
-  }
-  /* eslint-enable class-methods-use-this */
 }
 
 export default new DictionaryService();

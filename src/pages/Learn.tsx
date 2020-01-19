@@ -1,7 +1,5 @@
 import addDays from 'date-fns/addDays';
 import formatISO from 'date-fns/formatISO';
-import isToday from 'date-fns/isToday';
-import parseISO from 'date-fns/parseISO';
 import startOfToday from 'date-fns/startOfToday';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -12,12 +10,7 @@ import AppContext from '../AppContext';
 import { Congratulations, WordCardNormal, WordCardSimple } from '../components';
 import { Dictionary, Word } from '../models';
 import { dictionaryService, statisticService, toastService } from '../services';
-import { percent, randomNumber } from '../utils';
-
-const isNew = (value: Word) => value.count == null;
-const isCompleted = (value: Word) => value.count != null && value.count >= 3;
-const isFirstOccurToday = (value: Word) => value.firstOccur && isToday(parseISO(value.firstOccur));
-const isNextOccurToday = (value: Word) => value.nextOccur && isToday(parseISO(value.nextOccur));
+import { percent, randomNumber, isCompleted, isFirstOccurToday, isNew, isNextOccurToday } from '../utils';
 
 interface LearnLocationState {
   id: string;

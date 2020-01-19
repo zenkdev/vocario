@@ -1,22 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import isToday from 'date-fns/isToday';
+import parseISO from 'date-fns/parseISO';
+
 import { Answer } from './types';
-import { Word } from './models';
+import { Word, WordText } from './models';
 
-export function toCharArray(value: string | null | undefined): string[] {
-  return value ? value.split('') : [];
-}
+export const isNew = (value: Word) => value.count == null;
+export const isCompleted = (value: Word) => value.count != null && value.count >= 3;
+export const isFirstOccurToday = (value: Word) => value.firstOccur && isToday(parseISO(value.firstOccur));
+export const isNextOccurToday = (value: Word) => value.nextOccur && isToday(parseISO(value.nextOccur));
 
+export const toCharArray = (value: string | null | undefined) => (value ? value.split('') : []);
 export const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
 export const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
-export const isNumber = (ch: string): boolean => /[0-9]/.test(ch);
+export const isNumber = (ch: string): boolean => /\d/.test(ch);
 
-export function compareStringsIgnoreCase(str1?: string, str2?: string): boolean {
-  return typeof str1 === 'string' && typeof str2 === 'string' && str1.trim().toLocaleLowerCase() === str2.trim().toLocaleLowerCase();
-}
-
-export function isValidAnswer(compareTo: string, userInput: string): Answer {
-  return compareStringsIgnoreCase(compareTo, userInput) ? Answer.valid : Answer.invalid;
-}
+export const compareStringsIgnoreCase = (str1?: string, str2?: string) =>
+  typeof str1 === 'string' && typeof str2 === 'string' && str1.trim().toLocaleLowerCase() === str2.trim().toLocaleLowerCase();
+export const isValidAnswer = (compareTo: string, userInput: string) =>
+  compareStringsIgnoreCase(compareTo, userInput) ? Answer.valid : Answer.invalid;
 
 export function getFullInput(input: string, text: string) {
   let str = '';
@@ -57,13 +59,9 @@ export function getFullInput(input: string, text: string) {
  * @param {Number} max
  * @return {Number} random generated integer
  */
-export function randomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+export const randomNumber = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-export function percent(value?: number, base?: number): number {
-  return !value || !base ? 0 : Math.round((value / base) * 100) / 100;
-}
+export const percent = (value?: number, base?: number) => (!value || !base ? 0 : Math.round((value / base) * 100) / 100);
 
 export function omitUndefined<T extends Record<string, any>>(value: T): T {
   const clone = { ...value };
@@ -78,14 +76,23 @@ export function omitUndefined<T extends Record<string, any>>(value: T): T {
   return clone;
 }
 
-export function getText({ texts }: Word) {
-  return texts.reduce((acc, { text }) => acc + (acc && text ? ', ' : '') + (text || ''), '');
-}
+export const getText = ({ texts }: Word) => texts.reduce((acc, { text }) => acc + (acc && text ? ', ' : '') + (text || ''), '');
+export const getTextWithLang = ({ texts }: Word) =>
+  texts.reduce((acc, { text, lang }) => acc + (acc && text ? ', ' : '') + (text || '') + (text && lang ? ` (${lang})` : ''), '');
+export const getTranscription = ({ texts }: Word) =>
+  texts.reduce((acc, { transcription }) => acc + (acc && transcription ? ', ' : '') + (transcription || ''), '');
 
-export function getTranscription({ texts }: Word) {
-  return texts.reduce((acc, { transcription }) => acc + (acc && transcription ? ', ' : '') + (transcription || ''), '');
-}
-
-export function getTextWithLang({ texts }: Word) {
-  return texts.reduce((acc, { text, lang }) => acc + (acc && text ? ', ' : '') + (text || '') + (text && lang ? ` (${lang})` : ''), '');
+export function textsToPlainJS(texts: WordText[]) {
+  const poco: any = {};
+  for (let i = 0; i < texts.length; i += 1) {
+    const { index, ...rest } = texts[i];
+    Object.entries(rest).forEach(([key, value]) => {
+      if (index) {
+        poco[`${key}${index}`] = value;
+      } else {
+        poco[key] = value;
+      }
+    });
+  }
+  return poco;
 }

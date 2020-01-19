@@ -30,21 +30,6 @@ function parseTexts(payload: any) {
   }, []);
 }
 
-export function texts2POCO(texts: WordText[]) {
-  const poco: any = {};
-  for (let i = 0; i < texts.length; i += 1) {
-    const { index, ...rest } = texts[i];
-    Object.entries(rest).forEach(([key, value]) => {
-      if (index) {
-        poco[`${key}${index}`] = value;
-      } else {
-        poco[key] = value;
-      }
-    });
-  }
-  return poco;
-}
-
 export interface WordText {
   index: number;
   text: string;
