@@ -10,9 +10,15 @@ const dct500 = {
   version: '2',
 };
 
-const subj3000 = {
+const subj = {
   id: 'subj_dct3000',
-  name: 'Тематический Словарь 3000',
+  name: 'Тематический словарь',
+  version: '2',
+};
+
+const irv = {
+  id: 'irv',
+  name: 'Неправильные глаголы',
   version: '2',
 };
 
@@ -58,7 +64,8 @@ async function getDictionaries() {
   if (!dictionaries) {
     dictionaries = [
       { ...dct500, words: await getWords(path.join(__dirname, 'dct500.csv')) },
-      { ...subj3000, words: await getWords(path.join(__dirname, 'subj3000.csv')) },
+      { ...subj, words: await getWords(path.join(__dirname, 'subj.csv')) },
+      { ...irv, words: await getWords(path.join(__dirname, 'irv.csv')) },
     ];
   }
 
