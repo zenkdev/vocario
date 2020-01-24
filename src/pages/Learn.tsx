@@ -9,8 +9,10 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import AppContext from '../AppContext';
 import { Congratulations, WordCardNormal, WordCardSimple } from '../components';
 import { Dictionary, Word } from '../models';
-import { dictionaryService, statisticService, toastService } from '../services';
+import { dictionaryService, statisticService, toastService, localStoreManager } from '../services';
 import { percent, randomNumber, isCompleted, isFirstOccurToday, isNew, isNextOccurToday } from '../utils';
+
+const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
 
 interface LearnLocationState {
   id: string;
@@ -30,10 +32,17 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
     const wordsToday = dct.words.reduce((acc, cur) => acc + (isFirstOccurToday(cur) ? 1 : 0), 0);
     const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && isNextOccurToday(cur) && !isCompleted(cur)));
     if (words.length) {
-      const rnd = randomNumber(0, words.length - 1);
-      setWord(words[rnd]);
+      const prev = localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
+      if (prev && words[prev]) {
+        setWord(words[prev]);
+      } else {
+        const rnd = randomNumber(0, words.length - 1);
+        setWord(words[rnd]);
+        localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + dct.id, rnd);
+      }
     } else {
       setWord(undefined);
+      localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
     }
     // setWord(new Word('0', '- too ( + наречие) too !', '[tuː]', 'слишком', 'Наречия образа действия', 'Наречия'));
   }
@@ -81,6 +90,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
             break;
         }
         await statisticService.updateFromWord(dictionary, word);
+        localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dictionary.id);
         nextWord(dictionary);
       } catch (error) {
         toastService.showError(error);

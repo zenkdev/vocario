@@ -90,13 +90,10 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     const oldMode = simpleMode;
 
     setSimpleMode(newMode);
-    setShowSaving(true);
     try {
       await profileService.updateSimpleMode(newMode);
-      setShowSaving(false);
     } catch (error) {
       setSimpleMode(oldMode); // restore if error occur
-      setShowSaving(false);
       toastService.showError(error);
     }
   };
@@ -106,13 +103,10 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     const oldSize = fontSize;
 
     setFontSize(newSize);
-    setShowSaving(true);
     try {
       await profileService.updateFontSize(newSize / 100);
-      setShowSaving(false);
     } catch (error) {
       setFontSize(oldSize); // restore if error occur
-      setShowSaving(false);
       toastService.showError(error);
     }
   };

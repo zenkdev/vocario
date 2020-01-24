@@ -5,6 +5,10 @@ import Observable from 'zen-observable';
 import { UserProfile } from '../models';
 import firebaseInstance from './Firebase';
 import createLogger from './createLogger';
+import localStoreManager from './LocalStoreManager';
+
+const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
+const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
 
 class ProfileService {
   private logger = createLogger('ProfileService');
@@ -35,13 +39,20 @@ class ProfileService {
   public async getProfile(): Promise<UserProfile> {
     this.logger.info('getProfile');
 
+    const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);
+    const fontSize = localStoreManager.getDataObject<number>(FONT_SIZE_DATA_KEY);
     if (!this.currentUser) {
-      return new UserProfile({});
+      return new UserProfile({ simpleMode, fontSize });
     }
 
     const ref = firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`);
     const snapshot = await ref.once('value');
-    return UserProfile.fromSnapshot(snapshot);
+    const profile = UserProfile.fromSnapshot(snapshot);
+
+    profile.simpleMode = simpleMode != null ? simpleMode : profile.simpleMode;
+    profile.fontSize = fontSize != null ? fontSize : profile.fontSize;
+
+    return profile;
   }
 
   public async updateName(displayName: string): Promise<void> {
@@ -80,18 +91,20 @@ class ProfileService {
 
   public async updateSimpleMode(simpleMode: boolean): Promise<void> {
     this.logger.info('updateSimpleMode', simpleMode);
-    if (this.currentUser) {
-      await this.updateUserProfile({ simpleMode });
-      await this.raiseCurrentUserChanged();
-    }
+    localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
+    // if (this.currentUser) {
+    //   await this.updateUserProfile({ simpleMode });
+    // }
+    await this.raiseCurrentUserChanged();
   }
 
   public async updateFontSize(fontSize: number): Promise<void> {
     this.logger.info('updateFontSize', fontSize);
-    if (this.currentUser) {
-      await this.updateUserProfile({ fontSize });
-      await this.raiseCurrentUserChanged();
-    }
+    localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, fontSize);
+    // if (this.currentUser) {
+    //   await this.updateUserProfile({ fontSize });
+    // }
+    await this.raiseCurrentUserChanged();
   }
 
   private handleAuthStateChanged(user: firebase.User | null) {

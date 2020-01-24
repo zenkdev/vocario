@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { setupConfig } from '@ionic/react';
+// import { setupConfig } from '@ionic/react';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-setupConfig({ mode: 'ios' });
+// setupConfig({ mode: 'ios' });
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
