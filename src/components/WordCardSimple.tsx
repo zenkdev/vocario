@@ -38,7 +38,7 @@ const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }
   return (
     <section>
       <div className="ion-text-center">
-        <h1>{title}</h1>
+        <h1 className="large-text">{title}</h1>
       </div>
       <div>
         <div className="ion-padding small-text ion-text-center">{transcription}</div>

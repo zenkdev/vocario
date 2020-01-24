@@ -53,7 +53,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.fontSize = currentUser ? `${currentUser.fontSize * 14}px` : '';
+    document.documentElement.style.fontSize = currentUser ? `${currentUser.fontSize * 16}px` : '';
   }, [currentUser]);
 
   return (

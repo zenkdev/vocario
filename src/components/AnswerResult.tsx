@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonText } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonText } from '@ionic/react';
+
 import Button from './Button';
 
 interface AnswerResultProps {
@@ -18,15 +19,13 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
   return (
     <IonCard>
       <IonCardHeader color={color}>
-        <IonCardSubtitle>{title}</IonCardSubtitle>
+        <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <IonText color={color}>{text}</IonText>
-        {smallText && (
-          <div className="ion-padding-top">
-            <small>{smallText}</small>
-          </div>
-        )}
+        <IonText color={color} className="normal-text">
+          {text}
+        </IonText>
+        {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
         <div className="ion-padding-top ion-text-center">
           <Button onClick={handleNext}>Next</Button>
         </div>

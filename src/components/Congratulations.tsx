@@ -17,7 +17,7 @@ const Congratulations: React.FC<CongratulationsProps> = ({ more }) => {
         <IonCardTitle>Congratulations!</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <p>
+        <p className="normal-text">
           You have learned all the words in this dictionary.
           {more && <span> Come back tomorrow for more tasks.</span>}
         </p>

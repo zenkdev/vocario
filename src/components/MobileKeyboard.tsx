@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/jsx-props-no-spreading */
 import 'react-simple-keyboard/build/css/index.css';
 
@@ -23,10 +24,11 @@ interface MobileKeyboardProps {
   buttons?: string[];
   highlight?: string;
   inputPattern?: RegExp;
+  maxLength?: any;
   onChange?: (input: string) => void;
 }
 
-const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttons, highlight, inputPattern, onChange }) => {
+const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttons, highlight, ...rest }) => {
   const buttonTheme = useMemo(() => {
     const arr: KeyboardButtonTheme[] = [];
     if (buttons && buttons.length) {
@@ -38,16 +40,7 @@ const MobileKeyboard: React.FC<MobileKeyboardProps> = ({ keyboardRef, buttons, h
     return arr;
   }, [buttons, highlight]);
 
-  return (
-    <Keyboard
-      {...keyboardConfig}
-      disableButtonHold
-      keyboardRef={keyboardRef}
-      buttonTheme={buttonTheme}
-      inputPattern={inputPattern}
-      onChange={onChange}
-    />
-  );
+  return <Keyboard {...keyboardConfig} disableButtonHold keyboardRef={keyboardRef} buttonTheme={buttonTheme} {...rest} />;
 };
 
 export default MobileKeyboard;

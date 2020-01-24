@@ -1,14 +1,11 @@
 import 'react-simple-keyboard/build/css/index.css';
 
-import { helpCircle } from 'ionicons/icons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
-import { IonIcon } from '@ionic/react';
-
 import { Word } from '../models';
 import { Answer } from '../types';
-import { getFullInput, getText, getTextWithLang, getTranscription, isLetter, isValidAnswer, toCharArray, unusedChars } from '../utils';
+import { getFullInput, getText, getTextWithLang, getTranscription, isLetter, isValidAnswer, unusedChars } from '../utils';
 import AnswerResult from './AnswerResult';
 import Button from './Button';
 import If from './If';
@@ -26,10 +23,6 @@ interface QuestionNormalProps {
 const QuestionNormal: React.FC<QuestionNormalProps> = ({ text, input, keyboardRef, onChange, onValidate }) => {
   const [highlight, setHighlight] = useState<string>();
   const fullInput = useMemo(() => getFullInput(input, text), [input, text]);
-  const inputPattern = useMemo(() => {
-    const letters = toCharArray(text).filter(isLetter);
-    return new RegExp(`^[${letters.join('')}]{0,${letters.length}}$`, 'iu');
-  }, [text]);
   const buttons = useMemo(() => ['{backspace}', ...unusedChars(input, text)], [input, text]);
 
   const handleInput = useCallback(
@@ -54,16 +47,12 @@ const QuestionNormal: React.FC<QuestionNormalProps> = ({ text, input, keyboardRe
   return (
     <>
       <div className="ion-text-center">
-        <IonIcon icon={helpCircle} color="success" size="large" onClick={handleHelpRequested} />
+        <Button color="success" shape="round" onClick={handleHelpRequested}>
+          ?
+        </Button>
       </div>
       <div className="keyboard-wrapper">
-        <MobileKeyboard
-          keyboardRef={keyboardRef}
-          buttons={buttons}
-          highlight={highlight}
-          inputPattern={inputPattern}
-          onChange={handleInput}
-        />
+        <MobileKeyboard keyboardRef={keyboardRef} buttons={buttons} highlight={highlight} onChange={handleInput} />
       </div>
       <div className="ion-padding ion-text-center">
         <Button onClick={onValidate} disabled={text.length > fullInput.length}>
@@ -102,7 +91,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   return (
     <section>
       <div className="ion-text-center">
-        <h1>{title}</h1>
+        <h1 className="large-text">{title}</h1>
       </div>
       <div>
         <div className="no-padding">

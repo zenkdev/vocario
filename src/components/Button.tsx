@@ -9,6 +9,7 @@ interface ButtonProps {
   color?: string;
   fill?: 'clear' | 'outline' | 'solid' | 'default';
   disabled?: boolean;
+  shape?: 'round';
   onClick?: () => void;
 }
 

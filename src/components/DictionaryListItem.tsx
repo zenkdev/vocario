@@ -34,7 +34,7 @@ const DictionaryListItem: React.FC<ListItemProps> = ({ item, segment, onAddFavor
   return (
     <IonItemSliding>
       <IonItem button detail onClick={handleClick}>
-        <IonLabel className="ion-padding-top ion-padding-bottom">{item.name}</IonLabel>
+        <IonLabel className="ion-padding-top ion-padding-bottom normal-text">{item.name}</IonLabel>
         <IonBadge slot="end">{format(item.wordsCount)}</IonBadge>
       </IonItem>
       <IonItemOptions>

@@ -40,7 +40,7 @@ export class LocalStoreManager {
   public savePermanentData(key: string, data: any) {
     this.testForInvalidKeys(key);
 
-    sessionStorage.removeIte(key);
+    sessionStorage.removeItem(key);
     this.localStorageSetItem(key, data);
   }
 
@@ -105,7 +105,7 @@ export class LocalStoreManager {
   public deleteData(key: string) {
     this.testForInvalidKeys(key);
 
-    sessionStorage.removeIte(key);
+    sessionStorage.removeItem(key);
     localStorage.removeItem(key);
   }
 

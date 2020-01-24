@@ -1,5 +1,5 @@
 .large-text {
-  font-size: 1.2rem !important;
+  font-size: 1.625rem !important;
   white-space: normal;
 }
 
@@ -56,6 +56,8 @@
   box-shadow: unset;
   border: unset;
   cursor: unset;
+  height: 2.5rem;
+  pointer-events: none;
 }
 
 .keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button.hg-activeButton {
@@ -67,6 +69,7 @@
   box-shadow: 0 0 3px -1px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid #b5b5b5;
   cursor: pointer;
+  pointer-events: unset;
 }
 
 .keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button.hg-enabled.hg-activeButton {

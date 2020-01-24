@@ -190,7 +190,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonLabel position="fixed">Font size</IonLabel>
             <If
               condition={!showLoading}
-              then={<IonRange min={80} max={120} value={fontSize} step={10} ticks snaps onIonChange={handleFontSizeChange} />}
+              then={<IonRange min={80} max={150} value={fontSize} step={10} ticks snaps onIonChange={handleFontSizeChange} />}
               else={<IonSkeletonText animated />}
             />
           </IonItem>
