@@ -11,6 +11,8 @@ import Button from './Button';
 import If from './If';
 import MobileKeyboard from './MobileKeyboard';
 import WordInput from './WordInput';
+import useAudio from '../hooks/useAudio';
+import { buttonClickDataUrl } from '../audio';
 
 interface QuestionNormalProps {
   text: string;
@@ -76,6 +78,12 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
+  const [playing, toggle] = useAudio(buttonClickDataUrl);
+  const playAudio = useCallback(() => {
+    if (!playing) {
+      toggle();
+    }
+  }, [playing, toggle]);
 
   useEffect(() => {
     setInput('');
@@ -85,6 +93,13 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
     }
   }, [word, keyboardRef]);
 
+  const handleChange = useCallback(
+    value => {
+      setInput(value);
+      playAudio();
+    },
+    [playAudio],
+  );
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
@@ -99,7 +114,9 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
         </div>
         <If
           condition={answer === Answer.empty}
-          then={<QuestionNormal text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} onValidate={handleValidate} />}
+          then={
+            <QuestionNormal text={text} input={input} keyboardRef={setKeyboardRef} onChange={handleChange} onValidate={handleValidate} />
+          }
           else={<AnswerResult text={textWithLang} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
         />
         <div className="ion-padding small-text">{category}</div>
