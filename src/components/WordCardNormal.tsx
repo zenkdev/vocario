@@ -12,7 +12,7 @@ import If from './If';
 import MobileKeyboard from './MobileKeyboard';
 import WordInput from './WordInput';
 import useAudio from '../hooks/useAudio';
-import { buttonClickDataUrl } from '../audio';
+import buttonClick from '../audio/buttonClick';
 
 interface QuestionNormalProps {
   text: string;
@@ -78,7 +78,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
-  const [playing, toggle] = useAudio(buttonClickDataUrl);
+  const [playing, toggle] = useAudio(buttonClick);
   const playAudio = useCallback(() => {
     if (!playing) {
       toggle();
