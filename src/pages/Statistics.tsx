@@ -15,11 +15,15 @@ import {
   IonTitle,
   IonToolbar,
   useIonViewWillEnter,
+  IonItem,
 } from '@ionic/react';
 
 import { StatisticListItem } from '../components';
 import { Statistic } from '../models';
 import { statisticService, toastService } from '../services';
+import { IonInputEvent } from '../types';
+
+const NUMBER_OF_ITEMS = 20;
 
 const isCompleted = (value: Statistic) => value.count >= 3;
 
@@ -27,8 +31,14 @@ const Statistics: React.FC = () => {
   const [showLoading, setShowLoading] = useState(true);
   const [statistics, setStatistics] = useState<Statistic[]>([]);
   const [segment, setSegment] = useState<string>('learning');
+  const [numberOfItems, setNumberOfItems] = useState(NUMBER_OF_ITEMS);
   const learning = useMemo(() => `Learning ${statistics.reduce((acc, cur) => acc + (!isCompleted(cur) ? 1 : 0), 0)}`, [statistics]);
   const completed = useMemo(() => `Completed ${statistics.reduce((acc, cur) => acc + (isCompleted(cur) ? 1 : 0), 0)}`, [statistics]);
+  const handleSegmentChange = useCallback((e: IonInputEvent) => {
+    setSegment(e.detail.value || '');
+    setNumberOfItems(NUMBER_OF_ITEMS);
+  }, []);
+  const handleShowMore = useCallback(() => setNumberOfItems(numberOfItems + NUMBER_OF_ITEMS), [numberOfItems]);
   const doRefresh = useCallback(({ target: refresher }) => {
     setShowLoading(true);
     statisticService
@@ -72,7 +82,7 @@ const Statistics: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <IonSegment className="ion-padding" value={segment} onIonChange={e => setSegment(e.detail.value || '')}>
+        <IonSegment className="ion-padding" value={segment} onIonChange={handleSegmentChange}>
           <IonSegmentButton value="learning">
             <IonLabel>{learning}</IonLabel>
           </IonSegmentButton>
@@ -86,9 +96,14 @@ const Statistics: React.FC = () => {
               <IonLabel>No Statistics</IonLabel>
             </IonListHeader>
           )}
-          {items.map(item => (
+          {items.slice(0, numberOfItems).map(item => (
             <StatisticListItem key={item.id} item={item} showCount={segment !== 'completed'} />
           ))}
+          {items.length > numberOfItems && (
+            <IonItem onClick={handleShowMore} button>
+              <IonLabel>Show more...</IonLabel>
+            </IonItem>
+          )}
         </IonList>
         <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>
