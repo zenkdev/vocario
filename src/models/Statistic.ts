@@ -3,8 +3,7 @@ import formatISO from 'date-fns/formatISO';
 import parseISO from 'date-fns/parseISO';
 import startOfDay from 'date-fns/startOfDay';
 
-import { parseTexts } from '../utils';
-import { WordText } from './Word';
+import Text from './Text';
 
 function getNextOccur(date: string, cnt: number) {
   switch (cnt) {
@@ -33,7 +32,7 @@ class Statistic {
   }: {
     id?: string;
     dictionaryId?: string;
-    texts?: WordText[];
+    texts?: Text[];
     translation?: string;
     category?: string;
     partOfSpeech?: string;
@@ -56,7 +55,7 @@ class Statistic {
 
   public dictionaryId: string;
 
-  public texts: WordText[];
+  public texts: Text[];
 
   public translation: string;
 
@@ -69,13 +68,6 @@ class Statistic {
   public firstOccur: string;
 
   public nextOccur?: string;
-
-  static fromSnapshot(payload: firebase.database.DataSnapshot): Statistic {
-    const id = payload.key as string;
-    const { dictionaryId, translation, category, partOfSpeech, count, firstOccur, nextOccur, ...rest } = payload.val();
-    const texts = parseTexts(rest);
-    return new Statistic({ id, dictionaryId, texts, translation, category, partOfSpeech, count, firstOccur, nextOccur });
-  }
 }
 
 export default Statistic;

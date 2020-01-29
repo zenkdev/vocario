@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 
-import { Dictionary, Statistic, Word } from '../models';
+import { Dictionary, Statistic, Word, createStatistic } from '../models';
 import { omitUndefined, textsToPlainJS } from '../utils';
 import createLogger from './createLogger';
 import firebaseInstance from './Firebase';
@@ -29,7 +29,7 @@ class StatisticService {
     const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
     const arr: Statistic[] = [];
     snapshot.forEach(payload => {
-      arr.push(Statistic.fromSnapshot(payload));
+      arr.push(createStatistic(payload));
     });
     return arr;
   }

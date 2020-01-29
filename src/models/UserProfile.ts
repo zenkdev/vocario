@@ -34,12 +34,6 @@ class UserProfile {
   public simpleMode: boolean;
 
   public fontSize: number;
-
-  static fromSnapshot(payload: firebase.database.DataSnapshot): UserProfile {
-    const id = payload.key as string;
-    const { email, displayName, photoURL, simpleMode } = payload.val();
-    return new UserProfile({ id, email, displayName, photoURL, simpleMode });
-  }
 }
 
 export default UserProfile;

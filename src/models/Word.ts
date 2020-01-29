@@ -1,14 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { parseTexts } from '../utils';
+import Text from './Text';
 
-export interface WordText {
-  index: number;
-  text: string;
-  transcription?: string;
-  lang?: string;
-}
-
-export class Word {
+class Word {
   constructor({
     id,
     texts,
@@ -20,7 +12,7 @@ export class Word {
     nextOccur,
   }: {
     id?: string;
-    texts?: WordText[];
+    texts?: Text[];
     translation?: string;
     category?: string;
     partOfSpeech?: string;
@@ -40,7 +32,7 @@ export class Word {
 
   public id: string;
 
-  public texts: WordText[];
+  public texts: Text[];
 
   public translation: string;
 
@@ -53,11 +45,6 @@ export class Word {
   public firstOccur?: string;
 
   public nextOccur?: string;
-
-  static fromSnapshot(payload: firebase.database.DataSnapshot): Word {
-    const id = payload.key as string;
-    const { translation, category, partOfSpeech, ...rest } = payload.val();
-    const texts = parseTexts(rest);
-    return new Word({ id, translation, category, partOfSpeech, texts });
-  }
 }
+
+export default Word;

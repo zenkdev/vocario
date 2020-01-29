@@ -5,10 +5,10 @@ import 'firebase/database';
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from 'firebase/app';
 
-import { Dictionary, Word, Statistic } from '../models';
-import firebaseInstance from './Firebase';
+import { createDictionary, createStatistic, createWord, Dictionary, Statistic, Word } from '../models';
 import { isNew } from '../utils';
 import createLogger from './createLogger';
+import firebaseInstance from './Firebase';
 
 // // Create a promise that resolves in <ms> milliseconds
 // const timeout = (ms: number) =>
@@ -39,7 +39,7 @@ class DictionaryService {
     const snapshot = await this.db.ref('dictionaryList').once('value');
     const arr: Dictionary[] = [];
     snapshot.forEach(payload => {
-      arr.push(Dictionary.fromSnapshot(payload, this.uid));
+      arr.push(createDictionary(payload, this.uid));
     });
     return arr;
   }
@@ -70,7 +70,7 @@ class DictionaryService {
 
   private async getDictionaryById(id: string): Promise<Dictionary> {
     const snapshot = await this.db.ref(`dictionaryList/${id}`).once('value');
-    return Dictionary.fromSnapshot(snapshot, this.uid);
+    return createDictionary(snapshot, this.uid);
   }
 
   private async getWords(dictionaryId: string): Promise<Word[]> {
@@ -81,7 +81,7 @@ class DictionaryService {
       .once('value');
     const arr: Word[] = [];
     snapshot.forEach(payload => {
-      arr.push(Word.fromSnapshot(payload));
+      arr.push(createWord(payload));
     });
     return arr;
   }
@@ -95,7 +95,7 @@ class DictionaryService {
         .equalTo(dictionaryId)
         .once('value');
       snapshot.forEach(payload => {
-        map[payload.key as string] = Statistic.fromSnapshot(payload);
+        map[payload.key as string] = createStatistic(payload);
       });
     }
     return map;
