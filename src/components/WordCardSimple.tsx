@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Word } from '../models';
+import { modelHelper, Word } from '../models';
 import { Answer } from '../types';
-import { getText, getTranscription, isValidAnswer } from '../utils';
+import { isValidAnswer } from '../utils';
 import AnswerResult from './AnswerResult';
 import If from './If';
 import OptionButton from './OptionButton';
@@ -28,8 +28,8 @@ interface WordCardSimpleProps {
 
 const WordCardSimple: React.FC<WordCardSimpleProps> = ({ word, options, onNext }) => {
   const { translation, category } = word;
-  const title = useMemo(() => getText(word), [word]);
-  const transcription = useMemo(() => getTranscription(word), [word]);
+  const title = useMemo(() => modelHelper.getText(word), [word]);
+  const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   useEffect(() => setAnswer(Answer.empty), [word]);
   const handleClick = useCallback(option => setAnswer(isValidAnswer(translation, option)), [translation]);

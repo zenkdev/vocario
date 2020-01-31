@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
-import { Dictionary, Statistic, Word, createStatistic } from '../models';
-import { omitUndefined, textsToPlainJS } from '../utils';
+import { createPlainJS, createStatistic, Dictionary, Statistic, Word } from '../models';
+import { omitUndefined } from '../utils';
 import createLogger from './createLogger';
 import firebaseInstance from './Firebase';
 
@@ -21,39 +21,43 @@ class StatisticService {
 
   /** GET statistics from the server */
   public async getStatistics(): Promise<Statistic[]> {
-    this.logger.info('getStatistics');
-    if (!this.uid) {
-      return [];
-    }
+    return this.withLog('getStatistics', async () => {
+      if (!this.uid) {
+        return [];
+      }
 
-    const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
-    const arr: Statistic[] = [];
-    snapshot.forEach(payload => {
-      arr.push(createStatistic(payload));
+      const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
+      const arr: Statistic[] = [];
+      snapshot.forEach(payload => {
+        arr.push(createStatistic(payload));
+      });
+      return arr;
     });
-    return arr;
   }
 
   /** RESET all the progress */
   public async resetProgress(): Promise<void> {
-    this.logger.info('resetProgress');
-    if (!this.uid) {
-      throw new Error('User UID can not be null');
-    }
+    return this.withLog('resetProgress', async () => {
+      if (!this.uid) {
+        throw new Error('User UID can not be null');
+      }
 
-    await this.db.ref(`statistics/${this.uid}`).remove();
-    await this.cleanupDictionaries(this.uid);
+      await this.db.ref(`statistics/${this.uid}`).remove();
+      await this.cleanupDictionaries(this.uid);
+    });
   }
 
   public async updateFromWord(dictionary: Dictionary, word: Word): Promise<void> {
-    if (!this.uid) {
-      throw new Error('User UID can not be null');
-    }
+    return this.withLog('updateFromWord', async () => {
+      if (!this.uid) {
+        throw new Error('User UID can not be null');
+      }
 
-    await Promise.all([
-      this.updateWordsLearned(dictionary.id, this.uid, dictionary.wordsLearned),
-      this.updateStatistics(word, this.uid, dictionary.id),
-    ]);
+      await Promise.all([
+        this.updateWordsLearned(dictionary.id, this.uid, dictionary.wordsLearned),
+        this.updateStatistics(word, this.uid, dictionary.id),
+      ]);
+    });
   }
 
   private async cleanupDictionaries(uid: string): Promise<void> {
@@ -88,12 +92,20 @@ class StatisticService {
 
   private async updateStatistics(word: Word, uid: string, dictionaryId: string): Promise<void> {
     const { id, texts, ...rest } = word;
-    const poco = textsToPlainJS(texts);
+    const poco = createPlainJS(texts);
     const ref = this.db.ref(`statistics/${uid}`);
     const updates: Record<string, Partial<Statistic>> = {
       [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
     };
     await ref.update(updates);
+  }
+
+  private async withLog<R>(m: string, fn: () => Promise<R>): Promise<R> {
+    const dt = Date.now();
+    const r = await fn();
+    const ms = Date.now() - dt;
+    this.logger.info(`${m}: ${ms}ms`);
+    return r;
   }
 }
 

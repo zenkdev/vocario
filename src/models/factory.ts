@@ -1,12 +1,15 @@
+import addDays from 'date-fns/addDays';
+import formatISO from 'date-fns/formatISO';
+import parseISO from 'date-fns/parseISO';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import firebase from 'firebase/app';
 
+import { isNumber } from '../utils';
 import Dictionary from './Dictionary';
 import Statistic from './Statistic';
 import Text from './Text';
 import UserProfile from './UserProfile';
 import Word from './Word';
-import { isNumber } from '../utils';
 
 function parseKey(value: string): [string, number] {
   let index = '';
@@ -44,11 +47,35 @@ export function createDictionary(payload: firebase.database.DataSnapshot, uid: s
   return new Dictionary({ id, name, wordsCount, wordsLearned });
 }
 
+function fromNextOccur(value: string, count: number) {
+  switch (count) {
+    case 1:
+      return formatISO(addDays(parseISO(value), -1));
+    case 2:
+      return formatISO(addDays(parseISO(value), -3));
+    default:
+      return value;
+  }
+}
+
 export function createStatistic(payload: firebase.database.DataSnapshot): Statistic {
   const id = payload.key as string;
-  const { dictionaryId, translation, category, partOfSpeech, count, firstOccur, nextOccur, ...rest } = payload.val();
+  const { dictionaryId, translation, category, partOfSpeech, count, firstOccur, nextOccur, occurs: o, ...rest } = payload.val();
   const texts = createTextArray(rest);
-  return new Statistic({ id, dictionaryId, texts, translation, category, partOfSpeech, count, firstOccur, nextOccur });
+  let occurs = [];
+  if (Array.isArray(o) && o.length) {
+    occurs = o;
+  } else {
+    if (firstOccur) {
+      occurs.push(firstOccur);
+    }
+    if (count != null && nextOccur) {
+      for (let n = 0; n < count; n += 1) {
+        occurs.push(fromNextOccur(nextOccur, count));
+      }
+    }
+  }
+  return new Statistic({ id, dictionaryId, texts, translation, category, partOfSpeech, count, firstOccur, nextOccur, occurs });
 }
 
 export function createUserProfile(payload: firebase.database.DataSnapshot, options?: any): UserProfile {
@@ -65,4 +92,19 @@ export function createWord(payload: firebase.database.DataSnapshot): Word {
   const { translation, category, partOfSpeech, ...rest } = payload.val();
   const texts = createTextArray(rest);
   return new Word({ id, translation, category, partOfSpeech, texts });
+}
+
+export function createPlainJS(texts: Text[]) {
+  const poco: any = {};
+  for (let i = 0; i < texts.length; i += 1) {
+    const { index, ...rest } = texts[i];
+    Object.entries(rest).forEach(([key, value]) => {
+      if (index) {
+        poco[`${key}${index}`] = value;
+      } else {
+        poco[key] = value;
+      }
+    });
+  }
+  return poco;
 }

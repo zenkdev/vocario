@@ -8,8 +8,7 @@ class Word {
     category,
     partOfSpeech,
     count,
-    firstOccur,
-    nextOccur,
+    occurs,
   }: {
     id?: string;
     texts?: Text[];
@@ -17,8 +16,7 @@ class Word {
     category?: string;
     partOfSpeech?: string;
     count?: number;
-    firstOccur?: string;
-    nextOccur?: string;
+    occurs?: string[];
   }) {
     this.id = id || '';
     this.texts = texts || [];
@@ -26,8 +24,7 @@ class Word {
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
     this.count = count;
-    this.firstOccur = firstOccur;
-    this.nextOccur = nextOccur;
+    this.occurs = occurs;
   }
 
   public id: string;
@@ -42,9 +39,7 @@ class Word {
 
   public count?: number;
 
-  public firstOccur?: string;
-
-  public nextOccur?: string;
+  public occurs?: string[];
 }
 
 export default Word;

@@ -1,6 +1,4 @@
-import addDays from 'date-fns/addDays';
 import formatISO from 'date-fns/formatISO';
-import startOfToday from 'date-fns/startOfToday';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -8,9 +6,9 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 
 import AppContext from '../AppContext';
 import { Congratulations, WordCardNormal, WordCardSimple } from '../components';
-import { Dictionary, Word } from '../models';
-import { dictionaryService, statisticService, toastService, localStoreManager } from '../services';
-import { percent, randomNumber, isCompleted, isFirstOccurToday, isNew, isNextOccurToday } from '../utils';
+import { Dictionary, modelHelper, Word } from '../models';
+import { dictionaryService, localStoreManager, statisticService, toastService } from '../services';
+import { percent, randomNumber } from '../utils';
 
 const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
 
@@ -26,11 +24,10 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
   const simpleMode = useMemo(() => (currentUser ? currentUser.simpleMode : true), [currentUser]);
-  const more = useMemo(() => dictionary && dictionary.words.some(cur => !isCompleted(cur)), [dictionary]);
+  const { completed, total, more } = modelHelper.dailyStatistics(dictionary);
 
   function nextWord(dct: Dictionary) {
-    const wordsToday = dct.words.reduce((acc, cur) => acc + (isFirstOccurToday(cur) ? 1 : 0), 0);
-    const words = dct.words.filter(cur => (wordsToday < 20 && isNew(cur)) || (!isNew(cur) && isNextOccurToday(cur) && !isCompleted(cur)));
+    const words = modelHelper.wordsToLearn(dct);
     if (words.length) {
       const prev = localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
       if (prev && words[prev]) {
@@ -44,7 +41,6 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       setWord(undefined);
       localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
     }
-    // setWord(new Word('0', '- too ( + наречие) too !', '[tuː]', 'слишком', 'Наречия образа действия', 'Наречия'));
   }
 
   const getOptions = useCallback(() => {
@@ -70,25 +66,24 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       }
 
       try {
-        if (isNew(word)) {
-          word.firstOccur = formatISO(Date.now());
+        if (modelHelper.isNew(word)) {
           dictionary.wordsLearned += 1;
         }
-        word.count = (word.count || 0) + (valid ? 1 : 0);
-        switch (word.count) {
-          case 0:
-            word.nextOccur = formatISO(Date.now());
-            break;
-          case 1:
-            word.nextOccur = formatISO(addDays(startOfToday(), 1));
-            break;
-          case 2:
-            word.nextOccur = formatISO(addDays(startOfToday(), 3));
-            break;
-          default:
-            word.nextOccur = undefined;
-            break;
+        const dateStr = formatISO(Date.now());
+        if (!word.occurs) {
+          word.occurs = [];
         }
+        if (word.count == null) {
+          word.count = 0;
+        }
+        if (!word.occurs[0]) {
+          word.occurs[0] = dateStr;
+        }
+        if (valid) {
+          word.count += 1;
+          word.occurs[word.count] = dateStr;
+        }
+
         await statisticService.updateFromWord(dictionary, word);
         localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dictionary.id);
         nextWord(dictionary);
@@ -129,7 +124,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {dictionary && <IonProgressBar value={percent(dictionary.wordsLearned, dictionary.wordsCount)} />}
+        {dictionary && <IonProgressBar value={percent(completed, total)} />}
         {word && !simpleMode && <WordCardNormal onNext={handleNext} word={word} />}
         {word && simpleMode && <WordCardSimple onNext={handleNext} word={word} options={getOptions()} />}
         {!showLoading && !word && <Congratulations more={more} />}

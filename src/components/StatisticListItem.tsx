@@ -1,13 +1,8 @@
-import differenceInDays from 'date-fns/differenceInDays';
-import parseISO from 'date-fns/parseISO';
-import startOfDay from 'date-fns/startOfDay';
-import startOfToday from 'date-fns/startOfToday';
 import React, { useMemo } from 'react';
 
 import { IonBadge, IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
-import { Statistic } from '../models';
-import { getTextWithLang, getTranscription } from '../utils';
+import { modelHelper, Statistic } from '../models';
 
 interface StatisticListItemProps {
   item: Statistic;
@@ -15,24 +10,10 @@ interface StatisticListItemProps {
 }
 
 const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }) => {
-  const { translation, category, count, nextOccur } = item;
-  const textWithLang = useMemo(() => getTextWithLang(item), [item]);
-  const transcription = useMemo(() => getTranscription(item), [item]);
-
-  function nextOccurString(value: string | undefined) {
-    if (!value) {
-      return undefined;
-    }
-    const date = parseISO(value);
-    const days = differenceInDays(startOfDay(date), startOfToday());
-    if (days <= 0) {
-      return 'today';
-    }
-    if (days === 1) {
-      return 'tomorrow';
-    }
-    return `in ${days} days`;
-  }
+  const { translation, category, count } = item;
+  const textWithLang = useMemo(() => modelHelper.getTextWithLang(item), [item]);
+  const transcription = useMemo(() => modelHelper.getTranscription(item), [item]);
+  const nextOccurString = useMemo(() => modelHelper.nextOccurString(item), [item]);
 
   return (
     <IonItem>
@@ -54,10 +35,10 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
               <span className="small-text">{category}</span>
             </IonCol>
           </IonRow>
-          {nextOccur && (
+          {nextOccurString && (
             <IonRow>
               <IonCol>
-                <span className="small-text">{`Next occur: ${nextOccurString(nextOccur)}`}</span>
+                <span className="small-text">{`Next occur: ${nextOccurString}`}</span>
               </IonCol>
             </IonRow>
           )}

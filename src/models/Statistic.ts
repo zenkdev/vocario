@@ -1,22 +1,4 @@
-import addDays from 'date-fns/addDays';
-import formatISO from 'date-fns/formatISO';
-import parseISO from 'date-fns/parseISO';
-import startOfDay from 'date-fns/startOfDay';
-
 import Text from './Text';
-
-function getNextOccur(date: string, cnt: number) {
-  switch (cnt) {
-    case 0:
-      return date;
-    case 1:
-      return formatISO(addDays(startOfDay(parseISO(date)), 1));
-    case 2:
-      return formatISO(addDays(startOfDay(parseISO(date)), 3));
-    default:
-      return undefined;
-  }
-}
 
 class Statistic {
   constructor({
@@ -27,8 +9,7 @@ class Statistic {
     category,
     partOfSpeech,
     count,
-    firstOccur,
-    nextOccur,
+    occurs,
   }: {
     id?: string;
     dictionaryId?: string;
@@ -39,6 +20,7 @@ class Statistic {
     count?: number;
     firstOccur?: string;
     nextOccur?: string;
+    occurs?: string[];
   }) {
     this.id = id || '';
     this.dictionaryId = dictionaryId || '';
@@ -47,8 +29,7 @@ class Statistic {
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
     this.count = count || 0;
-    this.firstOccur = firstOccur || formatISO(Date.now());
-    this.nextOccur = nextOccur || getNextOccur(this.firstOccur, this.count);
+    this.occurs = occurs || [];
   }
 
   public id: string;
@@ -65,9 +46,7 @@ class Statistic {
 
   public count: number;
 
-  public firstOccur: string;
-
-  public nextOccur?: string;
+  public occurs: string[];
 }
 
 export default Statistic;

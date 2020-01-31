@@ -3,16 +3,16 @@ import 'react-simple-keyboard/build/css/index.css';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
-import { Word } from '../models';
+import buttonClick from '../audio/buttonClick';
+import useAudio from '../hooks/useAudio';
+import { modelHelper, Word } from '../models';
 import { Answer } from '../types';
-import { getFullInput, getText, getTextWithLang, getTranscription, isLetter, isValidAnswer, unusedChars } from '../utils';
+import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../utils';
 import AnswerResult from './AnswerResult';
 import Button from './Button';
 import If from './If';
 import MobileKeyboard from './MobileKeyboard';
 import WordInput from './WordInput';
-import useAudio from '../hooks/useAudio';
-import buttonClick from '../audio/buttonClick';
 
 interface QuestionNormalProps {
   text: string;
@@ -72,19 +72,13 @@ interface WordCardNormalProps {
 
 const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   const { translation: title, category } = word;
-  const text = useMemo(() => getText(word), [word]);
-  const textWithLang = useMemo(() => getTextWithLang(word), [word]);
-  const transcription = useMemo(() => getTranscription(word), [word]);
+  const text = useMemo(() => modelHelper.getText(word), [word]);
+  const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
+  const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
-  const [playing, toggle] = useAudio(buttonClick);
-  const playAudio = useCallback(() => {
-    if (!playing) {
-      toggle();
-    }
-  }, [playing, toggle]);
-
+  const playAudio = useAudio(buttonClick);
   useEffect(() => {
     setInput('');
     setAnswer(Answer.empty);

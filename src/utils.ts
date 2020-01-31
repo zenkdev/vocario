@@ -1,14 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import isToday from 'date-fns/isToday';
-import parseISO from 'date-fns/parseISO';
-
-import { Text, Word } from './models';
 import { Answer } from './types';
-
-export const isNew = (value: Word) => value.count == null;
-export const isCompleted = (value: Word) => value.count != null && value.count >= 3;
-export const isFirstOccurToday = (value: Word) => value.firstOccur && isToday(parseISO(value.firstOccur));
-export const isNextOccurToday = (value: Word) => value.nextOccur && isToday(parseISO(value.nextOccur));
 
 export const toCharArray = (value: string | null | undefined) => (value ? value.split('') : []);
 export const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
@@ -92,27 +83,6 @@ export function omitUndefined<T extends Record<string, any>>(value: T): T {
   }
 
   return clone;
-}
-
-export const getText = ({ texts }: Word) => texts.reduce((acc, { text }) => acc + (acc && text ? ', ' : '') + (text || ''), '');
-export const getTextWithLang = ({ texts }: Word) =>
-  texts.reduce((acc, { text, lang }) => acc + (acc && text ? ', ' : '') + (text || '') + (text && lang ? ` (${lang})` : ''), '');
-export const getTranscription = ({ texts }: Word) =>
-  texts.reduce((acc, { transcription }) => acc + (acc && transcription ? ', ' : '') + (transcription || ''), '');
-
-export function textsToPlainJS(texts: Text[]) {
-  const poco: any = {};
-  for (let i = 0; i < texts.length; i += 1) {
-    const { index, ...rest } = texts[i];
-    Object.entries(rest).forEach(([key, value]) => {
-      if (index) {
-        poco[`${key}${index}`] = value;
-      } else {
-        poco[key] = value;
-      }
-    });
-  }
-  return poco;
 }
 
 export function jsonTryParse(value: string | null | undefined) {
