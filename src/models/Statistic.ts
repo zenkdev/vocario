@@ -8,7 +8,6 @@ class Statistic {
     translation,
     category,
     partOfSpeech,
-    count,
     occurs,
   }: {
     id?: string;
@@ -17,9 +16,6 @@ class Statistic {
     translation?: string;
     category?: string;
     partOfSpeech?: string;
-    count?: number;
-    firstOccur?: string;
-    nextOccur?: string;
     occurs?: string[];
   }) {
     this.id = id || '';
@@ -28,7 +24,6 @@ class Statistic {
     this.translation = translation || '';
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
-    this.count = count || 0;
     this.occurs = occurs || [];
   }
 
@@ -43,8 +38,6 @@ class Statistic {
   public category: string;
 
   public partOfSpeech: string;
-
-  public count: number;
 
   public occurs: string[];
 }

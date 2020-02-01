@@ -73,15 +73,11 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         if (!word.occurs) {
           word.occurs = [];
         }
-        if (word.count == null) {
-          word.count = 0;
-        }
-        if (!word.occurs[0]) {
-          word.occurs[0] = dateStr;
+        if (!word.occurs.length) {
+          word.occurs.push(dateStr);
         }
         if (valid) {
-          word.count += 1;
-          word.occurs[word.count] = dateStr;
+          word.occurs.push(dateStr);
         }
 
         await statisticService.updateFromWord(dictionary, word);

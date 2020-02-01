@@ -19,21 +19,19 @@ import {
 } from '@ionic/react';
 
 import { StatisticListItem } from '../components';
-import { Statistic } from '../models';
+import { Statistic, modelHelper } from '../models';
 import { statisticService, toastService } from '../services';
 import { IonInputEvent } from '../types';
 
 const NUMBER_OF_ITEMS = 20;
-
-const isCompleted = (value: Statistic) => value.count >= 3;
 
 const Statistics: React.FC = () => {
   const [showLoading, setShowLoading] = useState(true);
   const [statistics, setStatistics] = useState<Statistic[]>([]);
   const [segment, setSegment] = useState<string>('learning');
   const [numberOfItems, setNumberOfItems] = useState(NUMBER_OF_ITEMS);
-  const learning = useMemo(() => `Learning ${statistics.reduce((acc, cur) => acc + (!isCompleted(cur) ? 1 : 0), 0)}`, [statistics]);
-  const completed = useMemo(() => `Completed ${statistics.reduce((acc, cur) => acc + (isCompleted(cur) ? 1 : 0), 0)}`, [statistics]);
+  const learning = useMemo(() => `Learning ${modelHelper.elemCount(statistics, s => !modelHelper.isCompleted(s))}`, [statistics]);
+  const completed = useMemo(() => `Completed ${modelHelper.elemCount(statistics, s => modelHelper.isCompleted(s))}`, [statistics]);
   const handleSegmentChange = useCallback((e: IonInputEvent) => {
     setSegment(e.detail.value || '');
     setNumberOfItems(NUMBER_OF_ITEMS);
@@ -55,7 +53,10 @@ const Statistics: React.FC = () => {
       });
   }, []);
   const items = useMemo(
-    () => statistics.filter(cur => (segment === 'learning' && !isCompleted(cur)) || (segment === 'completed' && isCompleted(cur))),
+    () =>
+      statistics.filter(
+        s => (segment === 'learning' && !modelHelper.isCompleted(s)) || (segment === 'completed' && modelHelper.isCompleted(s)),
+      ),
     [statistics, segment],
   );
   useIonViewWillEnter(() => {

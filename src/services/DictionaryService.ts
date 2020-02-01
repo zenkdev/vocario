@@ -52,10 +52,8 @@ class DictionaryService {
       words.forEach(word => {
         const stat = statistics[word.id];
         if (stat) {
-          /* eslint-disable no-param-reassign */
-          word.count = stat.count;
+          // eslint-disable-next-line no-param-reassign
           word.occurs = stat.occurs;
-          /* eslint-enable no-param-reassign */
         }
       });
       // will fix wordsLearned

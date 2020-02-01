@@ -47,7 +47,10 @@ export function createDictionary(payload: firebase.database.DataSnapshot, uid: s
   return new Dictionary({ id, name, wordsCount, wordsLearned });
 }
 
-function fromNextOccur(value: string, count: number) {
+function fromNextOccur(value: string | undefined, count: number) {
+  if (!value) {
+    return formatISO(addDays(new Date(), -1));
+  }
   switch (count) {
     case 1:
       return formatISO(addDays(parseISO(value), -1));
@@ -62,20 +65,20 @@ export function createStatistic(payload: firebase.database.DataSnapshot): Statis
   const id = payload.key as string;
   const { dictionaryId, translation, category, partOfSpeech, count, firstOccur, nextOccur, occurs: o, ...rest } = payload.val();
   const texts = createTextArray(rest);
-  let occurs = [];
   if (Array.isArray(o) && o.length) {
-    occurs = o;
-  } else {
-    if (firstOccur) {
-      occurs.push(firstOccur);
-    }
-    if (count != null && nextOccur) {
-      for (let n = 0; n < count; n += 1) {
-        occurs.push(fromNextOccur(nextOccur, count));
-      }
+    return new Statistic({ id, dictionaryId, texts, translation, category, partOfSpeech, occurs: o });
+  }
+
+  const occurs = [];
+  if (firstOccur) {
+    occurs.push(firstOccur);
+  }
+  if (count != null) {
+    for (let n = 0; n < count; n += 1) {
+      occurs.push(fromNextOccur(nextOccur, count));
     }
   }
-  return new Statistic({ id, dictionaryId, texts, translation, category, partOfSpeech, count, firstOccur, nextOccur, occurs });
+  return new Statistic({ id, dictionaryId, texts, translation, category, partOfSpeech, occurs });
 }
 
 export function createUserProfile(payload: firebase.database.DataSnapshot, options?: any): UserProfile {

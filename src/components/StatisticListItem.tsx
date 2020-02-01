@@ -10,10 +10,11 @@ interface StatisticListItemProps {
 }
 
 const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }) => {
-  const { translation, category, count } = item;
+  const { translation, category } = item;
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(item), [item]);
   const transcription = useMemo(() => modelHelper.getTranscription(item), [item]);
   const nextOccurString = useMemo(() => modelHelper.nextOccurString(item), [item]);
+  const count = useMemo(() => (item.occurs ? item.occurs.length - 1 : 0), [item]);
 
   return (
     <IonItem>

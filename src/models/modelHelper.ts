@@ -10,7 +10,11 @@ import Word from './Word';
 const COUNT_TO_COMPLETE = 3;
 const NEW_WORDS_PER_DAY = 20;
 
-function cnt<T>(arr: Array<T>, callback: (value: T) => boolean): number {
+function isEmpty<T>(value: Array<T> | undefined): boolean {
+  return value == null || !Array.isArray(value) || value.length === 0;
+}
+
+function elemCount<T>(arr: Array<T>, callback: (value: T) => boolean): number {
   return arr.filter(callback).length;
 }
 
@@ -18,11 +22,12 @@ function cnt<T>(arr: Array<T>, callback: (value: T) => boolean): number {
 //   return arr.filter(callback).map(w => ({ i: w.id, t: w.translation, c: w.count, o: JSON.stringify(w.occurs) }));
 // }
 
-function nextOccur({ occurs, count }: Word): Date | undefined {
-  if (count == null || !occurs || !occurs[count]) {
+function nextOccur({ occurs }: Word): Date | undefined {
+  if (isEmpty(occurs)) {
     return undefined;
   }
-  const date = parseISO(occurs[count] as string);
+  const count = (occurs as string[]).length - 1;
+  const date = parseISO((occurs as string[])[count] as string);
   switch (count) {
     case 0:
       return date;
@@ -43,14 +48,12 @@ function isTodayExact(value: Date | string | undefined): boolean {
   return !!value && differenceInDays(startOfDay(typeof value === 'string' ? parseISO(value) : value), startOfToday()) === 0;
 }
 
-// count === null          - new
-// count >= 3              - completed
 // count >= 0 & count < 3
 // occurs[count] === today - next
 
-const isNew = ({ count }: Word): boolean => count == null;
-const isCompleted = ({ count }: Word): boolean => count != null && count >= COUNT_TO_COMPLETE;
-const isFirstOccurToday = ({ occurs }: Word): boolean => !!occurs && isTodayExact(occurs[0]);
+const isNew = ({ occurs }: Word): boolean => isEmpty(occurs);
+const isCompleted = ({ occurs }: Word): boolean => !isEmpty(occurs) && (occurs as string[]).length > COUNT_TO_COMPLETE;
+const isFirstOccurToday = ({ occurs }: Word): boolean => !isEmpty(occurs) && isTodayExact((occurs as string[])[0]);
 const isNextOccurToday = (word: Word): boolean => isToday(nextOccur(word));
 
 function wordsToLearn({ words }: Dictionary): Word[] {
@@ -65,10 +68,10 @@ function dailyStatistics(dictionary?: Dictionary): { completed: number; total: n
 
   const { words } = dictionary;
 
-  const today = cnt(words, w => isFirstOccurToday(w));
-  const first = Math.min(today < NEW_WORDS_PER_DAY ? cnt(words, w => isNew(w)) : 0, NEW_WORDS_PER_DAY - today);
-  const next = cnt(words, w => isNextOccurToday(w));
-  const completed = cnt(words, ({ count, occurs }) => count != null && !!occurs && isTodayExact(occurs[count]));
+  const today = elemCount(words, w => isFirstOccurToday(w));
+  const first = Math.min(today < NEW_WORDS_PER_DAY ? elemCount(words, w => isNew(w)) : 0, NEW_WORDS_PER_DAY - today);
+  const next = elemCount(words, w => isNextOccurToday(w));
+  const completed = elemCount(words, ({ occurs }) => !isEmpty(occurs) && isTodayExact((occurs as string[]).slice(-1)[0]));
   const total = first + next + completed;
 
   // console.table(tbl(words, w => isFirstOccurToday(w)));
@@ -98,6 +101,8 @@ function nextOccurString(word: Word) {
 }
 
 export default {
+  elemCount,
+
   isNew,
   isCompleted,
 

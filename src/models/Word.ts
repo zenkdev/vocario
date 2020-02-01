@@ -7,7 +7,6 @@ class Word {
     translation,
     category,
     partOfSpeech,
-    count,
     occurs,
   }: {
     id?: string;
@@ -15,7 +14,6 @@ class Word {
     translation?: string;
     category?: string;
     partOfSpeech?: string;
-    count?: number;
     occurs?: string[];
   }) {
     this.id = id || '';
@@ -23,7 +21,6 @@ class Word {
     this.translation = translation || '';
     this.category = category || '';
     this.partOfSpeech = partOfSpeech || '';
-    this.count = count;
     this.occurs = occurs;
   }
 
@@ -36,8 +33,6 @@ class Word {
   public category: string;
 
   public partOfSpeech: string;
-
-  public count?: number;
 
   public occurs?: string[];
 }
