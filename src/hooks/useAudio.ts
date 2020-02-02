@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const useAudio = (url: string): (() => void) => {
+const useAudio = (url: string): [boolean, () => void] => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
 
-  const play = (): void => {
-    if (playing) {
-      setTimeout(() => setPlaying(false), 0);
-    }
-    setTimeout(() => setPlaying(true), 0);
-  };
+  const toggle = (): void => setPlaying(!playing);
 
   useEffect(() => {
     if (playing) {
@@ -26,7 +21,7 @@ const useAudio = (url: string): (() => void) => {
     };
   }, [audio]);
 
-  return play;
+  return [playing, toggle];
 };
 
 export default useAudio;

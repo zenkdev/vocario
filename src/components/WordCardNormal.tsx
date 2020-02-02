@@ -3,8 +3,6 @@ import 'react-simple-keyboard/build/css/index.css';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
-import buttonClick from '../audio/buttonClick';
-import useAudio from '../hooks/useAudio';
 import { modelHelper, Word } from '../models';
 import { Answer } from '../types';
 import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../utils';
@@ -78,7 +76,6 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [input, setInput] = useState<string>('');
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
-  const playAudio = useAudio(buttonClick);
   useEffect(() => {
     setInput('');
     setAnswer(Answer.empty);
@@ -86,14 +83,6 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
       keyboardRef.clearInput();
     }
   }, [word, keyboardRef]);
-
-  const handleChange = useCallback(
-    value => {
-      setInput(value);
-      playAudio();
-    },
-    [playAudio],
-  );
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
   const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
@@ -108,9 +97,7 @@ const WordCardNormal: React.FC<WordCardNormalProps> = ({ word, onNext }) => {
         </div>
         <If
           condition={answer === Answer.empty}
-          then={
-            <QuestionNormal text={text} input={input} keyboardRef={setKeyboardRef} onChange={handleChange} onValidate={handleValidate} />
-          }
+          then={<QuestionNormal text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} onValidate={handleValidate} />}
           else={<AnswerResult text={textWithLang} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
         />
         <div className="ion-padding small-text">{category}</div>
