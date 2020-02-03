@@ -66,9 +66,6 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       }
 
       try {
-        if (modelHelper.isNew(word)) {
-          dictionary.wordsLearned += 1;
-        }
         const dateStr = formatISO(Date.now());
         if (!word.occurs) {
           word.occurs = [];
@@ -78,6 +75,12 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         }
         if (valid) {
           word.occurs.push(dateStr);
+        }
+        if (modelHelper.isCompleted(word)) {
+          dictionary.wordsLearned += 1;
+          if (dictionary.wordsCount < dictionary.wordsLearned) {
+            dictionary.wordsLearned = dictionary.wordsCount;
+          }
         }
 
         await statisticService.updateFromWord(dictionary, word);
