@@ -3,7 +3,6 @@ import firebase from 'firebase/app';
 import Observable from 'zen-observable';
 
 import { createUserProfile, UserProfile } from '../models';
-import createLogger from './createLogger';
 import firebaseInstance from './Firebase';
 import localStoreManager from './LocalStoreManager';
 
@@ -11,8 +10,6 @@ const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
 const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
 
 class ProfileService {
-  private logger = createLogger('ProfileService');
-
   private currentUser: firebase.User | null = null;
 
   private currentUserChanged$: Observable<UserProfile | null>;
@@ -37,19 +34,19 @@ class ProfileService {
   }
 
   public async getProfile(): Promise<UserProfile> {
-    this.logger.info('getProfile');
+    return firebaseInstance.withTrace('getProfile', async () => {
+      const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);
+      const fontSize = localStoreManager.getDataObject<number>(FONT_SIZE_DATA_KEY);
+      const options = { simpleMode, fontSize };
 
-    const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);
-    const fontSize = localStoreManager.getDataObject<number>(FONT_SIZE_DATA_KEY);
-    const options = { simpleMode, fontSize };
+      if (!this.currentUser) {
+        return new UserProfile(options);
+      }
 
-    if (!this.currentUser) {
-      return new UserProfile(options);
-    }
-
-    const ref = firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`);
-    const snapshot = await ref.once('value');
-    return createUserProfile(snapshot, options);
+      const ref = firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`);
+      const snapshot = await ref.once('value');
+      return createUserProfile(snapshot, options);
+    });
   }
 
   public async updateName(displayName: string): Promise<void> {
@@ -82,21 +79,21 @@ class ProfileService {
       await this.currentUser.reauthenticateWithCredential(credential);
       await this.currentUser.updatePassword(newPassword);
       await this.raiseCurrentUserChanged();
-      this.logger.info('Password Changed');
+      // console.info('Password Changed');
     }
   }
 
   public async updateSimpleMode(simpleMode: boolean): Promise<void> {
-    this.logger.info('updateSimpleMode', simpleMode);
-    localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
-    // if (this.currentUser) {
-    //   await this.updateUserProfile({ simpleMode });
-    // }
-    await this.raiseCurrentUserChanged();
+    return firebaseInstance.withTrace('updateSimpleMode', async () => {
+      localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
+      // if (this.currentUser) {
+      //   await this.updateUserProfile({ simpleMode });
+      // }
+      await this.raiseCurrentUserChanged();
+    });
   }
 
   public async updateFontSize(fontSize: number): Promise<void> {
-    this.logger.info('updateFontSize', fontSize);
     localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, fontSize);
     // if (this.currentUser) {
     //   await this.updateUserProfile({ fontSize });
@@ -107,7 +104,8 @@ class ProfileService {
   private handleAuthStateChanged(user: firebase.User | null) {
     this.currentUser = user;
     this.raiseCurrentUserChanged().catch(e => {
-      this.logger.error(e);
+      // eslint-disable-next-line no-console
+      console.error(e);
     });
   }
 

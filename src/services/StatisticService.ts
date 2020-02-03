@@ -2,12 +2,9 @@ import firebase from 'firebase/app';
 
 import { createPlainJS, createStatistic, Dictionary, Statistic, Word } from '../models';
 import { omitUndefined } from '../utils';
-import createLogger from './createLogger';
 import firebaseInstance from './Firebase';
 
 class StatisticService {
-  private logger = createLogger('StatisticService');
-
   private readonly db: firebase.database.Database;
 
   private uid: string | null = null;
@@ -21,7 +18,7 @@ class StatisticService {
 
   /** GET statistics from the server */
   public async getStatistics(): Promise<Statistic[]> {
-    return this.withLog('getStatistics', async () => {
+    return firebaseInstance.withTrace('getStatistics', async () => {
       if (!this.uid) {
         return [];
       }
@@ -37,7 +34,7 @@ class StatisticService {
 
   /** RESET all the progress */
   public async resetProgress(): Promise<void> {
-    return this.withLog('resetProgress', async () => {
+    return firebaseInstance.withTrace('resetProgress', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
@@ -48,7 +45,7 @@ class StatisticService {
   }
 
   public async updateFromWord(dictionary: Dictionary, word: Word): Promise<void> {
-    return this.withLog('updateFromWord', async () => {
+    return firebaseInstance.withTrace('updateFromWord', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
@@ -98,14 +95,6 @@ class StatisticService {
       [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
     };
     await ref.update(updates);
-  }
-
-  private async withLog<R>(m: string, fn: () => Promise<R>): Promise<R> {
-    const dt = Date.now();
-    const r = await fn();
-    const ms = Date.now() - dt;
-    this.logger.info(`${m}: ${ms}ms`);
-    return r;
   }
 }
 

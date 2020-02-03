@@ -6,7 +6,6 @@ import 'firebase/database';
 import firebase from 'firebase/app';
 
 import { createDictionary, createStatistic, createWord, Dictionary, modelHelper, Statistic, Word } from '../models';
-import createLogger from './createLogger';
 import firebaseInstance from './Firebase';
 
 // // Create a promise that resolves in <ms> milliseconds
@@ -19,8 +18,6 @@ import firebaseInstance from './Firebase';
 //   });
 
 class DictionaryService {
-  private logger = createLogger('DictionaryService');
-
   private readonly db: firebase.database.Database;
 
   private uid: string | null = null;
@@ -34,18 +31,19 @@ class DictionaryService {
 
   /** GET dictionaries from the server */
   public async getDictionaries(): Promise<Dictionary[]> {
-    this.logger.info('getDictionaries');
-    const snapshot = await this.db.ref('dictionaryList').once('value');
-    const arr: Dictionary[] = [];
-    snapshot.forEach(payload => {
-      arr.push(createDictionary(payload, this.uid));
+    return firebaseInstance.withTrace('getDictionaries', async () => {
+      const snapshot = await this.db.ref('dictionaryList').once('value');
+      const arr: Dictionary[] = [];
+      snapshot.forEach(payload => {
+        arr.push(createDictionary(payload, this.uid));
+      });
+      return arr;
     });
-    return arr;
   }
 
   /** GET dictionary by id. */
   public async getDictionary(id: string): Promise<Dictionary> {
-    return this.withLog(`getDictionary(${id})`, async () => {
+    return firebaseInstance.withTrace(`getDictionary(${id})`, async () => {
       const dictionary = await this.getDictionaryById(id);
       const words = await this.getWords(id);
       const statistics = await this.getStatistics(id);
@@ -66,14 +64,14 @@ class DictionaryService {
   }
 
   private async getDictionaryById(id: string): Promise<Dictionary> {
-    return this.withLog('getDictionaryById', async () => {
+    return firebaseInstance.withTrace('getDictionaryById', async () => {
       const snapshot = await this.db.ref(`dictionaryList/${id}`).once('value');
       return createDictionary(snapshot, this.uid);
     });
   }
 
   private async getWords(dictionaryId: string): Promise<Word[]> {
-    return this.withLog('getWords', async () => {
+    return firebaseInstance.withTrace('getWords', async () => {
       const snapshot = await this.db
         .ref('wordList')
         .orderByChild('dictionaryId')
@@ -88,7 +86,7 @@ class DictionaryService {
   }
 
   private async getStatistics(dictionaryId: string): Promise<Record<string, Statistic>> {
-    return this.withLog('getStatistics', async () => {
+    return firebaseInstance.withTrace('getStatistics', async () => {
       const map: Record<string, Statistic> = {};
       if (this.uid) {
         const snapshot = await this.db
@@ -102,14 +100,6 @@ class DictionaryService {
       }
       return map;
     });
-  }
-
-  private async withLog<R>(m: string, fn: () => Promise<R>): Promise<R> {
-    const dt = Date.now();
-    const r = await fn();
-    const ms = Date.now() - dt;
-    this.logger.info(`${m}: ${ms}ms`);
-    return r;
   }
 }
 
