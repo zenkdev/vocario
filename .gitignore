@@ -25,6 +25,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .firebase
-src/environments/environment.prod.ts
-src/environments/environment.ts
+src/firebaseConfig.ts
 scripts/serviceAccountKey.json

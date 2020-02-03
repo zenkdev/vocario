@@ -6,7 +6,7 @@ import 'firebase/performance';
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from 'firebase/app';
 
-import environment from '../environments/environment';
+import firebaseConfig from '../firebaseConfig';
 
 export class Firebase {
   public readonly auth: firebase.auth.Auth;
@@ -16,7 +16,7 @@ export class Firebase {
   public readonly perf: firebase.performance.Performance;
 
   constructor() {
-    firebase.initializeApp(environment.firebase);
+    firebase.initializeApp(firebaseConfig);
 
     this.auth = firebase.auth();
     this.db = firebase.database();
