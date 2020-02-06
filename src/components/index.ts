@@ -5,7 +5,7 @@ import If from './If';
 import PrivateRoute from './PrivateRoute';
 import ResetProgress from './ResetProgress';
 import StatisticListItem from './StatisticListItem';
-import WordCardNormal from './WordCardNormal';
-import WordCardSimple from './WordCardSimple';
+import NormalCard from './normal-card';
+import SimpleCard from './simple-card';
 
-export { Button, Congratulations, DictionaryListItem, If, PrivateRoute, ResetProgress, StatisticListItem, WordCardNormal, WordCardSimple };
+export { Button, Congratulations, DictionaryListItem, If, PrivateRoute, ResetProgress, StatisticListItem, NormalCard, SimpleCard };

@@ -2,7 +2,7 @@
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import React, { useMemo } from 'react';
 
-import { isLetter, isWhiteSpace, toCharArray, getFullInput } from '../utils';
+import { isLetter, isWhiteSpace, toCharArray, getFullInput } from '../../utils';
 
 function displayChar(ch: string, index: number, fullInput: string) {
   if (isLetter(ch)) {
@@ -11,12 +11,12 @@ function displayChar(ch: string, index: number, fullInput: string) {
   return isWhiteSpace(ch) ? null : ch;
 }
 
-interface WordCardNormalProps {
+interface StyledInputProps {
   input: string;
   text: string;
 }
 
-const WordInput: React.FC<WordCardNormalProps> = ({ input, text }) => {
+const StyledInput: React.FC<StyledInputProps> = ({ input, text }) => {
   const fullInput = useMemo(() => getFullInput(input, text), [input, text]);
 
   return (
@@ -32,4 +32,4 @@ const WordInput: React.FC<WordCardNormalProps> = ({ input, text }) => {
   );
 };
 
-export default WordInput;
+export default StyledInput;

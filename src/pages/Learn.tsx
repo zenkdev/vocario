@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
 import AppContext from '../AppContext';
-import { Congratulations, WordCardNormal, WordCardSimple } from '../components';
+import { Congratulations, NormalCard, SimpleCard } from '../components';
 import { Dictionary, modelHelper, Word } from '../models';
 import { dictionaryService, localStoreManager, statisticService, toastService } from '../services';
 import { percent, randomNumber } from '../utils';
@@ -124,8 +124,8 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       </IonHeader>
       <IonContent fullscreen>
         {dictionary && <IonProgressBar value={percent(completed, total)} />}
-        {word && !simpleMode && <WordCardNormal onNext={handleNext} word={word} />}
-        {word && simpleMode && <WordCardSimple onNext={handleNext} word={word} options={getOptions()} />}
+        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} />}
+        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} options={getOptions()} />}
         {!showLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={showLoading} message="Loading..." />
       </IonContent>
