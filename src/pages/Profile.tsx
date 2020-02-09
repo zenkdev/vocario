@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-wrap-multilines */
+/* eslint-disable react/jsx-one-expression-per-line */
 import { logOut } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -199,6 +199,11 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           <Button expand="block" color="primary" onClick={() => setShowAlert(true)}>
             Reset the progress
           </Button>
+        </div>
+        <div className="ion-padding">
+          <span className="small-text" style={{ textTransform: 'capitalize' }}>
+            {process.env.REACT_APP_NAME} version: {process.env.REACT_APP_VERSION}
+          </span>
         </div>
         <ResetProgress showAlert={showAlert} onClose={() => setShowAlert(false)} />
         <IonLoading isOpen={showLoading} message="Loading..." />
