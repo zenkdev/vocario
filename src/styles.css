@@ -44,7 +44,10 @@
 }
 
 .keyboard-wrapper {
-  padding: 5px 5px 0 5px;
+  padding-left: var(--ion-padding, 16px);
+  padding-right: var(--ion-padding, 16px);
+  padding-top: var(--ion-padding, 16px);
+  padding-bottom: 0;
 }
 
 .keyboard-wrapper .simple-keyboard.hg-layout-default {
@@ -65,15 +68,17 @@
 }
 
 .keyboard-wrapper .simple-keyboard.hg-layout-default .hg-button.hg-enabled {
-  background: #fff;
-  box-shadow: 0 0 3px -1px rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid #b5b5b5;
+  background: var(--ion-color-light);
+  color: var(--ion-color-light-contrast);
+  box-shadow: 0 0 3px -1px var(--ion-color-light-shade);
+  border-bottom: 1px solid var(--ion-color-light-shade);
   cursor: pointer;
   pointer-events: unset;
 }
 
 .keyboard-wrapper .simple-keyboard.hg-theme-default .hg-button.hg-enabled.hg-activeButton {
-  background: #efefef;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
 }
 
 .keyboard-wrapper .simple-keyboard.hg-layout-default .hg-button.hg-highlight {
