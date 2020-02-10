@@ -5,19 +5,19 @@ class Dictionary {
     id,
     name,
     wordsCount,
-    wordsLearned,
+    wordsCompleted,
     words,
   }: {
     id?: string;
     name?: string;
     wordsCount?: number;
-    wordsLearned?: number;
+    wordsCompleted?: number;
     words?: Word[];
   }) {
     this.id = id || '';
     this.name = name || '';
     this.wordsCount = wordsCount || 0;
-    this.wordsLearned = wordsLearned || 0;
+    this.wordsCompleted = wordsCompleted || 0;
     this.words = words || [];
   }
 
@@ -27,7 +27,7 @@ class Dictionary {
 
   public wordsCount: number;
 
-  public wordsLearned: number;
+  public wordsCompleted: number;
 
   public words: Word[];
 }

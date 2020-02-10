@@ -76,11 +76,9 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         if (valid) {
           word.occurs.push(dateStr);
         }
+
         if (modelHelper.isCompleted(word)) {
-          dictionary.wordsLearned += 1;
-          if (dictionary.wordsCount < dictionary.wordsLearned) {
-            dictionary.wordsLearned = dictionary.wordsCount;
-          }
+          dictionary.wordsCompleted = Math.min(dictionary.wordsCompleted + 1, dictionary.wordsCount);
         }
 
         await statisticService.updateFromWord(dictionary, word);

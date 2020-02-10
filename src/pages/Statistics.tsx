@@ -30,8 +30,8 @@ const Statistics: React.FC = () => {
   const [statistics, setStatistics] = useState<Statistic[]>([]);
   const [segment, setSegment] = useState<string>('learning');
   const [numberOfItems, setNumberOfItems] = useState(NUMBER_OF_ITEMS);
-  const learning = useMemo(() => `Learning ${modelHelper.elemCount(statistics, s => !modelHelper.isCompleted(s))}`, [statistics]);
-  const completed = useMemo(() => `Completed ${modelHelper.elemCount(statistics, s => modelHelper.isCompleted(s))}`, [statistics]);
+  const learning = useMemo(() => `Learning ${modelHelper.count(statistics, s => !modelHelper.isCompleted(s))}`, [statistics]);
+  const completed = useMemo(() => `Completed ${modelHelper.count(statistics, s => modelHelper.isCompleted(s))}`, [statistics]);
   const handleSegmentChange = useCallback((e: IonInputEvent) => {
     setSegment(e.detail.value || '');
     setNumberOfItems(NUMBER_OF_ITEMS);

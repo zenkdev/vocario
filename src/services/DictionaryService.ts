@@ -54,10 +54,11 @@ class DictionaryService {
           word.occurs = stat.occurs;
         }
       });
-      // will fix wordsLearned
-      const wordsLearned = words.reduce((acc, word) => acc + (modelHelper.isNew(word) ? 0 : 1), 0);
-      if (dictionary.wordsLearned !== wordsLearned) {
-        dictionary.wordsLearned = wordsLearned;
+
+      // fix wordsCompleted
+      const wordsCompleted = modelHelper.count(words, w => modelHelper.isCompleted(w));
+      if (dictionary.wordsCompleted !== wordsCompleted) {
+        dictionary.wordsCompleted = wordsCompleted;
       }
       return { ...dictionary, words };
     });

@@ -44,16 +44,13 @@ class StatisticService {
     });
   }
 
-  public async updateFromWord(dictionary: Dictionary, word: Word): Promise<void> {
+  public async updateFromWord({ id, wordsCompleted }: Dictionary, word: Word): Promise<void> {
     return firebaseInstance.withTrace('updateFromWord', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
 
-      await Promise.all([
-        this.updateWordsLearned(dictionary.id, this.uid, dictionary.wordsLearned),
-        this.updateStatistics(word, this.uid, dictionary.id),
-      ]);
+      await Promise.all([this.updateWordsCompleted(id, this.uid, wordsCompleted), this.updateStatistics(word, this.uid, id)]);
     });
   }
 
@@ -61,27 +58,27 @@ class StatisticService {
     const snapshot = await this.db.ref('dictionaryList').once('value');
     const arr: Promise<void>[] = [];
     snapshot.forEach(payload => {
-      arr.push(this.updateWordsLearned(payload.key as string, uid, null));
+      arr.push(this.updateWordsCompleted(payload.key as string, uid, null));
     });
     await Promise.all(arr);
   }
 
-  private async updateWordsLearned(dictionaryId: string, uid: string, newValue: number | null): Promise<void> {
+  private async updateWordsCompleted(dictionaryId: string, uid: string, newValue: number | null): Promise<void> {
     await this.db.ref(`dictionaryList/${dictionaryId}`).transaction(data => {
       if (data) {
-        const { wordsLearned, ...rest } = data;
-        if (wordsLearned == null) {
+        const { wordsCompleted, ...rest } = data;
+        if (wordsCompleted == null) {
           if (newValue == null) {
             return data; // nothing to change
           }
-          return { wordsLearned: { [uid]: newValue }, ...rest };
+          return { wordsCompleted: { [uid]: newValue }, ...rest };
         }
         if (newValue != null) {
-          wordsLearned[uid] = newValue;
+          wordsCompleted[uid] = newValue;
         } else {
-          delete wordsLearned[uid];
+          delete wordsCompleted[uid];
         }
-        return { wordsLearned, ...rest };
+        return { wordsCompleted, ...rest };
       }
       return data;
     });

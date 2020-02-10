@@ -49,7 +49,7 @@ const DictionaryListItem: React.FC<ListItemProps> = ({ item, segment, onAddFavor
           </IonButton>
         )}
       </IonItemOptions>
-      <IonProgressBar color="primary" value={percent(item.wordsLearned, item.wordsCount)} />
+      <IonProgressBar color="primary" value={percent(item.wordsCompleted, item.wordsCount)} />
     </IonItemSliding>
   );
 };

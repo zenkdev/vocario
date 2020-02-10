@@ -6,7 +6,8 @@
     "lexion-app": {
       "hosting": {
         "default": [
-          "lexion"
+          "lexion",
+          "lexion-app"
         ]
       }
     }

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import addDays from 'date-fns/addDays';
 import formatISO from 'date-fns/formatISO';
 import parseISO from 'date-fns/parseISO';
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import firebase from 'firebase/app';
 
 import { isNumber } from '../utils';
@@ -42,9 +42,9 @@ function createTextArray(payload: any): Text[] {
 
 export function createDictionary(payload: firebase.database.DataSnapshot, uid: string | null): Dictionary {
   const id = payload.key as string;
-  const { name, wordsCount, wordsLearned: wordsLearnedObject } = payload.val();
-  const wordsLearned = (wordsLearnedObject && uid && wordsLearnedObject[uid]) || 0;
-  return new Dictionary({ id, name, wordsCount, wordsLearned });
+  const { name, wordsCount, wordsCompleted: wordsCompletedObject } = payload.val();
+  const wordsCompleted = (wordsCompletedObject && uid && wordsCompletedObject[uid]) || 0;
+  return new Dictionary({ id, name, wordsCount, wordsCompleted });
 }
 
 function fromNextOccur(value: string | undefined, count: number) {
