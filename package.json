@@ -2,7 +2,7 @@
   "name": "lexion",
   "version": "0.0.12",
   "author": "dotnetjedi",
-  "homepage": "http://lexion.cf/",
+  "homepage": "https://lexion.web.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "rimraf ./build && react-scripts build",
@@ -53,7 +53,7 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project",
+  "description": "Simple vocabulary application made on React and Ionic with a backend on Firebase",
   "devDependencies": {
     "@types/zen-observable": "^0.8.0",
     "@typescript-eslint/eslint-plugin": "^2.18.0",

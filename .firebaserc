@@ -1,15 +1,17 @@
 {
-  "projects": {
-    "default": "lexion-app"
-  },
   "targets": {
     "lexion-app": {
       "hosting": {
         "default": [
-          "lexion",
+          "lexion"
+        ],
+        "primary": [
           "lexion-app"
         ]
       }
     }
+  },
+  "projects": {
+    "default": "lexion-app"
   }
 }
