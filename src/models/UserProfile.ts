@@ -6,6 +6,7 @@ class UserProfile {
     photoURL,
     simpleMode,
     fontSize,
+    darkTheme,
   }: {
     id?: string;
     email?: string;
@@ -13,6 +14,7 @@ class UserProfile {
     photoURL?: string;
     simpleMode?: boolean | null;
     fontSize?: number | null;
+    darkTheme?: boolean | null;
   }) {
     this.id = id || '';
     this.email = email || '';
@@ -20,6 +22,7 @@ class UserProfile {
     this.photoURL = photoURL;
     this.simpleMode = simpleMode != null ? simpleMode : true;
     this.fontSize = fontSize || 1;
+    this.darkTheme = darkTheme != null ? darkTheme : false;
   }
 
   public id: string;
@@ -34,6 +37,8 @@ class UserProfile {
   public simpleMode: boolean;
 
   public fontSize: number;
+
+  public darkTheme: boolean;
 }
 
 export default UserProfile;

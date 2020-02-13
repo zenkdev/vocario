@@ -13,6 +13,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
+import './theme/variables.dark.css';
 
 import './styles.css';
 
@@ -54,6 +55,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     document.documentElement.style.fontSize = currentUser ? `${currentUser.fontSize * 16}px` : '';
+    document.body.classList.toggle('dark', currentUser?.darkTheme);
   }, [currentUser]);
 
   return (

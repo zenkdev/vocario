@@ -8,6 +8,7 @@ import localStoreManager from './LocalStoreManager';
 
 const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
 const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
+const DARK_THEME_DATA_KEY = 'lexion:darkTheme';
 
 class ProfileService {
   private currentUser: firebase.User | null = null;
@@ -37,7 +38,8 @@ class ProfileService {
     return firebaseInstance.withTrace('getProfile', async () => {
       const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);
       const fontSize = localStoreManager.getDataObject<number>(FONT_SIZE_DATA_KEY);
-      const options = { simpleMode, fontSize };
+      const darkTheme = localStoreManager.getDataObject<boolean>(DARK_THEME_DATA_KEY);
+      const options = { simpleMode, fontSize, darkTheme };
 
       if (!this.currentUser) {
         return new UserProfile(options);
@@ -84,20 +86,20 @@ class ProfileService {
   }
 
   public async updateSimpleMode(simpleMode: boolean): Promise<void> {
-    return firebaseInstance.withTrace('updateSimpleMode', async () => {
-      localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
-      // if (this.currentUser) {
-      //   await this.updateUserProfile({ simpleMode });
-      // }
-      await this.raiseCurrentUserChanged();
-    });
+    localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
+    await this.updateUserProfile({ simpleMode });
+    await this.raiseCurrentUserChanged();
   }
 
   public async updateFontSize(fontSize: number): Promise<void> {
     localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, fontSize);
-    // if (this.currentUser) {
-    //   await this.updateUserProfile({ fontSize });
-    // }
+    await this.updateUserProfile({ fontSize });
+    await this.raiseCurrentUserChanged();
+  }
+
+  public async updateDarkTheme(darkTheme: boolean): Promise<void> {
+    localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, darkTheme);
+    await this.updateUserProfile({ darkTheme });
     await this.raiseCurrentUserChanged();
   }
 

@@ -83,9 +83,10 @@ export function createStatistic(payload: firebase.database.DataSnapshot): Statis
 
 export function createUserProfile(payload: firebase.database.DataSnapshot, options?: any): UserProfile {
   const id = payload.key as string;
-  const { email, displayName, photoURL, simpleMode } = payload.val();
-  const data: any = { id, email, displayName, photoURL, simpleMode };
+  const { email, displayName, photoURL, simpleMode, darkTheme, fontSize } = payload.val();
+  const data: any = { id, email, displayName, photoURL, simpleMode, darkTheme, fontSize };
   data.simpleMode = options != null && options.simpleMode != null ? options.simpleMode : data.simpleMode;
+  data.darkTheme = options != null && options.darkTheme != null ? options.darkTheme : data.darkTheme;
   data.fontSize = options != null && options.fontSize != null ? options.fontSize : data.fontSize;
   return new UserProfile(data);
 }

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import { logOut } from 'ionicons/icons';
+import { logOut, moon, text, mail, rocket } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -38,6 +38,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [simpleMode, setSimpleMode] = useState(true);
+  const [darkTheme, setDarkTheme] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const [showAlert, setShowAlert] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
@@ -86,27 +87,40 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   const handleSimpleModeChange = async (evt: IonToggleEvent) => {
-    const newMode = evt.detail.checked;
-    const oldMode = simpleMode;
+    const newValue = evt.detail.checked;
+    const oldValue = simpleMode;
 
-    setSimpleMode(newMode);
+    setSimpleMode(newValue);
     try {
-      await profileService.updateSimpleMode(newMode);
+      await profileService.updateSimpleMode(newValue);
     } catch (error) {
-      setSimpleMode(oldMode); // restore if error occur
+      setSimpleMode(oldValue); // restore if error occur
+      toastService.showError(error);
+    }
+  };
+
+  const handleDarkThemeChange = async (evt: IonToggleEvent) => {
+    const newValue = evt.detail.checked;
+    const oldValue = darkTheme;
+
+    setDarkTheme(newValue);
+    try {
+      await profileService.updateDarkTheme(newValue);
+    } catch (error) {
+      setDarkTheme(oldValue); // restore if error occur
       toastService.showError(error);
     }
   };
 
   const handleFontSizeChange = async (evt: IonRangeEvent) => {
-    const newSize = evt.detail.value as number;
-    const oldSize = fontSize;
+    const newValue = evt.detail.value as number;
+    const oldValue = fontSize;
 
-    setFontSize(newSize);
+    setFontSize(newValue);
     try {
-      await profileService.updateFontSize(newSize / 100);
+      await profileService.updateFontSize(newValue / 100);
     } catch (error) {
-      setFontSize(oldSize); // restore if error occur
+      setFontSize(oldValue); // restore if error occur
       toastService.showError(error);
     }
   };
@@ -120,6 +134,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
       setDisplayName(data.displayName);
       setEmail(data.email);
       setSimpleMode(data.simpleMode);
+      setDarkTheme(data.darkTheme);
       setFontSize(data.fontSize * 100);
     } catch (error) {
       setShowLoading(false);
@@ -171,6 +186,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             />
           </IonItem>
           <IonItem>
+            <IonIcon slot="start" icon={mail} />
             <IonLabel position="stacked">Email</IonLabel>
             <If
               condition={!showLoading}
@@ -179,7 +195,8 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             />
           </IonItem>
           <IonItem>
-            <IonLabel position="fixed">Simple mode</IonLabel>
+            <IonIcon slot="start" icon={rocket} />
+            <IonLabel position="fixed">Simple Mode</IonLabel>
             <If
               condition={!showLoading}
               then={<IonToggle checked={simpleMode} onIonChange={handleSimpleModeChange} />}
@@ -187,12 +204,23 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             />
           </IonItem>
           <IonItem>
-            <IonLabel position="fixed">Font size</IonLabel>
+            <IonIcon slot="start" icon={moon} />
+            <IonLabel position="fixed">Dark Theme</IonLabel>
+            <If
+              condition={!showLoading}
+              then={<IonToggle checked={darkTheme} onIonChange={handleDarkThemeChange} />}
+              else={<IonSkeletonText animated />}
+            />
+          </IonItem>
+          <IonItem>
+            <IonIcon slot="start" icon={text} size="small" />
+            <IonLabel position="fixed">Font Size</IonLabel>
             <If
               condition={!showLoading}
               then={<IonRange min={80} max={150} value={fontSize} step={10} ticks snaps onIonChange={handleFontSizeChange} />}
               else={<IonSkeletonText animated />}
             />
+            <IonIcon slot="end" icon={text} />
           </IonItem>
         </IonList>
         <div className="ion-padding">
