@@ -20,7 +20,7 @@ const ResetProgress: React.FC<ResetProgressProps> = ({ showAlert, onClose }) => 
         header: 'Reset the progress',
         duration: 3000,
         color: 'success',
-        showCloseButton: true,
+        buttons: [{ text: 'Close', role: 'cancel' }],
       });
     } catch (error) {
       toastService.showError(error);

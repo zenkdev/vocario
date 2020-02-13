@@ -53,7 +53,7 @@ class ToastService {
       message,
       duration,
       color: 'primary',
-      showCloseButton: true,
+      buttons: [{ text: 'Close', role: 'cancel' }],
     });
   }
 
@@ -64,7 +64,7 @@ class ToastService {
       message,
       duration,
       color: 'danger',
-      showCloseButton: true,
+      buttons: [{ text: 'Close', role: 'cancel' }],
     });
   }
 

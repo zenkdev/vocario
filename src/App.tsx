@@ -16,7 +16,7 @@ import './theme/variables.css';
 
 import './styles.css';
 
-import { home, person, stats } from 'ionicons/icons';
+import { home, person, statsChart } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
@@ -80,7 +80,7 @@ const App: React.FC = () => {
                   <IonLabel>Home</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="stats" href="/stats">
-                  <IonIcon icon={stats} />
+                  <IonIcon icon={statsChart} />
                   <IonLabel>Statistics</IonLabel>
                 </IonTabButton>
                 <IonTabButton tab="profile" href="/profile">
