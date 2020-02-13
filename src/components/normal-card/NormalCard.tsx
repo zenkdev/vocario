@@ -13,7 +13,7 @@ import NormalQuestion from './NormalQuestion';
 
 interface NormalCardProps {
   word: Word;
-  onNext: (valid: boolean) => void;
+  onNext: (valid: boolean) => Promise<void>;
 }
 
 const NormalCard: React.FC<NormalCardProps> = ({ word, onNext }) => {
@@ -26,10 +26,7 @@ const NormalCard: React.FC<NormalCardProps> = ({ word, onNext }) => {
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
-  const handleNext = useCallback(() => {
-    onNext(answer === Answer.valid);
-    setCounter(counter + 1);
-  }, [onNext, answer, counter]);
+  const handleNext = useCallback(() => onNext(answer === Answer.valid).then(() => setCounter(counter + 1)), [onNext, answer, counter]);
 
   useEffect(() => {
     setInput('');
