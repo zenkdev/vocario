@@ -55,7 +55,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     document.documentElement.style.fontSize = currentUser ? `${currentUser.fontSize * 16}px` : '';
-    document.body.classList.toggle('dark', currentUser?.darkTheme);
+    document.body.classList.toggle('dark', currentUser ? currentUser.darkTheme : false);
   }, [currentUser]);
 
   return (
