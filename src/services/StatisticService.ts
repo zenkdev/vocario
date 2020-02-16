@@ -44,13 +44,14 @@ class StatisticService {
     });
   }
 
-  public async updateFromWord({ id, wordsCompleted }: Dictionary, word: Word): Promise<void> {
+  public async updateFromWord({ id }: Dictionary, word: Word): Promise<void> {
     return firebaseInstance.withTrace('updateFromWord', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
 
-      await Promise.all([this.updateWordsCompleted(id, this.uid, wordsCompleted), this.updateStatistics(word, this.uid, id)]);
+      await this.updateStatistics(word, this.uid, id);
+      // await Promise.all([this.updateWordsCompleted(id, this.uid, wordsCompleted), this.updateStatistics(word, this.uid, id)]);
     });
   }
 
