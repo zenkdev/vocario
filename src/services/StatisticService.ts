@@ -40,59 +40,23 @@ class StatisticService {
       }
 
       await this.db.ref(`statistics/${this.uid}`).remove();
-      await this.cleanupDictionaries(this.uid);
     });
   }
 
-  public async updateFromWord({ id }: Dictionary, word: Word): Promise<void> {
+  public async updateFromWord({ id: dictionaryId }: Dictionary, word: Word): Promise<void> {
     return firebaseInstance.withTrace('updateFromWord', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
 
-      await this.updateStatistics(word, this.uid, id);
-      // await Promise.all([this.updateWordsCompleted(id, this.uid, wordsCompleted), this.updateStatistics(word, this.uid, id)]);
+      const { id, texts, ...rest } = word;
+      const poco = createPlainJS(texts);
+      const ref = this.db.ref(`statistics/${this.uid}`);
+      const updates: Record<string, Partial<Statistic>> = {
+        [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
+      };
+      await ref.update(updates);
     });
-  }
-
-  private async cleanupDictionaries(uid: string): Promise<void> {
-    const snapshot = await this.db.ref('dictionaryList').once('value');
-    const arr: Promise<void>[] = [];
-    snapshot.forEach(payload => {
-      arr.push(this.updateWordsCompleted(payload.key as string, uid, null));
-    });
-    await Promise.all(arr);
-  }
-
-  private async updateWordsCompleted(dictionaryId: string, uid: string, newValue: number | null): Promise<void> {
-    await this.db.ref(`dictionaryList/${dictionaryId}`).transaction(data => {
-      if (data) {
-        const { wordsCompleted, ...rest } = data;
-        if (wordsCompleted == null) {
-          if (newValue == null) {
-            return data; // nothing to change
-          }
-          return { wordsCompleted: { [uid]: newValue }, ...rest };
-        }
-        if (newValue != null) {
-          wordsCompleted[uid] = newValue;
-        } else {
-          delete wordsCompleted[uid];
-        }
-        return { wordsCompleted, ...rest };
-      }
-      return data;
-    });
-  }
-
-  private async updateStatistics(word: Word, uid: string, dictionaryId: string): Promise<void> {
-    const { id, texts, ...rest } = word;
-    const poco = createPlainJS(texts);
-    const ref = this.db.ref(`statistics/${uid}`);
-    const updates: Record<string, Partial<Statistic>> = {
-      [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
-    };
-    await ref.update(updates);
   }
 }
 

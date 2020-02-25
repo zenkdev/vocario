@@ -45,6 +45,26 @@ describe('functions', () => {
   });
 
   it('should decrease counter on delete', async () => {
+    mockedTransaction.mockImplementationOnce(callback => callback({ wordsCompleted: { [uid]: 2 } }));
+
+    // create a context object
+    const context = { params: { uid, wordId } };
+    // Make snapshot for state of database beforehand
+    const beforeSnap = test.database.makeDataSnapshot({ dictionaryId, occurs: [null, null, null, null] }, `/statistics/${uid}/${wordId}`);
+    const change = test.makeChange(beforeSnap, null);
+
+    // Call wrapped function with the Change object
+    const wrapped = test.wrap(statisticsOnWrite);
+    // Call the wrapped function with the snapshot you constructed.
+    await wrapped(change, context);
+
+    expect(mockedTransaction).toBeCalledTimes(1);
+    const { value } = mockedTransaction.mock.results[0];
+    expect(value).toHaveProperty('wordsCompleted');
+    expect(value.wordsCompleted).toHaveProperty(uid, 1);
+  });
+
+  it('should remove uid on delete if counter===0', async () => {
     mockedTransaction.mockImplementationOnce(callback => callback({ wordsCompleted: { [uid]: 1 } }));
 
     // create a context object
@@ -61,7 +81,7 @@ describe('functions', () => {
     expect(mockedTransaction).toBeCalledTimes(1);
     const { value } = mockedTransaction.mock.results[0];
     expect(value).toHaveProperty('wordsCompleted');
-    expect(value.wordsCompleted).toHaveProperty(uid, 0);
+    expect(value.wordsCompleted).toEqual({});
   });
 
   it('should increase counter on update', async () => {
