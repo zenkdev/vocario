@@ -1,8 +1,17 @@
 import React, { useMemo } from 'react';
 
-import { IonBadge, IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
+import { IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
 import { modelHelper, Statistic } from '../models';
+
+function Count({ count }: { count: number }) {
+  const items: JSX.Element[] = [];
+  for (let n = 0; n < count; n += 1) {
+    items.push(<li key={`item-${n}`} />);
+  }
+
+  return <ul className="count">{items}</ul>;
+}
 
 interface StatisticListItemProps {
   item: Statistic;
@@ -40,16 +49,12 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
             <IonRow>
               <IonCol>
                 <span className="small-text">{`Next occur: ${nextOccurString}`}</span>
+                {showCount && <Count count={count} />}
               </IonCol>
             </IonRow>
           )}
         </IonGrid>
       </IonLabel>
-      {showCount && (
-        <IonBadge slot="end" color="primary">
-          {count}
-        </IonBadge>
-      )}
     </IonItem>
   );
 };
