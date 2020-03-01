@@ -1,8 +1,8 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "tsc --noEmit && eslint ./**/*.{ts,tsx,js,jsx}",
-    "lint:fix": "eslint --fix ./**/*.{ts,tsx,js,jsx}",
+    "lint": "tsc --noEmit && eslint ./**/*.{ts,js}",
+    "lint:fix": "eslint --fix ./**/*.{ts,js}",
     "build": "rimraf ./lib && tsc",
     "test": "jest --watch --detectOpenHandles",
     "serve": "npm run build && firebase serve --only functions",
@@ -16,11 +16,15 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "@google-cloud/text-to-speech": "^2.2.0",
+    "cors": "^2.8.5",
     "firebase-admin": "^8.9.2",
     "firebase-functions": "^3.3.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.6",
     "@types/jest": "^25.1.2",
+    "@types/node": "^13.7.7",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.19.2",
     "eslint": "^6.8.0",

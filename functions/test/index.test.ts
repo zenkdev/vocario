@@ -1,6 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as initialize from 'firebase-functions-test';
-
-import { statisticsOnWrite } from '../src';
 
 const test = initialize();
 
@@ -11,6 +10,9 @@ jest.mock('firebase-admin', () => ({
   database: () => ({
     ref: () => ({
       transaction: mockedTransaction,
+      once: () => ({
+        val: () => ({ text: 'hello' }),
+      }),
     }),
   }),
 }));
@@ -18,6 +20,9 @@ jest.mock('firebase-admin', () => ({
 const dictionaryId = 'd111';
 const uid = 'u222';
 const wordId = 'w333';
+
+// eslint-disable-next-line import/first
+import { statisticsOnWrite, synthesize } from '../src';
 
 describe('functions', () => {
   afterEach(() => mockedTransaction.mockReset());
@@ -126,5 +131,76 @@ describe('functions', () => {
     const { value } = mockedTransaction.mock.results[0];
     expect(value).toHaveProperty('wordsCompleted');
     expect(value.wordsCompleted).toHaveProperty(uid, 1);
+  });
+
+  it('should return 403 for non GET requests', done => {
+    // A fake request object
+    const req: any = { method: 'POST', headers: {}, params: {} };
+    // A fake response object
+    const res: any = {
+      getHeader: jest.fn(),
+      setHeader: jest.fn(),
+      attachment: jest.fn(() => res),
+      contentType: jest.fn(() => res),
+      status: jest.fn(() => res),
+      send: jest.fn(() => res),
+      end: () => {
+        expect(res.status).toBeCalledWith(403);
+        expect(res.send).toBeCalledWith('Forbidden!');
+        done();
+      },
+    };
+
+    // Invoke synthesize with our fake request and response objects.
+    // This will cause the assertions in the response object to be evaluated.
+    synthesize(req, res);
+  });
+
+  it('should return 404 if no word was sent', done => {
+    // A fake request object
+    const req: any = { method: 'GET', headers: {}, params: {} };
+    // A fake response object
+    const res: any = {
+      getHeader: jest.fn(),
+      setHeader: jest.fn(),
+      attachment: jest.fn(() => res),
+      contentType: jest.fn(() => res),
+      status: jest.fn(() => res),
+      send: jest.fn(() => res),
+      end: () => {
+        expect(res.status).toBeCalledWith(404);
+        done();
+      },
+    };
+
+    // Invoke synthesize with our fake request and response objects.
+    // This will cause the assertions in the response object to be evaluated.
+    synthesize(req, res);
+  });
+
+  it('should return plain text if valid word was sent', done => {
+    // A fake request object
+    const req: any = { method: 'GET', headers: {}, params: { 0: wordId } };
+    // A fake response object
+    const res: any = {
+      getHeader: jest.fn(),
+      setHeader: jest.fn(),
+      attachment: jest.fn(() => res),
+      contentType: jest.fn(() => res),
+      status: jest.fn(() => res),
+      send: jest.fn(() => res),
+      end: () => {
+        expect(res.status).toBeCalledWith(200);
+        expect(res.contentType).toBeCalledWith('mp3');
+        expect(res.send).toBeCalled();
+        const args = res.send.mock.calls[0];
+        expect(args[0]).toBeInstanceOf(Buffer);
+        done();
+      },
+    };
+
+    // Invoke synthesize with our fake request and response objects.
+    // This will cause the assertions in the response object to be evaluated.
+    synthesize(req, res);
   });
 });
