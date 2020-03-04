@@ -1,20 +1,26 @@
-import React, { useCallback, useMemo } from 'react';
+import { volumeHigh } from 'ionicons/icons';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonText } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText } from '@ionic/react';
 
+import useAudio from '../hooks/useAudio';
 import Button from './Button';
 
 interface AnswerResultProps {
   text: string;
   smallText?: string;
   valid: boolean;
-  onNext: (valid: boolean) => void;
+  onNext: (valid: boolean) => Promise<void>;
+  audioUrl?: string;
 }
 
-const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onNext }) => {
+const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onNext, audioUrl = '' }) => {
   const color = useMemo(() => (valid ? 'success' : 'danger'), [valid]);
   const title = useMemo(() => (valid ? 'Correct' : 'Correct answer'), [valid]);
   const handleNext = useCallback(() => onNext(valid), [onNext, valid]);
+  const [playing, toggle] = useAudio(audioUrl);
+
+  useEffect(() => toggle(), [toggle]);
 
   return (
     <IonCard>
@@ -22,12 +28,15 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <IonText color={color} className="normal-text">
+        <IonIcon slot="start" icon={volumeHigh} onClick={() => toggle()} />
+        <IonText color={color} className="ion-padding-start normal-text">
           {text}
         </IonText>
         {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
         <div className="ion-padding-top ion-text-center">
-          <Button onClick={handleNext}>Next</Button>
+          <Button onClick={handleNext} disabled={playing}>
+            Next
+          </Button>
         </div>
       </IonCardContent>
     </IonCard>

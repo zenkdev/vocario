@@ -14,9 +14,10 @@ import NormalQuestion from './NormalQuestion';
 interface NormalCardProps {
   word: Word;
   onNext: (valid: boolean) => Promise<void>;
+  audioUrl?: string;
 }
 
-const NormalCard: React.FC<NormalCardProps> = ({ word, onNext }) => {
+const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, audioUrl }) => {
   const { translation: title, category } = word;
   const [input, setInput] = useState('');
   const [counter, setCounter] = useState(0);
@@ -26,7 +27,9 @@ const NormalCard: React.FC<NormalCardProps> = ({ word, onNext }) => {
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
-  const handleNext = useCallback(() => onNext(answer === Answer.valid).then(() => setCounter(counter + 1)), [onNext, answer, counter]);
+  const handleNext = useCallback(() => onNext(answer === Answer.valid).then(() => setCounter(c => c + 1)), [onNext, answer]);
+
+  const valid = answer === Answer.valid;
 
   useEffect(() => {
     setInput('');
@@ -48,7 +51,7 @@ const NormalCard: React.FC<NormalCardProps> = ({ word, onNext }) => {
         <If
           condition={answer === Answer.empty}
           then={<NormalQuestion text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} onValidate={handleValidate} />}
-          else={<AnswerResult text={textWithLang} smallText={transcription} valid={answer === Answer.valid} onNext={handleNext} />}
+          else={<AnswerResult audioUrl={audioUrl} text={textWithLang} smallText={transcription} valid={valid} onNext={handleNext} />}
         />
         <div className="ion-padding small-text">{category}</div>
       </div>

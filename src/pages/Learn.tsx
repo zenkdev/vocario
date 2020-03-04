@@ -1,5 +1,5 @@
 import formatISO from 'date-fns/formatISO';
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
@@ -12,6 +12,9 @@ import { percent, randomNumber } from '../utils';
 
 const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
 
+function audioUrl(word?: Word): string | undefined {
+  return word && `https://us-central1-lexion-app.cloudfunctions.net/synthesize/${word.id}`;
+}
 interface LearnLocationState {
   id: string;
   title: string;
@@ -19,12 +22,13 @@ interface LearnLocationState {
 
 const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
   const { currentUser } = useContext(AppContext);
+  const simpleMode = currentUser ? currentUser.simpleMode : true;
   const [title, setTitle] = useState('Learn');
   const [showLoading, setShowLoading] = useState(true);
   const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
-  const simpleMode = useMemo(() => (currentUser ? currentUser.simpleMode : true), [currentUser]);
   const { completed, total, more } = modelHelper.dailyStatistics(dictionary);
+  const url = audioUrl(word);
 
   function nextWord(dct: Dictionary) {
     const words = modelHelper.wordsToLearn(dct);
@@ -122,7 +126,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       </IonHeader>
       <IonContent fullscreen>
         {dictionary && <IonProgressBar value={percent(completed, total)} />}
-        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} />}
+        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} />}
         {word && simpleMode && <SimpleCard onNext={handleNext} word={word} options={getOptions()} />}
         {!showLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={showLoading} message="Loading..." />

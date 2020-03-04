@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-const useAudio = (url: string): [boolean, () => void] => {
+const useAudio = (url: string, preload: 'none' | 'metadata' | 'auto' = 'metadata'): [boolean, () => void] => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
-
-  const toggle = (): void => setPlaying(!playing);
+  const toggle = useCallback(() => setPlaying(current => !current), []);
 
   useEffect(() => {
     if (playing) {
@@ -15,11 +14,10 @@ const useAudio = (url: string): [boolean, () => void] => {
   }, [audio, playing]);
 
   useEffect(() => {
+    audio.preload = preload;
     audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, [audio]);
+    return () => audio.removeEventListener('ended', () => setPlaying(false));
+  }, [audio, preload]);
 
   return [playing, toggle];
 };
