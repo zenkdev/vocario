@@ -23,6 +23,11 @@ const trimLeft = (str: string | null | undefined, trimChar = ' '): string | null
   }
   return trim;
 };
+const createText = (payload: Record<string, string>): string =>
+  Object.entries(payload)
+    .map(([key, value]) => (key.startsWith('text') ? value : null))
+    .filter(Boolean)
+    .join(',');
 
 export const statisticsOnWrite = functions.database.ref('/statistics/{uid}/{wordId}').onWrite(async (snapshot, context) => {
   const { uid } = context.params;
@@ -89,18 +94,16 @@ export const synthesize = functions.https.onRequest((req, res) => {
         .ref(`word/${word}`)
         .once('value');
 
-      const value = snapshot.val();
-      if (!value) {
+      const payload = snapshot.val();
+      if (!payload) {
         return res.status(404).end();
       }
-
-      const { text } = value;
 
       // Creates a client
       const client = new TextToSpeechClient();
       // Construct the request
       const request = {
-        input: { text },
+        input: { text: createText(payload) },
         // Select the language and SSML voice gender (optional)
         voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' as const },
         // select the type of audio encoding
