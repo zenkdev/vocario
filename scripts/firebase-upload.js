@@ -7,7 +7,7 @@ const getDictionaries = require('./dictionaries');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://lexion-app.firebaseio.com',
+  databaseURL: 'https://vocabionic.firebaseio.com',
 });
 
 const db = admin.database();
@@ -21,7 +21,7 @@ function uploadWord(dictionaryId, word, index) {
 
   // Write the new word's data in the word list.
   const updates = {
-    [`/wordList/${key}`]: entity,
+    [`/word/${key}`]: entity,
   };
 
   return db.ref().update(updates);
@@ -29,11 +29,11 @@ function uploadWord(dictionaryId, word, index) {
 
 async function uploadDictionary({ id, words, ...rest }) {
   // A dictionary entity.
-  const entity = { ...rest, wordsCount: words.length, totalWords: words.length };
+  const entity = { ...rest, wordsCount: words.length };
 
   // Write the new dictionary's data in the dictionary list.
   const updates = {
-    [`/dictionaryList/${id}`]: entity,
+    [`/dictionary/${id}`]: entity,
   };
 
   await db.ref().update(updates);
@@ -44,11 +44,6 @@ async function upload() {
   const dictionaries = await getDictionaries();
   return Promise.all(dictionaries.map(uploadDictionary));
 }
-
-// (async function t(){
-//   const dictionaries = await getDictionaries();
-//   console.log(dictionaries);
-// })();
 
 upload()
   .then(() => {

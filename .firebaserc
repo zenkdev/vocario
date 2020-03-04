@@ -1,17 +1,14 @@
 {
   "targets": {
-    "lexion-app": {
+    "vocabionic": {
       "hosting": {
-        "default": [
-          "lexion"
-        ],
-        "primary": [
-          "lexion-app"
+        "web": [
+          "vocabionic"
         ]
       }
     }
   },
   "projects": {
-    "default": "lexion-app"
+    "default": "vocabionic"
   }
 }

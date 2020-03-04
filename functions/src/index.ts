@@ -46,7 +46,7 @@ export const statisticsOnWrite = functions.database.ref('/statistics/{uid}/{word
 
     await admin
       .database()
-      .ref(`dictionaryList/${dictionaryId}`)
+      .ref(`dictionary/${dictionaryId}`)
       .transaction(data => {
         if (data) {
           const { wordsCompleted, ...rest } = data;
@@ -86,7 +86,7 @@ export const synthesize = functions.https.onRequest((req, res) => {
     try {
       const snapshot = await admin
         .database()
-        .ref(`wordList/${word}`)
+        .ref(`word/${word}`)
         .once('value');
 
       const value = snapshot.val();

@@ -11,7 +11,7 @@ const dct500 = {
 };
 
 const subj = {
-  id: 'subj_dct3000',
+  id: 'subj3000',
   name: 'Тематический словарь',
   version: '2',
 };

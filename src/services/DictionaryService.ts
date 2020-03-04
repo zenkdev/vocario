@@ -32,7 +32,7 @@ class DictionaryService {
   /** GET dictionaries from the server */
   public async getDictionaries(): Promise<Dictionary[]> {
     return firebaseInstance.withTrace('getDictionaries', async () => {
-      const snapshot = await this.db.ref('dictionaryList').once('value');
+      const snapshot = await this.db.ref('dictionary').once('value');
       const arr: Dictionary[] = [];
       snapshot.forEach(payload => {
         arr.push(createDictionary(payload, this.uid));
@@ -66,7 +66,7 @@ class DictionaryService {
 
   private async getDictionaryById(id: string): Promise<Dictionary> {
     return firebaseInstance.withTrace('getDictionaryById', async () => {
-      const snapshot = await this.db.ref(`dictionaryList/${id}`).once('value');
+      const snapshot = await this.db.ref(`dictionary/${id}`).once('value');
       return createDictionary(snapshot, this.uid);
     });
   }
@@ -74,7 +74,7 @@ class DictionaryService {
   private async getWords(dictionaryId: string): Promise<Word[]> {
     return firebaseInstance.withTrace('getWords', async () => {
       const snapshot = await this.db
-        .ref('wordList')
+        .ref('word')
         .orderByChild('dictionaryId')
         .equalTo(dictionaryId)
         .once('value');

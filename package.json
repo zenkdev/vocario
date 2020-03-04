@@ -1,8 +1,8 @@
 {
-  "name": "lexion",
+  "name": "vocabionic",
   "version": "0.0.15",
   "author": "dotnetjedi",
-  "homepage": "https://lexion.web.app/",
+  "homepage": "https://vocabionic.web.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "rimraf ./build && react-scripts build",
@@ -12,8 +12,8 @@
     "pre-commit": "lint-staged",
     "lint": "tsc --noEmit && eslint ./src/**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint --fix ./src/**/*.{js,jsx,ts,tsx}",
-    "upload": "node ./scripts/firebase-upload.js",
-    "deploy": "firebase deploy"
+    "firebase:upload": "node ./scripts/firebase-upload.js",
+    "firebase:deploy": "firebase deploy --only hosting:web"
   },
   "private": true,
   "dependencies": {

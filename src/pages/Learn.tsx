@@ -13,7 +13,7 @@ import { percent, randomNumber } from '../utils';
 const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
 
 function audioUrl(word?: Word): string | undefined {
-  return word && `https://us-central1-lexion-app.cloudfunctions.net/synthesize/${word.id}`;
+  return word && `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${word.id}`;
 }
 interface LearnLocationState {
   id: string;

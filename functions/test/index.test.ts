@@ -178,7 +178,7 @@ describe('functions', () => {
     synthesize(req, res);
   });
 
-  it('should return plain text if valid word was sent', done => {
+  it('should return mp3 file if valid word was sent', done => {
     // A fake request object
     const req: any = { method: 'GET', headers: {}, params: { 0: wordId } };
     // A fake response object
