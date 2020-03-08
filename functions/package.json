@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.3",
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.7",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
@@ -85,7 +86,8 @@
           "jsx": "never"
         }
       ],
-      "@typescript-eslint/explicit-function-return-type": "off"
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     }
   },
   "jest": {

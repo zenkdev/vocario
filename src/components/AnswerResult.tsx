@@ -1,4 +1,4 @@
-import { volumeHigh } from 'ionicons/icons';
+import { volumeHigh, stop } from 'ionicons/icons';
 import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText } from '@ionic/react';
@@ -28,15 +28,13 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <IonIcon slot="start" icon={volumeHigh} onClick={() => toggle()} />
+        <IonIcon slot="start" icon={playing ? stop : volumeHigh} onClick={() => toggle()} />
         <IonText color={color} className="ion-padding-start normal-text">
           {text}
         </IonText>
         {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
         <div className="ion-padding-top ion-text-center">
-          <Button onClick={handleNext} disabled={playing}>
-            Next
-          </Button>
+          <Button onClick={handleNext}>Next</Button>
         </div>
       </IonCardContent>
     </IonCard>

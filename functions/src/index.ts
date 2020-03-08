@@ -3,31 +3,15 @@ import * as buildCors from 'cors';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
-import { TextToSpeechClient } from '@google-cloud/text-to-speech';
+import sendFile from './sendFile';
+import textToSpeech from './textToSpeech';
+import { createText, isCompleted, trimLeft } from './utils';
+import writeToFile from './writeToFile';
 
 admin.initializeApp();
 
 // CORS Express middleware to enable CORS Requests.
 const cors = buildCors({ origin: true });
-
-const COUNT_TO_COMPLETE = 3;
-const isEmpty = <T>(value: Array<T> | undefined): boolean => value == null || !Array.isArray(value) || value.length === 0;
-const isCompleted = (occurs?: string[]): boolean => !isEmpty(occurs) && (occurs as string[]).length > COUNT_TO_COMPLETE;
-const trimLeft = (str: string | null | undefined, trimChar = ' '): string | null | undefined => {
-  if (str == null) {
-    return str;
-  }
-  let trim = str;
-  while (trim.length > 0 && trim.substring(0, 1) === trimChar) {
-    trim = trim.substring(1);
-  }
-  return trim;
-};
-const createText = (payload: Record<string, string>): string =>
-  Object.entries(payload)
-    .map(([key, value]) => (key.startsWith('text') ? value : null))
-    .filter(Boolean)
-    .join(',');
 
 export const statisticsOnWrite = functions.database.ref('/statistics/{uid}/{wordId}').onWrite(async (snapshot, context) => {
   const { uid } = context.params;
@@ -89,6 +73,18 @@ export const synthesize = functions.https.onRequest((req, res) => {
     }
 
     try {
+      // Create a bucket
+      const bucket = admin.storage().bucket();
+
+      // Create a filename to 'synthesize/word.mp3'
+      const filename = `synthesize/${word}.mp3`;
+
+      const [files] = await bucket.getFiles({ maxResults: 1, prefix: filename });
+      const exists = files.find(({ name }) => name === filename);
+      if (exists) {
+        return sendFile(res, exists);
+      }
+
       const snapshot = await admin
         .database()
         .ref(`word/${word}`)
@@ -99,25 +95,17 @@ export const synthesize = functions.https.onRequest((req, res) => {
         return res.status(404).end();
       }
 
-      // Creates a client
-      const client = new TextToSpeechClient();
-      // Construct the request
-      const request = {
-        input: { text: createText(payload) },
-        // Select the language and SSML voice gender (optional)
-        voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' as const },
-        // select the type of audio encoding
-        audioConfig: { audioEncoding: 'MP3' as const },
-      };
+      const audioContent = await textToSpeech(createText(payload));
 
-      // Performs the text-to-speech request
-      const [response] = await client.synthesizeSpeech(request);
+      const file = bucket.file(filename);
+
+      await writeToFile(file, audioContent);
 
       return res
         .status(200)
         .contentType('mp3')
         .attachment(`${word}.mp3`)
-        .send(response.audioContent)
+        .send(audioContent)
         .end();
     } catch (e) {
       return res

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as initialize from 'firebase-functions-test';
 
 const test = initialize();
