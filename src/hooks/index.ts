@@ -1,4 +1,4 @@
 import useDictionaries from './useDictionaries';
+import useDictionary from './useDictionary';
 
-// eslint-disable-next-line import/prefer-default-export
-export { useDictionaries };
+export { useDictionaries, useDictionary };

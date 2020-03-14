@@ -60,7 +60,7 @@ const App: React.FC = () => {
 
   return (
     <IonApp>
-      <AppContext.Provider value={{ currentUser }}>
+      <AppContext.Provider value={{ currentUser, simpleMode: currentUser ? currentUser.simpleMode : true }}>
         {isLoading ? (
           <Splash />
         ) : (

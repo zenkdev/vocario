@@ -1,5 +1,7 @@
 import { jsonTryParse } from '../utils';
 
+export const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
+
 /* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /**

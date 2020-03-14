@@ -1,69 +1,67 @@
 import formatISO from 'date-fns/formatISO';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
 import AppContext from '../AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
-import useDictionary from '../hooks/useDictionary';
+import { useDictionary } from '../hooks';
 import { Dictionary, modelHelper, Word } from '../models';
 import { localStoreManager, statisticService, toastService } from '../services';
+import { NEXT_WORD_DATA_KEY_PREFIX } from '../services/LocalStoreManager';
 import { percent, randomNumber } from '../utils';
 
-const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
+const audioUrl = (word?: Word): string | undefined => word && `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${word.id}`;
+const getWordIndex = (id: string) => localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + id);
+const setWordIndex = (id: string, value: number) => localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + id, value);
+const delWordIndex = (id: string) => localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + id);
 
-function audioUrl(word?: Word): string | undefined {
-  return word && `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${word.id}`;
-}
-interface LearnLocationState {
+type LearnLocationState = {
   id: string;
   title: string;
-}
+};
 
-const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
+const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { state } }) => {
+  const [title, setTitle] = useState('Learn');
   const [word, setWord] = useState<Word>();
-  function nextWord(dct: Dictionary) {
+  const url = audioUrl(word);
+
+  const nextWord = useCallback((dct: Dictionary) => {
     const words = modelHelper.wordsToLearn(dct);
     if (words.length) {
-      const prev = localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
+      const prev = getWordIndex(dct.id);
       if (prev && words[prev]) {
         setWord(words[prev]);
       } else {
         const rnd = randomNumber(0, words.length - 1);
         setWord(words[rnd]);
-        localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + dct.id, rnd);
+        setWordIndex(dct.id, rnd);
       }
     } else {
       setWord(undefined);
-      localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
+      delWordIndex(dct.id);
     }
-  }
+  }, []);
 
-  const { currentUser } = useContext(AppContext);
-  const simpleMode = currentUser ? currentUser.simpleMode : true;
-  const [title, setTitle] = useState('Learn');
-  const onCompleted = useCallback(nextWord, []);
-  const [state] = useDictionary(location.state && location.state.id, { onCompleted, onError: toastService.showError });
-  const url = audioUrl(word);
-
-  const { isLoading, data } = state;
+  const { simpleMode } = useContext(AppContext);
+  const [{ isLoading, data }] = useDictionary(state && state.id, { onCompleted: nextWord, onError: toastService.showError });
   const { completed, total, more } = modelHelper.dailyStatistics(data);
 
-  const getOptions = useCallback(() => {
+  const options = useMemo(() => {
     if (!data || !word) {
       return [];
     }
-    const options: string[] = [word.translation];
+    const arr: string[] = [word.translation];
     const numOptions = Math.min(3, data.words.length || 0);
-    while (options.length < numOptions) {
+    while (arr.length < numOptions) {
       const rnd = randomNumber(0, data.words.length - 1);
       const opt = data.words[rnd];
-      if (opt && !options.includes(opt.translation)) {
-        options.push(opt.translation);
+      if (opt && !arr.includes(opt.translation)) {
+        arr.push(opt.translation);
       }
     }
-    return options.sort();
+    return arr.sort();
   }, [data, word]);
 
   const handleNext = useCallback(
@@ -99,12 +97,10 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
   );
 
   useEffect(() => {
-    if (location.state && location.state.title) {
-      setTitle(location.state.title);
+    if (state && state.title) {
+      setTitle(state.title);
     }
-  }, [location.state]);
-
-  console.log(state);
+  }, [state]);
 
   return (
     <IonPage>
@@ -119,7 +115,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
       <IonContent fullscreen>
         {data && <IonProgressBar value={percent(completed, total)} />}
         {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} />}
-        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} options={getOptions()} />}
+        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} audioUrl={url} options={options} />}
         {!isLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>

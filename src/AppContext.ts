@@ -4,10 +4,11 @@ import { UserProfile } from './models';
 
 export interface AppContextValue {
   currentUser: UserProfile | null;
+  simpleMode: boolean;
 }
 
 const createNamedContext = (name: string) => {
-  const context = React.createContext<AppContextValue>({ currentUser: null });
+  const context = React.createContext<AppContextValue>({ currentUser: null, simpleMode: true });
   context.displayName = name;
 
   return context;
