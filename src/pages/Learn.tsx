@@ -6,8 +6,9 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 
 import AppContext from '../AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
+import useDictionary from '../hooks/useDictionary';
 import { Dictionary, modelHelper, Word } from '../models';
-import { dictionaryService, localStoreManager, statisticService, toastService } from '../services';
+import { localStoreManager, statisticService, toastService } from '../services';
 import { percent, randomNumber } from '../utils';
 
 const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
@@ -21,15 +22,7 @@ interface LearnLocationState {
 }
 
 const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
-  const { currentUser } = useContext(AppContext);
-  const simpleMode = currentUser ? currentUser.simpleMode : true;
-  const [title, setTitle] = useState('Learn');
-  const [showLoading, setShowLoading] = useState(true);
-  const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
-  const { completed, total, more } = modelHelper.dailyStatistics(dictionary);
-  const url = audioUrl(word);
-
   function nextWord(dct: Dictionary) {
     const words = modelHelper.wordsToLearn(dct);
     if (words.length) {
@@ -47,25 +40,35 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
     }
   }
 
+  const { currentUser } = useContext(AppContext);
+  const simpleMode = currentUser ? currentUser.simpleMode : true;
+  const [title, setTitle] = useState('Learn');
+  const onCompleted = useCallback(nextWord, []);
+  const [state] = useDictionary(location.state && location.state.id, { onCompleted, onError: toastService.showError });
+  const url = audioUrl(word);
+
+  const { isLoading, data } = state;
+  const { completed, total, more } = modelHelper.dailyStatistics(data);
+
   const getOptions = useCallback(() => {
-    if (!dictionary || !word) {
+    if (!data || !word) {
       return [];
     }
     const options: string[] = [word.translation];
-    const numOptions = Math.min(3, dictionary.words.length || 0);
+    const numOptions = Math.min(3, data.words.length || 0);
     while (options.length < numOptions) {
-      const rnd = randomNumber(0, dictionary.words.length - 1);
-      const opt = dictionary.words[rnd];
+      const rnd = randomNumber(0, data.words.length - 1);
+      const opt = data.words[rnd];
       if (opt && !options.includes(opt.translation)) {
         options.push(opt.translation);
       }
     }
     return options.sort();
-  }, [dictionary, word]);
+  }, [data, word]);
 
   const handleNext = useCallback(
     async (valid: boolean) => {
-      if (!dictionary || !word) {
+      if (!data || !word) {
         return;
       }
 
@@ -82,37 +85,26 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         }
 
         if (modelHelper.isCompleted(word)) {
-          dictionary.wordsCompleted = Math.min(dictionary.wordsCompleted + 1, dictionary.wordsCount);
+          data.wordsCompleted = Math.min(data.wordsCompleted + 1, data.wordsCount);
         }
 
-        await statisticService.updateFromWord(dictionary, word);
-        localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dictionary.id);
-        nextWord(dictionary);
+        await statisticService.updateFromWord(data, word);
+        localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + data.id);
+        nextWord(data);
       } catch (error) {
         toastService.showError(error);
       }
     },
-    [dictionary, word],
+    [data, word],
   );
 
   useEffect(() => {
     if (location.state && location.state.title) {
       setTitle(location.state.title);
     }
-    if (location.state && location.state.id) {
-      dictionaryService
-        .getDictionary(location.state.id)
-        .then(data => {
-          setShowLoading(false);
-          setDictionary(data);
-          nextWord(data);
-        })
-        .catch(error => {
-          setShowLoading(false);
-          toastService.showError(error);
-        });
-    }
   }, [location.state]);
+
+  console.log(state);
 
   return (
     <IonPage>
@@ -125,11 +117,11 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {dictionary && <IonProgressBar value={percent(completed, total)} />}
+        {data && <IonProgressBar value={percent(completed, total)} />}
         {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} />}
         {word && simpleMode && <SimpleCard onNext={handleNext} word={word} options={getOptions()} />}
-        {!showLoading && !word && <Congratulations more={more} />}
-        <IonLoading isOpen={showLoading} message="Loading..." />
+        {!isLoading && !word && <Congratulations more={more} />}
+        <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );
