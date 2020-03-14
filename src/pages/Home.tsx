@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import {
   IonContent,
@@ -15,13 +15,12 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { DictionaryListItem } from '../components';
-import useDictionaries from '../hooks/useDictionaries';
+import { DictionaryItem } from '../components';
+import { useDictionaries } from '../hooks';
 import { toastService } from '../services';
 
 const Home: React.FC = () => {
-  const [segment] = useState('all');
-  const [state, fetchData] = useDictionaries({ onError: toastService.showError });
+  const [{ isLoading, data }, fetchData] = useDictionaries({ onError: toastService.showError });
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();
@@ -29,16 +28,7 @@ const Home: React.FC = () => {
     },
     [fetchData],
   );
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const addFavorite = useCallback(() => {}, []);
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const removeFavorite = useCallback(() => {}, []);
-
   useIonViewWillEnter(fetchData);
-
-  console.log(state);
-
-  const { isLoading, data } = state;
 
   return (
     <IonPage>
@@ -57,14 +47,8 @@ const Home: React.FC = () => {
               <IonLabel>No Dictionaries Found</IonLabel>
             </IonListHeader>
           )}
-          {data.map(dictionary => (
-            <DictionaryListItem
-              key={dictionary.id}
-              item={dictionary}
-              segment={segment}
-              onAddFavorite={addFavorite}
-              onRemoveFavorite={removeFavorite}
-            />
+          {data.map(item => (
+            <DictionaryItem key={item.id} item={item} />
           ))}
         </IonList>
         <IonLoading isOpen={isLoading} message="Loading..." />
