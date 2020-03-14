@@ -16,45 +16,29 @@ import {
 } from '@ionic/react';
 
 import { DictionaryListItem } from '../components';
-import { Dictionary } from '../models';
-import { dictionaryService, toastService } from '../services';
+import useDictionaries from '../hooks/useDictionaries';
+import { toastService } from '../services';
 
 const Home: React.FC = () => {
-  const [showLoading, setShowLoading] = useState(true);
   const [segment] = useState('all');
-  const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
-  const doRefresh = useCallback(({ target: refresher }) => {
-    setShowLoading(true);
-    dictionaryService
-      .getDictionaries()
-      .then(data => {
-        setShowLoading(false);
-        refresher.complete();
-        setDictionaries(data);
-      })
-      .catch(error => {
-        setShowLoading(false);
-        refresher.complete();
-        toastService.showError(error);
-      });
-  }, []);
+  const [state, fetchData] = useDictionaries({ onError: toastService.showError });
+  const doRefresh = useCallback(
+    ({ target: refresher }) => {
+      fetchData();
+      refresher.complete();
+    },
+    [fetchData],
+  );
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const addFavorite = useCallback(() => {}, []);
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const removeFavorite = useCallback(() => {}, []);
 
-  useIonViewWillEnter(() => {
-    dictionaryService
-      .getDictionaries()
-      .then(data => {
-        setShowLoading(false);
-        setDictionaries(data);
-      })
-      .catch(error => {
-        setShowLoading(false);
-        toastService.showError(error);
-      });
-  });
+  useIonViewWillEnter(fetchData);
+
+  console.log(state);
+
+  const { isLoading, data } = state;
 
   return (
     <IonPage>
@@ -68,12 +52,12 @@ const Home: React.FC = () => {
           <IonRefresherContent />
         </IonRefresher>
         <IonList lines="none" class="ion-no-margin ion-no-padding">
-          {!dictionaries.length && (
+          {!data.length && (
             <IonListHeader>
               <IonLabel>No Dictionaries Found</IonLabel>
             </IonListHeader>
           )}
-          {dictionaries.map(dictionary => (
+          {data.map(dictionary => (
             <DictionaryListItem
               key={dictionary.id}
               item={dictionary}
@@ -83,7 +67,7 @@ const Home: React.FC = () => {
             />
           ))}
         </IonList>
-        <IonLoading isOpen={showLoading} message="Loading..." />
+        <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );
