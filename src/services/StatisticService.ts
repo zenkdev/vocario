@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 
-import { createPlainJS, createStatistic, Dictionary, Statistic, Word } from '../models';
+import { createPlainJS, Dictionary, Statistic, Word } from '../models';
 import { omitUndefined } from '../utils';
 import firebaseInstance from './Firebase';
 
@@ -16,21 +16,21 @@ class StatisticService {
     });
   }
 
-  /** GET statistics from the server */
-  public async getStatistics(): Promise<Statistic[]> {
-    return firebaseInstance.withTrace('getStatistics', async () => {
-      if (!this.uid) {
-        return [];
-      }
+  // /** GET statistics from the server */
+  // public async getStatistics(): Promise<Statistic[]> {
+  //   return firebaseInstance.withTrace('getStatistics', async () => {
+  //     if (!this.uid) {
+  //       return [];
+  //     }
 
-      const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
-      const arr: Statistic[] = [];
-      snapshot.forEach(payload => {
-        arr.push(createStatistic(payload));
-      });
-      return arr;
-    });
-  }
+  //     const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
+  //     const arr: Statistic[] = [];
+  //     snapshot.forEach(payload => {
+  //       arr.push(createStatistic(payload));
+  //     });
+  //     return arr;
+  //   });
+  // }
 
   /** RESET all the progress */
   public async resetProgress(): Promise<void> {
