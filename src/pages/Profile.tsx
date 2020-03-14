@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import { logOut, moon, text, mail, rocket } from 'ionicons/icons';
+import { logOut, mail, moon, rocket, text } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -27,21 +27,33 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { If, ResetProgress, Button } from '../components';
+import { Button, If, ResetProgress } from '../components';
+import useProfile from '../hooks/useProfile';
 import { UserProfile } from '../models';
 import { authService, profileService, toastService } from '../services';
 import { IonInputEvent, IonRangeEvent, IonToggleEvent } from '../types';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [profile, setProfile] = useState<UserProfile>(new UserProfile({}));
   const [photoURL, setPhotoURL] = useState<string>();
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [simpleMode, setSimpleMode] = useState(true);
   const [darkTheme, setDarkTheme] = useState(false);
   const [fontSize, setFontSize] = useState(100);
+
+  const onCompleted = useCallback((data: UserProfile) => {
+    setPhotoURL(data.photoURL);
+    setDisplayName(data.displayName);
+    setEmail(data.email);
+    setSimpleMode(data.simpleMode);
+    setDarkTheme(data.darkTheme);
+    setFontSize(data.fontSize * 100);
+  }, []);
+  const [state, fetchData] = useProfile({ onCompleted, onError: toastService.showError });
+
+  const { isLoading, data } = state;
+
   const [showAlert, setShowAlert] = useState(false);
-  const [showLoading, setShowLoading] = useState(true);
   const [showSaving, setShowSaving] = useState(false);
   const handleLogout = useCallback(async () => {
     try {
@@ -55,7 +67,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const handleDisplayNameChange = (evt: IonInputEvent) => setDisplayName(evt.detail.value || '');
 
   const handleDisplayNameBlur = async () => {
-    if (displayName == null || displayName === profile.displayName) {
+    if (displayName == null || displayName === data.displayName) {
       return;
     }
 
@@ -72,7 +84,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
 
   const handleEmailBlur = async () => {
-    if (email == null || email === profile.email) {
+    if (email == null || email === data.email) {
       return;
     }
 
@@ -125,32 +137,17 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     }
   };
 
-  const loadData = useCallback(async () => {
-    try {
-      const data = await profileService.getProfile();
-      setShowLoading(false);
-      setProfile(data);
-      setPhotoURL(data.photoURL);
-      setDisplayName(data.displayName);
-      setEmail(data.email);
-      setSimpleMode(data.simpleMode);
-      setDarkTheme(data.darkTheme);
-      setFontSize(data.fontSize * 100);
-    } catch (error) {
-      setShowLoading(false);
-      toastService.showError(error);
-    }
-  }, []);
-
   const doRefresh = useCallback(
     ({ target: refresher }) => {
-      setShowLoading(true);
-      loadData().finally(() => refresher.complete());
+      fetchData();
+      refresher.complete();
     },
-    [loadData],
+    [fetchData],
   );
 
-  useIonViewWillEnter(() => loadData(), [loadData]);
+  useIonViewWillEnter(fetchData);
+
+  console.log(state);
 
   return (
     <IonPage>
@@ -180,7 +177,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             )}
             <IonLabel position="stacked">Name</IonLabel>
             <If
-              condition={!showLoading}
+              condition={!isLoading}
               then={<IonInput type="text" value={displayName} onIonChange={handleDisplayNameChange} onIonBlur={handleDisplayNameBlur} />}
               else={<IonSkeletonText animated />}
             />
@@ -189,7 +186,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonIcon slot="start" icon={mail} />
             <IonLabel position="stacked">Email</IonLabel>
             <If
-              condition={!showLoading}
+              condition={!isLoading}
               then={<IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />}
               else={<IonSkeletonText animated />}
             />
@@ -198,7 +195,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonIcon slot="start" icon={rocket} />
             <IonLabel position="fixed">Simple Mode</IonLabel>
             <If
-              condition={!showLoading}
+              condition={!isLoading}
               then={<IonToggle checked={simpleMode} onIonChange={handleSimpleModeChange} />}
               else={<IonSkeletonText animated />}
             />
@@ -207,7 +204,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonIcon slot="start" icon={moon} />
             <IonLabel position="fixed">Dark Theme</IonLabel>
             <If
-              condition={!showLoading}
+              condition={!isLoading}
               then={<IonToggle checked={darkTheme} onIonChange={handleDarkThemeChange} />}
               else={<IonSkeletonText animated />}
             />
@@ -216,7 +213,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonIcon slot="start" icon={text} size="small" />
             <IonLabel position="fixed">Font Size</IonLabel>
             <If
-              condition={!showLoading}
+              condition={!isLoading}
               then={<IonRange min={80} max={150} value={fontSize} step={10} ticks snaps onIonChange={handleFontSizeChange} />}
               else={<IonSkeletonText animated />}
             />
@@ -234,7 +231,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           </span>
         </div>
         <ResetProgress showAlert={showAlert} onClose={() => setShowAlert(false)} />
-        <IonLoading isOpen={showLoading} message="Loading..." />
+        <IonLoading isOpen={isLoading} message="Loading..." />
         <IonLoading isOpen={showSaving} message="Saving..." />
       </IonContent>
     </IonPage>

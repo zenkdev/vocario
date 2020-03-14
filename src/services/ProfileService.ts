@@ -2,13 +2,13 @@
 import firebase from 'firebase/app';
 import Observable from 'zen-observable';
 
-import { createUserProfile, UserProfile } from '../models';
+import { UserProfile, createUserProfile } from '../models';
 import firebaseInstance from './Firebase';
 import localStoreManager from './LocalStoreManager';
 
-const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
-const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
-const DARK_THEME_DATA_KEY = 'lexion:darkTheme';
+export const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
+export const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
+export const DARK_THEME_DATA_KEY = 'lexion:darkTheme';
 
 class ProfileService {
   private currentUser: firebase.User | null = null;
