@@ -4,7 +4,6 @@ import AppContext from '../AppContext';
 import { createPlainJS, Dictionary, Statistic, Word } from '../models';
 import firebaseInstance from '../services/Firebase';
 import { omitUndefined } from '../utils';
-import { timeout } from './useDatabase';
 
 type UseUpdateStatisticsOptions = {
   onCompleted?: (dictionary: Dictionary, word: Word) => void;
@@ -19,12 +18,10 @@ const useUpdateStatistics = (options: UseUpdateStatisticsOptions = {}): ((dictio
     async (dictionary: Dictionary, word: Word) => {
       const { id: dictionaryId } = dictionary;
       try {
-        await timeout(2000);
         if (!uid) {
           throw new Error('User UID can not be null');
         }
-
-        await firebaseInstance.withTrace('updateFromWord', () => {
+        await firebaseInstance.withTrace('useUpdateStatistics', () => {
           const { id, texts, ...rest } = word;
           const poco = createPlainJS(texts);
           const ref = firebaseInstance.db.ref(`statistics/${uid}`);

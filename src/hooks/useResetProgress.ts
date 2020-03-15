@@ -2,7 +2,6 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 
 import AppContext from '../AppContext';
 import firebaseInstance from '../services/Firebase';
-import { timeout } from './useDatabase';
 
 type UseResetProgressOptions = {
   onCompleted?: () => void;
@@ -15,7 +14,6 @@ const useResetProgress = (options: UseResetProgressOptions = {}): (() => void) =
   const [didCancel, setDidCancel] = useState(false);
   const fetchData = useCallback(async () => {
     try {
-      await timeout(2000);
       if (!uid) {
         throw new Error('User UID can not be null');
       }

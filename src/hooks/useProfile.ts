@@ -5,7 +5,7 @@ import { createUserProfile, UserProfile } from '../models';
 import { localStoreManager } from '../services';
 import firebaseInstance from '../services/Firebase';
 import { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, SIMPLE_MODE_DATA_KEY } from '../services/LocalStoreManager';
-import { dataFetchReducer, timeout, TState, UseDatabaseOptions } from './useDatabase';
+import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
 
 const getOptions = () => {
   const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);
@@ -14,37 +14,33 @@ const getOptions = () => {
   return { simpleMode, fontSize, darkTheme };
 };
 
-const getProfile = async (uid: string | null): Promise<UserProfile> => {
-  return firebaseInstance.withTrace('getProfile', async () => {
-    const options = getOptions();
-    if (!uid) {
-      return new UserProfile(options);
-    }
-    const ref = firebaseInstance.db.ref(`/userProfile/${uid}`);
-    const snapshot = await ref.once('value');
-    return createUserProfile(snapshot, options);
-  });
-};
-
 type UserProfileState = TState<UserProfile>;
+type UserProfileReducer = TReducer<UserProfile>;
 type UseProfileOptions = UseDatabaseOptions<UserProfile>;
 
 const useProfile = (options: UseProfileOptions = {}): [UserProfileState, () => void] => {
   const { onCompleted, onError } = options;
   const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
-  const [state, dispatch] = useReducer(dataFetchReducer, {
+  const [state, dispatch] = useReducer<UserProfileReducer>(dataFetchReducer, {
     isLoading: false,
     isError: false,
     data: new UserProfile(getOptions()),
-  } as UserProfileState);
+  });
   useEffect(() => {
     let didCancel = false;
     const fetchData = async () => {
       dispatch({ type: 'FETCH_INIT' });
       try {
-        await timeout(2000);
-        const payload = await getProfile(uid);
+        const payload = await firebaseInstance.withTrace('useProfile', async () => {
+          const opts = getOptions();
+          if (!uid) {
+            return new UserProfile(opts);
+          }
+          const ref = firebaseInstance.db.ref(`/userProfile/${uid}`);
+          const snapshot = await ref.once('value');
+          return createUserProfile(snapshot, opts);
+        });
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
@@ -61,7 +57,7 @@ const useProfile = (options: UseProfileOptions = {}): [UserProfileState, () => v
       didCancel = true;
     };
   }, [uid, onCompleted, onError, counter]);
-  return [state as any, () => setCounter(counter + 1)];
+  return [state, () => setCounter(counter + 1)];
 };
 
 export default useProfile;

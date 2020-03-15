@@ -3,42 +3,37 @@ import { useContext, useEffect, useReducer, useState } from 'react';
 import AppContext from '../AppContext';
 import { createDictionary, Dictionary } from '../models';
 import firebaseInstance from '../services/Firebase';
-import { dataFetchReducer, timeout, TState, UseDatabaseOptions } from './useDatabase';
-
-const getDictionaries = async (uid: string | null): Promise<Dictionary[]> => {
-  return firebaseInstance.withTrace('getDictionaries', async () => {
-    const snapshot = await firebaseInstance.db.ref('dictionary').once('value');
-    const arr: Dictionary[] = [];
-    snapshot.forEach(payload => {
-      arr.push(createDictionary(payload, uid));
-    });
-    return arr;
-  });
-};
+import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
 
 type DictionariesState = TState<Dictionary[]>;
+type DictionariesReducer = TReducer<Dictionary[]>;
 type UseDictionariesOptions = UseDatabaseOptions<Dictionary[]>;
 
 const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesState, () => void] => {
   const { onCompleted, onError } = options;
   const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
-  const [state, dispatch] = useReducer(dataFetchReducer, {
+  const [state, dispatch] = useReducer<DictionariesReducer>(dataFetchReducer, {
     isLoading: false,
     isError: false,
     data: [],
-  } as DictionariesState);
+  });
   useEffect(() => {
     let didCancel = false;
     const fetchData = async () => {
       dispatch({ type: 'FETCH_INIT' });
       try {
-        await timeout(2000);
-        const payload = await getDictionaries(uid);
+        const payload = await firebaseInstance.withTrace('useDictionaries', async () => {
+          const snapshot = await firebaseInstance.db.ref('dictionary').once('value');
+          const arr: Dictionary[] = [];
+          snapshot.forEach(a => {
+            arr.push(createDictionary(a, uid));
+          });
+          return arr;
+        });
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
-          // throw new Error('test error');
         }
       } catch (error) {
         if (!didCancel) {
@@ -52,7 +47,7 @@ const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesSta
       didCancel = true;
     };
   }, [uid, onCompleted, onError, counter]);
-  return [state as any, () => setCounter(counter + 1)];
+  return [state, () => setCounter(counter + 1)];
 };
 
 export default useDictionaries;

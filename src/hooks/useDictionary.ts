@@ -3,7 +3,7 @@ import { useContext, useEffect, useReducer, useState } from 'react';
 import AppContext from '../AppContext';
 import { createDictionary, createStatistic, createWord, Dictionary, modelHelper, Statistic, Word } from '../models';
 import firebaseInstance from '../services/Firebase';
-import { dataFetchReducer, timeout, TState, UseDatabaseOptions } from './useDatabase';
+import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
 
 const getDictionary = async (dictionaryId: string, uid: string | null): Promise<Dictionary> => {
   return firebaseInstance.withTrace('getDictionary', async () => {
@@ -45,13 +45,14 @@ const getStatistics = async (dictionaryId: string, uid: string | null): Promise<
 };
 
 type DictionaryState = TState<Dictionary | undefined>;
+type DictionaryReducer = TReducer<Dictionary | undefined>;
 type UseDictionaryOptions = UseDatabaseOptions<Dictionary>;
 
 const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}): [DictionaryState, () => void] => {
   const { onCompleted, onError } = options;
   const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
-  const [state, dispatch] = useReducer(dataFetchReducer, {
+  const [state, dispatch] = useReducer<DictionaryReducer>(dataFetchReducer, {
     isLoading: false,
     isError: false,
   } as DictionaryState);
@@ -60,7 +61,6 @@ const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}
     const fetchData = async () => {
       dispatch({ type: 'FETCH_INIT' });
       try {
-        await timeout(2000);
         const dictionary = await getDictionary(dictionaryId as string, uid);
         const words = await getWords(dictionaryId as string);
         const statistics = await getStatistics(dictionaryId as string, uid);
@@ -94,7 +94,7 @@ const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}
       didCancel = true;
     };
   }, [dictionaryId, uid, onCompleted, onError, counter]);
-  return [state as any, () => setCounter(counter + 1)];
+  return [state, () => setCounter(counter + 1)];
 };
 
 export default useDictionary;
