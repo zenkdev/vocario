@@ -1,35 +1,34 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { IonAlert } from '@ionic/react';
 
-import { statisticService, toastService } from '../services';
+import { useResetProgress } from '../hooks';
+import { toastService } from '../services';
 
 interface ResetProgressProps {
-  showAlert: boolean;
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const ResetProgress: React.FC<ResetProgressProps> = ({ showAlert, onClose }) => {
-  const resetProgress = async () => {
+const ResetProgress: React.FC<ResetProgressProps> = ({ isOpen, onClose }) => {
+  const onCompleted = useCallback(() => {
+    toastService.showToast({
+      message: 'All progress successfully reset.',
+      header: 'Reset the progress',
+      duration: 3000,
+      color: 'success',
+      buttons: [{ text: 'Close', role: 'cancel' }],
+    });
+  }, []);
+  const resetProgress = useResetProgress({ onCompleted, onError: toastService.showError });
+  const handleReset = useCallback(() => {
     onClose();
-
-    try {
-      await statisticService.resetProgress();
-      toastService.showToast({
-        message: 'All progress successfully reset.',
-        header: 'Reset the progress',
-        duration: 3000,
-        color: 'success',
-        buttons: [{ text: 'Close', role: 'cancel' }],
-      });
-    } catch (error) {
-      toastService.showError(error);
-    }
-  };
+    resetProgress();
+  }, [onClose, resetProgress]);
 
   return (
     <IonAlert
-      isOpen={showAlert}
+      isOpen={isOpen}
       header="Reset the progress!"
       message="Are you sure you want to completely reset all your progress? This operation is irreversible!"
       buttons={[
@@ -40,7 +39,7 @@ const ResetProgress: React.FC<ResetProgressProps> = ({ showAlert, onClose }) => 
         },
         {
           text: 'Reset',
-          handler: resetProgress,
+          handler: handleReset,
         },
       ]}
     />

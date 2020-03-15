@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import firebase from 'firebase/app';
 import Observable from 'zen-observable';
 

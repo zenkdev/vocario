@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useReducer, useState } from 'react';
 
 import AppContext from '../AppContext';
@@ -22,7 +21,7 @@ type UseDictionariesOptions = UseDatabaseOptions<Dictionary[]>;
 
 const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesState, () => void] => {
   const { onCompleted, onError } = options;
-  const { currentUser } = useContext(AppContext);
+  const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -35,7 +34,7 @@ const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesSta
       dispatch({ type: 'FETCH_INIT' });
       try {
         await timeout(2000);
-        const payload = await getDictionaries(currentUser && currentUser.id);
+        const payload = await getDictionaries(uid);
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
@@ -52,7 +51,7 @@ const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesSta
     return () => {
       didCancel = true;
     };
-  }, [onCompleted, onError, currentUser, counter]);
+  }, [uid, onCompleted, onError, counter]);
   return [state as any, () => setCounter(counter + 1)];
 };
 

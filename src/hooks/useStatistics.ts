@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useReducer, useState } from 'react';
 
 import AppContext from '../AppContext';
@@ -24,7 +23,7 @@ type UseStatisticsOptions = UseDatabaseOptions<Statistic[]>;
 
 const useStatistics = (options: UseStatisticsOptions = {}): [StatisticsState, () => void] => {
   const { onCompleted, onError } = options;
-  const { currentUser } = useContext(AppContext);
+  const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -37,7 +36,7 @@ const useStatistics = (options: UseStatisticsOptions = {}): [StatisticsState, ()
       dispatch({ type: 'FETCH_INIT' });
       try {
         await timeout(2000);
-        const payload = await getStatistics(currentUser && currentUser.id);
+        const payload = await getStatistics(uid);
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
@@ -53,7 +52,7 @@ const useStatistics = (options: UseStatisticsOptions = {}): [StatisticsState, ()
     return () => {
       didCancel = true;
     };
-  }, [onCompleted, onError, currentUser, counter]);
+  }, [uid, onCompleted, onError, counter]);
   return [state as any, () => setCounter(counter + 1)];
 };
 

@@ -10,7 +10,7 @@ interface AnswerResultProps {
   text: string;
   smallText?: string;
   valid: boolean;
-  onNext: (valid: boolean) => Promise<void>;
+  onNext: (valid: boolean) => void;
   audioUrl?: string;
 }
 

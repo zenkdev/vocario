@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useReducer, useState } from 'react';
 import firebaseInstance from '../services/Firebase';
 

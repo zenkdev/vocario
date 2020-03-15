@@ -44,20 +44,20 @@ class ToastService {
 
   public ERROR_DEFAULT_TIMEOUT: number | undefined = 3000;
 
-  public onNextToast(onNext: (value: ToastOptions) => void) {
+  public onNextToast = (onNext: (value: ToastOptions) => void) => {
     return this.observable.subscribe(onNext);
-  }
+  };
 
-  public showInfo(message: string, duration?: number) {
+  public showInfo = (message: string, duration?: number) => {
     this.showToast({
       message,
       duration,
       color: 'primary',
       buttons: [{ text: 'Close', role: 'cancel' }],
     });
-  }
+  };
 
-  public showError(error: string | Error, timeout?: number) {
+  public showError = (error: string | Error, timeout?: number) => {
     const message = typeof error === 'string' ? error : error.message;
     const duration = timeout != null ? timeout : this.ERROR_DEFAULT_TIMEOUT;
     this.showToast({
@@ -66,11 +66,11 @@ class ToastService {
       color: 'danger',
       buttons: [{ text: 'Close', role: 'cancel' }],
     });
-  }
+  };
 
-  public showToast(options: ToastOptions) {
+  public showToast = (options: ToastOptions) => {
     this.subscriber.next(options);
-  }
+  };
 }
 
 export default new ToastService();

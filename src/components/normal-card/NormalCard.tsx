@@ -13,21 +13,21 @@ import NormalQuestion from './NormalQuestion';
 
 interface NormalCardProps {
   word: Word;
-  onNext: (valid: boolean) => Promise<void>;
+  onNext: (valid: boolean) => void;
   audioUrl?: string;
+  counter?: number;
 }
 
-const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, audioUrl }) => {
+const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, audioUrl, counter }) => {
   const { translation: title, category } = word;
   const [input, setInput] = useState('');
-  const [counter, setCounter] = useState(0);
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   const text = useMemo(() => modelHelper.getText(word), [word]);
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
-  const handleNext = useCallback(() => onNext(answer === Answer.valid).then(() => setCounter(c => c + 1)), [onNext, answer]);
+  const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
 
   const valid = answer === Answer.valid;
 

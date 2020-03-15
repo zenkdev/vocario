@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useReducer, useState } from 'react';
 
 import AppContext from '../AppContext';
 import { createUserProfile, UserProfile } from '../models';
 import { localStoreManager } from '../services';
 import firebaseInstance from '../services/Firebase';
-import { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, SIMPLE_MODE_DATA_KEY } from '../services/ProfileService';
+import { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, SIMPLE_MODE_DATA_KEY } from '../services/LocalStoreManager';
 import { dataFetchReducer, timeout, TState, UseDatabaseOptions } from './useDatabase';
 
 const getOptions = () => {
@@ -32,7 +31,7 @@ type UseProfileOptions = UseDatabaseOptions<UserProfile>;
 
 const useProfile = (options: UseProfileOptions = {}): [UserProfileState, () => void] => {
   const { onCompleted, onError } = options;
-  const { currentUser } = useContext(AppContext);
+  const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -45,7 +44,7 @@ const useProfile = (options: UseProfileOptions = {}): [UserProfileState, () => v
       dispatch({ type: 'FETCH_INIT' });
       try {
         await timeout(2000);
-        const payload = await getProfile(currentUser && currentUser.id);
+        const payload = await getProfile(uid);
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
@@ -61,7 +60,7 @@ const useProfile = (options: UseProfileOptions = {}): [UserProfileState, () => v
     return () => {
       didCancel = true;
     };
-  }, [currentUser, onCompleted, onError, counter]);
+  }, [uid, onCompleted, onError, counter]);
   return [state as any, () => setCounter(counter + 1)];
 };
 

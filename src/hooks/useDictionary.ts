@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useEffect, useReducer, useState } from 'react';
 
 import AppContext from '../AppContext';
-import { Dictionary, createDictionary, Word, createWord, Statistic, createStatistic, modelHelper } from '../models';
+import { createDictionary, createStatistic, createWord, Dictionary, modelHelper, Statistic, Word } from '../models';
 import firebaseInstance from '../services/Firebase';
-import { TState, dataFetchReducer, timeout, UseDatabaseOptions } from './useDatabase';
+import { dataFetchReducer, timeout, TState, UseDatabaseOptions } from './useDatabase';
 
 const getDictionary = async (dictionaryId: string, uid: string | null): Promise<Dictionary> => {
   return firebaseInstance.withTrace('getDictionary', async () => {
@@ -50,7 +49,7 @@ type UseDictionaryOptions = UseDatabaseOptions<Dictionary>;
 
 const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}): [DictionaryState, () => void] => {
   const { onCompleted, onError } = options;
-  const { currentUser } = useContext(AppContext);
+  const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -62,9 +61,9 @@ const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}
       dispatch({ type: 'FETCH_INIT' });
       try {
         await timeout(2000);
-        const dictionary = await getDictionary(dictionaryId as string, currentUser && currentUser.id);
+        const dictionary = await getDictionary(dictionaryId as string, uid);
         const words = await getWords(dictionaryId as string);
-        const statistics = await getStatistics(dictionaryId as string, currentUser && currentUser.id);
+        const statistics = await getStatistics(dictionaryId as string, uid);
         words.forEach(word => {
           const stat = statistics[word.id];
           if (stat) {
@@ -82,7 +81,6 @@ const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
-          // throw new Error('test error');
         }
       } catch (error) {
         if (!didCancel) {
@@ -95,7 +93,7 @@ const useDictionary = (dictionaryId?: string, options: UseDictionaryOptions = {}
     return () => {
       didCancel = true;
     };
-  }, [dictionaryId, onCompleted, onError, currentUser, counter]);
+  }, [dictionaryId, uid, onCompleted, onError, counter]);
   return [state as any, () => setCounter(counter + 1)];
 };
 

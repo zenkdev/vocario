@@ -28,6 +28,7 @@
     "import/extensions": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "react/prop-types": "off"
   },
   "settings": {

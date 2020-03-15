@@ -7,8 +7,9 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import AppContext from '../AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
 import { useDictionary } from '../hooks';
+import useUpdateStatistics from '../hooks/useUpdateStatistics';
 import { Dictionary, modelHelper, Word } from '../models';
-import { localStoreManager, statisticService, toastService } from '../services';
+import { localStoreManager, toastService } from '../services';
 import { NEXT_WORD_DATA_KEY_PREFIX } from '../services/LocalStoreManager';
 import { percent, randomNumber } from '../utils';
 
@@ -64,36 +65,37 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
     return arr.sort();
   }, [data, word]);
 
+  const [counter, setCounter] = useState(0);
+  const onCompleted = useCallback(
+    (dct: Dictionary) => {
+      delWordIndex(dct.id);
+      nextWord(dct);
+      setCounter(value => value + 1);
+    },
+    [nextWord, setCounter],
+  );
+  const updateStatistics = useUpdateStatistics({ onCompleted, onError: toastService.showError });
   const handleNext = useCallback(
-    async (valid: boolean) => {
+    (valid: boolean) => {
       if (!data || !word) {
         return;
       }
-
-      try {
-        const dateStr = formatISO(Date.now());
-        if (!word.occurs) {
-          word.occurs = [];
-        }
-        if (!word.occurs.length) {
-          word.occurs.push(dateStr);
-        }
-        if (valid) {
-          word.occurs.push(dateStr);
-        }
-
-        if (modelHelper.isCompleted(word)) {
-          data.wordsCompleted = Math.min(data.wordsCompleted + 1, data.wordsCount);
-        }
-
-        await statisticService.updateFromWord(data, word);
-        localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + data.id);
-        nextWord(data);
-      } catch (error) {
-        toastService.showError(error);
+      const dateStr = formatISO(Date.now());
+      if (!word.occurs) {
+        word.occurs = [];
       }
+      if (!word.occurs.length) {
+        word.occurs.push(dateStr);
+      }
+      if (valid) {
+        word.occurs.push(dateStr);
+      }
+      if (modelHelper.isCompleted(word)) {
+        data.wordsCompleted = Math.min(data.wordsCompleted + 1, data.wordsCount);
+      }
+      updateStatistics(data, word);
     },
-    [data, word, nextWord],
+    [data, word, updateStatistics],
   );
 
   useEffect(() => {
@@ -114,8 +116,8 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
       </IonHeader>
       <IonContent fullscreen>
         {data && <IonProgressBar value={percent(completed, total)} />}
-        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} />}
-        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} audioUrl={url} options={options} />}
+        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} counter={counter} />}
+        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} audioUrl={url} counter={counter} options={options} />}
         {!isLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>

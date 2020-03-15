@@ -28,10 +28,10 @@ import {
 } from '@ionic/react';
 
 import { Button, If, ResetProgress } from '../components';
-import useProfile from '../hooks/useProfile';
 import { UserProfile } from '../models';
 import { authService, profileService, toastService } from '../services';
 import { IonInputEvent, IonRangeEvent, IonToggleEvent } from '../types';
+import { useProfile } from '../hooks';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [photoURL, setPhotoURL] = useState<string>();
@@ -40,7 +40,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [simpleMode, setSimpleMode] = useState(true);
   const [darkTheme, setDarkTheme] = useState(false);
   const [fontSize, setFontSize] = useState(100);
-
   const onCompleted = useCallback((data: UserProfile) => {
     setPhotoURL(data.photoURL);
     setDisplayName(data.displayName);
@@ -49,11 +48,8 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     setDarkTheme(data.darkTheme);
     setFontSize(data.fontSize * 100);
   }, []);
-  const [state, fetchData] = useProfile({ onCompleted, onError: toastService.showError });
-
-  const { isLoading, data } = state;
-
-  const [showAlert, setShowAlert] = useState(false);
+  const [{ isLoading, data }, fetchData] = useProfile({ onCompleted, onError: toastService.showError });
+  const [showResetProgress, setShowResetProgress] = useState(false);
   const [showSaving, setShowSaving] = useState(false);
   const handleLogout = useCallback(async () => {
     try {
@@ -147,8 +143,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
   useIonViewWillEnter(fetchData);
 
-  console.log(state);
-
   return (
     <IonPage>
       <IonHeader translucent>
@@ -221,7 +215,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           </IonItem>
         </IonList>
         <div className="ion-padding">
-          <Button expand="block" color="primary" onClick={() => setShowAlert(true)}>
+          <Button expand="block" color="primary" onClick={() => setShowResetProgress(true)}>
             Reset the progress
           </Button>
         </div>
@@ -230,7 +224,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
             {process.env.REACT_APP_NAME} version: {process.env.REACT_APP_VERSION}
           </span>
         </div>
-        <ResetProgress showAlert={showAlert} onClose={() => setShowAlert(false)} />
+        <ResetProgress isOpen={showResetProgress} onClose={() => setShowResetProgress(false)} />
         <IonLoading isOpen={isLoading} message="Loading..." />
         <IonLoading isOpen={showSaving} message="Saving..." />
       </IonContent>
