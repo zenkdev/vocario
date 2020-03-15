@@ -93,7 +93,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
         toastService.showError(error);
       }
     },
-    [data, word],
+    [data, word, nextWord],
   );
 
   useEffect(() => {

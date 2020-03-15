@@ -18,8 +18,8 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { StatisticListItem } from '../components';
-import useStatistics from '../hooks/useStatistics';
+import { StatisticsItem } from '../components';
+import { useStatistics } from '../hooks';
 import { modelHelper } from '../models';
 import { toastService } from '../services';
 import { IonInputEvent } from '../types';
@@ -27,19 +27,21 @@ import { IonInputEvent } from '../types';
 const NUMBER_OF_ITEMS = 20;
 
 const Statistics: React.FC = () => {
-  const [state, fetchData] = useStatistics({ onError: toastService.showError });
-
-  const { isLoading, data } = state;
-
-  const [segment, setSegment] = useState<string>('learning');
-  const [numberOfItems, setNumberOfItems] = useState(NUMBER_OF_ITEMS);
+  const [{ isLoading, data }, fetchData] = useStatistics({ onError: toastService.showError });
   const learning = useMemo(() => `Learning ${modelHelper.count(data, s => !modelHelper.isCompleted(s))}`, [data]);
   const completed = useMemo(() => `Completed ${modelHelper.count(data, s => modelHelper.isCompleted(s))}`, [data]);
+  const [segment, setSegment] = useState<string>('learning');
+  const [numberOfItems, setNumberOfItems] = useState(NUMBER_OF_ITEMS);
   const handleSegmentChange = useCallback((e: IonInputEvent) => {
     setSegment(e.detail.value || '');
     setNumberOfItems(NUMBER_OF_ITEMS);
   }, []);
   const handleShowMore = useCallback(() => setNumberOfItems(numberOfItems + NUMBER_OF_ITEMS), [numberOfItems]);
+  const items = useMemo(
+    () =>
+      data.filter(s => (segment === 'learning' && !modelHelper.isCompleted(s)) || (segment === 'completed' && modelHelper.isCompleted(s))),
+    [data, segment],
+  );
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();
@@ -47,14 +49,7 @@ const Statistics: React.FC = () => {
     },
     [fetchData],
   );
-  const items = useMemo(
-    () =>
-      data.filter(s => (segment === 'learning' && !modelHelper.isCompleted(s)) || (segment === 'completed' && modelHelper.isCompleted(s))),
-    [data, segment],
-  );
   useIonViewWillEnter(fetchData);
-
-  console.log(state);
 
   return (
     <IonPage>
@@ -82,7 +77,7 @@ const Statistics: React.FC = () => {
             </IonListHeader>
           )}
           {items.slice(0, numberOfItems).map(item => (
-            <StatisticListItem key={item.id} item={item} showCount={segment !== 'completed'} />
+            <StatisticsItem key={item.id} item={item} showCount={segment !== 'completed'} />
           ))}
           {items.length > numberOfItems && (
             <IonItem onClick={handleShowMore} button>
