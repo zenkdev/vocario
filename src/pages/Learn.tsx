@@ -6,8 +6,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 
 import AppContext from '../AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
-import { useDictionary } from '../hooks';
-import useUpdateStatistics from '../hooks/useUpdateStatistics';
+import { useDictionary, useUpdateStatistics } from '../hooks';
 import { Dictionary, modelHelper, Word } from '../models';
 import { localStoreManager, toastService } from '../services';
 import { NEXT_WORD_DATA_KEY_PREFIX } from '../services/LocalStoreManager';

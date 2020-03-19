@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import { logOut, mail, moon, rocket, text } from 'ionicons/icons';
+import { logOut, mail, rocket, text } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -27,25 +27,23 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { Button, If, ResetProgress } from '../components';
+import { Button, DarkThemeItem, If, ResetProgress } from '../components';
+import { useProfile, useUpdateEmail, useUpdateName, useUpdateProfile } from '../hooks';
 import { UserProfile } from '../models';
-import { authService, profileService, toastService } from '../services';
+import { authService, toastService } from '../services';
 import { IonInputEvent, IonRangeEvent, IonToggleEvent } from '../types';
-import { useProfile } from '../hooks';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [photoURL, setPhotoURL] = useState<string>();
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [simpleMode, setSimpleMode] = useState(true);
-  const [darkTheme, setDarkTheme] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const onCompleted = useCallback((data: UserProfile) => {
     setPhotoURL(data.photoURL);
     setDisplayName(data.displayName);
     setEmail(data.email);
     setSimpleMode(data.simpleMode);
-    setDarkTheme(data.darkTheme);
     setFontSize(data.fontSize * 100);
   }, []);
   const [{ isLoading, data }, fetchData] = useProfile({ onCompleted, onError: toastService.showError });
@@ -62,75 +60,55 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
   const handleDisplayNameChange = (evt: IonInputEvent) => setDisplayName(evt.detail.value || '');
 
-  const handleDisplayNameBlur = async () => {
+  const updateOnCompleted = useCallback(
+    values => {
+      setShowSaving(false);
+      if (typeof values.simpleMode === 'boolean') setSimpleMode(values.simpleMode);
+      if (typeof values.fontSize === 'number') setFontSize(values.fontSize * 100);
+      fetchData();
+    },
+    [setShowSaving, setSimpleMode, setFontSize, fetchData],
+  );
+  const updateOnError = useCallback(
+    error => {
+      setShowSaving(false);
+      toastService.showError(error);
+    },
+    [setShowSaving],
+  );
+  const updateName = useUpdateName({ onCompleted: updateOnCompleted as any, onError: updateOnError });
+  const handleDisplayNameBlur = () => {
     if (displayName == null || displayName === data.displayName) {
       return;
     }
 
     setShowSaving(true);
-    try {
-      await profileService.updateName(displayName);
-      setShowSaving(false);
-    } catch (error) {
-      setShowSaving(false);
-      toastService.showError(error);
-    }
+    updateName(displayName);
   };
 
   const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
-
-  const handleEmailBlur = async () => {
+  const updateEmail = useUpdateEmail({ onCompleted: updateOnCompleted as any, onError: updateOnError });
+  const handleEmailBlur = () => {
     if (email == null || email === data.email) {
       return;
     }
 
     setShowSaving(true);
-    try {
-      await profileService.updateEmail(email, '');
-      setShowSaving(false);
-    } catch (error) {
-      setShowSaving(false);
-      toastService.showError(error);
-    }
+    updateEmail(email, '');
   };
 
-  const handleSimpleModeChange = async (evt: IonToggleEvent) => {
-    const newValue = evt.detail.checked;
-    const oldValue = simpleMode;
-
-    setSimpleMode(newValue);
-    try {
-      await profileService.updateSimpleMode(newValue);
-    } catch (error) {
-      setSimpleMode(oldValue); // restore if error occur
-      toastService.showError(error);
-    }
-  };
-
-  const handleDarkThemeChange = async (evt: IonToggleEvent) => {
-    const newValue = evt.detail.checked;
-    const oldValue = darkTheme;
-
-    setDarkTheme(newValue);
-    try {
-      await profileService.updateDarkTheme(newValue);
-    } catch (error) {
-      setDarkTheme(oldValue); // restore if error occur
-      toastService.showError(error);
-    }
-  };
-
+  const updateProfile = useUpdateProfile({ onCompleted: updateOnCompleted, onError: updateOnError });
+  const handleSimpleModeChange = useCallback(
+    (evt: IonToggleEvent) => {
+      setShowSaving(true);
+      updateProfile({ simpleMode: evt.detail.checked });
+    },
+    [setShowSaving, updateProfile],
+  );
   const handleFontSizeChange = async (evt: IonRangeEvent) => {
     const newValue = evt.detail.value as number;
-    const oldValue = fontSize;
-
-    setFontSize(newValue);
-    try {
-      await profileService.updateFontSize(newValue / 100);
-    } catch (error) {
-      setFontSize(oldValue); // restore if error occur
-      toastService.showError(error);
-    }
+    setShowSaving(true);
+    updateProfile({ fontSize: newValue / 100 });
   };
 
   const doRefresh = useCallback(
@@ -194,15 +172,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
               else={<IonSkeletonText animated />}
             />
           </IonItem>
-          <IonItem>
-            <IonIcon slot="start" icon={moon} />
-            <IonLabel position="fixed">Dark Theme</IonLabel>
-            <If
-              condition={!isLoading}
-              then={<IonToggle checked={darkTheme} onIonChange={handleDarkThemeChange} />}
-              else={<IonSkeletonText animated />}
-            />
-          </IonItem>
+          <DarkThemeItem isLoading={isLoading} initialDarkTheme={data.darkTheme} setShowSaving={setShowSaving} />
           <IonItem>
             <IonIcon slot="start" icon={text} size="small" />
             <IonLabel position="fixed">Font Size</IonLabel>

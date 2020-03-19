@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 
-import AppContext from '../AppContext';
-import firebaseInstance from '../services/Firebase';
+import AppContext from '../../AppContext';
+import firebaseInstance from '../../services/Firebase';
 
 type UseResetProgressOptions = {
   onCompleted?: () => void;

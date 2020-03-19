@@ -1,11 +1,11 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 
-import AppContext from '../AppContext';
-import { createUserProfile, UserProfile } from '../models';
-import { localStoreManager } from '../services';
-import firebaseInstance from '../services/Firebase';
-import { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, SIMPLE_MODE_DATA_KEY } from '../services/LocalStoreManager';
-import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
+import AppContext from '../../AppContext';
+import { createUserProfile, UserProfile } from '../../models';
+import { localStoreManager } from '../../services';
+import firebaseInstance from '../../services/Firebase';
+import { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, SIMPLE_MODE_DATA_KEY } from '../../services/LocalStoreManager';
+import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from '../dataFetchReducer';
 
 const getOptions = () => {
   const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);

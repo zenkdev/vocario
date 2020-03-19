@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import { IonAlert } from '@ionic/react';
 
-import { useResetProgress } from '../hooks';
-import { toastService } from '../services';
+import { useResetProgress } from '../../hooks';
+import { toastService } from '../../services';
 
 interface ResetProgressProps {
   isOpen: boolean;

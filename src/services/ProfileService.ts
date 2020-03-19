@@ -50,39 +50,39 @@ class ProfileService {
     });
   }
 
-  public async updateName(displayName: string): Promise<void> {
-    if (this.currentUser) {
-      await this.currentUser.updateProfile({ displayName });
-      await this.updateUserProfile({ displayName });
-      await this.raiseCurrentUserChanged();
-    }
-  }
+  // public async updateName(displayName: string): Promise<void> {
+  //   if (this.currentUser) {
+  //     await this.currentUser.updateProfile({ displayName });
+  //     await this.updateUserProfile({ displayName });
+  //     await this.raiseCurrentUserChanged();
+  //   }
+  // }
 
-  public async updateEmail(newEmail: string, password: string): Promise<void> {
-    if (this.currentUser) {
-      if (this.currentUser.email == null) {
-        throw new Error('Email can not be null');
-      }
-      const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser.email, password);
-      await this.currentUser.reauthenticateWithCredential(credential);
-      await this.currentUser.updateEmail(newEmail);
-      await this.updateUserProfile({ email: newEmail });
-      await this.raiseCurrentUserChanged();
-    }
-  }
+  // public async updateEmail(newEmail: string, password: string): Promise<void> {
+  //   if (this.currentUser) {
+  //     if (this.currentUser.email == null) {
+  //       throw new Error('Email can not be null');
+  //     }
+  //     const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser.email, password);
+  //     await this.currentUser.reauthenticateWithCredential(credential);
+  //     await this.currentUser.updateEmail(newEmail);
+  //     await this.updateUserProfile({ email: newEmail });
+  //     await this.raiseCurrentUserChanged();
+  //   }
+  // }
 
-  public async updatePassword(newPassword: string, oldPassword: string): Promise<void> {
-    if (this.currentUser) {
-      if (this.currentUser.email == null) {
-        throw new Error('Email can not be null');
-      }
-      const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser.email, oldPassword);
-      await this.currentUser.reauthenticateWithCredential(credential);
-      await this.currentUser.updatePassword(newPassword);
-      await this.raiseCurrentUserChanged();
-      // console.info('Password Changed');
-    }
-  }
+  // public async updatePassword(newPassword: string, oldPassword: string): Promise<void> {
+  //   if (this.currentUser) {
+  //     if (this.currentUser.email == null) {
+  //       throw new Error('Email can not be null');
+  //     }
+  //     const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser.email, oldPassword);
+  //     await this.currentUser.reauthenticateWithCredential(credential);
+  //     await this.currentUser.updatePassword(newPassword);
+  //     await this.raiseCurrentUserChanged();
+  //     // console.info('Password Changed');
+  //   }
+  // }
 
   public async updateSimpleMode(simpleMode: boolean): Promise<void> {
     localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
