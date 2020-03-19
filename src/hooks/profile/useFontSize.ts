@@ -2,20 +2,26 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { localStoreManager } from '../../services';
 import firebaseInstance from '../../services/Firebase';
-import { DARK_THEME_DATA_KEY } from '../../services/LocalStoreManager';
+import { FONT_SIZE_DATA_KEY } from '../../services/LocalStoreManager';
 
-type UseDarkThemeOptions = {
+type UseFontSizeOptions = {
   onCompleted?: () => void;
   onError?: (error: any) => void;
 };
 
-const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}): [boolean, (newValue: boolean) => void] => {
+type UpdateProfileValues = {
+  simpleMode?: boolean;
+  fontSize?: number;
+  darkTheme?: boolean;
+};
+
+const useFontSize = (initialValue: number, options: UseFontSizeOptions = {}): [number, (newValue: number) => void] => {
   const { onCompleted, onError } = options;
   const [didCancel, setDidCancel] = useState(false);
   const [isRestoring, setRestoring] = useState(false);
   const [value, setValue] = useState(initialValue);
   const updateData = useCallback(
-    async (newValue: boolean) => {
+    async (newValue: number) => {
       // check if restore value from error
       if (isRestoring) return;
 
@@ -25,8 +31,8 @@ const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}):
       try {
         const { currentUser } = firebaseInstance.auth;
         if (currentUser) {
-          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ darkTheme: newValue });
-          localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, newValue);
+          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ fontSize: newValue });
+          localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, newValue);
           // await this.raiseCurrentUserChanged();
         }
         if (!didCancel) {
@@ -50,4 +56,4 @@ const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}):
   return [value, updateData];
 };
 
-export default useDarkTheme;
+export default useFontSize;

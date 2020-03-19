@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import { logOut, mail, rocket, text } from 'ionicons/icons';
+import { logOut, mail } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -17,34 +17,28 @@ import {
   IonListHeader,
   IonLoading,
   IonPage,
-  IonRange,
   IonRefresher,
   IonRefresherContent,
   IonSkeletonText,
   IonTitle,
-  IonToggle,
   IonToolbar,
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { Button, DarkThemeItem, If, ResetProgress } from '../components';
-import { useProfile, useUpdateEmail, useUpdateName, useUpdateProfile } from '../hooks';
+import { Button, DarkThemeItem, FontSizeItem, If, ResetProgress, SimpleModeItem } from '../components';
+import { useProfile, useUpdateEmail, useUpdateName } from '../hooks';
 import { UserProfile } from '../models';
 import { authService, toastService } from '../services';
-import { IonInputEvent, IonRangeEvent, IonToggleEvent } from '../types';
+import { IonInputEvent } from '../types';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const [photoURL, setPhotoURL] = useState<string>();
   const [displayName, setDisplayName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [simpleMode, setSimpleMode] = useState(true);
-  const [fontSize, setFontSize] = useState(100);
   const onCompleted = useCallback((data: UserProfile) => {
     setPhotoURL(data.photoURL);
     setDisplayName(data.displayName);
     setEmail(data.email);
-    setSimpleMode(data.simpleMode);
-    setFontSize(data.fontSize * 100);
   }, []);
   const [{ isLoading, data }, fetchData] = useProfile({ onCompleted, onError: toastService.showError });
   const [showResetProgress, setShowResetProgress] = useState(false);
@@ -60,15 +54,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
   const handleDisplayNameChange = (evt: IonInputEvent) => setDisplayName(evt.detail.value || '');
 
-  const updateOnCompleted = useCallback(
-    values => {
-      setShowSaving(false);
-      if (typeof values.simpleMode === 'boolean') setSimpleMode(values.simpleMode);
-      if (typeof values.fontSize === 'number') setFontSize(values.fontSize * 100);
-      fetchData();
-    },
-    [setShowSaving, setSimpleMode, setFontSize, fetchData],
-  );
+  const updateOnCompleted = useCallback(() => setShowSaving(false), [setShowSaving]);
   const updateOnError = useCallback(
     error => {
       setShowSaving(false);
@@ -76,7 +62,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     },
     [setShowSaving],
   );
-  const updateName = useUpdateName({ onCompleted: updateOnCompleted as any, onError: updateOnError });
+  const updateName = useUpdateName({ onCompleted: updateOnCompleted, onError: updateOnError });
   const handleDisplayNameBlur = () => {
     if (displayName == null || displayName === data.displayName) {
       return;
@@ -87,7 +73,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
-  const updateEmail = useUpdateEmail({ onCompleted: updateOnCompleted as any, onError: updateOnError });
+  const updateEmail = useUpdateEmail({ onCompleted: updateOnCompleted, onError: updateOnError });
   const handleEmailBlur = () => {
     if (email == null || email === data.email) {
       return;
@@ -95,20 +81,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
     setShowSaving(true);
     updateEmail(email, '');
-  };
-
-  const updateProfile = useUpdateProfile({ onCompleted: updateOnCompleted, onError: updateOnError });
-  const handleSimpleModeChange = useCallback(
-    (evt: IonToggleEvent) => {
-      setShowSaving(true);
-      updateProfile({ simpleMode: evt.detail.checked });
-    },
-    [setShowSaving, updateProfile],
-  );
-  const handleFontSizeChange = async (evt: IonRangeEvent) => {
-    const newValue = evt.detail.value as number;
-    setShowSaving(true);
-    updateProfile({ fontSize: newValue / 100 });
   };
 
   const doRefresh = useCallback(
@@ -163,26 +135,9 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
               else={<IonSkeletonText animated />}
             />
           </IonItem>
-          <IonItem>
-            <IonIcon slot="start" icon={rocket} />
-            <IonLabel position="fixed">Simple Mode</IonLabel>
-            <If
-              condition={!isLoading}
-              then={<IonToggle checked={simpleMode} onIonChange={handleSimpleModeChange} />}
-              else={<IonSkeletonText animated />}
-            />
-          </IonItem>
-          <DarkThemeItem isLoading={isLoading} initialDarkTheme={data.darkTheme} setShowSaving={setShowSaving} />
-          <IonItem>
-            <IonIcon slot="start" icon={text} size="small" />
-            <IonLabel position="fixed">Font Size</IonLabel>
-            <If
-              condition={!isLoading}
-              then={<IonRange min={80} max={150} value={fontSize} step={10} ticks snaps onIonChange={handleFontSizeChange} />}
-              else={<IonSkeletonText animated />}
-            />
-            <IonIcon slot="end" icon={text} />
-          </IonItem>
+          <SimpleModeItem isLoading={isLoading} initialValue={data.simpleMode} setShowSaving={setShowSaving} />
+          <DarkThemeItem isLoading={isLoading} initialValue={data.darkTheme} setShowSaving={setShowSaving} />
+          <FontSizeItem isLoading={isLoading} initialValue={data.fontSize} setShowSaving={setShowSaving} />
         </IonList>
         <div className="ion-padding">
           <Button expand="block" color="primary" onClick={() => setShowResetProgress(true)}>

@@ -84,23 +84,23 @@ class ProfileService {
   //   }
   // }
 
-  public async updateSimpleMode(simpleMode: boolean): Promise<void> {
-    localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
-    await this.updateUserProfile({ simpleMode });
-    await this.raiseCurrentUserChanged();
-  }
+  // public async updateSimpleMode(simpleMode: boolean): Promise<void> {
+  //   localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, simpleMode);
+  //   await this.updateUserProfile({ simpleMode });
+  //   await this.raiseCurrentUserChanged();
+  // }
 
-  public async updateFontSize(fontSize: number): Promise<void> {
-    localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, fontSize);
-    await this.updateUserProfile({ fontSize });
-    await this.raiseCurrentUserChanged();
-  }
+  // public async updateFontSize(fontSize: number): Promise<void> {
+  //   localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, fontSize);
+  //   await this.updateUserProfile({ fontSize });
+  //   await this.raiseCurrentUserChanged();
+  // }
 
-  public async updateDarkTheme(darkTheme: boolean): Promise<void> {
-    localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, darkTheme);
-    await this.updateUserProfile({ darkTheme });
-    await this.raiseCurrentUserChanged();
-  }
+  // public async updateDarkTheme(darkTheme: boolean): Promise<void> {
+  //   localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, darkTheme);
+  //   await this.updateUserProfile({ darkTheme });
+  //   await this.raiseCurrentUserChanged();
+  // }
 
   private handleAuthStateChanged(user: firebase.User | null) {
     this.currentUser = user;
@@ -120,11 +120,11 @@ class ProfileService {
     });
   }
 
-  private async updateUserProfile(values: Record<string, any>): Promise<void> {
-    if (this.currentUser) {
-      await firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`).update(values);
-    }
-  }
+  // private async updateUserProfile(values: Record<string, any>): Promise<void> {
+  //   if (this.currentUser) {
+  //     await firebaseInstance.db.ref(`/userProfile/${this.currentUser.uid}`).update(values);
+  //   }
+  // }
 }
 
 export default new ProfileService();

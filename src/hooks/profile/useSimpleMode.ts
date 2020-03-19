@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { localStoreManager } from '../../services';
 import firebaseInstance from '../../services/Firebase';
-import { DARK_THEME_DATA_KEY } from '../../services/LocalStoreManager';
+import { SIMPLE_MODE_DATA_KEY } from '../../services/LocalStoreManager';
 
-type UseDarkThemeOptions = {
+type UseSimpleModeOptions = {
   onCompleted?: () => void;
   onError?: (error: any) => void;
 };
 
-const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}): [boolean, (newValue: boolean) => void] => {
+const useSimpleMode = (initialValue: boolean, options: UseSimpleModeOptions = {}): [boolean, (newValue: boolean) => void] => {
   const { onCompleted, onError } = options;
   const [didCancel, setDidCancel] = useState(false);
   const [isRestoring, setRestoring] = useState(false);
@@ -25,8 +25,8 @@ const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}):
       try {
         const { currentUser } = firebaseInstance.auth;
         if (currentUser) {
-          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ darkTheme: newValue });
-          localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, newValue);
+          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ simpleMode: newValue });
+          localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, newValue);
           // await this.raiseCurrentUserChanged();
         }
         if (!didCancel) {
@@ -50,4 +50,4 @@ const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}):
   return [value, updateData];
 };
 
-export default useDarkTheme;
+export default useSimpleMode;
