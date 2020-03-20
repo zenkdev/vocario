@@ -1,9 +1,9 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 
-import AppContext from '../AppContext';
-import { createStatistic, Statistic } from '../models';
-import firebaseInstance from '../services/Firebase';
-import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
+import AppContext from '../../AppContext';
+import { Statistic } from '../../models';
+import { statisticsService } from '../../services';
+import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from '../dataFetchReducer';
 
 type StatisticsState = TState<Statistic[]>;
 type StatisticsReducer = TReducer<Statistic[]>;
@@ -23,16 +23,7 @@ const useStatistics = (options: UseStatisticsOptions = {}): [StatisticsState, ()
     const fetchData = async () => {
       dispatch({ type: 'FETCH_INIT' });
       try {
-        const payload = await firebaseInstance.withTrace('useStatistics', async () => {
-          const arr: Statistic[] = [];
-          if (uid) {
-            const snapshot = await firebaseInstance.db.ref(`statistics/${uid}`).once('value');
-            snapshot.forEach(a => {
-              arr.push(createStatistic(a));
-            });
-          }
-          return arr;
-        });
+        const payload = await statisticsService.getStatistics();
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);

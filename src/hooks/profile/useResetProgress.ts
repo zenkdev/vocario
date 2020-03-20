@@ -1,7 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import AppContext from '../../AppContext';
-import firebaseInstance from '../../services/Firebase';
+import { statisticsService } from '../../services';
 
 type UseResetProgressOptions = {
   onCompleted?: () => void;
@@ -10,14 +9,10 @@ type UseResetProgressOptions = {
 
 const useResetProgress = (options: UseResetProgressOptions = {}): (() => void) => {
   const { onCompleted, onError } = options;
-  const { uid } = useContext(AppContext);
   const [didCancel, setDidCancel] = useState(false);
   const fetchData = useCallback(async () => {
     try {
-      if (!uid) {
-        throw new Error('User UID can not be null');
-      }
-      await firebaseInstance.withTrace('resetProgress', () => firebaseInstance.db.ref(`statistics/${uid}`).remove());
+      await statisticsService.resetProgress();
       if (!didCancel) {
         if (onCompleted) onCompleted();
       }
@@ -26,7 +21,7 @@ const useResetProgress = (options: UseResetProgressOptions = {}): (() => void) =
         if (onError) onError(error);
       }
     }
-  }, [didCancel, onCompleted, onError, uid]);
+  }, [didCancel, onCompleted, onError]);
   useEffect(() => {
     setDidCancel(false);
     return () => setDidCancel(true);
