@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { localStoreManager } from '../../services';
-import firebaseInstance from '../../services/Firebase';
-import { SIMPLE_MODE_DATA_KEY } from '../../services/LocalStoreManager';
+import { profileService } from '../../services';
 
 type UseSimpleModeOptions = {
   onCompleted?: () => void;
@@ -23,12 +21,7 @@ const useSimpleMode = (initialValue: boolean, options: UseSimpleModeOptions = {}
       setValue(newValue);
 
       try {
-        const { currentUser } = firebaseInstance.auth;
-        if (currentUser) {
-          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ simpleMode: newValue });
-          localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, newValue);
-          // await this.raiseCurrentUserChanged();
-        }
+        await profileService.updateSimpleMode(newValue);
         if (!didCancel) {
           if (onCompleted) onCompleted();
         }

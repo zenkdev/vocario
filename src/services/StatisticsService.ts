@@ -4,16 +4,16 @@ import { createPlainJS, createStatistic, Dictionary, Statistic, Word } from '../
 import { omitUndefined } from '../utils';
 import firebaseInstance from './Firebase';
 
-const { withTrace } = firebaseInstance;
+const { auth, db, withTrace } = firebaseInstance;
 
 class StatisticsService {
-  private readonly db: firebase.database.Database;
+  private readonly database: firebase.database.Database;
 
   private uid: string | null = null;
 
   constructor() {
-    this.db = firebaseInstance.db;
-    firebaseInstance.auth.onAuthStateChanged(user => {
+    this.database = db;
+    auth.onAuthStateChanged(user => {
       this.uid = user && user.uid;
     });
   }
@@ -25,7 +25,7 @@ class StatisticsService {
         return [];
       }
 
-      const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
+      const snapshot = await this.database.ref(`statistics/${this.uid}`).once('value');
       const arr: Statistic[] = [];
       snapshot.forEach(payload => {
         arr.push(createStatistic(payload));
@@ -41,12 +41,12 @@ class StatisticsService {
         throw new Error('User UID can not be null');
       }
 
-      await this.db.ref(`statistics/${this.uid}`).remove();
+      await this.database.ref(`statistics/${this.uid}`).remove();
     });
   }
 
   /** UPDATE statistics on the server */
-  public async updateStatistics({ id: dictionaryId }: Dictionary, word: Word): Promise<void> {
+  public async updateStatistics(dictionary: Dictionary, word: Word): Promise<void> {
     return withTrace('updateFromWord', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
@@ -54,9 +54,9 @@ class StatisticsService {
 
       const { id, texts, ...rest } = word;
       const poco = createPlainJS(texts);
-      const ref = this.db.ref(`statistics/${this.uid}`);
+      const ref = this.database.ref(`statistics/${this.uid}`);
       const updates: Record<string, Partial<Statistic>> = {
-        [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
+        [id]: omitUndefined({ ...rest, ...poco, dictionaryId: dictionary.id }),
       };
       await ref.update(updates);
     });

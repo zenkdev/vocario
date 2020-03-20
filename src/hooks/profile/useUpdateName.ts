@@ -1,27 +1,22 @@
-import firebase from 'firebase/app';
 import { useCallback, useEffect, useState } from 'react';
 
-import firebaseInstance from '../services/Firebase';
+import firebaseInstance from '../../services/Firebase';
 
-type UseUpdatePasswordOptions = {
+type UseUpdateNameOptions = {
   onCompleted?: () => void;
   onError?: (error: any) => void;
 };
 
-const useUpdatePassword = (options: UseUpdatePasswordOptions = {}): ((newPassword: string, oldPassword: string) => void) => {
+const useUpdateName = (options: UseUpdateNameOptions = {}): ((displayName: string) => void) => {
   const { onCompleted, onError } = options;
   const [didCancel, setDidCancel] = useState(false);
   const updateData = useCallback(
-    async (newPassword: string, oldPassword: string) => {
+    async (displayName: string) => {
       try {
         const { currentUser } = firebaseInstance.auth;
         if (currentUser) {
-          if (currentUser.email == null) {
-            throw new Error('Email can not be null');
-          }
-          const credential = firebase.auth.EmailAuthProvider.credential(currentUser.email, oldPassword);
-          await currentUser.reauthenticateWithCredential(credential);
-          await currentUser.updatePassword(newPassword);
+          await currentUser.updateProfile({ displayName });
+          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ displayName });
           // await this.raiseCurrentUserChanged();
         }
         if (!didCancel) {
@@ -42,4 +37,4 @@ const useUpdatePassword = (options: UseUpdatePasswordOptions = {}): ((newPasswor
   return updateData;
 };
 
-export default useUpdatePassword;
+export default useUpdateName;

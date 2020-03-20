@@ -1,17 +1,14 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import { logOut, mail } from 'ionicons/icons';
+import { logOut } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import {
-  IonAvatar,
   IonButton,
   IonButtons,
   IonContent,
   IonHeader,
   IonIcon,
-  IonInput,
-  IonItem,
   IonLabel,
   IonList,
   IonListHeader,
@@ -19,28 +16,17 @@ import {
   IonPage,
   IonRefresher,
   IonRefresherContent,
-  IonSkeletonText,
   IonTitle,
   IonToolbar,
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { Button, DarkThemeItem, FontSizeItem, If, ResetProgress, SimpleModeItem } from '../components';
-import { useProfile, useUpdateEmail, useUpdateName } from '../hooks';
-import { UserProfile } from '../models';
+import { Button, DarkThemeItem, DisplayNameItem, Emailtem, FontSizeItem, ResetProgress, SimpleModeItem } from '../components';
+import { useProfile } from '../hooks';
 import { authService, toastService } from '../services';
-import { IonInputEvent } from '../types';
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [photoURL, setPhotoURL] = useState<string>();
-  const [displayName, setDisplayName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const onCompleted = useCallback((data: UserProfile) => {
-    setPhotoURL(data.photoURL);
-    setDisplayName(data.displayName);
-    setEmail(data.email);
-  }, []);
-  const [{ isLoading, data }, fetchData] = useProfile({ onCompleted, onError: toastService.showError });
+  const [{ isLoading, data }, fetchData] = useProfile({ onError: toastService.showError });
   const [showResetProgress, setShowResetProgress] = useState(false);
   const [showSaving, setShowSaving] = useState(false);
   const handleLogout = useCallback(async () => {
@@ -51,37 +37,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
       toastService.showError(error);
     }
   }, [history]);
-
-  const handleDisplayNameChange = (evt: IonInputEvent) => setDisplayName(evt.detail.value || '');
-
-  const updateOnCompleted = useCallback(() => setShowSaving(false), [setShowSaving]);
-  const updateOnError = useCallback(
-    error => {
-      setShowSaving(false);
-      toastService.showError(error);
-    },
-    [setShowSaving],
-  );
-  const updateName = useUpdateName({ onCompleted: updateOnCompleted, onError: updateOnError });
-  const handleDisplayNameBlur = () => {
-    if (displayName == null || displayName === data.displayName) {
-      return;
-    }
-
-    setShowSaving(true);
-    updateName(displayName);
-  };
-
-  const handleEmailChange = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
-  const updateEmail = useUpdateEmail({ onCompleted: updateOnCompleted, onError: updateOnError });
-  const handleEmailBlur = () => {
-    if (email == null || email === data.email) {
-      return;
-    }
-
-    setShowSaving(true);
-    updateEmail(email, '');
-  };
 
   const doRefresh = useCallback(
     ({ target: refresher }) => {
@@ -113,28 +68,8 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           <IonListHeader color="light">
             <IonLabel>Personal Information</IonLabel>
           </IonListHeader>
-          <IonItem>
-            {photoURL && (
-              <IonAvatar slot="start">
-                <img src={photoURL} alt="avatar" />
-              </IonAvatar>
-            )}
-            <IonLabel position="stacked">Name</IonLabel>
-            <If
-              condition={!isLoading}
-              then={<IonInput type="text" value={displayName} onIonChange={handleDisplayNameChange} onIonBlur={handleDisplayNameBlur} />}
-              else={<IonSkeletonText animated />}
-            />
-          </IonItem>
-          <IonItem>
-            <IonIcon slot="start" icon={mail} />
-            <IonLabel position="stacked">Email</IonLabel>
-            <If
-              condition={!isLoading}
-              then={<IonInput type="email" value={email} onIonChange={handleEmailChange} onIonBlur={handleEmailBlur} />}
-              else={<IonSkeletonText animated />}
-            />
-          </IonItem>
+          <DisplayNameItem isLoading={isLoading} initialValue={data.displayName} photoURL={data.photoURL} setShowSaving={setShowSaving} />
+          <Emailtem isLoading={isLoading} initialValue={data.email} setShowSaving={setShowSaving} />
           <SimpleModeItem isLoading={isLoading} initialValue={data.simpleMode} setShowSaving={setShowSaving} />
           <DarkThemeItem isLoading={isLoading} initialValue={data.darkTheme} setShowSaving={setShowSaving} />
           <FontSizeItem isLoading={isLoading} initialValue={data.fontSize} setShowSaving={setShowSaving} />

@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { localStoreManager } from '../../services';
-import firebaseInstance from '../../services/Firebase';
-import { DARK_THEME_DATA_KEY } from '../../services/LocalStoreManager';
+import { profileService } from '../../services';
 
 type UseDarkThemeOptions = {
   onCompleted?: () => void;
@@ -23,12 +21,7 @@ const useDarkTheme = (initialValue: boolean, options: UseDarkThemeOptions = {}):
       setValue(newValue);
 
       try {
-        const { currentUser } = firebaseInstance.auth;
-        if (currentUser) {
-          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ darkTheme: newValue });
-          localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, newValue);
-          // await this.raiseCurrentUserChanged();
-        }
+        await profileService.updateDarkTheme(newValue);
         if (!didCancel) {
           if (onCompleted) onCompleted();
         }

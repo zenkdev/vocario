@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { localStoreManager } from '../../services';
-import firebaseInstance from '../../services/Firebase';
-import { FONT_SIZE_DATA_KEY } from '../../services/LocalStoreManager';
+import { profileService } from '../../services';
 
 type UseFontSizeOptions = {
   onCompleted?: () => void;
@@ -29,12 +27,7 @@ const useFontSize = (initialValue: number, options: UseFontSizeOptions = {}): [n
       setValue(newValue);
 
       try {
-        const { currentUser } = firebaseInstance.auth;
-        if (currentUser) {
-          await firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).update({ fontSize: newValue });
-          localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, newValue);
-          // await this.raiseCurrentUserChanged();
-        }
+        await profileService.updateFontSize(newValue);
         if (!didCancel) {
           if (onCompleted) onCompleted();
         }
