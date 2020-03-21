@@ -1,8 +1,7 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
-import AppContext from '../AppContext';
-import { createDictionary, Dictionary } from '../models';
-import firebaseInstance from '../services/Firebase';
+import { Dictionary } from '../models';
+import { dictionaryService } from '../services';
 import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
 
 type DictionariesState = TState<Dictionary[]>;
@@ -11,7 +10,6 @@ type UseDictionariesOptions = UseDatabaseOptions<Dictionary[]>;
 
 const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesState, () => void] => {
   const { onCompleted, onError } = options;
-  const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);
   const [state, dispatch] = useReducer<DictionariesReducer>(dataFetchReducer, {
     isLoading: false,
@@ -23,14 +21,7 @@ const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesSta
     const fetchData = async () => {
       dispatch({ type: 'FETCH_INIT' });
       try {
-        const payload = await firebaseInstance.withTrace('useDictionaries', async () => {
-          const snapshot = await firebaseInstance.db.ref('dictionary').once('value');
-          const arr: Dictionary[] = [];
-          snapshot.forEach(a => {
-            arr.push(createDictionary(a, uid));
-          });
-          return arr;
-        });
+        const payload = await dictionaryService.getDictionaries();
         if (!didCancel) {
           dispatch({ type: 'FETCH_SUCCESS', payload });
           if (onCompleted) onCompleted(payload);
@@ -46,7 +37,7 @@ const useDictionaries = (options: UseDictionariesOptions = {}): [DictionariesSta
     return () => {
       didCancel = true;
     };
-  }, [uid, onCompleted, onError, counter]);
+  }, [onCompleted, onError, counter]);
   return [state, () => setCounter(counter + 1)];
 };
 

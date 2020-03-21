@@ -21,6 +21,8 @@ export class Firebase {
     this.auth = firebase.auth();
     this.db = firebase.database();
     this.perf = firebase.performance();
+
+    this.withTrace = this.withTrace.bind(this);
   }
 
   public async withTrace<R>(traceName: string, callback: () => Promise<R>): Promise<R> {

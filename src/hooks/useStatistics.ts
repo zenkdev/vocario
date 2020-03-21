@@ -1,15 +1,16 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 
-import AppContext from '../../AppContext';
-import { Statistic } from '../../models';
-import { statisticsService } from '../../services';
-import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from '../dataFetchReducer';
+import AppContext from '../AppContext';
+import { Statistic } from '../models';
+import { statisticsService } from '../services';
+import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';
+import { Func } from '../types';
 
 type StatisticsState = TState<Statistic[]>;
 type StatisticsReducer = TReducer<Statistic[]>;
 type UseStatisticsOptions = UseDatabaseOptions<Statistic[]>;
 
-const useStatistics = (options: UseStatisticsOptions = {}): [StatisticsState, () => void] => {
+const useStatistics = (options: UseStatisticsOptions = {}): [StatisticsState, Func] => {
   const { onCompleted, onError } = options;
   const { uid } = useContext(AppContext);
   const [counter, setCounter] = useState(0);

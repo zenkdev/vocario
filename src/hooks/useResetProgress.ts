@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { statisticsService } from '../../services';
+import { statisticsService } from '../services';
+import { Func } from '../types';
 
 type UseResetProgressOptions = {
   onCompleted?: () => void;
   onError?: (error: any) => void;
 };
 
-const useResetProgress = (options: UseResetProgressOptions = {}): (() => void) => {
+const useResetProgress = (options: UseResetProgressOptions = {}): Func => {
   const { onCompleted, onError } = options;
   const [didCancel, setDidCancel] = useState(false);
   const fetchData = useCallback(async () => {

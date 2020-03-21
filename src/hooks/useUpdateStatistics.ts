@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { Dictionary, Word } from '../../models';
-import { statisticsService } from '../../services';
+import { Dictionary, Word } from '../models';
+import { statisticsService } from '../services';
 
 type UseUpdateStatisticsOptions = {
   onCompleted?: (dictionary: Dictionary, word: Word) => void;
