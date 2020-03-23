@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import {
   IonContent,
@@ -15,46 +15,20 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { DictionaryListItem } from '../components';
-import { Dictionary } from '../models';
-import { dictionaryService, toastService } from '../services';
+import { DictionaryItem } from '../components';
+import { useDictionaries } from '../hooks';
+import { toastService } from '../services';
 
 const Home: React.FC = () => {
-  const [showLoading, setShowLoading] = useState(true);
-  const [segment] = useState('all');
-  const [dictionaries, setDictionaries] = useState<Dictionary[]>([]);
-  const doRefresh = useCallback(({ target: refresher }) => {
-    setShowLoading(true);
-    dictionaryService
-      .getDictionaries()
-      .then(data => {
-        setShowLoading(false);
-        refresher.complete();
-        setDictionaries(data);
-      })
-      .catch(error => {
-        setShowLoading(false);
-        refresher.complete();
-        toastService.showError(error);
-      });
-  }, []);
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const addFavorite = useCallback(() => {}, []);
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const removeFavorite = useCallback(() => {}, []);
-
-  useIonViewWillEnter(() => {
-    dictionaryService
-      .getDictionaries()
-      .then(data => {
-        setShowLoading(false);
-        setDictionaries(data);
-      })
-      .catch(error => {
-        setShowLoading(false);
-        toastService.showError(error);
-      });
-  });
+  const [{ isLoading, data }, fetchData] = useDictionaries({ onError: toastService.showError });
+  const doRefresh = useCallback(
+    ({ target: refresher }) => {
+      fetchData();
+      refresher.complete();
+    },
+    [fetchData],
+  );
+  useIonViewWillEnter(fetchData);
 
   return (
     <IonPage>
@@ -68,22 +42,16 @@ const Home: React.FC = () => {
           <IonRefresherContent />
         </IonRefresher>
         <IonList lines="none" class="ion-no-margin ion-no-padding">
-          {!dictionaries.length && (
+          {!data.length && (
             <IonListHeader>
               <IonLabel>No Dictionaries Found</IonLabel>
             </IonListHeader>
           )}
-          {dictionaries.map(dictionary => (
-            <DictionaryListItem
-              key={dictionary.id}
-              item={dictionary}
-              segment={segment}
-              onAddFavorite={addFavorite}
-              onRemoveFavorite={removeFavorite}
-            />
+          {data.map(item => (
+            <DictionaryItem key={item.id} item={item} />
           ))}
         </IonList>
-        <IonLoading isOpen={showLoading} message="Loading..." />
+        <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );

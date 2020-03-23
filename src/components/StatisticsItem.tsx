@@ -13,12 +13,12 @@ function Count({ count }: { count: number }) {
   return <ul className="count">{items}</ul>;
 }
 
-interface StatisticListItemProps {
+type StatisticItemProps = {
   item: Statistic;
   showCount?: boolean;
-}
+};
 
-const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }) => {
+const StatisticItem: React.FC<StatisticItemProps> = ({ item, showCount }) => {
   const { translation, category } = item;
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(item), [item]);
   const transcription = useMemo(() => modelHelper.getTranscription(item), [item]);
@@ -59,4 +59,4 @@ const StatisticListItem: React.FC<StatisticListItemProps> = ({ item, showCount }
   );
 };
 
-export default StatisticListItem;
+export default StatisticItem;

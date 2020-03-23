@@ -1,118 +1,116 @@
 import formatISO from 'date-fns/formatISO';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
 import AppContext from '../AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
+import { useDictionary, useUpdateStatistics } from '../hooks';
+import useAudio from '../hooks/useAudio';
 import { Dictionary, modelHelper, Word } from '../models';
-import { dictionaryService, localStoreManager, statisticService, toastService } from '../services';
+import { localStoreManager, toastService } from '../services';
+import { NEXT_WORD_DATA_KEY_PREFIX } from '../services/LocalStoreManager';
 import { percent, randomNumber } from '../utils';
 
-const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
+const getWordIndex = (id: string) => localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + id);
+const setWordIndex = (id: string, value: number) => localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + id, value);
+const delWordIndex = (id: string) => localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + id);
 
-function audioUrl(word?: Word): string | undefined {
-  return word && `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${word.id}`;
-}
-interface LearnLocationState {
+type LearnLocationState = {
   id: string;
   title: string;
-}
+};
 
-const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) => {
-  const { currentUser } = useContext(AppContext);
-  const simpleMode = currentUser ? currentUser.simpleMode : true;
+export const LearnContext = React.createContext({
+  playing: true,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  toggle: () => {},
+});
+
+const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { state } }) => {
   const [title, setTitle] = useState('Learn');
-  const [showLoading, setShowLoading] = useState(true);
-  const [dictionary, setDictionary] = useState<Dictionary>();
   const [word, setWord] = useState<Word>();
-  const { completed, total, more } = modelHelper.dailyStatistics(dictionary);
-  const url = audioUrl(word);
+  const { toggle, playing, setUrl } = useAudio();
 
-  function nextWord(dct: Dictionary) {
-    const words = modelHelper.wordsToLearn(dct);
-    if (words.length) {
-      const prev = localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
-      if (prev && words[prev]) {
-        setWord(words[prev]);
+  const nextWord = useCallback(
+    (dct: Dictionary) => {
+      const words = modelHelper.wordsToLearn(dct);
+      if (words.length) {
+        let index = getWordIndex(dct.id);
+        if (!index || !words[index]) {
+          index = randomNumber(0, words.length - 1);
+          setWordIndex(dct.id, index);
+        }
+        const newWord = words[index];
+        setUrl(modelHelper.audioUrl(newWord));
+        setWord(newWord);
       } else {
-        const rnd = randomNumber(0, words.length - 1);
-        setWord(words[rnd]);
-        localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + dct.id, rnd);
-      }
-    } else {
-      setWord(undefined);
-      localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dct.id);
-    }
-  }
-
-  const getOptions = useCallback(() => {
-    if (!dictionary || !word) {
-      return [];
-    }
-    const options: string[] = [word.translation];
-    const numOptions = Math.min(3, dictionary.words.length || 0);
-    while (options.length < numOptions) {
-      const rnd = randomNumber(0, dictionary.words.length - 1);
-      const opt = dictionary.words[rnd];
-      if (opt && !options.includes(opt.translation)) {
-        options.push(opt.translation);
-      }
-    }
-    return options.sort();
-  }, [dictionary, word]);
-
-  const handleNext = useCallback(
-    async (valid: boolean) => {
-      if (!dictionary || !word) {
-        return;
-      }
-
-      try {
-        const dateStr = formatISO(Date.now());
-        if (!word.occurs) {
-          word.occurs = [];
-        }
-        if (!word.occurs.length) {
-          word.occurs.push(dateStr);
-        }
-        if (valid) {
-          word.occurs.push(dateStr);
-        }
-
-        if (modelHelper.isCompleted(word)) {
-          dictionary.wordsCompleted = Math.min(dictionary.wordsCompleted + 1, dictionary.wordsCount);
-        }
-
-        await statisticService.updateFromWord(dictionary, word);
-        localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + dictionary.id);
-        nextWord(dictionary);
-      } catch (error) {
-        toastService.showError(error);
+        delWordIndex(dct.id);
+        setWord(undefined);
       }
     },
-    [dictionary, word],
+    [setUrl],
+  );
+
+  const { simpleMode } = useContext(AppContext);
+  const [{ isLoading, data }] = useDictionary(state && state.id, { onCompleted: nextWord, onError: toastService.showError });
+  const { completed, total, more } = modelHelper.dailyStatistics(data);
+
+  const options = useMemo(() => {
+    if (!data || !word) {
+      return [];
+    }
+    const arr: string[] = [word.translation];
+    const numOptions = Math.min(3, data.words.length || 0);
+    while (arr.length < numOptions) {
+      const rnd = randomNumber(0, data.words.length - 1);
+      const opt = data.words[rnd];
+      if (opt && !arr.includes(opt.translation)) {
+        arr.push(opt.translation);
+      }
+    }
+    return arr.sort();
+  }, [data, word]);
+
+  const [counter, setCounter] = useState(0);
+  const onCompleted = useCallback(
+    (dct: Dictionary) => {
+      delWordIndex(dct.id);
+      nextWord(dct);
+      setCounter(value => value + 1);
+    },
+    [nextWord],
+  );
+  const updateStatistics = useUpdateStatistics({ onCompleted, onError: toastService.showError });
+  const handleNext = useCallback(
+    (valid: boolean) => {
+      if (!data || !word) {
+        return;
+      }
+      const dateStr = formatISO(Date.now());
+      if (!word.occurs) {
+        word.occurs = [];
+      }
+      if (!word.occurs.length) {
+        word.occurs.push(dateStr);
+      }
+      if (valid) {
+        word.occurs.push(dateStr);
+      }
+      if (modelHelper.isCompleted(word)) {
+        data.wordsCompleted = Math.min(data.wordsCompleted + 1, data.wordsCount);
+      }
+      updateStatistics(data, word);
+    },
+    [data, word, updateStatistics],
   );
 
   useEffect(() => {
-    if (location.state && location.state.title) {
-      setTitle(location.state.title);
+    if (state && state.title) {
+      setTitle(state.title);
     }
-    if (location.state && location.state.id) {
-      dictionaryService
-        .getDictionary(location.state.id)
-        .then(data => {
-          setShowLoading(false);
-          setDictionary(data);
-          nextWord(data);
-        })
-        .catch(error => {
-          setShowLoading(false);
-          toastService.showError(error);
-        });
-    }
-  }, [location.state]);
+  }, [state]);
 
   return (
     <IonPage>
@@ -125,11 +123,13 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location }) 
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {dictionary && <IonProgressBar value={percent(completed, total)} />}
-        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} />}
-        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} options={getOptions()} />}
-        {!showLoading && !word && <Congratulations more={more} />}
-        <IonLoading isOpen={showLoading} message="Loading..." />
+        {data && <IonProgressBar value={percent(completed, total)} />}
+        <LearnContext.Provider value={{ playing, toggle }}>
+          {word && !simpleMode && <NormalCard onNext={handleNext} word={word} counter={counter} />}
+          {word && simpleMode && <SimpleCard onNext={handleNext} word={word} counter={counter} options={options} />}
+        </LearnContext.Provider>
+        {!isLoading && !word && <Congratulations more={more} />}
+        <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );

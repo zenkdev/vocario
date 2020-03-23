@@ -1,7 +1,11 @@
 import { jsonTryParse } from '../utils';
 
+export const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
+export const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
+export const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
+export const DARK_THEME_DATA_KEY = 'lexion:darkTheme';
+
 /* eslint-disable class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Provides a wrapper for accessing the web storage API and synchronizing session storage across tabs/windows.
  */

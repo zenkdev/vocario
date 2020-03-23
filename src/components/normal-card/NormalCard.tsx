@@ -8,27 +8,25 @@ import { Answer } from '../../types';
 import { getFullInput, isValidAnswer } from '../../utils';
 import AnswerResult from '../AnswerResult';
 import If from '../If';
-import StyledInput from './StyledInput';
 import NormalQuestion from './NormalQuestion';
+import StyledInput from './StyledInput';
 
 interface NormalCardProps {
   word: Word;
-  onNext: (valid: boolean) => Promise<void>;
-  audioUrl?: string;
+  onNext: (valid: boolean) => void;
+  counter?: number;
 }
 
-const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, audioUrl }) => {
+const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, counter }) => {
   const { translation: title, category } = word;
   const [input, setInput] = useState('');
-  const [counter, setCounter] = useState(0);
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   const text = useMemo(() => modelHelper.getText(word), [word]);
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
-  const handleNext = useCallback(() => onNext(answer === Answer.valid).then(() => setCounter(c => c + 1)), [onNext, answer]);
-
+  const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
   const valid = answer === Answer.valid;
 
   useEffect(() => {
@@ -51,7 +49,7 @@ const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, audioUrl }) => {
         <If
           condition={answer === Answer.empty}
           then={<NormalQuestion text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} onValidate={handleValidate} />}
-          else={<AnswerResult audioUrl={audioUrl} text={textWithLang} smallText={transcription} valid={valid} onNext={handleNext} />}
+          else={<AnswerResult text={textWithLang} smallText={transcription} valid={valid} onNextClick={handleNext} />}
         />
         <div className="ion-padding small-text">{category}</div>
       </div>

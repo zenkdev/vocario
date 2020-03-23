@@ -4,26 +4,28 @@ import { createPlainJS, createStatistic, Dictionary, Statistic, Word } from '../
 import { omitUndefined } from '../utils';
 import firebaseInstance from './Firebase';
 
-class StatisticService {
-  private readonly db: firebase.database.Database;
+const { auth, db, withTrace } = firebaseInstance;
+
+class StatisticsService {
+  private readonly database: firebase.database.Database;
 
   private uid: string | null = null;
 
   constructor() {
-    this.db = firebaseInstance.db;
-    firebaseInstance.auth.onAuthStateChanged(user => {
+    this.database = db;
+    auth.onAuthStateChanged(user => {
       this.uid = user && user.uid;
     });
   }
 
   /** GET statistics from the server */
   public async getStatistics(): Promise<Statistic[]> {
-    return firebaseInstance.withTrace('getStatistics', async () => {
+    return withTrace('getStatistics', async () => {
       if (!this.uid) {
         return [];
       }
 
-      const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
+      const snapshot = await this.database.ref(`statistics/${this.uid}`).once('value');
       const arr: Statistic[] = [];
       snapshot.forEach(payload => {
         arr.push(createStatistic(payload));
@@ -34,30 +36,31 @@ class StatisticService {
 
   /** RESET all the progress */
   public async resetProgress(): Promise<void> {
-    return firebaseInstance.withTrace('resetProgress', async () => {
+    return withTrace('resetProgress', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
 
-      await this.db.ref(`statistics/${this.uid}`).remove();
+      await this.database.ref(`statistics/${this.uid}`).remove();
     });
   }
 
-  public async updateFromWord({ id: dictionaryId }: Dictionary, word: Word): Promise<void> {
-    return firebaseInstance.withTrace('updateFromWord', async () => {
+  /** UPDATE statistics on the server */
+  public async updateStatistics(dictionary: Dictionary, word: Word): Promise<void> {
+    return withTrace('updateFromWord', async () => {
       if (!this.uid) {
         throw new Error('User UID can not be null');
       }
 
       const { id, texts, ...rest } = word;
       const poco = createPlainJS(texts);
-      const ref = this.db.ref(`statistics/${this.uid}`);
+      const ref = this.database.ref(`statistics/${this.uid}`);
       const updates: Record<string, Partial<Statistic>> = {
-        [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
+        [id]: omitUndefined({ ...rest, ...poco, dictionaryId: dictionary.id }),
       };
       await ref.update(updates);
     });
   }
 }
 
-export default new StatisticService();
+export default new StatisticsService();

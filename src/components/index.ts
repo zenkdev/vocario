@@ -1,11 +1,12 @@
 import Button from './Button';
 import Congratulations from './Congratulations';
-import DictionaryListItem from './DictionaryListItem';
+import DictionaryItem from './DictionaryItem';
 import If from './If';
-import PrivateRoute from './PrivateRoute';
-import ResetProgress from './ResetProgress';
-import StatisticListItem from './StatisticListItem';
 import NormalCard from './normal-card';
+import PrivateRoute from './PrivateRoute';
 import SimpleCard from './simple-card';
+import StatisticsItem from './StatisticsItem';
 
-export { Button, Congratulations, DictionaryListItem, If, PrivateRoute, ResetProgress, StatisticListItem, NormalCard, SimpleCard };
+export * from './profile';
+
+export { Button, Congratulations, DictionaryItem, If, PrivateRoute, StatisticsItem, NormalCard, SimpleCard };

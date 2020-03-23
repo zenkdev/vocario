@@ -1,24 +1,22 @@
-import { volumeHigh, stop } from 'ionicons/icons';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import { stop, volumeHigh } from 'ionicons/icons';
+import React, { useContext, useEffect } from 'react';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText } from '@ionic/react';
 
-import useAudio from '../hooks/useAudio';
+import { LearnContext } from '../pages/Learn';
 import Button from './Button';
 
-interface AnswerResultProps {
+export type AnswerResultProps = {
   text: string;
   smallText?: string;
   valid: boolean;
-  onNext: (valid: boolean) => Promise<void>;
-  audioUrl?: string;
-}
+  onNextClick: () => void;
+};
 
-const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onNext, audioUrl = '' }) => {
-  const color = useMemo(() => (valid ? 'success' : 'danger'), [valid]);
-  const title = useMemo(() => (valid ? 'Correct' : 'Correct answer'), [valid]);
-  const handleNext = useCallback(() => onNext(valid), [onNext, valid]);
-  const [playing, toggle] = useAudio(audioUrl);
+const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onNextClick }) => {
+  const color = valid ? 'success' : 'danger';
+  const title = valid ? 'Correct' : 'Correct answer';
+  const { playing, toggle } = useContext(LearnContext);
 
   useEffect(() => toggle(), [toggle]);
 
@@ -34,7 +32,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
         </IonText>
         {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
         <div className="ion-padding-top ion-text-center">
-          <Button onClick={handleNext}>Next</Button>
+          <Button onClick={onNextClick}>Next</Button>
         </div>
       </IonCardContent>
     </IonCard>

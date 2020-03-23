@@ -14,3 +14,5 @@ export enum Answer {
   valid = 'valid',
   invalid = 'invalid',
 }
+
+export type Func<TReturnValue = void> = () => TReturnValue;

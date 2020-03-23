@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Answer } from './types';
 
 export const toCharArray = (value: string | null | undefined) => (value ? value.split('') : []);

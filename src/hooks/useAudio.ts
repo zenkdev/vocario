@@ -1,25 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const useAudio = (url: string, preload: 'none' | 'metadata' | 'auto' = 'metadata'): [boolean, () => void] => {
-  const [audio] = useState(new Audio(url));
+type UseAudio = { playing: boolean; toggle: () => void; setUrl: (value: string) => void };
+
+const useAudio = (url?: string, preload: 'none' | 'metadata' | 'auto' = 'metadata'): UseAudio => {
+  const [audio] = useState(Object.assign(new Audio(url), { preload }));
   const [playing, setPlaying] = useState(false);
   const toggle = useCallback(() => setPlaying(current => !current), []);
+  const setUrl = useCallback(
+    (value: string) => {
+      audio.src = value;
+    },
+    [audio],
+  );
 
   useEffect(() => {
     if (playing) {
-      audio.play();
+      // eslint-disable-next-line no-console
+      audio.play().catch(e => console.error(e));
     } else {
       audio.pause();
     }
   }, [audio, playing]);
 
   useEffect(() => {
-    audio.preload = preload;
     audio.addEventListener('ended', () => setPlaying(false));
     return () => audio.removeEventListener('ended', () => setPlaying(false));
-  }, [audio, preload]);
+  }, [audio]);
 
-  return [playing, toggle];
+  return { playing, toggle, setUrl };
 };
 
 export default useAudio;

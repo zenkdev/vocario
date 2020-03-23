@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import addDays from 'date-fns/addDays';
 import formatISO from 'date-fns/formatISO';
 import parseISO from 'date-fns/parseISO';
