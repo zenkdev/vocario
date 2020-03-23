@@ -11,11 +11,10 @@ interface SimpleCardProps {
   word: Word;
   options: string[];
   onNext: (valid: boolean) => void;
-  audioUrl?: string;
   counter?: number;
 }
 
-const SimpleCard: React.FC<SimpleCardProps> = ({ word, options, onNext, audioUrl, counter }) => {
+const SimpleCard: React.FC<SimpleCardProps> = ({ word, options, onNext, counter }) => {
   const { translation, category } = word;
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   const title = useMemo(() => modelHelper.getText(word), [word]);
@@ -37,7 +36,7 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ word, options, onNext, audioUrl
         <If
           condition={answer === Answer.empty}
           then={<SimpleQuestion options={options} onClick={handleClick} />}
-          else={<AnswerResult audioUrl={audioUrl} text={translation} valid={valid} onNext={handleNext} />}
+          else={<AnswerResult text={translation} valid={valid} onNextClick={handleNext} />}
         />
         <div className="ion-padding small-text">{category}</div>
       </div>

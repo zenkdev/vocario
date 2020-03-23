@@ -7,12 +7,12 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import AppContext from '../AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
 import { useDictionary, useUpdateStatistics } from '../hooks';
+import useAudio from '../hooks/useAudio';
 import { Dictionary, modelHelper, Word } from '../models';
 import { localStoreManager, toastService } from '../services';
 import { NEXT_WORD_DATA_KEY_PREFIX } from '../services/LocalStoreManager';
 import { percent, randomNumber } from '../utils';
 
-const audioUrl = (word?: Word): string | undefined => word && `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${word.id}`;
 const getWordIndex = (id: string) => localStoreManager.getDataObject<number>(NEXT_WORD_DATA_KEY_PREFIX + id);
 const setWordIndex = (id: string, value: number) => localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + id, value);
 const delWordIndex = (id: string) => localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + id);
@@ -22,27 +22,36 @@ type LearnLocationState = {
   title: string;
 };
 
+export const LearnContext = React.createContext({
+  playing: true,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  toggle: () => {},
+});
+
 const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { state } }) => {
   const [title, setTitle] = useState('Learn');
   const [word, setWord] = useState<Word>();
-  const url = audioUrl(word);
+  const { toggle, playing, setUrl } = useAudio();
 
-  const nextWord = useCallback((dct: Dictionary) => {
-    const words = modelHelper.wordsToLearn(dct);
-    if (words.length) {
-      const prev = getWordIndex(dct.id);
-      if (prev && words[prev]) {
-        setWord(words[prev]);
+  const nextWord = useCallback(
+    (dct: Dictionary) => {
+      const words = modelHelper.wordsToLearn(dct);
+      if (words.length) {
+        let index = getWordIndex(dct.id);
+        if (!index || !words[index]) {
+          index = randomNumber(0, words.length - 1);
+          setWordIndex(dct.id, index);
+        }
+        const newWord = words[index];
+        setUrl(modelHelper.audioUrl(newWord));
+        setWord(newWord);
       } else {
-        const rnd = randomNumber(0, words.length - 1);
-        setWord(words[rnd]);
-        setWordIndex(dct.id, rnd);
+        delWordIndex(dct.id);
+        setWord(undefined);
       }
-    } else {
-      setWord(undefined);
-      delWordIndex(dct.id);
-    }
-  }, []);
+    },
+    [setUrl],
+  );
 
   const { simpleMode } = useContext(AppContext);
   const [{ isLoading, data }] = useDictionary(state && state.id, { onCompleted: nextWord, onError: toastService.showError });
@@ -71,7 +80,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
       nextWord(dct);
       setCounter(value => value + 1);
     },
-    [nextWord, setCounter],
+    [nextWord],
   );
   const updateStatistics = useUpdateStatistics({ onCompleted, onError: toastService.showError });
   const handleNext = useCallback(
@@ -115,8 +124,10 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
       </IonHeader>
       <IonContent fullscreen>
         {data && <IonProgressBar value={percent(completed, total)} />}
-        {word && !simpleMode && <NormalCard onNext={handleNext} word={word} audioUrl={url} counter={counter} />}
-        {word && simpleMode && <SimpleCard onNext={handleNext} word={word} audioUrl={url} counter={counter} options={options} />}
+        <LearnContext.Provider value={{ playing, toggle }}>
+          {word && !simpleMode && <NormalCard onNext={handleNext} word={word} counter={counter} />}
+          {word && simpleMode && <SimpleCard onNext={handleNext} word={word} counter={counter} options={options} />}
+        </LearnContext.Provider>
         {!isLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
