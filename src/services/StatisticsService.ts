@@ -16,6 +16,8 @@ class StatisticsService {
     auth.onAuthStateChanged(user => {
       this.uid = user && user.uid;
     });
+
+    this.getStatistics = this.getStatistics.bind(this);
   }
 
   /** GET statistics from the server */

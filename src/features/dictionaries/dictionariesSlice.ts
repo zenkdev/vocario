@@ -45,8 +45,8 @@ export default dictionariesSlice.reducer;
 export const fetchDictionaries = (): AppThunk => async dispatch => {
   try {
     dispatch(getDictionariesStart());
-    const issues = await getDictionaries();
-    dispatch(getDictionariesSuccess(issues));
+    const dictionaries = await getDictionaries();
+    dispatch(getDictionariesSuccess(dictionaries));
   } catch (e) {
     toastService.showError(e);
     dispatch(getDictionariesFailure(e.toString()));

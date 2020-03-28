@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import { IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
-import { modelHelper, Statistic } from '../models';
+import { RootState } from '../../app/rootReducer';
+import { modelHelper, Statistic } from '../../models';
+import { StatisticsFilters } from '../filters/filtersSlice';
 
 function Count({ count }: { count: number }) {
   const items: JSX.Element[] = [];
@@ -13,17 +16,18 @@ function Count({ count }: { count: number }) {
   return <ul className="count">{items}</ul>;
 }
 
-type StatisticItemProps = {
+type StatisticsListItemProps = {
   item: Statistic;
-  showCount?: boolean;
 };
 
-const StatisticItem: React.FC<StatisticItemProps> = ({ item, showCount }) => {
+const StatisticsListItem: React.FC<StatisticsListItemProps> = ({ item }) => {
   const { translation, category } = item;
+  const filter = useSelector((state: RootState) => state.statisticsFilter);
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(item), [item]);
   const transcription = useMemo(() => modelHelper.getTranscription(item), [item]);
   const nextOccurString = useMemo(() => modelHelper.nextOccurString(item), [item]);
-  const count = useMemo(() => (item.occurs ? item.occurs.length - 1 : 0), [item]);
+  const count = item.occurs ? item.occurs.length - 1 : 0;
+  const showCount = filter !== StatisticsFilters.SHOW_COMPLETED;
 
   return (
     <IonItem>
@@ -59,4 +63,4 @@ const StatisticItem: React.FC<StatisticItemProps> = ({ item, showCount }) => {
   );
 };
 
-export default StatisticItem;
+export default StatisticsListItem;

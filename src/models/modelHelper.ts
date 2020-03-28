@@ -18,11 +18,7 @@ function count<T>(arr: Array<T>, callback: (value: T) => boolean): number {
   return arr.filter(callback).length;
 }
 
-// function tbl(arr: Word[], callback: (value: Word) => boolean) {
-//   return arr.filter(callback).map(w => ({ i: w.id, t: w.translation, c: w.count, o: JSON.stringify(w.occurs) }));
-// }
-
-function nextOccur({ occurs }: Word): Date | undefined {
+export function nextOccur({ occurs }: Word): Date | undefined {
   if (isEmpty(occurs)) {
     return undefined;
   }
