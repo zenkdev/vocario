@@ -7,40 +7,40 @@ import { dictionaryService, toastService } from '../../services';
 
 const { getDictionaries } = dictionaryService;
 
-export type DictionariesState = {
+export type HomeState = {
   isLoading: boolean;
   data: Dictionary[];
   error: string | null;
 };
 
-const initialState: DictionariesState = {
+const initialState: HomeState = {
   isLoading: false,
   data: [],
   error: null,
 };
 
-const dictionariesSlice = createSlice({
-  name: 'dictionaries',
+const homeSlice = createSlice({
+  name: 'home',
   initialState,
   reducers: {
-    getDictionariesStart(state: DictionariesState) {
+    getDictionariesStart(state: HomeState) {
       state.isLoading = true;
     },
-    getDictionariesSuccess(state: DictionariesState, { payload }: PayloadAction<Dictionary[]>) {
+    getDictionariesSuccess(state: HomeState, { payload }: PayloadAction<Dictionary[]>) {
       state.data = payload;
       state.isLoading = false;
       state.error = null;
     },
-    getDictionariesFailure(state: DictionariesState, { payload }: PayloadAction<string>) {
+    getDictionariesFailure(state: HomeState, { payload }: PayloadAction<string>) {
       state.isLoading = false;
       state.error = payload;
     },
   },
 });
 
-export const { getDictionariesStart, getDictionariesSuccess, getDictionariesFailure } = dictionariesSlice.actions;
+export const { getDictionariesStart, getDictionariesSuccess, getDictionariesFailure } = homeSlice.actions;
 
-export default dictionariesSlice.reducer;
+export default homeSlice.reducer;
 
 export const fetchDictionaries = (): AppThunk => async dispatch => {
   try {

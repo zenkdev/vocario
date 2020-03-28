@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
-import dictionariesReducer from '../features/dictionaries/dictionariesSlice';
 import visibilityFilterReducer from '../features/filters/filtersSlice';
+import homeReducer from '../features/home/homeSlice';
 import statisticsReducer from '../features/statistics/statisticsSlice';
 
 const rootReducer = combineReducers({
-  dictionaries: dictionariesReducer,
   visibilityFilter: visibilityFilterReducer,
+  home: homeReducer,
   statistics: statisticsReducer,
 });
 

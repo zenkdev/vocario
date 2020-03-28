@@ -14,12 +14,12 @@ import {
 } from '@ionic/react';
 
 import { RootState } from '../app/rootReducer';
-import { fetchDictionaries } from '../features/dictionaries/dictionariesSlice';
-import DictionaryList from '../features/dictionaries/DictionaryList';
+import { fetchDictionaries } from '../features/home/homeSlice';
+import DictionaryList from '../features/home/DictionaryList';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const { isLoading, data } = useSelector((state: RootState) => state.dictionaries);
+  const { isLoading, data } = useSelector((state: RootState) => state.home);
   const fetchData = useCallback(() => dispatch(fetchDictionaries()), [dispatch]);
   const doRefresh = useCallback(
     ({ target: refresher }) => {
