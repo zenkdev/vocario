@@ -4,7 +4,6 @@ import parseISO from 'date-fns/parseISO';
 import firebase from 'firebase/app';
 
 import { isNumber } from '../utils';
-import Dictionary from './Dictionary';
 import Statistic from './Statistic';
 import Text from './Text';
 import UserProfile from './UserProfile';
@@ -37,13 +36,6 @@ function createTextArray(payload: any): Text[] {
     }
     return acc;
   }, []);
-}
-
-export function createDictionary(payload: firebase.database.DataSnapshot, uid: string | null): Dictionary {
-  const id = payload.key as string;
-  const { name, wordsCount, wordsCompleted: wordsCompletedObject } = payload.val();
-  const wordsCompleted = (wordsCompletedObject && uid && wordsCompletedObject[uid]) || 0;
-  return new Dictionary({ id, name, wordsCount, wordsCompleted });
 }
 
 function fromNextOccur(value: string | undefined, count: number) {

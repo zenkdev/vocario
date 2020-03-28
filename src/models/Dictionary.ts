@@ -1,35 +1,16 @@
 import Word from './Word';
 
-class Dictionary {
-  constructor({
-    id,
-    name,
-    wordsCount,
-    wordsCompleted,
-    words,
-  }: {
-    id?: string;
-    name?: string;
-    wordsCount?: number;
-    wordsCompleted?: number;
-    words?: Word[];
-  }) {
-    this.id = id || '';
-    this.name = name || '';
-    this.wordsCount = wordsCount || 0;
-    this.wordsCompleted = wordsCompleted || 0;
-    this.words = words || [];
-  }
+export type Dictionary = {
+  id: string;
+  name: string;
+  wordsCount: number;
+  wordsCompleted: number;
+  words: Word[];
+};
 
-  public id: string;
-
-  public name: string;
-
-  public wordsCount: number;
-
-  public wordsCompleted: number;
-
-  public words: Word[];
+export function createDictionary(payload: firebase.database.DataSnapshot, uid: string | null): Dictionary {
+  const id = payload.key;
+  const { name, wordsCount, wordsCompleted: wordsCompletedObject } = payload.val();
+  const wordsCompleted = (wordsCompletedObject && uid && wordsCompletedObject[uid]) || 0;
+  return { id: id || '', name: name || '', wordsCount: wordsCount || 0, wordsCompleted: wordsCompleted || 0, words: [] };
 }
-
-export default Dictionary;

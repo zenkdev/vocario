@@ -29,11 +29,15 @@ class DictionaryService {
     auth.onAuthStateChanged(user => {
       this.uid = user && user.uid;
     });
+
+    this.getDictionaries = this.getDictionaries.bind(this);
   }
 
   /** GET dictionaries from the server */
   public async getDictionaries(): Promise<Dictionary[]> {
     return withTrace('getDictionaries', async () => {
+      // await timeout(5 * 1000);
+      // if (Date.now() !== 0) throw new Error('test error');
       const snapshot = await this.database.ref('dictionary').once('value');
       const arr: Dictionary[] = [];
       snapshot.forEach(payload => {

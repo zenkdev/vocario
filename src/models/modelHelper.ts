@@ -4,7 +4,7 @@ import parseISO from 'date-fns/parseISO';
 import startOfDay from 'date-fns/startOfDay';
 import startOfToday from 'date-fns/startOfToday';
 
-import Dictionary from './Dictionary';
+import { Dictionary } from './Dictionary';
 import Word from './Word';
 
 const COUNT_TO_COMPLETE = 3;

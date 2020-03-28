@@ -3,16 +3,16 @@ import { useHistory } from 'react-router';
 
 import { IonBadge, IonItem, IonLabel, IonProgressBar } from '@ionic/react';
 
-import { Dictionary } from '../models';
-import { percent } from '../utils';
+import { Dictionary } from '../../models';
+import { percent } from '../../utils';
 
 const format = (value: number): string => (value < 1000 ? String(value) : `${Math.round(value / 100) / 10}k`);
 
-type DictionaryItemProps = {
+type DictionaryListItemProps = {
   item: Dictionary;
 };
 
-const DictionaryItem: React.FC<DictionaryItemProps> = ({ item }) => {
+const DictionaryListItem: React.FC<DictionaryListItemProps> = ({ item }) => {
   const history = useHistory();
   const handleClick = useCallback(() => {
     history.push('/learn', { id: item.id, title: item.name });
@@ -29,4 +29,4 @@ const DictionaryItem: React.FC<DictionaryItemProps> = ({ item }) => {
   );
 };
 
-export default DictionaryItem;
+export default DictionaryListItem;
