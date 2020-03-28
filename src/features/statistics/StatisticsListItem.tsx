@@ -5,7 +5,7 @@ import { IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
 import { modelHelper, Statistic } from '../../models';
-import { StatisticsFilters } from '../filters/filtersSlice';
+import { VisibilityFilters } from '../filters/filtersSlice';
 
 function Count({ count }: { count: number }) {
   const items: JSX.Element[] = [];
@@ -22,12 +22,12 @@ type StatisticsListItemProps = {
 
 const StatisticsListItem: React.FC<StatisticsListItemProps> = ({ item }) => {
   const { translation, category } = item;
-  const filter = useSelector((state: RootState) => state.statisticsFilter);
+  const { filter } = useSelector((state: RootState) => state.visibilityFilter);
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(item), [item]);
   const transcription = useMemo(() => modelHelper.getTranscription(item), [item]);
   const nextOccurString = useMemo(() => modelHelper.nextOccurString(item), [item]);
   const count = item.occurs ? item.occurs.length - 1 : 0;
-  const showCount = filter !== StatisticsFilters.SHOW_COMPLETED;
+  const showCount = filter !== VisibilityFilters.SHOW_COMPLETED;
 
   return (
     <IonItem>

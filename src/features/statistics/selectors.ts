@@ -1,21 +1,21 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import { StatisticsFilters } from '../filters/filtersSlice';
 import { modelHelper } from '../../models';
+import { VisibilityFilters } from '../filters/filtersSlice';
 
 const selectStatistics = (state: RootState) => state.statistics;
 
-const selectStatisticsFilter = (state: RootState) => state.statisticsFilter;
+const selectVisibilityFilter = (state: RootState) => state.visibilityFilter;
 
 export const selectIsLoading = createSelector(selectStatistics, ({ isLoading }) => isLoading);
 
-export const selectVisible = createSelector([selectStatistics, selectStatisticsFilter], ({ data }, filter) => {
+export const selectVisible = createSelector([selectStatistics, selectVisibilityFilter], ({ data }, { filter, numberOfItems }) => {
   switch (filter) {
-    case StatisticsFilters.SHOW_LEARNING:
-      return data.filter(s => !modelHelper.isCompleted(s));
-    case StatisticsFilters.SHOW_COMPLETED:
-      return data.filter(s => modelHelper.isCompleted(s));
+    case VisibilityFilters.SHOW_LEARNING:
+      return data.filter(s => !modelHelper.isCompleted(s)).slice(0, numberOfItems);
+    case VisibilityFilters.SHOW_COMPLETED:
+      return data.filter(s => modelHelper.isCompleted(s)).slice(0, numberOfItems);
     default:
       throw new Error(`Unknown filter: ${filter}`);
   }
