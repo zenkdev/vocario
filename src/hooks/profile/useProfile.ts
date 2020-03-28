@@ -1,6 +1,6 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 
-import AppContext from '../../AppContext';
+import AppContext from '../../app/AppContext';
 import { createUserProfile, UserProfile } from '../../models';
 import { localStoreManager } from '../../services';
 import firebaseInstance from '../../services/Firebase';

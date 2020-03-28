@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 
 import { Login } from '../pages';
-import AppContext from '../AppContext';
+import AppContext from '../app/AppContext';
 
 const PrivateRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
   const { currentUser } = useContext(AppContext);

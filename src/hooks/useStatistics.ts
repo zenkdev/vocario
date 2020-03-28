@@ -1,6 +1,6 @@
 import { useContext, useEffect, useReducer, useState } from 'react';
 
-import AppContext from '../AppContext';
+import AppContext from '../app/AppContext';
 import { Statistic } from '../models';
 import { statisticsService } from '../services';
 import { dataFetchReducer, TReducer, TState, UseDatabaseOptions } from './dataFetchReducer';

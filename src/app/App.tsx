@@ -12,9 +12,8 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 /* Theme variables */
-import './theme/variables.css';
-import './theme/variables.dark.css';
-
+import '../theme/variables.css';
+import '../theme/variables.dark.css';
 import './styles.css';
 
 import { home, person, statsChart } from 'ionicons/icons';
@@ -26,10 +25,10 @@ import { toastController } from '@ionic/core';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { PrivateRoute } from './components';
-import { UserProfile } from './models';
-import { Home, Learn, Login, Profile, ResetPassword, Signup, Splash, Statistics } from './pages';
-import { profileService, toastService } from './services';
+import { PrivateRoute } from '../components';
+import { UserProfile } from '../models';
+import { Home, Learn, Login, Profile, ResetPassword, Signup, Splash, Statistics } from '../pages';
+import { profileService, toastService } from '../services';
 import AppContext from './AppContext';
 
 const App: React.FC = () => {

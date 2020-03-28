@@ -2,7 +2,7 @@
 import React, { useContext, useMemo } from 'react';
 
 import { IonButton } from '@ionic/react';
-import AppContext from '../AppContext';
+import AppContext from '../app/AppContext';
 
 interface ButtonProps {
   expand?: 'full' | 'block';

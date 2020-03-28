@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
-import AppContext from '../AppContext';
+import AppContext from '../app/AppContext';
 import { Congratulations, NormalCard, SimpleCard } from '../components';
 import { useDictionary, useUpdateStatistics } from '../hooks';
 import useAudio from '../hooks/useAudio';

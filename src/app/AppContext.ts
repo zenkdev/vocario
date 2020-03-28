@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UserProfile } from './models';
+import { UserProfile } from '../models';
 
 export interface AppContextValue {
   currentUser: UserProfile | null;
