@@ -1,14 +1,12 @@
-// Add the Firebase products that you want to use
-import 'firebase/auth';
-import 'firebase/database';
-
-// Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from 'firebase/app';
 
 import { createDictionary, createStatistic, createWord, Dictionary, modelHelper, Statistic, Word } from '../models';
-import firebaseInstance from './Firebase';
+import firebaseInstance, { Firebase } from './Firebase';
 
-const { auth, db, withTrace } = firebaseInstance;
+const { withTrace } = firebaseInstance;
+const { count, isCompleted } = modelHelper;
+
+type Database = firebase.database.Database;
 
 // Create a promise that resolves in <ms> milliseconds
 export const timeout = (ms: number) =>
@@ -20,40 +18,39 @@ export const timeout = (ms: number) =>
   });
 
 class DictionaryService {
-  private readonly database: firebase.database.Database;
+  private readonly db: Database;
 
   private uid: string | null = null;
 
-  constructor() {
-    this.database = db;
+  constructor({ db, auth }: Firebase) {
+    this.db = db;
     auth.onAuthStateChanged(user => {
       this.uid = user && user.uid;
     });
-
-    this.getDictionaries = this.getDictionaries.bind(this);
   }
 
   /** GET dictionaries from the server */
-  public async getDictionaries(): Promise<Dictionary[]> {
+  public getDictionaries = async (): Promise<Dictionary[]> => {
     return withTrace('getDictionaries', async () => {
       // await timeout(5 * 1000);
       // if (Date.now() !== 0) throw new Error('test error');
-      const snapshot = await this.database.ref('dictionary').once('value');
+      const snapshot = await this.db.ref('dictionary').once('value');
       const arr: Dictionary[] = [];
       snapshot.forEach(payload => {
         arr.push(createDictionary(payload, this.uid));
       });
       return arr;
     });
-  }
+  };
 
   /** GET dictionary by id. */
-  public async getDictionary(id: string): Promise<Dictionary> {
+  public getDictionary = async (id: string): Promise<Dictionary> => {
     return withTrace(`getDictionary(${id})`, async () => {
       const dictionary = await this.getDictionaryById(id);
       const words = await this.getWords(id);
       const statistics = await this.getStatistics(id);
-      words.forEach(word => {
+      const values = Object.values(words);
+      values.forEach(word => {
         const stat = statistics[word.id];
         if (stat) {
           // eslint-disable-next-line no-param-reassign
@@ -62,33 +59,33 @@ class DictionaryService {
       });
 
       // fix wordsCompleted
-      const wordsCompleted = modelHelper.count(words, w => modelHelper.isCompleted(w));
+      const wordsCompleted = count(values, isCompleted);
       if (dictionary.wordsCompleted !== wordsCompleted) {
         dictionary.wordsCompleted = wordsCompleted;
       }
       return { ...dictionary, words };
     });
-  }
+  };
 
   private async getDictionaryById(id: string): Promise<Dictionary> {
     return withTrace('getDictionaryById', async () => {
-      const snapshot = await this.database.ref(`dictionary/${id}`).once('value');
+      const snapshot = await this.db.ref(`dictionary/${id}`).once('value');
       return createDictionary(snapshot, this.uid);
     });
   }
 
-  private async getWords(dictionaryId: string): Promise<Word[]> {
+  private async getWords(dictionaryId: string): Promise<Record<string, Word>> {
     return withTrace('getWords', async () => {
-      const snapshot = await this.database
+      const snapshot = await this.db
         .ref('word')
         .orderByChild('dictionaryId')
         .equalTo(dictionaryId)
         .once('value');
-      const arr: Word[] = [];
+      const map: Record<string, Word> = {};
       snapshot.forEach(payload => {
-        arr.push(createWord(payload));
+        map[payload.key as string] = createWord(payload);
       });
-      return arr;
+      return map;
     });
   }
 
@@ -96,7 +93,7 @@ class DictionaryService {
     return withTrace('getStatistics', async () => {
       const map: Record<string, Statistic> = {};
       if (this.uid) {
-        const snapshot = await this.database
+        const snapshot = await this.db
           .ref(`statistics/${this.uid}`)
           .orderByChild('dictionaryId')
           .equalTo(dictionaryId)
@@ -110,4 +107,4 @@ class DictionaryService {
   }
 }
 
-export default new DictionaryService();
+export default new DictionaryService(firebaseInstance);

@@ -1,24 +1,25 @@
 import 'react-simple-keyboard/build/css/index.css';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
+import AnswerResult from '../../components/AnswerResult';
+import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
 import { Answer } from '../../types';
 import { getFullInput, isValidAnswer } from '../../utils';
-import AnswerResult from '../AnswerResult';
-import If from '../If';
+import { updateWord } from './learnSlice';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';
 
-interface NormalCardProps {
+type NormalCardProps = {
   word: Word;
-  onNext: (valid: boolean) => void;
-  counter?: number;
-}
+};
 
-const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, counter }) => {
+const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
   const { translation: title, category } = word;
+  const dispatch = useDispatch();
   const [input, setInput] = useState('');
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
@@ -26,7 +27,7 @@ const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, counter }) => {
   const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const handleValidate = useCallback(() => setAnswer(isValidAnswer(text, getFullInput(input, text))), [input, text]);
-  const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
+  const handleNext = useCallback(() => dispatch(updateWord(answer === Answer.valid)), [dispatch, answer]);
   const valid = answer === Answer.valid;
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const NormalCard: React.FC<NormalCardProps> = ({ word, onNext, counter }) => {
     if (keyboardRef) {
       keyboardRef.clearInput();
     }
-  }, [word, counter, keyboardRef]);
+  }, [word, keyboardRef]);
 
   return (
     <section>

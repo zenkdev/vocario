@@ -35,3 +35,18 @@ export function createTextArray(payload: any): Text[] {
     return acc;
   }, []);
 }
+
+export function createPlainJS(texts: Text[]) {
+  const poco: any = {};
+  for (let i = 0; i < texts.length; i += 1) {
+    const { index, ...rest } = texts[i];
+    Object.entries(rest).forEach(([key, value]) => {
+      if (index) {
+        poco[`${key}${index}`] = value;
+      } else {
+        poco[key] = value;
+      }
+    });
+  }
+  return poco;
+}

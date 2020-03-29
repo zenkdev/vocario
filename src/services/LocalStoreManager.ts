@@ -140,4 +140,10 @@ export class LocalStoreManager {
   }
 }
 
-export default new LocalStoreManager();
+const localStoreManager = new LocalStoreManager();
+
+export default localStoreManager;
+
+export const getWordId = (id: string) => localStoreManager.getDataObject<string>(NEXT_WORD_DATA_KEY_PREFIX + id);
+export const setWordId = (id: string, value: string) => localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + id, value);
+export const deleteWordId = (id: string) => localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + id);

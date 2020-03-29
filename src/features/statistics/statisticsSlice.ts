@@ -20,7 +20,7 @@ const initialState: StatisticsState = {
 };
 
 const statisticsSlice = createSlice({
-  name: 'dictionaries',
+  name: 'statistics',
   initialState,
   reducers: {
     getStatisticsStart(state: StatisticsState) {

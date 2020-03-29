@@ -1,10 +1,9 @@
 import modelHelper from './modelHelper';
-import UserProfile from './UserProfile';
-import Word from './Word';
+import UserProfile, { createUserProfile } from './UserProfile';
 
-export * from './factory';
 export * from './Dictionary';
 export * from './Statistic';
 export * from './Text';
+export * from './Word';
 
-export { modelHelper, UserProfile, Word };
+export { modelHelper, UserProfile, createUserProfile };

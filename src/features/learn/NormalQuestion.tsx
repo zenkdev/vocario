@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import Keyboard from 'react-simple-keyboard';
 
 import { getFullInput, isLetter, unusedChars } from '../../utils';
-import Button from '../Button';
+import Button from '../../components/Button';
 import MobileKeyboard from './MobileKeyboard';
 
 interface NormalQuestionProps {

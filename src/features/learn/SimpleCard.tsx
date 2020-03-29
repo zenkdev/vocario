@@ -1,30 +1,32 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import AnswerResult from '../../components/AnswerResult';
+import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
 import { Answer } from '../../types';
 import { isValidAnswer } from '../../utils';
-import AnswerResult from '../AnswerResult';
-import If from '../If';
+import { updateWord } from './learnSlice';
+import { selectOptions } from './selectors';
 import SimpleQuestion from './SimpleQuestion';
 
-interface SimpleCardProps {
+type SimpleCardProps = {
   word: Word;
-  options: string[];
-  onNext: (valid: boolean) => void;
-  counter?: number;
-}
+};
 
-const SimpleCard: React.FC<SimpleCardProps> = ({ word, options, onNext, counter }) => {
+const SimpleCard: React.FC<SimpleCardProps> = ({ word }) => {
   const { translation, category } = word;
+  const dispatch = useDispatch();
   const [answer, setAnswer] = useState<Answer>(Answer.empty);
   const title = useMemo(() => modelHelper.getText(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
   const handleClick = useCallback(option => setAnswer(isValidAnswer(translation, option)), [translation]);
-  const handleNext = useCallback(() => onNext(answer === Answer.valid), [onNext, answer]);
+  const handleNext = useCallback(() => dispatch(updateWord(answer === Answer.valid)), [dispatch, answer]);
+  const options = useSelector(selectOptions);
 
   const valid = answer === Answer.valid;
 
-  useEffect(() => setAnswer(Answer.empty), [word, counter]);
+  useEffect(() => setAnswer(Answer.empty), [word]);
 
   return (
     <section>
