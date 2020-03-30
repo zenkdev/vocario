@@ -4,11 +4,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
-import AnswerResult from '../../components/AnswerResult';
 import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
 import { Answer } from '../../types';
 import { getFullInput, isValidAnswer } from '../../utils';
+import AnswerResult from './AnswerResult';
 import { updateWord } from './learnSlice';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';

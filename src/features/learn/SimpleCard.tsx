@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import AnswerResult from '../../components/AnswerResult';
+import AnswerResult from './AnswerResult';
 import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
 import { Answer } from '../../types';

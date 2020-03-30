@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
 
-import Button from './Button';
+import Button from '../../components/Button';
 
 interface CongratulationsProps {
   more?: boolean;

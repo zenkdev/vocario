@@ -1,27 +1,18 @@
 import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { IonAlert } from '@ionic/react';
 
-import { Button } from '../../components';
-import useResetProgress from '../../hooks/useResetProgress';
-import { toastService } from '../../services';
+import Button from '../../components/Button';
+import { doResetProgress } from './profileSlice';
 
 const ResetProgress: React.FC = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const onCompleted = useCallback(() => {
-    toastService.showToast({
-      message: 'All progress successfully reset.',
-      header: 'Reset the progress',
-      duration: 3000,
-      color: 'success',
-      buttons: [{ text: 'Close', role: 'cancel' }],
-    });
-  }, []);
-  const resetProgress = useResetProgress({ onCompleted, onError: toastService.showError });
   const handleReset = useCallback(() => {
     setIsOpen(false);
-    resetProgress();
-  }, [resetProgress]);
+    dispatch(doResetProgress());
+  }, [dispatch]);
 
   return (
     <>

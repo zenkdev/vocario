@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from 'react';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText } from '@ionic/react';
 
-import { LearnContext } from '../pages/Learn';
-import Button from './Button';
+import { LearnContext } from '../../pages/Learn';
+import Button from '../../components/Button';
 
 export type AnswerResultProps = {
   text: string;

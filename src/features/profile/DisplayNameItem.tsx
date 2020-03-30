@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IonAvatar, IonInput, IonItem, IonLabel, IonSkeletonText } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
-import { If } from '../../components';
+import If from '../../components/If';
 import { IonInputEvent } from '../../types';
 import { saveDisplayName } from './profileSlice';
 

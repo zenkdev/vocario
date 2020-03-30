@@ -3,10 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
 import { createUserProfile, UserProfile } from '../../models';
-import { profileService, toastService } from '../../services';
+import { profileService, statisticsService, toastService } from '../../services';
 import { getProfileOptions } from '../../services/LocalStoreManager';
 
 const { getProfile, updateEmail, updateDisplayName, updateDarkTheme, updateFontSize, updateSimpleMode } = profileService;
+const { resetProgress } = statisticsService;
 
 export type ProfileState = {
   isLoading: boolean;
@@ -163,5 +164,14 @@ export const saveSimpleMode = (newValue: boolean): AppThunk => async (dispatch, 
   } catch (error) {
     toastService.showError(error);
     dispatch(saveProfileFailure({ profile: { simpleMode: oldValue }, error: error.toString() }));
+  }
+};
+
+export const doResetProgress = (): AppThunk => async dispatch => {
+  try {
+    await resetProgress();
+  } catch (error) {
+    toastService.showError(error);
+    dispatch(getProfileFailure(error.toString()));
   }
 };

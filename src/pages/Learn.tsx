@@ -6,7 +6,6 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 
 import AppContext from '../app/AppContext';
 import { RootState } from '../app/rootReducer';
-import { Congratulations } from '../components';
 import { fetchDictionary } from '../features/learn/learnSlice';
 import NormalCard from '../features/learn/NormalCard';
 import { selectDailyStatistics, selectWord } from '../features/learn/selectors';
@@ -14,6 +13,7 @@ import SimpleCard from '../features/learn/SimpleCard';
 import useAudio from '../hooks/useAudio';
 import { percent } from '../utils';
 import { modelHelper } from '../models';
+import Congratulations from '../features/learn/Congratulations';
 
 type LearnLocationState = {
   id: string;

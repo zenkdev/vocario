@@ -1,11 +1,11 @@
 import { mail } from 'ionicons/icons';
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IonIcon, IonInput, IonItem, IonLabel, IonSkeletonText } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
-import { If } from '../../components';
+import If from '../../components/If';
 import { IonInputEvent } from '../../types';
 import { saveEmail } from './profileSlice';
 
