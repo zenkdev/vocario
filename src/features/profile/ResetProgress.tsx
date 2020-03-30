@@ -21,7 +21,6 @@ const ResetProgress: React.FC = () => {
           Reset the progress
         </Button>
       </div>
-
       <IonAlert
         isOpen={isOpen}
         header="Reset the progress!"

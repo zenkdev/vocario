@@ -1,19 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
-import AppContext from '../app/AppContext';
 import { RootState } from '../app/rootReducer';
+import Congratulations from '../features/learn/Congratulations';
 import { fetchDictionary } from '../features/learn/learnSlice';
 import NormalCard from '../features/learn/NormalCard';
 import { selectDailyStatistics, selectWord } from '../features/learn/selectors';
 import SimpleCard from '../features/learn/SimpleCard';
 import useAudio from '../hooks/useAudio';
-import { percent } from '../utils';
 import { modelHelper } from '../models';
-import Congratulations from '../features/learn/Congratulations';
+import { percent } from '../utils';
 
 type LearnLocationState = {
   id: string;
@@ -30,7 +29,7 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
   const dispatch = useDispatch();
   const title = (locationState && locationState.title) || 'Learn';
   const { toggle, playing, setUrl } = useAudio();
-  const { simpleMode } = useContext(AppContext);
+  const { simpleMode } = useSelector((state: RootState) => state.app);
   const { isLoading, dictionary } = useSelector((state: RootState) => state.learn);
   const word = useSelector(selectWord);
   const { completed, total, more } = useSelector(selectDailyStatistics);
