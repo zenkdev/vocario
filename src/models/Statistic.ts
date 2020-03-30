@@ -1,4 +1,9 @@
+import firebase from 'firebase/app';
+
 import { createTextArray, Text } from './Text';
+import defaultTo from '../utils/defaultTo';
+
+type DataSnapshot = firebase.database.DataSnapshot;
 
 export type Statistic = {
   id: string;
@@ -10,17 +15,16 @@ export type Statistic = {
   occurs: string[];
 };
 
-export function createStatistic(payload: firebase.database.DataSnapshot): Statistic {
-  const id = payload.key;
+export function createStatistic(payload: DataSnapshot): Statistic {
   const { dictionaryId, translation, category, partOfSpeech, occurs, ...rest } = payload.val();
   const texts = createTextArray(rest);
   return {
-    id: id || '',
-    dictionaryId: dictionaryId || '',
-    texts: texts || [],
-    translation: translation || '',
-    category: category || '',
-    partOfSpeech: partOfSpeech || '',
+    id: defaultTo(payload.key, ''),
+    dictionaryId: defaultTo(dictionaryId, ''),
+    texts: defaultTo(texts, []),
+    translation: defaultTo(translation, ''),
+    category: defaultTo(category, ''),
+    partOfSpeech: defaultTo(partOfSpeech, ''),
     occurs,
   };
 }

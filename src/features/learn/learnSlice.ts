@@ -4,7 +4,7 @@ import formatISO from 'date-fns/formatISO';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
-import { Dictionary, modelHelper } from '../../models';
+import { Dictionary, modelHelper, Word } from '../../models';
 import { dictionaryService, statisticsService, toastService } from '../../services';
 import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
 import { randomNumber } from '../../utils';
@@ -12,6 +12,7 @@ import { selectWord } from './selectors';
 
 const { getDictionary } = dictionaryService;
 const { updateStatistics } = statisticsService;
+const { isCompleted } = modelHelper;
 
 export type LearnState = {
   isLoading: boolean;
@@ -27,6 +28,11 @@ const initialState: LearnState = {
   error: null,
 };
 
+function loadingFailed(state: LearnState, { payload }: PayloadAction<string>) {
+  state.isLoading = false;
+  state.error = payload;
+}
+
 const learnSlice = createSlice({
   name: 'learn',
   initialState,
@@ -40,33 +46,63 @@ const learnSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     },
-    getDictionaryFailure(state: LearnState, { payload }: PayloadAction<string>) {
-      state.isLoading = false;
-      state.error = payload;
-    },
+    getDictionaryFailure: loadingFailed,
     nextWord(state: LearnState) {
-      const { dictionary } = state;
+      const { dictionary, wordId } = state;
       if (dictionary) {
         const words = modelHelper.wordsToLearn(dictionary);
+        let newWordId = wordId;
         if (words.length) {
-          let wordId = getWordId(dictionary.id);
           if (!words.some(({ id }) => id === wordId)) {
-            wordId = words[randomNumber(0, words.length - 1)].id;
-            setWordId(dictionary.id, wordId);
+            newWordId = words[randomNumber(0, words.length - 1)].id;
           }
-          // const newWord = words[index];
-          // setUrl(modelHelper.audioUrl(newWord));
-          state.wordId = wordId;
+        } else {
+          newWordId = null;
+        }
+
+        if (newWordId) {
+          setWordId(dictionary.id, newWordId);
         } else {
           deleteWordId(dictionary.id);
-          state.wordId = null;
         }
+        state.wordId = newWordId;
       }
     },
+    updateWordSuccess(state: LearnState, { payload }: PayloadAction<Word>) {
+      let { dictionary } = state;
+
+      if (dictionary) {
+        const { wordsCompleted, wordsCount, words } = dictionary;
+
+        dictionary = {
+          ...dictionary,
+          words: {
+            ...words,
+            [payload.id]: payload,
+          },
+          wordsCompleted: Math.min(wordsCompleted + (isCompleted(payload) ? 1 : 0), wordsCount),
+        };
+
+        deleteWordId(dictionary.id);
+      }
+
+      state.dictionary = dictionary;
+      state.wordId = null;
+      state.isLoading = false;
+      state.error = null;
+    },
+    updateWordFailure: loadingFailed,
   },
 });
 
-export const { getDictionaryStart, getDictionarySuccess, getDictionaryFailure, nextWord } = learnSlice.actions;
+export const {
+  getDictionaryStart,
+  getDictionarySuccess,
+  getDictionaryFailure,
+  nextWord,
+  updateWordSuccess,
+  updateWordFailure,
+} = learnSlice.actions;
 
 export default learnSlice.reducer;
 
@@ -85,16 +121,13 @@ export const fetchDictionary = (id: string): AppThunk => async dispatch => {
 export const updateWord = (valid: boolean): AppThunk => async (dispatch, getState) => {
   const state = getState();
   const dateStr = formatISO(Date.now());
-  let { dictionary } = state.learn;
+
+  const { dictionary } = state.learn;
   let word = selectWord(state);
 
   try {
     if (dictionary && word) {
-      const { id, wordsCompleted, wordsCount, words } = dictionary;
       let { occurs = [] } = word;
-      // if (!occurs) {
-      //   occurs = [];
-      // }
       if (occurs.length === 0) {
         occurs = [dateStr];
       }
@@ -103,23 +136,13 @@ export const updateWord = (valid: boolean): AppThunk => async (dispatch, getStat
       }
       word = { ...word, occurs };
 
-      await updateStatistics(id, word);
+      await updateStatistics(dictionary.id, word);
 
-      dictionary = {
-        ...dictionary,
-        words: {
-          ...words,
-          [word.id]: word,
-        },
-        wordsCompleted: Math.min(wordsCompleted + (modelHelper.isCompleted(word) ? 1 : 0), wordsCount),
-      };
-
-      dispatch(getDictionarySuccess(dictionary));
-      deleteWordId(id);
+      dispatch(updateWordSuccess(word));
       dispatch(nextWord());
     }
   } catch (e) {
     toastService.showError(e);
-    dispatch(getDictionaryFailure(e.toString()));
+    dispatch(updateWordFailure(e.toString()));
   }
 };

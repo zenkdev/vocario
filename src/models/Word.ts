@@ -1,4 +1,9 @@
+import firebase from 'firebase/app';
+
 import { createTextArray, Text } from './Text';
+import defaultTo from '../utils/defaultTo';
+
+type DataSnapshot = firebase.database.DataSnapshot;
 
 export type Word = {
   id: string;
@@ -9,9 +14,15 @@ export type Word = {
   occurs?: string[];
 };
 
-export function createWord(payload: firebase.database.DataSnapshot): Word {
-  const id = payload.key as string;
+export function createWord(payload: DataSnapshot): Word {
   const { translation, category, partOfSpeech, ...rest } = payload.val();
   const texts = createTextArray(rest);
-  return { id: id || '', translation: translation || '', category: category || '', partOfSpeech: partOfSpeech || '', texts, occurs: [] };
+  return {
+    id: defaultTo(payload.key, ''),
+    translation: defaultTo(translation, ''),
+    category: defaultTo(category, ''),
+    partOfSpeech: defaultTo(partOfSpeech, ''),
+    occurs: [],
+    texts,
+  };
 }
