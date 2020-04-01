@@ -1,44 +1,39 @@
-class UserProfile {
-  constructor({
-    id,
-    email,
-    displayName,
-    photoURL,
-    simpleMode,
-    fontSize,
-    darkTheme,
-  }: {
-    id?: string;
-    email?: string;
-    displayName?: string;
-    photoURL?: string;
-    simpleMode?: boolean | null;
-    fontSize?: number | null;
-    darkTheme?: boolean | null;
-  }) {
-    this.id = id || '';
-    this.email = email || '';
-    this.displayName = displayName || '';
-    this.photoURL = photoURL;
-    this.simpleMode = simpleMode != null ? simpleMode : true;
-    this.fontSize = fontSize || 1;
-    this.darkTheme = darkTheme != null ? darkTheme : false;
+import firebase from 'firebase/app';
+
+import defaultTo from '../utils/defaultTo';
+
+type DataSnapshot = firebase.database.DataSnapshot;
+
+export type UserProfile = {
+  id: string;
+  email: string;
+  displayName: string;
+  photoURL?: string;
+  simpleMode: boolean;
+  fontSize: number;
+  darkTheme: boolean;
+};
+
+export function createUserProfile(payload: DataSnapshot | null, options?: any): UserProfile {
+  if (payload == null) {
+    return {
+      id: '',
+      email: '',
+      displayName: '',
+      photoURL: undefined,
+      simpleMode: defaultTo(options && options.simpleMode, true),
+      darkTheme: defaultTo(options && options.darkTheme, false),
+      fontSize: defaultTo(options && options.fontSize, 1),
+    };
   }
-
-  public id: string;
-
-  public email: string;
-
-  // eslint-disable-next-line react/static-property-placement
-  public displayName: string;
-
-  public photoURL?: string;
-
-  public simpleMode: boolean;
-
-  public fontSize: number;
-
-  public darkTheme: boolean;
+  const { email, displayName, photoURL, simpleMode, darkTheme, fontSize } = payload.val();
+  return {
+    id: defaultTo(payload.key, ''),
+    email: defaultTo(email, ''),
+    displayName: defaultTo(displayName, ''),
+    photoURL,
+    simpleMode: defaultTo(defaultTo(options && options.simpleMode, simpleMode), true),
+    darkTheme: defaultTo(defaultTo(options && options.darkTheme, darkTheme), false),
+    fontSize: defaultTo(defaultTo(options && options.fontSize, fontSize), 1),
+  };
 }
-
-export default UserProfile;

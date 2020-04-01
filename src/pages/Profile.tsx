@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { logOut } from 'ionicons/icons';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
 import {
@@ -21,14 +22,20 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { Button, DarkThemeItem, DisplayNameItem, Emailtem, FontSizeItem, ResetProgress, SimpleModeItem } from '../components';
-import { useProfile } from '../hooks';
+import { RootState } from '../app/rootReducer';
+import DarkThemeItem from '../features/profile/DarkThemeItem';
+import DisplayNameItem from '../features/profile/DisplayNameItem';
+import EmailItem from '../features/profile/Emailtem';
+import FontSizeItem from '../features/profile/FontSizeItem';
+import { fetchProfile } from '../features/profile/profileSlice';
+import SimpleModeItem from '../features/profile/SimpleModeItem';
 import { authService, toastService } from '../services';
+import ResetProgress from '../features/profile/ResetProgress';
 
-const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const [{ isLoading, data }, fetchData] = useProfile({ onError: toastService.showError });
-  const [showResetProgress, setShowResetProgress] = useState(false);
-  const [showSaving, setShowSaving] = useState(false);
+const Profile: React.FC<RouteComponentProps> = ({ history }) => {
+  const dispatch = useDispatch();
+  const { isLoading, isSaving } = useSelector((state: RootState) => state.profile);
+  const fetchData = useCallback(() => dispatch(fetchProfile()), [dispatch]);
   const handleLogout = useCallback(async () => {
     try {
       await authService.logout();
@@ -37,7 +44,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
       toastService.showError(error);
     }
   }, [history]);
-
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();
@@ -45,7 +51,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     },
     [fetchData],
   );
-
   useIonViewWillEnter(fetchData);
 
   return (
@@ -68,28 +73,23 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
           <IonListHeader color="light">
             <IonLabel>Personal Information</IonLabel>
           </IonListHeader>
-          <DisplayNameItem isLoading={isLoading} initialValue={data.displayName} photoURL={data.photoURL} setShowSaving={setShowSaving} />
-          <Emailtem isLoading={isLoading} initialValue={data.email} setShowSaving={setShowSaving} />
-          <SimpleModeItem isLoading={isLoading} initialValue={data.simpleMode} setShowSaving={setShowSaving} />
-          <DarkThemeItem isLoading={isLoading} initialValue={data.darkTheme} setShowSaving={setShowSaving} />
-          <FontSizeItem isLoading={isLoading} initialValue={data.fontSize} setShowSaving={setShowSaving} />
+          <DisplayNameItem />
+          <EmailItem />
+          <SimpleModeItem />
+          <DarkThemeItem />
+          <FontSizeItem />
         </IonList>
-        <div className="ion-padding">
-          <Button expand="block" color="primary" onClick={() => setShowResetProgress(true)}>
-            Reset the progress
-          </Button>
-        </div>
+        <ResetProgress />
         <div className="ion-padding">
           <span className="small-text" style={{ textTransform: 'capitalize' }}>
             {process.env.REACT_APP_NAME} version: {process.env.REACT_APP_VERSION}
           </span>
         </div>
-        <ResetProgress isOpen={showResetProgress} onClose={() => setShowResetProgress(false)} />
         <IonLoading isOpen={isLoading} message="Loading..." />
-        <IonLoading isOpen={showSaving} message="Saving..." />
+        <IonLoading isOpen={isSaving} message="Saving..." />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Login;
+export default Profile;

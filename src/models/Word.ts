@@ -1,40 +1,28 @@
-import Text from './Text';
+import firebase from 'firebase/app';
 
-class Word {
-  constructor({
-    id,
+import { createTextArray, Text } from './Text';
+import defaultTo from '../utils/defaultTo';
+
+type DataSnapshot = firebase.database.DataSnapshot;
+
+export type Word = {
+  id: string;
+  texts: Text[];
+  translation: string;
+  category: string;
+  partOfSpeech: string;
+  occurs?: string[];
+};
+
+export function createWord(payload: DataSnapshot): Word {
+  const { translation, category, partOfSpeech, ...rest } = payload.val();
+  const texts = createTextArray(rest);
+  return {
+    id: defaultTo(payload.key, ''),
+    translation: defaultTo(translation, ''),
+    category: defaultTo(category, ''),
+    partOfSpeech: defaultTo(partOfSpeech, ''),
+    occurs: [],
     texts,
-    translation,
-    category,
-    partOfSpeech,
-    occurs,
-  }: {
-    id?: string;
-    texts?: Text[];
-    translation?: string;
-    category?: string;
-    partOfSpeech?: string;
-    occurs?: string[];
-  }) {
-    this.id = id || '';
-    this.texts = texts || [];
-    this.translation = translation || '';
-    this.category = category || '';
-    this.partOfSpeech = partOfSpeech || '';
-    this.occurs = occurs;
-  }
-
-  public id: string;
-
-  public texts: Text[];
-
-  public translation: string;
-
-  public category: string;
-
-  public partOfSpeech: string;
-
-  public occurs?: string[];
+  };
 }
-
-export default Word;

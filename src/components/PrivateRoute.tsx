@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, RouteProps } from 'react-router-dom';
 
+import { RootState } from '../app/rootReducer';
 import { Login } from '../pages';
-import AppContext from '../AppContext';
 
 const PrivateRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
-  const { currentUser } = useContext(AppContext);
-  const isLoggedIn = currentUser != null;
+  const { isLoggedIn } = useSelector((state: RootState) => state.app);
   // @ts-ignore
   return <Route {...rest} render={props => (isLoggedIn ? <Component {...props} /> : <Login {...props} />)} />;
 };

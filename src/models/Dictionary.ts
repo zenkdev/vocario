@@ -1,35 +1,26 @@
-import Word from './Word';
+import firebase from 'firebase/app';
 
-class Dictionary {
-  constructor({
-    id,
-    name,
-    wordsCount,
-    wordsCompleted,
-    words,
-  }: {
-    id?: string;
-    name?: string;
-    wordsCount?: number;
-    wordsCompleted?: number;
-    words?: Word[];
-  }) {
-    this.id = id || '';
-    this.name = name || '';
-    this.wordsCount = wordsCount || 0;
-    this.wordsCompleted = wordsCompleted || 0;
-    this.words = words || [];
-  }
+import { Word } from './Word';
+import defaultTo from '../utils/defaultTo';
 
-  public id: string;
+type DataSnapshot = firebase.database.DataSnapshot;
 
-  public name: string;
+export type Dictionary = {
+  id: string;
+  name: string;
+  wordsCount: number;
+  wordsCompleted: number;
+  words: Record<string, Word>;
+};
 
-  public wordsCount: number;
-
-  public wordsCompleted: number;
-
-  public words: Word[];
+export function createDictionary(payload: DataSnapshot, uid: string | null): Dictionary {
+  const { name, wordsCount, wordsCompleted: wordsCompletedObject } = payload.val();
+  const wordsCompleted = defaultTo(wordsCompletedObject && uid && wordsCompletedObject[uid], 0);
+  return {
+    id: defaultTo(payload.key, ''),
+    name: defaultTo(name, ''),
+    wordsCount: defaultTo(wordsCount, 0),
+    wordsCompleted: defaultTo(wordsCompleted, 0),
+    words: {},
+  };
 }
-
-export default Dictionary;

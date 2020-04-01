@@ -1,11 +1,9 @@
 import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   IonContent,
   IonHeader,
-  IonLabel,
-  IonList,
-  IonListHeader,
   IonLoading,
   IonPage,
   IonRefresher,
@@ -15,12 +13,14 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { DictionaryItem } from '../components';
-import { useDictionaries } from '../hooks';
-import { toastService } from '../services';
+import { RootState } from '../app/rootReducer';
+import { fetchDictionaries } from '../features/home/homeSlice';
+import DictionaryList from '../features/home/DictionaryList';
 
 const Home: React.FC = () => {
-  const [{ isLoading, data }, fetchData] = useDictionaries({ onError: toastService.showError });
+  const dispatch = useDispatch();
+  const { isLoading, data } = useSelector((state: RootState) => state.home);
+  const fetchData = useCallback(() => dispatch(fetchDictionaries()), [dispatch]);
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();
@@ -41,16 +41,7 @@ const Home: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <IonList lines="none" class="ion-no-margin ion-no-padding">
-          {!data.length && (
-            <IonListHeader>
-              <IonLabel>No Dictionaries Found</IonLabel>
-            </IonListHeader>
-          )}
-          {data.map(item => (
-            <DictionaryItem key={item.id} item={item} />
-          ))}
-        </IonList>
+        <DictionaryList dictionaries={data} />
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>

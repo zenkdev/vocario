@@ -39,6 +39,7 @@ export interface CreateWriteStreamOptions extends CreateResumableUploadOptions {
 
 export type File = {
   name: string;
+  metadata: any;
   createReadStream(options?: CreateReadStreamOptions): Readable;
   createWriteStream(options?: CreateWriteStreamOptions): Writable;
 };

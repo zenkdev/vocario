@@ -1,6 +1,6 @@
 import { jsonTryParse } from '../utils';
 
-export const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
+const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
 export const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
 export const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
 export const DARK_THEME_DATA_KEY = 'lexion:darkTheme';
@@ -140,4 +140,17 @@ export class LocalStoreManager {
   }
 }
 
-export default new LocalStoreManager();
+const localStoreManager = new LocalStoreManager();
+
+export default localStoreManager;
+
+export const getWordId = (id: string) => localStoreManager.getDataObject<string>(NEXT_WORD_DATA_KEY_PREFIX + id);
+export const setWordId = (id: string, value: string) => localStoreManager.savePermanentData(NEXT_WORD_DATA_KEY_PREFIX + id, value);
+export const deleteWordId = (id: string) => localStoreManager.deleteData(NEXT_WORD_DATA_KEY_PREFIX + id);
+
+export const getProfileOptions = () => {
+  const simpleMode = localStoreManager.getDataObject<boolean>(SIMPLE_MODE_DATA_KEY);
+  const fontSize = localStoreManager.getDataObject<number>(FONT_SIZE_DATA_KEY);
+  const darkTheme = localStoreManager.getDataObject<boolean>(DARK_THEME_DATA_KEY);
+  return { simpleMode, fontSize, darkTheme };
+};
