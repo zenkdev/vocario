@@ -1,24 +1,42 @@
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText } from '@ionic/react';
+import { Dispatch } from '@reduxjs/toolkit';
 
-import { LearnContext } from '../../pages/Learn';
+import { RootState } from '../../app/rootReducer';
 import Button from '../../components/Button';
+import useAudio from '../../hooks/useAudio';
+import { Answer } from '../../types';
+import * as actions from './learnSlice';
+import * as selectors from './selectors';
 
-export type AnswerResultProps = {
+type AnswerResultOwnProps = {
   text: string;
   smallText?: string;
-  valid: boolean;
-  onNextClick: () => void;
 };
 
-const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onNextClick }) => {
-  const color = valid ? 'success' : 'danger';
-  const title = valid ? 'Correct' : 'Correct answer';
-  const { playing, toggle } = useContext(LearnContext);
+const mapStateToProps = (state: RootState) => {
+  const { answer } = state.learn;
+  return {
+    title: answer === Answer.valid ? 'Correct' : 'Correct answer',
+    color: answer === Answer.valid ? 'success' : 'danger',
+    audioUrl: selectors.selectAudioUrl(state),
+  };
+};
 
-  useEffect(() => toggle(), [toggle]);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    handleClick: () => dispatch(actions.updateWord() as any),
+  };
+};
+
+type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
+  const { playing, toggle } = useAudio(audioUrl);
+  useEffect(toggle, [toggle]);
 
   return (
     <IonCard>
@@ -32,11 +50,11 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, valid, onN
         </IonText>
         {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
         <div className="ion-padding-top ion-text-center">
-          <Button onClick={onNextClick}>Next</Button>
+          <Button onClick={handleClick}>Next</Button>
         </div>
       </IonCardContent>
     </IonCard>
   );
 };
 
-export default AnswerResult;
+export default connect(mapStateToProps, mapDispatchToProps)(AnswerResult);

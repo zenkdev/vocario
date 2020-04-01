@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
+import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../app/rootReducer';
 import Congratulations from '../features/learn/Congratulations';
-import { fetchDictionary } from '../features/learn/learnSlice';
+import * as actions from '../features/learn/learnSlice';
 import NormalCard from '../features/learn/NormalCard';
-import { selectDailyStatistics, selectWord } from '../features/learn/selectors';
+import * as selectors from '../features/learn/selectors';
 import SimpleCard from '../features/learn/SimpleCard';
 import useAudio from '../hooks/useAudio';
-import { modelHelper } from '../models';
 import { percent } from '../utils';
 
 type LearnLocationState = {
@@ -19,34 +19,39 @@ type LearnLocationState = {
   title: string;
 };
 
-export const LearnContext = React.createContext({
-  playing: true,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  toggle: () => {},
-});
+type LearnOwnProps = RouteComponentProps<LearnLocationState>;
 
-const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { state: locationState } }) => {
-  const dispatch = useDispatch();
-  const title = (locationState && locationState.title) || 'Learn';
-  const { toggle, playing, setUrl } = useAudio();
-  const { simpleMode } = useSelector((state: RootState) => state.app);
-  const { isLoading, dictionary } = useSelector((state: RootState) => state.learn);
-  const word = useSelector(selectWord);
-  const { completed, total, more } = useSelector(selectDailyStatistics);
+const mapStateToProps = (state: RootState) => {
+  const { simpleMode } = state.app;
+  const { isLoading } = state.learn;
+  return {
+    simpleMode,
+    isLoading,
+    word: selectors.selectWord(state),
+    audioUrl: selectors.selectAudioUrl(state),
+    dailyStatistics: selectors.selectDailyStatistics(state),
+  };
+};
 
-  useEffect(() => {
-    if (locationState && locationState.id) {
-      dispatch(fetchDictionary(locationState.id));
-    }
-  }, [locationState, dispatch]);
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: LearnOwnProps) => {
+  const { state } = ownProps.location;
+  return {
+    fetchData: () => {
+      if (state && state.id) {
+        dispatch(actions.fetchDictionary(state.id) as any);
+      }
+    },
+  };
+};
 
-  useEffect(() => {
-    if (word) {
-      setUrl(modelHelper.audioUrl(word));
-    } else {
-      setUrl('');
-    }
-  }, [word, setUrl]);
+type LearnProps = LearnOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+const Learn: React.FC<LearnProps> = ({ location, simpleMode, isLoading, word, audioUrl, dailyStatistics, fetchData }) => {
+  useAudio(audioUrl); // preload audio file
+  const title = (location.state && location.state.title) || 'Learn';
+  const { completed, total, more } = dailyStatistics;
+
+  useEffect(fetchData, [fetchData]);
 
   return (
     <IonPage>
@@ -59,11 +64,9 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {dictionary && <IonProgressBar value={percent(completed, total)} />}
-        <LearnContext.Provider value={{ playing, toggle }}>
-          {word && !simpleMode && <NormalCard word={word} />}
-          {word && simpleMode && <SimpleCard word={word} />}
-        </LearnContext.Provider>
+        <IonProgressBar value={percent(completed, total)} />
+        {word && !simpleMode && <NormalCard word={word} />}
+        {word && simpleMode && <SimpleCard word={word} />}
         {!isLoading && !word && <Congratulations more={more} />}
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
@@ -71,4 +74,4 @@ const Learn: React.FC<RouteComponentProps<LearnLocationState>> = ({ location: { 
   );
 };
 
-export default Learn;
+export default connect(mapStateToProps, mapDispatchToProps)(Learn);

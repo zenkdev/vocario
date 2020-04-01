@@ -1,13 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-import AnswerResult from './AnswerResult';
+import { RootState } from '../../app/rootReducer';
 import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
-import { Answer } from '../../types';
-import { isValidAnswer } from '../../utils';
-import { updateWord } from './learnSlice';
-import { selectOptions } from './selectors';
+import AnswerResult from './AnswerResult';
 import SimpleQuestion from './SimpleQuestion';
 
 type SimpleCardProps = {
@@ -16,17 +13,9 @@ type SimpleCardProps = {
 
 const SimpleCard: React.FC<SimpleCardProps> = ({ word }) => {
   const { translation, category } = word;
-  const dispatch = useDispatch();
-  const [answer, setAnswer] = useState<Answer>(Answer.empty);
+  const answer = useSelector((state: RootState) => state.learn.answer);
   const title = useMemo(() => modelHelper.getText(word), [word]);
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
-  const handleClick = useCallback(option => setAnswer(isValidAnswer(translation, option)), [translation]);
-  const handleNext = useCallback(() => dispatch(updateWord(answer === Answer.valid)), [dispatch, answer]);
-  const options = useSelector(selectOptions);
-
-  const valid = answer === Answer.valid;
-
-  useEffect(() => setAnswer(Answer.empty), [word]);
 
   return (
     <section>
@@ -35,11 +24,7 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ word }) => {
       </div>
       <div>
         <div className="ion-padding small-text ion-text-center">{transcription}</div>
-        <If
-          condition={answer === Answer.empty}
-          then={<SimpleQuestion options={options} onClick={handleClick} />}
-          else={<AnswerResult text={translation} valid={valid} onNextClick={handleNext} />}
-        />
+        <If condition={!answer} then={<SimpleQuestion text={translation} />} else={<AnswerResult text={translation} />} />
         <div className="ion-padding small-text">{category}</div>
       </div>
     </section>

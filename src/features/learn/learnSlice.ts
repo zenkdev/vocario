@@ -7,6 +7,7 @@ import { AppThunk } from '../../app/store';
 import { Dictionary, modelHelper, Word } from '../../models';
 import { dictionaryService, statisticsService, toastService } from '../../services';
 import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
+import { Answer } from '../../types';
 import { randomNumber } from '../../utils';
 import { selectWord } from './selectors';
 
@@ -19,6 +20,7 @@ export type LearnState = {
   dictionary: Dictionary | null;
   wordId: string | null;
   error: string | null;
+  answer: Answer | null;
 };
 
 const initialState: LearnState = {
@@ -26,6 +28,7 @@ const initialState: LearnState = {
   dictionary: null,
   wordId: null,
   error: null,
+  answer: null,
 };
 
 function loadingFailed(state: LearnState, { payload }: PayloadAction<string>) {
@@ -45,6 +48,7 @@ const learnSlice = createSlice({
       state.wordId = payload ? getWordId(payload.id) : null;
       state.isLoading = false;
       state.error = null;
+      state.answer = null;
     },
     getDictionaryFailure: loadingFailed,
     nextWord(state: LearnState) {
@@ -66,7 +70,11 @@ const learnSlice = createSlice({
           deleteWordId(dictionary.id);
         }
         state.wordId = newWordId;
+        state.answer = null;
       }
+    },
+    setAnswer(state: LearnState, { payload }: PayloadAction<Answer>) {
+      state.answer = payload;
     },
     updateWordSuccess(state: LearnState, { payload }: PayloadAction<Word>) {
       let { dictionary } = state;
@@ -90,6 +98,7 @@ const learnSlice = createSlice({
       state.wordId = null;
       state.isLoading = false;
       state.error = null;
+      state.answer = null;
     },
     updateWordFailure: loadingFailed,
   },
@@ -100,6 +109,7 @@ export const {
   getDictionarySuccess,
   getDictionaryFailure,
   nextWord,
+  setAnswer,
   updateWordSuccess,
   updateWordFailure,
 } = learnSlice.actions;
@@ -118,11 +128,11 @@ export const fetchDictionary = (id: string): AppThunk => async dispatch => {
   }
 };
 
-export const updateWord = (valid: boolean): AppThunk => async (dispatch, getState) => {
+export const updateWord = (): AppThunk => async (dispatch, getState) => {
   const state = getState();
   const dateStr = formatISO(Date.now());
 
-  const { dictionary } = state.learn;
+  const { dictionary, answer } = state.learn;
   let word = selectWord(state);
 
   try {
@@ -131,7 +141,7 @@ export const updateWord = (valid: boolean): AppThunk => async (dispatch, getStat
       if (occurs.length === 0) {
         occurs = [dateStr];
       }
-      if (valid) {
+      if (answer === Answer.valid) {
         occurs = [...occurs, dateStr];
       }
       word = { ...word, occurs };

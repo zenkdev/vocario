@@ -16,6 +16,10 @@ export const selectWord = createSelector(selectLearn, ({ dictionary, wordId }): 
   return dictionary.words[wordId];
 });
 
+export const selectAudioUrl = createSelector(selectLearn, ({ wordId }): string | undefined => {
+  return wordId ? `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${wordId}` : undefined;
+});
+
 export const selectOptions = createSelector([selectLearn, selectWord], ({ dictionary }, word) => {
   if (!dictionary || !word) {
     return [];

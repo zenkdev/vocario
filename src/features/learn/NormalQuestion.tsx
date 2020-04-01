@@ -1,19 +1,30 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import { connect } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
-import { getFullInput, isLetter, unusedChars } from '../../utils';
-import Button from '../../components/Button';
-import MobileKeyboard from './MobileKeyboard';
+import { Dispatch } from '@reduxjs/toolkit';
 
-interface NormalQuestionProps {
+import Button from '../../components/Button';
+import { getFullInput, isLetter, unusedChars, isValidAnswer } from '../../utils';
+import MobileKeyboard from './MobileKeyboard';
+import * as actions from './learnSlice';
+
+type NormalQuestionOwnProps = {
   text: string;
   input: string;
   keyboardRef: (r: Keyboard) => void;
   onChange: (value: string) => void;
-  onValidate: () => void;
-}
+};
 
-const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRef, onChange, onValidate }) => {
+const mapDispatchToProps = (dispatch: Dispatch, { text, input }: NormalQuestionOwnProps) => {
+  return {
+    handleClick: () => dispatch(actions.setAnswer(isValidAnswer(text, getFullInput(input, text))) as any),
+  };
+};
+
+type NormalQuestionProps = NormalQuestionOwnProps & ReturnType<typeof mapDispatchToProps>;
+
+const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRef, onChange, handleClick }) => {
   const [highlight, setHighlight] = useState<string>();
   const fullInput = useMemo(() => getFullInput(input, text), [input, text]);
   const buttons = useMemo(() => ['{backspace}', ...unusedChars(input, text)], [input, text]);
@@ -48,7 +59,7 @@ const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRe
         <MobileKeyboard keyboardRef={keyboardRef} buttons={buttons} highlight={highlight} onChange={handleInput} />
       </div>
       <div className="ion-padding ion-text-center">
-        <Button onClick={onValidate} disabled={text.length > fullInput.length}>
+        <Button onClick={handleClick} disabled={text.length > fullInput.length}>
           Validate
         </Button>
       </div>
@@ -56,4 +67,4 @@ const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRe
   );
 };
 
-export default NormalQuestion;
+export default connect(null, mapDispatchToProps)(NormalQuestion);

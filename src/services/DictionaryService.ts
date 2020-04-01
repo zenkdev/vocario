@@ -76,11 +76,7 @@ class DictionaryService {
 
   private async getWords(dictionaryId: string): Promise<Record<string, Word>> {
     return withTrace('getWords', async () => {
-      const snapshot = await this.db
-        .ref('word')
-        .orderByChild('dictionaryId')
-        .equalTo(dictionaryId)
-        .once('value');
+      const snapshot = await this.db.ref('word').orderByChild('dictionaryId').equalTo(dictionaryId).once('value');
       const map: Record<string, Word> = {};
       snapshot.forEach(payload => {
         map[payload.key as string] = createWord(payload);
@@ -93,11 +89,7 @@ class DictionaryService {
     return withTrace('getStatistics', async () => {
       const map: Record<string, Statistic> = {};
       if (this.uid) {
-        const snapshot = await this.db
-          .ref(`statistics/${this.uid}`)
-          .orderByChild('dictionaryId')
-          .equalTo(dictionaryId)
-          .once('value');
+        const snapshot = await this.db.ref(`statistics/${this.uid}`).orderByChild('dictionaryId').equalTo(dictionaryId).once('value');
         snapshot.forEach(payload => {
           map[payload.key as string] = createStatistic(payload);
         });

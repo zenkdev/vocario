@@ -75,7 +75,6 @@ export default {
   isFirstOccurToday,
   isNextOccurToday,
 
-  audioUrl: ({ id }: Word): string => `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${id}`,
   getText: ({ texts }: Word): string => texts.reduce((acc, { text }) => acc + (acc && text ? ', ' : '') + (text || ''), ''),
   getTextWithLang: ({ texts }: Word): string =>
     texts.reduce((acc, { text, lang }) => acc + (acc && text ? ', ' : '') + (text || '') + (text && lang ? ` (${lang})` : ''), ''),
