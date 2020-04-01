@@ -68,9 +68,7 @@
         "node": {
           "extensions": [
             ".js",
-            ".jsx",
-            ".ts",
-            ".tsx"
+            ".ts"
           ]
         }
       }
@@ -81,9 +79,7 @@
         "ignorePackages",
         {
           "ts": "never",
-          "tsx": "never",
-          "js": "never",
-          "jsx": "never"
+          "js": "never"
         }
       ],
       "@typescript-eslint/explicit-function-return-type": "off",

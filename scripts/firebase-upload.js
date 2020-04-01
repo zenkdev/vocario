@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
