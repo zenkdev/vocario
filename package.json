@@ -13,7 +13,8 @@
     "lint": "tsc --noEmit && eslint ./src/**/*.{js,jsx,ts,tsx}",
     "lint:fix": "eslint --fix ./src/**/*.{js,jsx,ts,tsx}",
     "firebase:upload": "node ./scripts/firebase-upload.js",
-    "firebase:deploy": "firebase deploy --only hosting:web"
+    "firebase:deploy": "firebase deploy --only hosting:web",
+    "firebase:get-files": "node ./scripts/firebase-get-files.js"
   },
   "private": true,
   "dependencies": {
