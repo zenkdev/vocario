@@ -57,10 +57,7 @@ export const statisticsOnWrite = functions.database.ref('/statistics/{uid}/{word
 
 export const synthesize = functions.https.onRequest((req, res) => {
   if (req.method !== 'GET') {
-    return res
-      .status(403)
-      .send('Forbidden!')
-      .end();
+    return res.status(403).send('Forbidden!').end();
   }
 
   // Enable CORS using the `cors` express middleware.
@@ -85,10 +82,7 @@ export const synthesize = functions.https.onRequest((req, res) => {
         return sendFile(res, exists);
       }
 
-      const snapshot = await admin
-        .database()
-        .ref(`word/${word}`)
-        .once('value');
+      const snapshot = await admin.database().ref(`word/${word}`).once('value');
 
       const payload = snapshot.val();
       if (!payload) {
@@ -103,8 +97,9 @@ export const synthesize = functions.https.onRequest((req, res) => {
 
       return res
         .status(200)
-        .contentType('mp3')
         .attachment(`${word}.mp3`)
+        .contentType('mp3')
+        .header('cache-control', 'public, max-age=86400')
         .send(audioContent)
         .end();
     } catch (e) {
