@@ -17,6 +17,7 @@ import Filter from '../features/filters/Filter';
 import { selectIsLoading } from '../features/statistics/selectors';
 import StatisticsList from '../features/statistics/StatisticsList';
 import { fetchStatistics } from '../features/statistics/statisticsSlice';
+import Chart from '../features/statistics/Chart';
 
 const Statistics: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const Statistics: React.FC = () => {
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
+        <Chart />
         <Filter />
         <StatisticsList />
         <IonLoading isOpen={isLoading} message="Loading..." />

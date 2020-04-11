@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { ThunkAction } from 'redux-thunk';
 
 import { Action, configureStore } from '@reduxjs/toolkit';
