@@ -1,4 +1,4 @@
-# Vocabionic
+# Vocario
 
 Simple vocabulary application made on React and Ionic with a backend on Firebase.
 

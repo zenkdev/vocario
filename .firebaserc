@@ -1,14 +1,14 @@
 {
   "targets": {
-    "vocabionic": {
+    "vocario": {
       "hosting": {
         "web": [
-          "vocabionic"
+          "vocario"
         ]
       }
     }
   },
   "projects": {
-    "default": "vocabionic"
+    "default": "vocario"
   }
 }

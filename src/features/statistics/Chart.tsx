@@ -1,0 +1,95 @@
+/* eslint-disable react/jsx-wrap-multilines */
+import { max } from 'd3-array';
+import format from 'date-fns/format';
+import getDay from 'date-fns/getDay';
+import parseISO from 'date-fns/parseISO';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { SizeMeProps, withSize } from 'react-sizeme';
+
+import { AxisBottom } from '@vx/axis';
+import { Group } from '@vx/group';
+import { scaleBand, scaleLinear } from '@vx/scale';
+import { Bar } from '@vx/shape';
+
+import defaultTo from '../../utils/defaultTo';
+import getLocale from '../../utils/getLocale';
+import { ChartData, selectChartData } from './selectors';
+
+// accessors
+const x = (d: ChartData): string => d.date;
+const y = (d: ChartData): number => d.count;
+
+const Chart: React.FC<SizeMeProps> = ({ size }) => {
+  const locale = getLocale();
+  const data = useSelector(selectChartData);
+
+  const width = Math.round(Math.max(defaultTo(size.width, 0) - 32, 400));
+  const height = Math.round(Math.max(defaultTo(size.height, 0) - 16, 200));
+
+  // bounds
+  const xMax = width;
+  const yMax = height - 100;
+
+  // scales
+  const xScale = scaleBand<string>({
+    rangeRound: [0, xMax],
+    domain: data.map(x),
+    padding: 0.4,
+  });
+  const yScale = scaleLinear<number>({
+    rangeRound: [yMax, 0],
+    domain: [0, max(data, y) || 0],
+  });
+
+  return (
+    <div className="chart">
+      <div className="chart__wrapper" style={{ height: `${height}px` }}>
+        <svg width={width} height={height}>
+          <Group top={30}>
+            {data.map(d => {
+              const xd = x(d);
+              const yd = y(d);
+              const barWidth = xScale.bandwidth();
+              const barHeight = yMax - yScale(yd);
+              return (
+                <Group key={`bar-${xd}`}>
+                  <Bar width={barWidth} height={barHeight} x={xScale(xd)} y={yMax - barHeight} className="chart__bar" />
+                  {yd && (
+                    <text
+                      x={defaultTo(xScale(xd), 0) + barWidth / 2}
+                      y={yMax - barHeight}
+                      className="chart__bar-label"
+                      fontSize={12}
+                      dy="-.5em"
+                      textAnchor="middle"
+                    >
+                      {`${yd}`}
+                    </text>
+                  )}
+                </Group>
+              );
+            })}
+          </Group>
+          <AxisBottom
+            scale={xScale}
+            top={height - 60}
+            axisLineClassName="chart__axis-line"
+            tickClassName="chart__axis-tick"
+            tickFormat={(value, ix) => {
+              const date = parseISO(value);
+              if (ix === 0 || ix === data.length - 1 || getDay(date) === locale.options?.weekStartsOn) {
+                return format(date, 'MMM d', { locale });
+              }
+              return undefined;
+            }}
+            label="Daily progress"
+            labelProps={{ fontSize: 14, textAnchor: 'middle', className: 'chart__axis-label' }}
+          />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+export default withSize({ monitorHeight: true })(Chart);
