@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, StaticContext } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 import { Dispatch } from '@reduxjs/toolkit';
@@ -19,7 +19,7 @@ type LearnLocationState = {
   title: string;
 };
 
-type LearnOwnProps = RouteComponentProps<LearnLocationState>;
+type LearnOwnProps = RouteComponentProps<{}, StaticContext, LearnLocationState>;
 
 const mapStateToProps = (state: RootState) => {
   const { simpleMode } = state.app;
