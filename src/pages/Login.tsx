@@ -1,4 +1,4 @@
-import { logoGoogle } from 'ionicons/icons';
+import { logoGoogle, logoGithub } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -49,6 +49,17 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
       toastService.showError(error);
     }
   }, [goBack, email, password]);
+  const loginWithGithub = useCallback(async () => {
+    setShowLoading(true);
+    try {
+      await authService.loginWithGithub();
+      setShowLoading(false);
+      goBack();
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
+  }, [goBack]);
   const loginWithGoogle = useCallback(async () => {
     setShowLoading(true);
     try {
@@ -85,6 +96,10 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
           </IonButton>
         </div>
         <IonList lines="full" class="ion-no-margin ion-padding">
+          <IonButton expand="block" fill="outline" onClick={loginWithGithub}>
+            <IonIcon slot="start" icon={logoGithub} />
+            Log in with Github
+          </IonButton>
           <IonButton expand="block" fill="outline" onClick={loginWithGoogle}>
             <IonIcon slot="start" icon={logoGoogle} />
             Log in with Google

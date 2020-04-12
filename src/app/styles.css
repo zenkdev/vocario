@@ -148,3 +148,44 @@ ul.count li {
 .chart__axis-label {
   font-size: 0.75rem !important;
 }
+
+.ripple .rim1,
+.ripple .rim2,
+.ripple .rim3 {
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  border-radius: 50%;
+  width: 0em;
+  height: 0em;
+  border: 0 none;
+  background: transparent;
+}
+.ripple .rim1 {
+  animation: expand 2s linear infinite;
+}
+.ripple .rim2 {
+  animation: expand 2s linear 0.5s infinite;
+}
+.ripple .rim3 {
+  animation: expand 2s linear 1s infinite;
+}
+
+@keyframes expand {
+  0% {
+    top: calc(20px - .5em);
+    left: calc(22px - .5em);
+    width: 1em;
+    height: 1em;
+    border: var(--color) .25em solid;
+    opacity: 1;
+  }
+  100% {
+    top: calc(20px - 20.5em);
+    left: calc(22px - 20.5em);
+    width: 41em;
+    height: 41em;
+    border: var(--color) .5em solid;
+    opacity: 0;
+  }
+}

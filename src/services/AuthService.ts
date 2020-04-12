@@ -18,6 +18,12 @@ class AuthService {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
+  public async loginWithGithub(): Promise<UserCredential> {
+    console.log('Sign in with github');
+    await this.auth.setPersistence('local');
+    return this.oauthSignIn(new firebase.auth.GithubAuthProvider());
+  }
+
   public async loginWithGoogle(): Promise<UserCredential> {
     console.log('Sign in with google');
     await this.auth.setPersistence('local');

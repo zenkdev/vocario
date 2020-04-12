@@ -11,6 +11,7 @@ import useAudio from '../../hooks/useAudio';
 import { Answer } from '../../types';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
+import Ripple from './Ripple';
 
 type AnswerResultOwnProps = {
   text: string;
@@ -44,6 +45,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
+        {playing && <Ripple />}
         <IonIcon slot="start" icon={playing ? stop : volumeHigh} onClick={() => toggle()} />
         <IonText color={color} className="ion-padding-start normal-text">
           {text}
