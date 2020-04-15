@@ -30,6 +30,12 @@ class AuthService {
     return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
   }
 
+  public async loginWithMicrosoft(): Promise<UserCredential> {
+    console.log('Sign in with microsoft');
+    await this.auth.setPersistence('local');
+    return this.oauthSignIn(new firebase.auth.OAuthProvider('microsoft.com'));
+  }
+
   public async signupUser(email: string, password: string): Promise<UserCredential> {
     const newUserCredential = await this.auth.createUserWithEmailAndPassword(email, password);
     if (newUserCredential.user == null) {

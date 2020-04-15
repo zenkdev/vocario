@@ -1,4 +1,4 @@
-import { logoGoogle, logoGithub } from 'ionicons/icons';
+import { logoGoogle, logoGithub, logoSkype } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -71,6 +71,17 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
       toastService.showError(error);
     }
   }, [goBack]);
+  const loginWithMicrosoft = useCallback(async () => {
+    setShowLoading(true);
+    try {
+      await authService.loginWithMicrosoft();
+      setShowLoading(false);
+      goBack();
+    } catch (error) {
+      setShowLoading(false);
+      toastService.showError(error);
+    }
+  }, [goBack]);
 
   return (
     <IonPage>
@@ -103,6 +114,10 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
           <IonButton expand="block" fill="outline" onClick={loginWithGoogle}>
             <IonIcon slot="start" icon={logoGoogle} />
             Log in with Google
+          </IonButton>
+          <IonButton expand="block" fill="outline" onClick={loginWithMicrosoft}>
+            <IonIcon slot="start" icon={logoSkype} />
+            Log in with Microsoft
           </IonButton>
           <IonButton expand="block" fill="outline" href="/signup">
             Create a new account
