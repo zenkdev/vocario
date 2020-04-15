@@ -24,8 +24,8 @@ const Chart: React.FC<SizeMeProps> = ({ size }) => {
   const locale = getLocale();
   const data = useSelector(selectChartData);
 
-  const width = Math.round(Math.max(defaultTo(size.width, 0) - 32, 400));
-  const height = Math.round(Math.max(defaultTo(size.height, 0) - 16, 200));
+  const width = Math.round(Math.max(defaultTo(size.width, 0) - 32, 200));
+  const height = Math.round(Math.max(defaultTo(size.height, 0) - 16, 100));
 
   // bounds
   const xMax = width;

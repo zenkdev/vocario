@@ -110,8 +110,8 @@ ul.count li {
 
 .chart {
   width: 100%;
-  height: 25vh;
-  min-height: 216px;
+  height: 20vh;
+  min-height: 166px;
   padding: var(--ion-padding, 16px);
   padding-bottom: 0;
 }
