@@ -81,6 +81,13 @@
   color: var(--ion-color-primary-contrast);
 }
 
+.keyboard-wrapper .simple-keyboard.hg-layout-default .hg-button.hg-help {
+  background: var(--ion-color-success);
+  color: var(--ion-color-success-contrast);
+  cursor: pointer;
+  pointer-events: unset;
+}
+
 .keyboard-wrapper .simple-keyboard.hg-layout-default .hg-button.hg-highlight {
   box-shadow: 0px 0px 40px 5px rgba(var(--ion-color-warning-rgb));
   z-index: 1;

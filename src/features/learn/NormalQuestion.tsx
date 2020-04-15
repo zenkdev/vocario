@@ -5,9 +5,9 @@ import Keyboard from 'react-simple-keyboard';
 import { Dispatch } from '@reduxjs/toolkit';
 
 import Button from '../../components/Button';
-import { getFullInput, isLetter, unusedChars, isValidAnswer } from '../../utils';
-import MobileKeyboard from './MobileKeyboard';
+import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../../utils';
 import * as actions from './learnSlice';
+import MobileKeyboard from './MobileKeyboard';
 
 type NormalQuestionOwnProps = {
   text: string;
@@ -36,27 +36,33 @@ const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRe
     },
     [onChange],
   );
-  const handleHelpRequested = useCallback(() => {
-    let i = fullInput.length;
-    while (i < text.length) {
-      const char = text.charAt(i);
-      if (isLetter(char)) {
-        setHighlight(char);
-        break;
+  const handleKeyPress = useCallback(
+    (button: string) => {
+      if (button === '{help}') {
+        let i = fullInput.length;
+        while (i < text.length) {
+          const char = text.charAt(i);
+          if (isLetter(char)) {
+            setHighlight(char);
+            break;
+          }
+          i += 1;
+        }
       }
-      i += 1;
-    }
-  }, [text, fullInput]);
+    },
+    [text, fullInput],
+  );
 
   return (
     <>
-      <div className="ion-text-center">
-        <Button color="success" shape="round" onClick={handleHelpRequested}>
-          ?
-        </Button>
-      </div>
       <div className="keyboard-wrapper">
-        <MobileKeyboard keyboardRef={keyboardRef} buttons={buttons} highlight={highlight} onChange={handleInput} />
+        <MobileKeyboard
+          keyboardRef={keyboardRef}
+          buttons={buttons}
+          highlight={highlight}
+          onChange={handleInput}
+          onKeyPress={handleKeyPress}
+        />
       </div>
       <div className="ion-padding ion-text-center">
         <Button onClick={handleClick} disabled={text.length > fullInput.length}>
