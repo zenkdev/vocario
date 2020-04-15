@@ -153,8 +153,8 @@ ul.count li {
 .ripple .rim2,
 .ripple .rim3 {
   position: absolute;
-  top: 20px;
-  left: 22px;
+  top: 50%;
+  left: 50%;
   border-radius: 50%;
   width: 0em;
   height: 0em;
@@ -173,19 +173,19 @@ ul.count li {
 
 @keyframes expand {
   0% {
-    top: calc(20px - .5em);
-    left: calc(22px - .5em);
-    width: 1em;
-    height: 1em;
-    border: var(--color) .25em solid;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 40px;
+    height: 40px;
+    border: var(--color) 2px solid;
     opacity: 1;
   }
   100% {
-    top: calc(20px - 20.5em);
-    left: calc(22px - 20.5em);
-    width: 41em;
-    height: 41em;
-    border: var(--color) .5em solid;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
+    width: 200px;
+    height: 200px;
+    border: var(--color) 10px solid;
     opacity: 0;
   }
 }

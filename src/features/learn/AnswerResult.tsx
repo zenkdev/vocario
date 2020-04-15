@@ -2,7 +2,7 @@ import { stop, volumeHigh } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonIcon, IonText } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFabButton, IonIcon, IonText, IonFab } from '@ionic/react';
 import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
@@ -10,8 +10,8 @@ import Button from '../../components/Button';
 import useAudio from '../../hooks/useAudio';
 import { Answer } from '../../types';
 import * as actions from './learnSlice';
-import * as selectors from './selectors';
 import Ripple from './Ripple';
+import * as selectors from './selectors';
 
 type AnswerResultOwnProps = {
   text: string;
@@ -45,9 +45,13 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        {playing && <Ripple />}
-        <IonIcon slot="start" icon={playing ? stop : volumeHigh} onClick={() => toggle()} />
-        <IonText color={color} className="ion-padding-start normal-text">
+        <IonFab vertical="top" horizontal="end" slot="fixed">
+          <IonFabButton color="medium" size="small" onClick={() => toggle()}>
+            <IonIcon icon={playing ? stop : volumeHigh} />
+          </IonFabButton>
+          {playing && <Ripple />}
+        </IonFab>
+        <IonText color={color} className="normal-text">
           {text}
         </IonText>
         {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
