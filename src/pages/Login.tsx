@@ -105,28 +105,35 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
           <IonButton expand="block" disabled={!email || !password} onClick={loginWithEmailAndPassword}>
             Log in
           </IonButton>
-        </div>
-        <IonList lines="full" class="ion-no-margin ion-padding">
-          <IonButton expand="block" fill="outline" onClick={loginWithGithub}>
-            <IonIcon slot="start" icon={logoGithub} />
-            Log in with Github
-          </IonButton>
-          <IonButton expand="block" fill="outline" onClick={loginWithGoogle}>
-            <IonIcon slot="start" icon={logoGoogle} />
-            Log in with Google
-          </IonButton>
-          <IonButton expand="block" fill="outline" onClick={loginWithMicrosoft}>
-            <IonIcon slot="start" icon={logoSkype} />
-            Log in with Microsoft
-          </IonButton>
-          <IonButton expand="block" fill="outline" href="/signup">
-            Create a new account
-          </IonButton>
           <IonButton expand="block" fill="clear" href="/reset-password">
             I forgot my password :(
           </IonButton>
-        </IonList>
+        </div>
         <IonLoading isOpen={showLoading} message="Logging in..." />
+        <div className="login-divider">
+          <div className="bar bar-top" />
+          <span className="login-or">OR</span>
+          <div className="bar bar-bottom" />
+        </div>
+        <IonList lines="full" class="ion-padding">
+          <IonButton expand="block" color="medium" onClick={loginWithGithub}>
+            <IonIcon slot="start" icon={logoGithub} />
+            Log in with Github
+          </IonButton>
+          <IonButton expand="block" color="medium" onClick={loginWithGoogle}>
+            <IonIcon slot="start" icon={logoGoogle} />
+            Log in with Google
+          </IonButton>
+          <IonButton expand="block" color="medium" onClick={loginWithMicrosoft}>
+            <IonIcon slot="start" icon={logoSkype} />
+            Log in with Microsoft
+          </IonButton>
+        </IonList>
+        <div className="ion-padding">
+          <IonButton expand="block" color="dark" href="/signup">
+            Create a new account
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
