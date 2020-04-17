@@ -8,9 +8,9 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabBut
 import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import Button from '../../components/Button';
 import useAudio from '../../hooks/useAudio';
 import { Answer } from '../../types';
+import Button from '../app/Button';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 

@@ -26,8 +26,8 @@ import { toastController } from '@ionic/core';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import PrivateRoute from '../components/PrivateRoute';
 import { setIsLoading, updateAppSettings } from '../features/app/appSlice';
+import PrivateRoute from '../features/app/PrivateRoute';
 import { Home, Learn, Login, Profile, ResetPassword, Signup, Splash, Statistics } from '../pages';
 import { profileService, toastService } from '../services';
 import defaultTo from '../utils/defaultTo';

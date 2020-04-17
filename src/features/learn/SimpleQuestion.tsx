@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import Button from '../../components/Button';
 import { isValidAnswer } from '../../utils';
+import Button from '../app/Button';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 

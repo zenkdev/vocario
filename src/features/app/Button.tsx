@@ -4,7 +4,13 @@ import { useSelector } from 'react-redux';
 
 import { IonButton } from '@ionic/react';
 
-import { RootState } from '../app/rootReducer';
+import { RootState } from '../../app/rootReducer';
+
+function size(fontSize: number) {
+  if (fontSize < 0.9) return 'small';
+  if (fontSize > 1.1) return 'large';
+  return undefined;
+}
 
 interface ButtonProps {
   expand?: 'full' | 'block';
@@ -17,11 +23,9 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
   const { fontSize } = useSelector((state: RootState) => state.app);
-  // eslint-disable-next-line no-nested-ternary
-  const size = fontSize < 0.9 ? 'small' : fontSize > 1.1 ? 'large' : undefined;
 
   return (
-    <IonButton size={size} {...props}>
+    <IonButton size={size(fontSize)} {...props}>
       {children}
     </IonButton>
   );

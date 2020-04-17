@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IonIcon, IonInput, IonItem, IonLabel, IonSkeletonText } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
-import If from '../../components/If';
 import { IonInputEvent } from '../../types';
+import If from '../app/If';
 import { saveEmail } from './profileSlice';
 
 const EmailItem: React.FC = () => {

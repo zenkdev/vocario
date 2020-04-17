@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { IonAlert } from '@ionic/react';
 
-import Button from '../../components/Button';
+import Button from '../app/Button';
 import { doResetProgress } from './profileSlice';
 
 const ResetProgress: React.FC = () => {
