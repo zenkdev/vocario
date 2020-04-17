@@ -1,0 +1,123 @@
+.large-text {
+  font-size: 1.625rem !important;
+  white-space: normal;
+}
+
+.normal-text {
+  font-size: 1rem !important;
+  white-space: normal;
+}
+
+.bold-text {
+  font-weight: bold !important;
+}
+
+.small-text {
+  font-size: 0.75rem !important;
+  white-space: normal;
+}
+
+.char-input {
+  flex-grow: unset;
+
+  div {
+    font-family: monospace;
+    font-size: 1.4rem;
+    text-transform: lowercase;
+    color: var(--ion-color-light-contrast);
+  }
+}
+
+.char-input-letter {
+  div {
+    background: var(--ion-color-light);
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+    border: solid 0.125rem var(--ion-color-light-shade);
+    border-radius: 0.125rem;
+  }
+}
+
+.keyboard-wrapper {
+  padding-left: var(--ion-padding, 16px);
+  padding-right: var(--ion-padding, 16px);
+  padding-top: var(--ion-padding, 16px);
+  padding-bottom: 0;
+
+  .simple-keyboard {
+    &.hg-layout-default {
+      font-family: monospace;
+
+      .hg-button {
+        &.hg-enabled {
+          background: var(--ion-color-light);
+          color: var(--ion-color-light-contrast);
+          box-shadow: 0 0 3px -1px var(--ion-color-light-shade);
+          cursor: pointer;
+          pointer-events: unset;
+
+          &.hg-activeButton {
+            background: var(--ion-color-primary);
+            color: var(--ion-color-primary-contrast);
+          }
+        }
+
+        &.hg-help {
+          background: var(--ion-color-success);
+          color: var(--ion-color-success-contrast);
+          cursor: pointer;
+          pointer-events: unset;
+        }
+
+        &.hg-highlight {
+          box-shadow: 0px 0px 40px 5px var(--ion-color-warning-rgb);
+          z-index: 1;
+        }
+      }
+    }
+
+    &.hg-theme-default {
+      .hg-button {
+        background: unset;
+        box-shadow: unset;
+        border: unset;
+        cursor: unset;
+        height: 2.5rem;
+        pointer-events: none;
+
+        &.hg-activeButton {
+          background: unset;
+        }
+      }
+    }
+  }
+}
+
+ul.count {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  margin-left: var(--ion-padding, 16px);
+
+  li {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 0.4rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    background-color: var(--ion-color-success);
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    box-shadow: 0px 0px 0.1rem 0.1rem var(--ion-color-success-rgb);
+  }
+}

@@ -1,3 +1,5 @@
+import '../../app/chart.scss';
+
 /* eslint-disable import/no-extraneous-dependencies */
 import { max } from 'd3-array';
 import format from 'date-fns/format';
