@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import { logoGithub, logoGoogle, logoSkype } from 'ionicons/icons';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
 import {
@@ -17,18 +18,31 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import { Dispatch } from '@reduxjs/toolkit';
 
-import { authService, toastService } from '../../services';
+import { RootState } from '../../app/rootReducer';
+import * as loginSlice from './loginSlice';
 
-const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
-  const [showLoading, setShowLoading] = useState(false);
-  const goBack = useCallback(() => {
-    let { pathname } = location;
-    if (pathname === '/login') {
-      pathname = '/';
-    }
-    history.push(pathname);
-  }, [history, location]);
+type LoginOwnProps = RouteComponentProps;
+
+const mapStateToProps = (state: RootState) => {
+  const { isLoading } = state.login;
+  return {
+    isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch, { history }: LoginOwnProps) => ({
+  loginWithEmailAndPassword: ({ email, password }: { email: string; password: string }) =>
+    dispatch(loginSlice.loginWithEmailAndPassword(email, password, history) as any),
+  loginWithGithub: () => dispatch(loginSlice.loginWithGithub(history) as any),
+  loginWithGoogle: () => dispatch(loginSlice.loginWithGoogle(history) as any),
+  loginWithMicrosoft: () => dispatch(loginSlice.loginWithMicrosoft(history) as any),
+});
+
+type LoginProps = LoginOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+const Login: React.FC<LoginProps> = ({ isLoading, loginWithGithub, loginWithGoogle, loginWithMicrosoft, loginWithEmailAndPassword }) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -50,51 +64,8 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
       return errors;
     },
     validateOnMount: true,
-    onSubmit: async ({ email, password }) => {
-      setShowLoading(true);
-      try {
-        await authService.loginWithEmailAndPassword(email, password);
-        setShowLoading(false);
-        goBack();
-      } catch (error) {
-        setShowLoading(false);
-        toastService.showError(error);
-      }
-    },
+    onSubmit: loginWithEmailAndPassword,
   });
-  const loginWithGithub = useCallback(async () => {
-    setShowLoading(true);
-    try {
-      await authService.loginWithGithub();
-      setShowLoading(false);
-      goBack();
-    } catch (error) {
-      setShowLoading(false);
-      toastService.showError(error);
-    }
-  }, [goBack]);
-  const loginWithGoogle = useCallback(async () => {
-    setShowLoading(true);
-    try {
-      await authService.loginWithGoogle();
-      setShowLoading(false);
-      goBack();
-    } catch (error) {
-      setShowLoading(false);
-      toastService.showError(error);
-    }
-  }, [goBack]);
-  const loginWithMicrosoft = useCallback(async () => {
-    setShowLoading(true);
-    try {
-      await authService.loginWithMicrosoft();
-      setShowLoading(false);
-      goBack();
-    } catch (error) {
-      setShowLoading(false);
-      toastService.showError(error);
-    }
-  }, [goBack]);
 
   const { handleChange, submitForm, values, isValid } = formik;
 
@@ -130,7 +101,7 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
             I forgot my password :(
           </IonButton>
         </div>
-        <IonLoading isOpen={showLoading} message="Logging in..." />
+        <IonLoading isOpen={isLoading} message="Logging in..." />
         <div className="login-divider">
           <div className="bar bar-top" />
           <span className="login-or">OR</span>
@@ -160,4 +131,4 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
   );
 };
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
