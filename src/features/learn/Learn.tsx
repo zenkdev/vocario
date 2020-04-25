@@ -6,13 +6,12 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import { percent } from '../../utils';
 import Congratulations from './Congratulations';
 import * as actions from './learnSlice';
 import NormalCard from './NormalCard';
 import * as selectors from './selectors';
 import SimpleCard from './SimpleCard';
-import useAudio from '../../hooks/useAudio';
-import { percent } from '../../utils';
 
 type LearnLocationState = {
   id: string;
@@ -28,7 +27,6 @@ const mapStateToProps = (state: RootState) => {
     simpleMode,
     isLoading,
     word: selectors.selectWord(state),
-    audioUrl: selectors.selectAudioUrl(state),
     dailyStatistics: selectors.selectDailyStatistics(state),
   };
 };
@@ -46,8 +44,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: LearnOwnProps) => {
 
 type LearnProps = LearnOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Learn: React.FC<LearnProps> = ({ location, simpleMode, isLoading, word, audioUrl, dailyStatistics, fetchData }) => {
-  useAudio(audioUrl); // preload audio file
+const Learn: React.FC<LearnProps> = ({ location, simpleMode, isLoading, word, dailyStatistics, fetchData }) => {
   const title = (location.state && location.state.title) || 'Learn';
   const { completed, total, more } = dailyStatistics;
 

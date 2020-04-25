@@ -47,14 +47,12 @@ export const selectDailyStatistics = createSelector(selectLearn, ({ dictionary }
   const next = count(words, isNextOccurToday);
   const completed = count(words, ({ occurs }) => !isEmpty(occurs) && isTodayExact((occurs as string[]).slice(-1)[0]));
   const total = first + next + completed;
+  const more = words.some(w => !isCompleted(w));
 
   // console.table(tbl(words, w => isFirstOccurToday(w)));
   // console.table(tbl(words, w => isNew(w)));
   // console.table(tbl(words, w => isNextOccurToday(w)));
   // console.table(tbl(words, ({ count, occurs }) => count != null && !!occurs && isTodayExact(occurs[count])));
-  // console.log({ completed, total, today, first, next });
-
-  const more = words.some(isCompleted);
 
   return { completed, total, more };
 });
