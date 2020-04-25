@@ -5,14 +5,14 @@ import { RouteComponentProps, StaticContext } from 'react-router';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 import { Dispatch } from '@reduxjs/toolkit';
 
-import { RootState } from '../app/rootReducer';
-import Congratulations from '../features/learn/Congratulations';
-import * as actions from '../features/learn/learnSlice';
-import NormalCard from '../features/learn/NormalCard';
-import * as selectors from '../features/learn/selectors';
-import SimpleCard from '../features/learn/SimpleCard';
-import useAudio from '../hooks/useAudio';
-import { percent } from '../utils';
+import { RootState } from '../../app/rootReducer';
+import Congratulations from './Congratulations';
+import * as actions from './learnSlice';
+import NormalCard from './NormalCard';
+import * as selectors from './selectors';
+import SimpleCard from './SimpleCard';
+import useAudio from '../../hooks/useAudio';
+import { percent } from '../../utils';
 
 type LearnLocationState = {
   id: string;

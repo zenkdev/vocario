@@ -22,15 +22,15 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { RootState } from '../app/rootReducer';
-import DarkThemeItem from '../features/profile/DarkThemeItem';
-import DisplayNameItem from '../features/profile/DisplayNameItem';
-import EmailItem from '../features/profile/Emailtem';
-import FontSizeItem from '../features/profile/FontSizeItem';
-import { fetchProfile } from '../features/profile/profileSlice';
-import SimpleModeItem from '../features/profile/SimpleModeItem';
-import { authService, toastService } from '../services';
-import ResetProgress from '../features/profile/ResetProgress';
+import { RootState } from '../../app/rootReducer';
+import { authService, toastService } from '../../services';
+import DarkThemeItem from './DarkThemeItem';
+import DisplayNameItem from './DisplayNameItem';
+import EmailItem from './Emailtem';
+import FontSizeItem from './FontSizeItem';
+import { fetchProfile } from './profileSlice';
+import ResetProgress from './ResetProgress';
+import SimpleModeItem from './SimpleModeItem';
 
 const Profile: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch();

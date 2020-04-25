@@ -13,11 +13,11 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import Filter from '../features/filters/Filter';
-import { selectIsLoading } from '../features/statistics/selectors';
-import StatisticsList from '../features/statistics/StatisticsList';
-import { fetchStatistics } from '../features/statistics/statisticsSlice';
-import Chart from '../features/statistics/Chart';
+import Filter from '../filters/Filter';
+import Chart from './Chart';
+import { selectIsLoading } from './selectors';
+import StatisticsList from './StatisticsList';
+import { fetchStatistics } from './statisticsSlice';
 
 const Statistics: React.FC = () => {
   const dispatch = useDispatch();

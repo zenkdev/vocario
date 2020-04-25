@@ -13,9 +13,9 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { RootState } from '../app/rootReducer';
-import { fetchDictionaries } from '../features/home/homeSlice';
-import DictionaryList from '../features/home/DictionaryList';
+import { RootState } from '../../app/rootReducer';
+import DictionaryList from './DictionaryList';
+import { fetchDictionaries } from './homeSlice';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();

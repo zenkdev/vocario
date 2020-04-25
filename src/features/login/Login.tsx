@@ -1,4 +1,5 @@
-import { logoGoogle, logoGithub, logoSkype } from 'ionicons/icons';
+import { useFormik } from 'formik';
+import { logoGithub, logoGoogle, logoSkype } from 'ionicons/icons';
 import React, { useCallback, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 
@@ -17,15 +18,10 @@ import {
   IonToolbar,
 } from '@ionic/react';
 
-import { authService, toastService } from '../services';
-import { IonInputEvent } from '../types';
+import { authService, toastService } from '../../services';
 
 const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
   const [showLoading, setShowLoading] = useState(false);
-  const handleChangeEmail = (evt: IonInputEvent) => setEmail(evt.detail.value || '');
-  const handleChangePassword = (evt: IonInputEvent) => setPassword(evt.detail.value || '');
   const goBack = useCallback(() => {
     let { pathname } = location;
     if (pathname === '/login') {
@@ -33,22 +29,39 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
     }
     history.push(pathname);
   }, [history, location]);
-  const loginWithEmailAndPassword = useCallback(async () => {
-    if (!email || !password) {
-      toastService.showError('Form is not valid yet!');
-      return;
-    }
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate: ({ email, password }) => {
+      const errors: any = {};
 
-    setShowLoading(true);
-    try {
-      await authService.loginWithEmailAndPassword(email, password);
-      setShowLoading(false);
-      goBack();
-    } catch (error) {
-      setShowLoading(false);
-      toastService.showError(error);
-    }
-  }, [goBack, email, password]);
+      if (!email) {
+        errors.email = 'Email is required';
+      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+        errors.email = 'Invalid email address';
+      }
+
+      if (!password) {
+        errors.password = 'Password is required';
+      }
+
+      return errors;
+    },
+    validateOnMount: true,
+    onSubmit: async ({ email, password }) => {
+      setShowLoading(true);
+      try {
+        await authService.loginWithEmailAndPassword(email, password);
+        setShowLoading(false);
+        goBack();
+      } catch (error) {
+        setShowLoading(false);
+        toastService.showError(error);
+      }
+    },
+  });
   const loginWithGithub = useCallback(async () => {
     setShowLoading(true);
     try {
@@ -83,6 +96,8 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
     }
   }, [goBack]);
 
+  const { handleChange, submitForm, values, isValid } = formik;
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -94,15 +109,21 @@ const Login: React.FC<RouteComponentProps> = ({ history, location }) => {
         <IonList lines="full" class="ion-no-margin ion-no-padding">
           <IonItem>
             <IonLabel position="stacked">Email</IonLabel>
-            <IonInput type="email" placeholder="Your email address" onIonChange={handleChangeEmail} />
+            <IonInput type="email" name="email" placeholder="Your email address" value={values.email} onIonChange={handleChange as any} />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Password</IonLabel>
-            <IonInput type="password" placeholder="Your email password" onIonChange={handleChangePassword} />
+            <IonInput
+              type="password"
+              name="password"
+              placeholder="Your email password"
+              value={values.password}
+              onIonChange={handleChange as any}
+            />
           </IonItem>
         </IonList>
         <div className="ion-padding">
-          <IonButton expand="block" disabled={!email || !password} onClick={loginWithEmailAndPassword}>
+          <IonButton expand="block" disabled={!isValid} onClick={() => submitForm()}>
             Log in
           </IonButton>
           <IonButton expand="block" fill="clear" href="/reset-password">

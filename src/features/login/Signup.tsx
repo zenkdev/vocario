@@ -17,8 +17,8 @@ import {
   IonToolbar,
 } from '@ionic/react';
 
-import { authService, toastService } from '../services';
-import { IonInputEvent } from '../types';
+import { authService, toastService } from '../../services';
+import { IonInputEvent } from '../../types';
 
 const Signup: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');

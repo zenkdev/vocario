@@ -28,7 +28,14 @@ import { IonReactRouter } from '@ionic/react-router';
 
 import { setIsLoading, updateAppSettings } from '../features/app/appSlice';
 import PrivateRoute from '../features/app/PrivateRoute';
-import { Home, Learn, Login, Profile, ResetPassword, Signup, Splash, Statistics } from '../pages';
+import Splash from '../features/app/Splash';
+import Home from '../features/home/Home';
+import Learn from '../features/learn/Learn';
+import Login from '../features/login/Login';
+import ResetPassword from '../features/login/ResetPassword';
+import Signup from '../features/login/Signup';
+import Profile from '../features/profile/Profile';
+import Statistics from '../features/statistics/Statistics';
 import { profileService, toastService } from '../services';
 import defaultTo from '../utils/defaultTo';
 import { RootState } from './rootReducer';
