@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IonIcon, IonItem, IonLabel, IonRange, IonSkeletonText } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
+import If from '../../components/If';
 import { IonRangeEvent } from '../../types';
-import If from '../app/If';
 import { saveFontSize } from './profileSlice';
 
 const FontSizeItem: React.FC = () => {

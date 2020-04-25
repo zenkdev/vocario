@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../../app/rootReducer';
+import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
-import If from '../app/If';
 import AnswerResult from './AnswerResult';
 import SimpleQuestion from './SimpleQuestion';
 

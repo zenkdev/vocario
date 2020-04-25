@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { IonButton } from '@ionic/react';
 
-import { RootState } from '../../app/rootReducer';
+import { RootState } from '../app/rootReducer';
 
 function size(fontSize: number) {
   if (fontSize < 0.9) return 'small';

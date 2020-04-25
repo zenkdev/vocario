@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
 import { RootState } from '../../app/rootReducer';
+import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
-import If from '../app/If';
 import AnswerResult from './AnswerResult';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';

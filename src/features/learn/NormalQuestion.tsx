@@ -4,8 +4,8 @@ import Keyboard from 'react-simple-keyboard';
 
 import { Dispatch } from '@reduxjs/toolkit';
 
+import Button from '../../components/Button';
 import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../../utils';
-import Button from '../app/Button';
 import * as actions from './learnSlice';
 import MobileKeyboard from './MobileKeyboard';
 
@@ -16,11 +16,9 @@ type NormalQuestionOwnProps = {
   onChange: (value: string) => void;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { text, input }: NormalQuestionOwnProps) => {
-  return {
-    handleClick: () => dispatch(actions.setAnswer(isValidAnswer(text, getFullInput(input, text))) as any),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch, { text, input }: NormalQuestionOwnProps) => ({
+  handleClick: () => dispatch(actions.setAnswer(isValidAnswer(text, getFullInput(input, text))) as any),
+});
 
 type NormalQuestionProps = NormalQuestionOwnProps & ReturnType<typeof mapDispatchToProps>;
 

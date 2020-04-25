@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import Button from '../../components/Button';
 import { isValidAnswer } from '../../utils';
-import Button from '../app/Button';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 
@@ -27,18 +27,13 @@ type SimpleQuestionOwnProps = {
   text: string;
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    options: selectors.selectOptions(state),
-  };
-};
+const mapStateToProps = (state: RootState) => ({
+  options: selectors.selectOptions(state),
+});
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: SimpleQuestionOwnProps) => {
-  const { text } = ownProps;
-  return {
-    handleClick: (option: string) => dispatch(actions.setAnswer(isValidAnswer(text, option)) as any),
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch, { text }: SimpleQuestionOwnProps) => ({
+  handleClick: (option: string) => dispatch(actions.setAnswer(isValidAnswer(text, option)) as any),
+});
 
 type SimpleQuestionProps = SimpleQuestionOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 

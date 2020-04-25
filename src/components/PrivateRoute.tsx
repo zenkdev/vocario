@@ -4,8 +4,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, RouteProps } from 'react-router-dom';
 
-import { RootState } from '../../app/rootReducer';
-import Login from '../login/Login';
+import { RootState } from '../app/rootReducer';
+import Login from '../features/login/Login';
 
 const PrivateRoute: React.FC<RouteProps> = ({ component: Component, ...rest }) => {
   const { isLoggedIn } = useSelector((state: RootState) => state.app);
