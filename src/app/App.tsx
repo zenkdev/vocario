@@ -26,8 +26,6 @@ import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, Io
 import { IonReactRouter } from '@ionic/react-router';
 
 import PrivateRoute from '../components/PrivateRoute';
-import { setIsLoading, updateAppSettings } from '../features/app/appSlice';
-import Splash from '../features/app/Splash';
 import Home from '../features/home/Home';
 import Learn from '../features/learn/Learn';
 import Login from '../features/login/Login';
@@ -37,7 +35,9 @@ import Profile from '../features/profile/Profile';
 import Statistics from '../features/statistics/Statistics';
 import { profileService, toastService } from '../services';
 import defaultTo from '../utils/defaultTo';
+import { setIsLoading, updateAppSettings } from './appSlice';
 import { RootState } from './rootReducer';
+import Splash from './Splash';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
