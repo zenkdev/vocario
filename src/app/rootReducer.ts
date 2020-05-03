@@ -5,6 +5,7 @@ import homeReducer from '../features/home/homeSlice';
 import learnReducer from '../features/learn/learnSlice';
 import loginReducer from '../features/login/loginSlice';
 import profileReducer from '../features/profile/profileSlice';
+import signupReducer from '../features/signup/signupSlice';
 import statisticsReducer from '../features/statistics/statisticsSlice';
 import appReducer from './appSlice';
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   learn: learnReducer,
   login: loginReducer,
   profile: profileReducer,
+  signup: signupReducer,
   statistics: statisticsReducer,
 });
 

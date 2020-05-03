@@ -30,7 +30,7 @@ import Home from '../features/home/Home';
 import Learn from '../features/learn/Learn';
 import LoginPage from '../features/login/LoginPage';
 import ResetPassword from '../features/login/ResetPassword';
-import Signup from '../features/login/Signup';
+import SignupPage from '../features/signup/SignupPage';
 import ProfilePage from '../features/profile/ProfilePage';
 import StatisticsPage from '../features/statistics/StatisticsPage';
 import { profileService, toastService } from '../services';
@@ -85,7 +85,7 @@ const App: React.FC = () => {
               <Route path="/login" component={LoginPage} exact />
               <PrivateRoute path="/profile" component={ProfilePage} exact />
               <Route path="/reset-password" component={ResetPassword} exact />
-              <Route path="/signup" component={Signup} exact />
+              <Route path="/signup" component={SignupPage} exact />
               <PrivateRoute path="/stats" component={StatisticsPage} exact />
               <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
