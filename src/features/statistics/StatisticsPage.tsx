@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
+  IonBackButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonLoading,
@@ -13,14 +15,16 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import { RootState } from '../app/rootReducer';
-import { fetchDictionaries } from '../features/home/homeSlice';
-import DictionaryList from '../features/home/DictionaryList';
+import Filter from '../filters/Filter';
+import Chart from './Chart';
+import { selectIsLoading } from './selectors';
+import StatisticsList from './StatisticsList';
+import { fetchStatistics } from './statisticsSlice';
 
-const Home: React.FC = () => {
+const StatisticsPage: React.FC = () => {
   const dispatch = useDispatch();
-  const { isLoading, data } = useSelector((state: RootState) => state.home);
-  const fetchData = useCallback(() => dispatch(fetchDictionaries()), [dispatch]);
+  const isLoading = useSelector(selectIsLoading);
+  const fetchData = useCallback(() => dispatch(fetchStatistics()), [dispatch]);
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();
@@ -34,18 +38,23 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader translucent>
         <IonToolbar>
-          <IonTitle>Welcome</IonTitle>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/home" />
+          </IonButtons>
+          <IonTitle>Statistics</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <DictionaryList dictionaries={data} />
+        <Chart />
+        <Filter />
+        <StatisticsList />
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Home;
+export default StatisticsPage;

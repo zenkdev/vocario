@@ -6,12 +6,14 @@ import { createUserProfile, UserProfile } from '../../models';
 import { profileService, statisticsService, toastService } from '../../services';
 import { getProfileOptions } from '../../services/LocalStoreManager';
 
-const { getProfile, updateEmail, updateDisplayName, updateDarkTheme, updateFontSize, updateSimpleMode } = profileService;
+const { getProfile, updateEmail, updateProfile, updateDarkTheme, updateFontSize, updateSimpleMode } = profileService;
 const { resetProgress } = statisticsService;
 
 export type ProfileState = {
   isLoading: boolean;
   isSaving: boolean;
+  isDisplayNameEditing: boolean;
+  isEmailEditing: boolean;
   profile: UserProfile;
   error: string | null;
 };
@@ -19,62 +21,73 @@ export type ProfileState = {
 const initialState: ProfileState = {
   isLoading: false,
   isSaving: false,
+  isDisplayNameEditing: false,
+  isEmailEditing: false,
   profile: createUserProfile(null, getProfileOptions()),
   error: null,
 };
-
-function startLoading(state: ProfileState) {
-  state.isLoading = true;
-}
-
-function loadingFailed(state: ProfileState, { payload }: PayloadAction<string>) {
-  state.isLoading = false;
-  state.error = payload;
-}
-
-function startSaving(state: ProfileState, { payload }: PayloadAction<Partial<UserProfile>>) {
-  state.profile = { ...state.profile, ...payload };
-  state.isSaving = true;
-}
-
-function savingSucceded(state: ProfileState) {
-  state.isSaving = false;
-  state.error = null;
-}
-
-function savingFailed(state: ProfileState, { payload }: PayloadAction<{ profile: Partial<UserProfile>; error: string }>) {
-  state.profile = { ...state.profile, ...payload.profile };
-  state.isSaving = false;
-  state.error = payload.error;
-}
 
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    getProfileStart: startLoading,
+    getProfileStart(state: ProfileState) {
+      state.isLoading = true;
+    },
     getProfileSuccess(state: ProfileState, { payload }: PayloadAction<UserProfile>) {
       state.profile = payload;
       state.isLoading = false;
       state.error = null;
     },
-    getProfileFailure: loadingFailed,
-    saveProfileStart: startSaving,
-    saveProfileSuccess: savingSucceded,
-    saveProfileFailure: savingFailed,
+    getProfileFailure(state: ProfileState, { payload }: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    displayNameEditingStart(state: ProfileState) {
+      state.isDisplayNameEditing = true;
+    },
+    displayNameEditingEnd(state: ProfileState) {
+      state.isDisplayNameEditing = false;
+    },
+    emailEditingStart(state: ProfileState) {
+      state.isEmailEditing = true;
+    },
+    emailEditingEnd(state: ProfileState) {
+      state.isEmailEditing = false;
+    },
+    updateProfileStart(state: ProfileState, { payload = {} }: PayloadAction<Partial<UserProfile> | undefined>) {
+      state.profile = { ...state.profile, ...payload };
+      state.isSaving = true;
+    },
+    updateProfileSuccess(state: ProfileState, { payload = {} }: PayloadAction<Partial<UserProfile> | undefined>) {
+      state.profile = { ...state.profile, ...payload };
+      state.isSaving = false;
+      state.error = null;
+    },
+    updateProfileFailure(state: ProfileState, { payload }: PayloadAction<{ profile?: Partial<UserProfile>; error: string }>) {
+      state.profile = { ...state.profile, ...(payload.profile || {}) };
+      state.isSaving = false;
+      state.error = payload.error;
+    },
   },
 });
 
-export const {
+const {
   getProfileStart,
   getProfileSuccess,
   getProfileFailure,
-  saveProfileStart,
-  saveProfileSuccess,
-  saveProfileFailure,
+  displayNameEditingStart,
+  displayNameEditingEnd,
+  emailEditingStart,
+  emailEditingEnd,
+  updateProfileStart,
+  updateProfileSuccess,
+  updateProfileFailure,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;
+
+export { displayNameEditingStart, displayNameEditingEnd, emailEditingStart, emailEditingEnd };
 
 export const fetchProfile = (): AppThunk => async dispatch => {
   try {
@@ -87,35 +100,26 @@ export const fetchProfile = (): AppThunk => async dispatch => {
   }
 };
 
-export const saveDisplayName = (newValue: string): AppThunk => async (dispatch, getState) => {
-  const state = getState().profile;
-  const {
-    profile: { displayName: oldValue },
-  } = state;
-
+export const saveProfile = (displayName: string, photoURL?: string): AppThunk => async dispatch => {
   try {
-    dispatch(saveProfileStart({ displayName: newValue }));
-    await updateDisplayName(newValue);
-    dispatch(saveProfileSuccess());
+    dispatch(updateProfileStart());
+    await updateProfile(displayName, photoURL);
+    dispatch(displayNameEditingEnd());
+    dispatch(updateProfileSuccess({ displayName, photoURL }));
   } catch (error) {
     toastService.showError(error);
-    dispatch(saveProfileFailure({ profile: { displayName: oldValue }, error: error.toString() }));
+    dispatch(updateProfileFailure({ error: error.toString() }));
   }
 };
 
-export const saveEmail = (newValue: string): AppThunk => async (dispatch, getState) => {
-  const state = getState().profile;
-  const {
-    profile: { email: oldValue },
-  } = state;
-
+export const saveEmail = (email: string, password: string): AppThunk => async dispatch => {
   try {
-    dispatch(saveProfileStart({ email: newValue }));
-    await updateEmail(newValue, '');
-    dispatch(saveProfileSuccess());
+    dispatch(updateProfileStart());
+    await updateEmail(email, password);
+    dispatch(updateProfileSuccess({ email }));
   } catch (error) {
     toastService.showError(error);
-    dispatch(saveProfileFailure({ profile: { email: oldValue }, error: error.toString() }));
+    dispatch(updateProfileFailure({ error: error.toString() }));
   }
 };
 
@@ -126,12 +130,12 @@ export const saveDarkTheme = (newValue: boolean): AppThunk => async (dispatch, g
   } = state;
 
   try {
-    dispatch(saveProfileStart({ darkTheme: newValue }));
+    dispatch(updateProfileStart({ darkTheme: newValue }));
     await updateDarkTheme(newValue);
-    dispatch(saveProfileSuccess());
+    dispatch(updateProfileSuccess());
   } catch (error) {
     toastService.showError(error);
-    dispatch(saveProfileFailure({ profile: { darkTheme: oldValue }, error: error.toString() }));
+    dispatch(updateProfileFailure({ profile: { darkTheme: oldValue }, error: error.toString() }));
   }
 };
 
@@ -142,12 +146,12 @@ export const saveFontSize = (newValue: number): AppThunk => async (dispatch, get
   } = state;
 
   try {
-    dispatch(saveProfileStart({ fontSize: newValue }));
+    dispatch(updateProfileStart({ fontSize: newValue }));
     await updateFontSize(newValue);
-    dispatch(saveProfileSuccess());
+    dispatch(updateProfileSuccess());
   } catch (error) {
     toastService.showError(error);
-    dispatch(saveProfileFailure({ profile: { fontSize: oldValue }, error: error.toString() }));
+    dispatch(updateProfileFailure({ profile: { fontSize: oldValue }, error: error.toString() }));
   }
 };
 
@@ -158,12 +162,12 @@ export const saveSimpleMode = (newValue: boolean): AppThunk => async (dispatch, 
   } = state;
 
   try {
-    dispatch(saveProfileStart({ simpleMode: newValue }));
+    dispatch(updateProfileStart({ simpleMode: newValue }));
     await updateSimpleMode(newValue);
-    dispatch(saveProfileSuccess());
+    dispatch(updateProfileSuccess());
   } catch (error) {
     toastService.showError(error);
-    dispatch(saveProfileFailure({ profile: { simpleMode: oldValue }, error: error.toString() }));
+    dispatch(updateProfileFailure({ profile: { simpleMode: oldValue }, error: error.toString() }));
   }
 };
 

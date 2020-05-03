@@ -21,17 +21,23 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { toastController } from '@ionic/core';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import { setIsLoading, updateAppSettings } from '../features/app/appSlice';
-import PrivateRoute from '../features/app/PrivateRoute';
-import { Home, Learn, Login, Profile, ResetPassword, Signup, Splash, Statistics } from '../pages';
+import PrivateRoute from '../components/PrivateRoute';
+import Home from '../features/home/Home';
+import Learn from '../features/learn/Learn';
+import LoginPage from '../features/login/LoginPage';
+import ResetPassword from '../features/login/ResetPassword';
+import SignupPage from '../features/signup/SignupPage';
+import ProfilePage from '../features/profile/ProfilePage';
+import StatisticsPage from '../features/statistics/StatisticsPage';
 import { profileService, toastService } from '../services';
 import defaultTo from '../utils/defaultTo';
+import { setIsLoading, updateAppSettings } from './appSlice';
 import { RootState } from './rootReducer';
+import Splash from './Splash';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -76,11 +82,11 @@ const App: React.FC = () => {
             <IonRouterOutlet>
               <PrivateRoute path="/home" component={Home} exact />
               <PrivateRoute path="/learn" component={Learn} />
-              <Route path="/login" component={Login} exact />
-              <PrivateRoute path="/profile" component={Profile} exact />
+              <Route path="/login" component={LoginPage} exact />
+              <PrivateRoute path="/profile" component={ProfilePage} exact />
               <Route path="/reset-password" component={ResetPassword} exact />
-              <Route path="/signup" component={Signup} exact />
-              <PrivateRoute path="/stats" component={Statistics} exact />
+              <Route path="/signup" component={SignupPage} exact />
+              <PrivateRoute path="/stats" component={StatisticsPage} exact />
               <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">

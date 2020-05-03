@@ -13,16 +13,14 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 
-import Filter from '../features/filters/Filter';
-import { selectIsLoading } from '../features/statistics/selectors';
-import StatisticsList from '../features/statistics/StatisticsList';
-import { fetchStatistics } from '../features/statistics/statisticsSlice';
-import Chart from '../features/statistics/Chart';
+import { RootState } from '../../app/rootReducer';
+import DictionaryList from './DictionaryList';
+import { fetchDictionaries } from './homeSlice';
 
-const Statistics: React.FC = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const fetchData = useCallback(() => dispatch(fetchStatistics()), [dispatch]);
+  const { isLoading, data } = useSelector((state: RootState) => state.home);
+  const fetchData = useCallback(() => dispatch(fetchDictionaries()), [dispatch]);
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();
@@ -36,20 +34,18 @@ const Statistics: React.FC = () => {
     <IonPage>
       <IonHeader translucent>
         <IonToolbar>
-          <IonTitle>Statistics</IonTitle>
+          <IonTitle>Welcome</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent />
         </IonRefresher>
-        <Chart />
-        <Filter />
-        <StatisticsList />
+        <DictionaryList dictionaries={data} />
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Statistics;
+export default Home;

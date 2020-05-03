@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
 import { RootState } from '../../app/rootReducer';
+import If from '../../components/If';
 import { modelHelper, Word } from '../../models';
-import If from '../app/If';
 import AnswerResult from './AnswerResult';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';
@@ -32,21 +32,15 @@ const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
   }, [word, keyboardRef]);
 
   return (
-    <section>
-      <div className="ion-text-center">
-        <h1 className="large-text">{title}</h1>
-      </div>
-      <div>
-        <div className="no-padding">
-          <StyledInput input={input} text={text} />
-        </div>
-        <If
-          condition={!answer}
-          then={<NormalQuestion text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} />}
-          else={<AnswerResult text={textWithLang} smallText={transcription} />}
-        />
-        <div className="ion-padding small-text">{category}</div>
-      </div>
+    <section className="ion-text-center">
+      <h1 className="large-text">{title}</h1>
+      {category && <div className="ion-padding small-text">{category}</div>}
+      <StyledInput input={input} text={text} />
+      <If
+        condition={!answer}
+        then={<NormalQuestion text={text} input={input} keyboardRef={setKeyboardRef} onChange={setInput} />}
+        else={<AnswerResult text={textWithLang} smallText={transcription} />}
+      />
     </section>
   );
 };

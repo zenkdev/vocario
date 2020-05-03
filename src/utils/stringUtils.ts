@@ -1,4 +1,4 @@
-import { Answer } from './types';
+import { Answer } from '../types';
 
 export const toCharArray = (value: string | null | undefined) => (value ? value.split('') : []);
 export const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
@@ -59,39 +59,4 @@ export function unusedChars(input: string, text: string) {
   return Object.entries(chars)
     .filter(([, value]) => value > 0)
     .map(([key]) => key);
-}
-
-/**
- * generate a random integer between min and max
- * @param {Number} min
- * @param {Number} max
- * @return {Number} random generated integer
- */
-export const randomNumber = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-export const percent = (value?: number, base?: number) => (!value || !base ? 0 : Math.round((value / base) * 100) / 100);
-
-export function omitUndefined<T extends Record<string, any>>(value: T): T {
-  const clone = { ...value };
-  const keys = Object.keys(clone);
-  for (let i = 0; i < keys.length; i += 1) {
-    const key = keys[i];
-    if (clone[key] === undefined) {
-      delete clone[key];
-    }
-  }
-
-  return clone;
-}
-
-export function jsonTryParse(value: string | null | undefined) {
-  try {
-    return value && JSON.parse(value);
-  } catch (e) {
-    if (value === 'undefined') {
-      // eslint-disable-next-line no-void
-      return void 0;
-    }
-    return value;
-  }
 }

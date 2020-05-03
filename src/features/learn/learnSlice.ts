@@ -8,7 +8,7 @@ import { Dictionary, modelHelper, Word } from '../../models';
 import { dictionaryService, statisticsService, toastService } from '../../services';
 import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
 import { Answer } from '../../types';
-import { randomNumber } from '../../utils';
+import randomNumber from '../../utils/randomNumber';
 import { selectWord } from './selectors';
 
 const { getDictionary } = dictionaryService;
