@@ -1,6 +1,6 @@
 # Vocario
 
-Simple vocabulary application made on React and Ionic with a backend on Firebase.
+Simple vocabulary application made on React and Ionic with the Firebase backend.
 
 ## Live Demo
 
