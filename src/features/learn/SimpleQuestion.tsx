@@ -5,7 +5,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
 import Button from '../../components/Button';
-import { isValidAnswer } from '../../utils';
+import { isValidAnswer } from '../../utils/stringUtils';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 

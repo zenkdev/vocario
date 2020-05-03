@@ -2,7 +2,7 @@
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import React, { useMemo } from 'react';
 
-import { isLetter, isWhiteSpace, toCharArray, getFullInput } from '../../utils';
+import { isLetter, isWhiteSpace, toCharArray, getFullInput } from '../../utils/stringUtils';
 
 function displayChar(ch: string, index: number, fullInput: string) {
   if (isLetter(ch)) {

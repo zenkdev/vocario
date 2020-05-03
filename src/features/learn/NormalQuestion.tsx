@@ -5,7 +5,7 @@ import Keyboard from 'react-simple-keyboard';
 import { Dispatch } from '@reduxjs/toolkit';
 
 import Button from '../../components/Button';
-import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../../utils';
+import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../../utils/stringUtils';
 import * as actions from './learnSlice';
 import MobileKeyboard from './MobileKeyboard';
 

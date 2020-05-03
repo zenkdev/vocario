@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../app/rootReducer';
 import { modelHelper, Word } from '../../models';
 import { NEW_WORDS_PER_DAY } from '../../models/modelHelper';
-import { randomNumber } from '../../utils';
+import randomNumber from '../../utils/randomNumber';
 
 const { count, isFirstOccurToday, isNew, isNextOccurToday, isEmpty, isTodayExact, isCompleted } = modelHelper;
 

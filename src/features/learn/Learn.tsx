@@ -6,7 +6,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import { percent } from '../../utils';
+import percent from '../../utils/percent';
 import Congratulations from './Congratulations';
 import * as actions from './learnSlice';
 import NormalCard from './NormalCard';
