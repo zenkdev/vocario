@@ -50,10 +50,10 @@ class ProfileService {
   };
 
   /** UPDATE profile name on the server */
-  public updateDisplayName = async (displayName: string): Promise<void> => {
+  public updateProfile = async (displayName: string, photoURL?: string): Promise<void> => {
     if (this.currentUser) {
-      await this.currentUser.updateProfile({ displayName });
-      await this.updateUserProfile({ displayName });
+      await this.currentUser.updateProfile({ displayName }); // can not store data urls
+      await this.updateUserProfile({ displayName, photoURL });
       await this.raiseCurrentUserChanged();
     }
   };

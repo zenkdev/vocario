@@ -23,7 +23,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../app/rootReducer';
 import * as loginSlice from './loginSlice';
 
-type LoginOwnProps = RouteComponentProps;
+type LoginPageOwnProps = RouteComponentProps;
 
 const mapStateToProps = (state: RootState) => {
   const { isLoading } = state.login;
@@ -32,7 +32,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { history }: LoginOwnProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch, { history }: LoginPageOwnProps) => ({
   loginWithEmailAndPassword: ({ email, password }: { email: string; password: string }) =>
     dispatch(loginSlice.loginWithEmailAndPassword(email, password, history) as any),
   loginWithGithub: () => dispatch(loginSlice.loginWithGithub(history) as any),
@@ -40,9 +40,15 @@ const mapDispatchToProps = (dispatch: Dispatch, { history }: LoginOwnProps) => (
   loginWithMicrosoft: () => dispatch(loginSlice.loginWithMicrosoft(history) as any),
 });
 
-type LoginProps = LoginOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type LoginPageProps = LoginPageOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Login: React.FC<LoginProps> = ({ isLoading, loginWithGithub, loginWithGoogle, loginWithMicrosoft, loginWithEmailAndPassword }) => {
+const LoginPage: React.FC<LoginPageProps> = ({
+  isLoading,
+  loginWithGithub,
+  loginWithGoogle,
+  loginWithMicrosoft,
+  loginWithEmailAndPassword,
+}) => {
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -131,4 +137,4 @@ const Login: React.FC<LoginProps> = ({ isLoading, loginWithGithub, loginWithGoog
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

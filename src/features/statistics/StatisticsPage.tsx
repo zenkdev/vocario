@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
+  IonBackButton,
+  IonButtons,
   IonContent,
   IonHeader,
   IonLoading,
@@ -19,7 +21,7 @@ import { selectIsLoading } from './selectors';
 import StatisticsList from './StatisticsList';
 import { fetchStatistics } from './statisticsSlice';
 
-const Statistics: React.FC = () => {
+const StatisticsPage: React.FC = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const fetchData = useCallback(() => dispatch(fetchStatistics()), [dispatch]);
@@ -36,6 +38,9 @@ const Statistics: React.FC = () => {
     <IonPage>
       <IonHeader translucent>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/home" />
+          </IonButtons>
           <IonTitle>Statistics</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -52,4 +57,4 @@ const Statistics: React.FC = () => {
   );
 };
 
-export default Statistics;
+export default StatisticsPage;

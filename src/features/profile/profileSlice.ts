@@ -6,12 +6,13 @@ import { createUserProfile, UserProfile } from '../../models';
 import { profileService, statisticsService, toastService } from '../../services';
 import { getProfileOptions } from '../../services/LocalStoreManager';
 
-const { getProfile, updateEmail, updateDisplayName, updateDarkTheme, updateFontSize, updateSimpleMode } = profileService;
+const { getProfile, updateEmail, updateProfile, updateDarkTheme, updateFontSize, updateSimpleMode } = profileService;
 const { resetProgress } = statisticsService;
 
 export type ProfileState = {
   isLoading: boolean;
   isSaving: boolean;
+  isDisplayNameEditing: boolean;
   profile: UserProfile;
   error: string | null;
 };
@@ -19,6 +20,7 @@ export type ProfileState = {
 const initialState: ProfileState = {
   isLoading: false,
   isSaving: false,
+  isDisplayNameEditing: false,
   profile: createUserProfile(null, getProfileOptions()),
   error: null,
 };
@@ -32,18 +34,19 @@ function loadingFailed(state: ProfileState, { payload }: PayloadAction<string>) 
   state.error = payload;
 }
 
-function startSaving(state: ProfileState, { payload }: PayloadAction<Partial<UserProfile>>) {
+function startSaving(state: ProfileState, { payload = {} }: PayloadAction<Partial<UserProfile> | undefined>) {
   state.profile = { ...state.profile, ...payload };
   state.isSaving = true;
 }
 
-function savingSucceded(state: ProfileState) {
+function savingSucceded(state: ProfileState, { payload = {} }: PayloadAction<Partial<UserProfile> | undefined>) {
+  state.profile = { ...state.profile, ...payload };
   state.isSaving = false;
   state.error = null;
 }
 
-function savingFailed(state: ProfileState, { payload }: PayloadAction<{ profile: Partial<UserProfile>; error: string }>) {
-  state.profile = { ...state.profile, ...payload.profile };
+function savingFailed(state: ProfileState, { payload }: PayloadAction<{ profile?: Partial<UserProfile>; error: string }>) {
+  state.profile = { ...state.profile, ...(payload.profile || {}) };
   state.isSaving = false;
   state.error = payload.error;
 }
@@ -59,22 +62,32 @@ const profileSlice = createSlice({
       state.error = null;
     },
     getProfileFailure: loadingFailed,
+    displayNameEditingStart(state: ProfileState) {
+      state.isDisplayNameEditing = true;
+    },
+    displayNameEditingEnd(state: ProfileState) {
+      state.isDisplayNameEditing = false;
+    },
     saveProfileStart: startSaving,
     saveProfileSuccess: savingSucceded,
     saveProfileFailure: savingFailed,
   },
 });
 
-export const {
+const {
   getProfileStart,
   getProfileSuccess,
   getProfileFailure,
+  displayNameEditingStart,
+  displayNameEditingEnd,
   saveProfileStart,
   saveProfileSuccess,
   saveProfileFailure,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;
+
+export { displayNameEditingStart, displayNameEditingEnd };
 
 export const fetchProfile = (): AppThunk => async dispatch => {
   try {
@@ -87,19 +100,15 @@ export const fetchProfile = (): AppThunk => async dispatch => {
   }
 };
 
-export const saveDisplayName = (newValue: string): AppThunk => async (dispatch, getState) => {
-  const state = getState().profile;
-  const {
-    profile: { displayName: oldValue },
-  } = state;
-
+export const saveProfile = (displayName: string, photoURL?: string): AppThunk => async dispatch => {
   try {
-    dispatch(saveProfileStart({ displayName: newValue }));
-    await updateDisplayName(newValue);
-    dispatch(saveProfileSuccess());
+    dispatch(saveProfileStart());
+    await updateProfile(displayName, photoURL);
+    dispatch(displayNameEditingEnd());
+    dispatch(saveProfileSuccess({ displayName, photoURL }));
   } catch (error) {
     toastService.showError(error);
-    dispatch(saveProfileFailure({ profile: { displayName: oldValue }, error: error.toString() }));
+    dispatch(saveProfileFailure({ error: error.toString() }));
   }
 };
 

@@ -28,11 +28,11 @@ import { IonReactRouter } from '@ionic/react-router';
 import PrivateRoute from '../components/PrivateRoute';
 import Home from '../features/home/Home';
 import Learn from '../features/learn/Learn';
-import Login from '../features/login/Login';
+import LoginPage from '../features/login/LoginPage';
 import ResetPassword from '../features/login/ResetPassword';
 import Signup from '../features/login/Signup';
-import Profile from '../features/profile/Profile';
-import Statistics from '../features/statistics/Statistics';
+import ProfilePage from '../features/profile/ProfilePage';
+import StatisticsPage from '../features/statistics/StatisticsPage';
 import { profileService, toastService } from '../services';
 import defaultTo from '../utils/defaultTo';
 import { setIsLoading, updateAppSettings } from './appSlice';
@@ -82,11 +82,11 @@ const App: React.FC = () => {
             <IonRouterOutlet>
               <PrivateRoute path="/home" component={Home} exact />
               <PrivateRoute path="/learn" component={Learn} />
-              <Route path="/login" component={Login} exact />
-              <PrivateRoute path="/profile" component={Profile} exact />
+              <Route path="/login" component={LoginPage} exact />
+              <PrivateRoute path="/profile" component={ProfilePage} exact />
               <Route path="/reset-password" component={ResetPassword} exact />
               <Route path="/signup" component={Signup} exact />
-              <PrivateRoute path="/stats" component={Statistics} exact />
+              <PrivateRoute path="/stats" component={StatisticsPage} exact />
               <Route exact path="/" render={() => <Redirect to="/home" />} />
             </IonRouterOutlet>
             <IonTabBar slot="bottom">
