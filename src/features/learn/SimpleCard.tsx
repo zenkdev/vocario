@@ -18,10 +18,10 @@ const SimpleCard: React.FC<SimpleCardProps> = ({ word }) => {
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
 
   return (
-    <section className="ion-text-center">
-      <h1 className="large-text">{title}</h1>
-      <div className="small-text">{transcription}</div>
-      {category && <div className="ion-padding small-text">{category}</div>}
+    <section>
+      <h1 className="large-text ion-text-center">{title}</h1>
+      <div className="small-text ion-text-center">{transcription}</div>
+      {category && <div className="ion-padding small-text ion-text-center">{category}</div>}
       <If condition={!answer} then={<SimpleQuestion text={translation} />} else={<AnswerResult text={translation} />} />
     </section>
   );

@@ -32,9 +32,9 @@ const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
   }, [word, keyboardRef]);
 
   return (
-    <section className="ion-text-center">
-      <h1 className="large-text">{title}</h1>
-      {category && <div className="ion-padding small-text">{category}</div>}
+    <section>
+      <h1 className="large-text ion-text-center">{title}</h1>
+      {category && <div className="ion-padding small-text ion-text-center">{category}</div>}
       <StyledInput input={input} text={text} />
       <If
         condition={!answer}
