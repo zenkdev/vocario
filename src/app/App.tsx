@@ -16,28 +16,19 @@ import '../theme/variables.css';
 import '../theme/variables.dark.css';
 import './styles.scss';
 
-import { home, person, statsChart } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route } from 'react-router-dom';
 
 import { toastController } from '@ionic/core';
-import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
+import { IonApp } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
-import PrivateRoute from '../components/PrivateRoute';
-import Home from '../features/home/Home';
-import Learn from '../features/learn/Learn';
-import LoginPage from '../features/login/LoginPage';
-import ResetPassword from '../features/login/ResetPassword';
-import SignupPage from '../features/signup/SignupPage';
-import ProfilePage from '../features/profile/ProfilePage';
-import StatisticsPage from '../features/statistics/StatisticsPage';
 import { profileService, toastService } from '../services';
 import defaultTo from '../utils/defaultTo';
 import { setIsLoading, updateAppSettings } from './appSlice';
 import { RootState } from './rootReducer';
 import Splash from './Splash';
+import Tabs from './Tabs';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -78,32 +69,7 @@ const App: React.FC = () => {
         <Splash />
       ) : (
         <IonReactRouter>
-          <IonTabs>
-            <IonRouterOutlet>
-              <PrivateRoute path="/home" component={Home} exact />
-              <PrivateRoute path="/learn" component={Learn} />
-              <Route path="/login" component={LoginPage} exact />
-              <PrivateRoute path="/profile" component={ProfilePage} exact />
-              <Route path="/reset-password" component={ResetPassword} exact />
-              <Route path="/signup" component={SignupPage} exact />
-              <PrivateRoute path="/stats" component={StatisticsPage} exact />
-              <Route exact path="/" render={() => <Redirect to="/home" />} />
-            </IonRouterOutlet>
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="home" href="/home">
-                <IonIcon icon={home} />
-                <IonLabel>Home</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="stats" href="/stats">
-                <IonIcon icon={statsChart} />
-                <IonLabel>Statistics</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="profile" href="/profile">
-                <IonIcon icon={person} />
-                <IonLabel>Profile</IonLabel>
-              </IonTabButton>
-            </IonTabBar>
-          </IonTabs>
+          <Tabs />
         </IonReactRouter>
       )}
     </IonApp>

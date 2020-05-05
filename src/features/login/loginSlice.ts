@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { History } from 'history';
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
@@ -38,7 +36,9 @@ const { loginStart, loginSuccess, loginFailure } = profileSlice.actions;
 
 export default profileSlice.reducer;
 
-export const goBack = (history: History) => {
+export const goBack = () => {
+  const history = window.browserHistory;
+
   let { pathname } = history.location;
   if (pathname === '/login') {
     pathname = '/';
@@ -46,11 +46,11 @@ export const goBack = (history: History) => {
   history.push(pathname);
 };
 
-export const loginWithGithub = (history: History): AppThunk => async dispatch => {
+export const loginWithGithub = (): AppThunk => async dispatch => {
   try {
     dispatch(loginStart());
     await authService.loginWithGithub();
-    goBack(history);
+    goBack();
     dispatch(loginSuccess());
   } catch (error) {
     toastService.showError(error);
@@ -58,11 +58,11 @@ export const loginWithGithub = (history: History): AppThunk => async dispatch =>
   }
 };
 
-export const loginWithGoogle = (history: History): AppThunk => async dispatch => {
+export const loginWithGoogle = (): AppThunk => async dispatch => {
   try {
     dispatch(loginStart());
     await authService.loginWithGoogle();
-    goBack(history);
+    goBack();
     dispatch(loginSuccess());
   } catch (error) {
     toastService.showError(error);
@@ -70,11 +70,11 @@ export const loginWithGoogle = (history: History): AppThunk => async dispatch =>
   }
 };
 
-export const loginWithMicrosoft = (history: History): AppThunk => async dispatch => {
+export const loginWithMicrosoft = (): AppThunk => async dispatch => {
   try {
     dispatch(loginStart());
     await authService.loginWithMicrosoft();
-    goBack(history);
+    goBack();
     dispatch(loginSuccess());
   } catch (error) {
     toastService.showError(error);
@@ -82,12 +82,12 @@ export const loginWithMicrosoft = (history: History): AppThunk => async dispatch
   }
 };
 
-export const loginWithEmailAndPassword = (email: string, password: string, history: History): AppThunk => async dispatch => {
+export const loginWithEmailAndPassword = (email: string, password: string): AppThunk => async dispatch => {
   try {
     dispatch(loginStart());
     await authService.loginWithEmailAndPassword(email, password);
     dispatch(loginSuccess());
-    goBack(history);
+    goBack();
   } catch (error) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));

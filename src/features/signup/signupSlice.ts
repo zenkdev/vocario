@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { History } from 'history';
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
@@ -38,7 +36,9 @@ const { signupStart, signupSuccess, signupFailure } = signupSlice.actions;
 
 export default signupSlice.reducer;
 
-export const signupUser = (email: string, password: string, history: History): AppThunk => async dispatch => {
+export const signupUser = (email: string, password: string): AppThunk => async dispatch => {
+  const history = window.browserHistory;
+
   try {
     dispatch(signupStart());
     await authService.signupUser(email, password);

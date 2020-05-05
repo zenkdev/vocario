@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
 
 import {
   IonBackButton,
@@ -23,8 +22,6 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../app/rootReducer';
 import * as signupSlice from './signupSlice';
 
-type SignupPageOwnProps = RouteComponentProps;
-
 const mapStateToProps = (state: RootState) => {
   const { isCreating } = state.signup;
   return {
@@ -32,12 +29,11 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { history }: SignupPageOwnProps) => ({
-  signupUser: ({ email, password }: { email: string; password: string }) =>
-    dispatch(signupSlice.signupUser(email, password, history) as any),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  signupUser: ({ email, password }: { email: string; password: string }) => dispatch(signupSlice.signupUser(email, password) as any),
 });
 
-type SignupPageProps = SignupPageOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type SignupPageProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
   const formik = useFormik({

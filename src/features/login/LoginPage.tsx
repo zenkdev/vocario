@@ -2,7 +2,6 @@ import { useFormik } from 'formik';
 import { logoGithub, logoGoogle, logoSkype } from 'ionicons/icons';
 import React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
 
 import {
   IonButton,
@@ -23,8 +22,6 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { RootState } from '../../app/rootReducer';
 import * as loginSlice from './loginSlice';
 
-type LoginPageOwnProps = RouteComponentProps;
-
 const mapStateToProps = (state: RootState) => {
   const { isLoading } = state.login;
   return {
@@ -32,15 +29,15 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { history }: LoginPageOwnProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   loginWithEmailAndPassword: ({ email, password }: { email: string; password: string }) =>
-    dispatch(loginSlice.loginWithEmailAndPassword(email, password, history) as any),
-  loginWithGithub: () => dispatch(loginSlice.loginWithGithub(history) as any),
-  loginWithGoogle: () => dispatch(loginSlice.loginWithGoogle(history) as any),
-  loginWithMicrosoft: () => dispatch(loginSlice.loginWithMicrosoft(history) as any),
+    dispatch(loginSlice.loginWithEmailAndPassword(email, password) as any),
+  loginWithGithub: () => dispatch(loginSlice.loginWithGithub() as any),
+  loginWithGoogle: () => dispatch(loginSlice.loginWithGoogle() as any),
+  loginWithMicrosoft: () => dispatch(loginSlice.loginWithMicrosoft() as any),
 });
 
-type LoginPageProps = LoginPageOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type LoginPageProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const LoginPage: React.FC<LoginPageProps> = ({
   isLoading,
