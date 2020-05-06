@@ -2,8 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
-import { Dispatch } from '@reduxjs/toolkit';
-
+import { AppDispatch } from '../../app/store';
 import Button from '../../components/Button';
 import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../../utils/stringUtils';
 import * as actions from './learnSlice';
@@ -16,8 +15,11 @@ type NormalQuestionOwnProps = {
   onChange: (value: string) => void;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { text, input }: NormalQuestionOwnProps) => ({
-  handleClick: () => dispatch(actions.setAnswer(isValidAnswer(text, getFullInput(input, text))) as any),
+const mapDispatchToProps = (dispatch: AppDispatch, { text, input }: NormalQuestionOwnProps) => ({
+  handleClick: () => {
+    const isValid = isValidAnswer(text, getFullInput(input, text));
+    dispatch(actions.updateWord(isValid));
+  },
 });
 
 type NormalQuestionProps = NormalQuestionOwnProps & ReturnType<typeof mapDispatchToProps>;

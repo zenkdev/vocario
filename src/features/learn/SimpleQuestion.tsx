@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
 
-import { Dispatch } from '@reduxjs/toolkit';
-
 import { RootState } from '../../app/rootReducer';
+import { AppDispatch } from '../../app/store';
 import Button from '../../components/Button';
 import { isValidAnswer } from '../../utils/stringUtils';
 import * as actions from './learnSlice';
@@ -31,8 +30,11 @@ const mapStateToProps = (state: RootState) => ({
   options: selectors.selectOptions(state),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch, { text }: SimpleQuestionOwnProps) => ({
-  handleClick: (option: string) => dispatch(actions.setAnswer(isValidAnswer(text, option)) as any),
+const mapDispatchToProps = (dispatch: AppDispatch, { text }: SimpleQuestionOwnProps) => ({
+  handleClick: (option: string) => {
+    const isValid = isValidAnswer(text, option);
+    dispatch(actions.updateWord(isValid));
+  },
 });
 
 type SimpleQuestionProps = SimpleQuestionOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;

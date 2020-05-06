@@ -20,7 +20,9 @@ import { fetchDictionaries } from './homeSlice';
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { isLoading, data } = useSelector((state: RootState) => state.home);
-  const fetchData = useCallback(() => dispatch(fetchDictionaries()), [dispatch]);
+  const fetchData = useCallback(() => {
+    dispatch(fetchDictionaries());
+  }, [dispatch]);
   const doRefresh = useCallback(
     ({ target: refresher }) => {
       fetchData();

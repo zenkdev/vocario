@@ -5,9 +5,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
-import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import { AppDispatch } from '../../app/store';
 import Button from '../../components/Button';
 import useAudio from '../../hooks/useAudio';
 import { Answer } from '../../types';
@@ -28,8 +28,10 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  handleClick: () => dispatch(actions.updateWord() as any),
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  handleClick: () => {
+    dispatch(actions.nextWord());
+  },
 });
 
 type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;

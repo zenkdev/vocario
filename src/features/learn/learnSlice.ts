@@ -31,11 +31,6 @@ const initialState: LearnState = {
   answer: null,
 };
 
-function loadingFailed(state: LearnState, { payload }: PayloadAction<string>) {
-  state.isLoading = false;
-  state.error = payload;
-}
-
 const learnSlice = createSlice({
   name: 'learn',
   initialState,
@@ -50,7 +45,6 @@ const learnSlice = createSlice({
       state.error = null;
       state.answer = null;
     },
-    getDictionaryFailure: loadingFailed,
     nextWord(state: LearnState) {
       const { dictionary, wordId } = state;
       if (dictionary) {
@@ -73,11 +67,9 @@ const learnSlice = createSlice({
         state.answer = null;
       }
     },
-    setAnswer(state: LearnState, { payload }: PayloadAction<Answer>) {
-      state.answer = payload;
-    },
-    updateWordSuccess(state: LearnState, { payload }: PayloadAction<Word>) {
+    updateWordSuccess(state: LearnState, { payload }: PayloadAction<{ word: Word; answer: Answer }>) {
       let { dictionary } = state;
+      const { word, answer } = payload;
 
       if (dictionary) {
         const { wordsCompleted, wordsCount, words } = dictionary;
@@ -86,33 +78,30 @@ const learnSlice = createSlice({
           ...dictionary,
           words: {
             ...words,
-            [payload.id]: payload,
+            [word.id]: word,
           },
-          wordsCompleted: Math.min(wordsCompleted + (isCompleted(payload) ? 1 : 0), wordsCount),
+          wordsCompleted: Math.min(wordsCompleted + (isCompleted(word) ? 1 : 0), wordsCount),
         };
 
         deleteWordId(dictionary.id);
       }
 
       state.dictionary = dictionary;
-      state.wordId = null;
+      // state.wordId = null;
       state.isLoading = false;
       state.error = null;
-      state.answer = null;
+      state.answer = answer; // null;
     },
-    updateWordFailure: loadingFailed,
+    loadingFailed(state: LearnState, { payload }: PayloadAction<string>) {
+      state.isLoading = false;
+      state.error = payload;
+    },
   },
 });
 
-export const {
-  getDictionaryStart,
-  getDictionarySuccess,
-  getDictionaryFailure,
-  nextWord,
-  setAnswer,
-  updateWordSuccess,
-  updateWordFailure,
-} = learnSlice.actions;
+const { getDictionaryStart, getDictionarySuccess, nextWord, updateWordSuccess, loadingFailed } = learnSlice.actions;
+
+export { nextWord };
 
 export default learnSlice.reducer;
 
@@ -124,15 +113,15 @@ export const fetchDictionary = (id: string): AppThunk => async dispatch => {
     dispatch(nextWord());
   } catch (e) {
     toastService.showError(e);
-    dispatch(getDictionaryFailure(e.toString()));
+    dispatch(loadingFailed(e.toString()));
   }
 };
 
-export const updateWord = (): AppThunk => async (dispatch, getState) => {
+export const updateWord = (answer: Answer): AppThunk => async (dispatch, getState) => {
   const state = getState();
   const dateStr = formatISO(Date.now());
 
-  const { dictionary, answer } = state.learn;
+  const { dictionary } = state.learn;
   let word = selectWord(state);
 
   try {
@@ -148,11 +137,10 @@ export const updateWord = (): AppThunk => async (dispatch, getState) => {
 
       await updateStatistics(dictionary.id, word);
 
-      dispatch(updateWordSuccess(word));
-      dispatch(nextWord());
+      dispatch(updateWordSuccess({ word, answer }));
     }
   } catch (e) {
     toastService.showError(e);
-    dispatch(updateWordFailure(e.toString()));
+    dispatch(loadingFailed(e.toString()));
   }
 };

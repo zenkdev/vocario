@@ -25,11 +25,13 @@ const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
   const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
 
   useEffect(() => {
-    setInput('');
-    if (keyboardRef) {
-      keyboardRef.clearInput();
+    if (answer === null) {
+      setInput('');
+      if (keyboardRef) {
+        keyboardRef.clearInput();
+      }
     }
-  }, [word, keyboardRef]);
+  }, [answer, keyboardRef]);
 
   return (
     <section>

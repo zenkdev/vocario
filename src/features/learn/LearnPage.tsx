@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
-import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
+import { AppDispatch } from '../../app/store';
+import If from '../../components/If';
 import percent from '../../utils/percent';
 import Congratulations from './Congratulations';
 import * as actions from './learnSlice';
 import NormalCard from './NormalCard';
 import * as selectors from './selectors';
 import SimpleCard from './SimpleCard';
-import If from '../../components/If';
 
 type LearnPageParams = {
   id: string;
@@ -34,11 +34,11 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { match }: LearnPageOwnProps) => {
+const mapDispatchToProps = (dispatch: AppDispatch, { match }: LearnPageOwnProps) => {
   const { id } = match.params;
   return {
     fetchData: () => {
-      dispatch(actions.fetchDictionary(id) as any);
+      dispatch(actions.fetchDictionary(id));
     },
   };
 };
