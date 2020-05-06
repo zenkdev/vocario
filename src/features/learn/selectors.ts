@@ -9,6 +9,13 @@ const { count, isFirstOccurToday, isNew, isNextOccurToday, isEmpty, isTodayExact
 
 const selectLearn = (state: RootState) => state.learn;
 
+export const selectTitle = createSelector(selectLearn, ({ dictionary }): string => {
+  if (!dictionary || !dictionary.name) {
+    return 'Learn';
+  }
+  return dictionary.name;
+});
+
 export const selectWord = createSelector(selectLearn, ({ dictionary, wordId }): Word | null => {
   if (!dictionary || !wordId || !dictionary.words[wordId]) {
     return null;

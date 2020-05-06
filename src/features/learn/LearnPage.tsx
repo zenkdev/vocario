@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps, StaticContext } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 import { Dispatch } from '@reduxjs/toolkit';
@@ -12,42 +12,40 @@ import * as actions from './learnSlice';
 import NormalCard from './NormalCard';
 import * as selectors from './selectors';
 import SimpleCard from './SimpleCard';
+import If from '../../components/If';
 
-type LearnLocationState = {
+type LearnPageParams = {
   id: string;
-  title: string;
 };
 
-type LearnOwnProps = RouteComponentProps<{}, StaticContext, LearnLocationState>;
+type LearnPageOwnProps = RouteComponentProps<LearnPageParams>;
 
 const mapStateToProps = (state: RootState) => {
   const { simpleMode } = state.app;
   const { isLoading } = state.learn;
+  const { completed, total, more } = selectors.selectDailyStatistics(state);
   return {
     simpleMode,
     isLoading,
+    title: selectors.selectTitle(state),
     word: selectors.selectWord(state),
-    dailyStatistics: selectors.selectDailyStatistics(state),
+    progress: percent(completed, total),
+    hasMore: more,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: LearnOwnProps) => {
-  const { state } = ownProps.location;
+const mapDispatchToProps = (dispatch: Dispatch, { match }: LearnPageOwnProps) => {
+  const { id } = match.params;
   return {
     fetchData: () => {
-      if (state && state.id) {
-        dispatch(actions.fetchDictionary(state.id) as any);
-      }
+      dispatch(actions.fetchDictionary(id) as any);
     },
   };
 };
 
-type LearnProps = LearnOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type LearnPageProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
-const Learn: React.FC<LearnProps> = ({ location, simpleMode, isLoading, word, dailyStatistics, fetchData }) => {
-  const title = (location.state && location.state.title) || 'Learn';
-  const { completed, total, more } = dailyStatistics;
-
+const LearnPage: React.FC<LearnPageProps> = ({ title, simpleMode, isLoading, word, progress, hasMore, fetchData }) => {
   useEffect(fetchData, [fetchData]);
 
   return (
@@ -61,14 +59,13 @@ const Learn: React.FC<LearnProps> = ({ location, simpleMode, isLoading, word, da
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonProgressBar value={percent(completed, total)} />
-        {word && !simpleMode && <NormalCard word={word} />}
-        {word && simpleMode && <SimpleCard word={word} />}
-        {!isLoading && !word && <Congratulations more={more} />}
+        <IonProgressBar value={progress} />
+        {word && <If condition={simpleMode} then={<SimpleCard word={word} />} else={<NormalCard word={word} />} />}
+        {!isLoading && !word && <Congratulations more={hasMore} />}
         <IonLoading isOpen={isLoading} message="Loading..." />
       </IonContent>
     </IonPage>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Learn);
+export default connect(mapStateToProps, mapDispatchToProps)(LearnPage);

@@ -24,7 +24,7 @@ import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } 
 
 import PrivateRoute from '../components/PrivateRoute';
 import Home from '../features/home/Home';
-import Learn from '../features/learn/Learn';
+import LearnPage from '../features/learn/LearnPage';
 import LoginPage from '../features/login/LoginPage';
 import ResetPassword from '../features/login/ResetPassword';
 import ProfilePage from '../features/profile/ProfilePage';
@@ -39,7 +39,7 @@ const Tabs: React.FC = () => {
     <IonTabs>
       <IonRouterOutlet>
         <PrivateRoute path="/home" component={Home} exact />
-        <PrivateRoute path="/learn" component={Learn} />
+        <PrivateRoute path="/learn/:id" component={LearnPage} />
         <Route path="/login" component={LoginPage} exact />
         <PrivateRoute path="/profile" component={ProfilePage} exact />
         <Route path="/reset-password" component={ResetPassword} exact />

@@ -14,9 +14,7 @@ type DictionaryListItemProps = {
 
 const DictionaryListItem: React.FC<DictionaryListItemProps> = ({ item }) => {
   const history = useHistory();
-  const handleClick = useCallback(() => {
-    history.push('/learn', { id: item.id, title: item.name });
-  }, [history, item]);
+  const handleClick = useCallback(() => history.push(`/learn/${item.id}`), [history, item]);
 
   return (
     <>
