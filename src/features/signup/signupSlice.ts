@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
-import { authService, toastService } from '../../services';
+import { authService, toastService, routerService } from '../../services';
 
 export type SignupState = {
   isCreating: boolean;
@@ -37,13 +37,11 @@ const { signupStart, signupSuccess, signupFailure } = signupSlice.actions;
 export default signupSlice.reducer;
 
 export const signupUser = (email: string, password: string): AppThunk => async dispatch => {
-  const history = window.browserHistory;
-
   try {
     dispatch(signupStart());
     await authService.signupUser(email, password);
     dispatch(signupSuccess());
-    history.push('/home');
+    routerService.push('/home');
   } catch (error) {
     toastService.showError(error);
     dispatch(signupFailure(error.toString()));

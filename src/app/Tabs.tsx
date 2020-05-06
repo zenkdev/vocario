@@ -30,9 +30,10 @@ import ResetPassword from '../features/login/ResetPassword';
 import ProfilePage from '../features/profile/ProfilePage';
 import SignupPage from '../features/signup/SignupPage';
 import StatisticsPage from '../features/statistics/StatisticsPage';
+import { routerService } from '../services';
 
 const Tabs: React.FC = () => {
-  window.browserHistory = useHistory();
+  routerService.history = useHistory();
 
   return (
     <IonTabs>

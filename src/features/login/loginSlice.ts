@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
-import { authService, toastService } from '../../services';
+import { authService, toastService, routerService } from '../../services';
 
 export type LoginState = {
   isLoading: boolean;
@@ -37,13 +37,11 @@ const { loginStart, loginSuccess, loginFailure } = profileSlice.actions;
 export default profileSlice.reducer;
 
 export const goBack = () => {
-  const history = window.browserHistory;
-
-  let { pathname } = history.location;
+  let { pathname } = routerService.location;
   if (pathname === '/login') {
     pathname = '/';
   }
-  history.push(pathname);
+  routerService.push(pathname);
 };
 
 export const loginWithGithub = (): AppThunk => async dispatch => {

@@ -1,5 +1,3 @@
-import { History } from 'history';
-
 type RangeValue =
   | number
   | {
@@ -18,9 +16,3 @@ export enum Answer {
 }
 
 export type Func<TReturnValue = void> = () => TReturnValue;
-
-declare global {
-  interface Window {
-    browserHistory: History;
-  }
-}
