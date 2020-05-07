@@ -1,7 +1,8 @@
 import '../../app/ripple.scss';
 
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
+import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
@@ -9,7 +10,6 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabBut
 import { RootState } from '../../app/rootReducer';
 import { AppDispatch } from '../../app/store';
 import Button from '../../components/Button';
-import useAudio from '../../hooks/useAudio';
 import { Answer } from '../../types';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
@@ -37,8 +37,9 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
-  const { playing, toggle } = useAudio(audioUrl);
-  useEffect(toggle, [toggle]);
+  const [playing, setPlaying] = useState(true);
+  const stopped = useCallback(() => setPlaying(false), []);
+  const toggle = useCallback(() => setPlaying(prev => !prev), []);
 
   return (
     <IonCard>
@@ -46,8 +47,9 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
+        <ReactPlayer url={audioUrl} width={0} height={0} playing={playing} onEnded={stopped} />
         <IonFab vertical="top" horizontal="end" slot="fixed">
-          <IonFabButton color="medium" size="small" onClick={() => toggle()} className={playing ? 'ripple-button' : undefined}>
+          <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>
             <IonIcon icon={playing ? stop : volumeHigh} />
           </IonFabButton>
         </IonFab>
