@@ -45,11 +45,13 @@ const learnSlice = createSlice({
       state.error = null;
       state.answer = null;
     },
-    nextWord(state: LearnState) {
+    nextWord(state: LearnState, { payload }: PayloadAction<{ force?: boolean } | undefined>) {
       const { dictionary, wordId } = state;
+      const force = payload && payload.force;
+
       if (dictionary) {
         const words = modelHelper.wordsToLearn(dictionary);
-        let newWordId = wordId;
+        let newWordId = force ? null : wordId;
         if (words.length) {
           if (!words.some(({ id }) => id === wordId)) {
             newWordId = words[randomNumber(0, words.length - 1)].id;

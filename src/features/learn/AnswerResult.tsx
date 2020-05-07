@@ -30,7 +30,7 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   handleClick: () => {
-    dispatch(actions.nextWord());
+    dispatch(actions.nextWord({ force: true }));
   },
 });
 
