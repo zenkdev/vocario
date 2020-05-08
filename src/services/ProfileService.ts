@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import Observable from 'zen-observable';
 
 import { createUserProfile, UserProfile } from '../models';
+import omitUndefined from '../utils/omitUndefined';
 import firebaseInstance, { Firebase } from './Firebase';
 import localStoreManager, { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, getProfileOptions, SIMPLE_MODE_DATA_KEY } from './LocalStoreManager';
 
@@ -53,7 +54,7 @@ class ProfileService {
   public updateProfile = async (displayName: string, photoURL?: string): Promise<void> => {
     if (this.currentUser) {
       await this.currentUser.updateProfile({ displayName }); // can not store data urls
-      await this.updateUserProfile({ displayName, photoURL });
+      await this.updateUserProfile(omitUndefined({ displayName, photoURL }));
       await this.raiseCurrentUserChanged();
     }
   };

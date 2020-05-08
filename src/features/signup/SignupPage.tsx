@@ -81,15 +81,15 @@ const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
         <IonList lines="full" class="ion-no-margin ion-no-padding">
           <IonItem>
             <IonLabel position="stacked">Email</IonLabel>
-            <IonInput type="email" value={values.email} onIonChange={handleChange as any} />
+            <IonInput type="email" name="email" value={values.email} onIonChange={handleChange as any} />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Password</IonLabel>
-            <IonInput type="password" value={values.password} onIonChange={handleChange as any} />
+            <IonInput type="password" name="password" value={values.password} onIonChange={handleChange as any} />
           </IonItem>
           <IonItem>
             <IonLabel position="stacked">Confirm password</IonLabel>
-            <IonInput type="password" value={values.confirmPassword} onIonChange={handleChange as any} />
+            <IonInput type="password" name="confirmPassword" value={values.confirmPassword} onIonChange={handleChange as any} />
           </IonItem>
         </IonList>
         <div className="ion-padding">
@@ -98,6 +98,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
           </IonButton>
         </div>
         <IonLoading isOpen={isCreating} message="Creating..." />
+        <div>{JSON.stringify(formik, null, 2)}</div>
       </IonContent>
     </IonPage>
   );
