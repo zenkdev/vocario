@@ -13,10 +13,11 @@ export type Statistic = {
   category: string;
   partOfSpeech: string;
   occurs: string[];
+  errors: string[];
 };
 
 export function createStatistic(payload: DataSnapshot): Statistic {
-  const { dictionaryId, translation, category, partOfSpeech, occurs, ...rest } = payload.val();
+  const { dictionaryId, translation, category, partOfSpeech, occurs, errors, ...rest } = payload.val();
   const texts = createTextArray(rest);
   return {
     id: defaultTo(payload.key, ''),
@@ -26,5 +27,6 @@ export function createStatistic(payload: DataSnapshot): Statistic {
     category: defaultTo(category, ''),
     partOfSpeech: defaultTo(partOfSpeech, ''),
     occurs,
+    errors: defaultTo(errors, []),
   };
 }

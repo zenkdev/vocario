@@ -12,6 +12,7 @@ export type Word = {
   category: string;
   partOfSpeech: string;
   occurs?: string[];
+  errors?: string[];
 };
 
 export function createWord(payload: DataSnapshot): Word {

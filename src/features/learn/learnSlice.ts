@@ -53,7 +53,7 @@ const learnSlice = createSlice({
         const words = modelHelper.wordsToLearn(dictionary);
         let newWordId = force ? null : wordId;
         if (words.length) {
-          if (!words.some(({ id }) => id === wordId)) {
+          if (!words.some(({ id }) => id === newWordId)) {
             newWordId = words[randomNumber(0, words.length - 1)].id;
           }
         } else {
@@ -89,10 +89,9 @@ const learnSlice = createSlice({
       }
 
       state.dictionary = dictionary;
-      // state.wordId = null;
       state.isLoading = false;
       state.error = null;
-      state.answer = answer; // null;
+      state.answer = answer;
     },
     loadingFailed(state: LearnState, { payload }: PayloadAction<string>) {
       state.isLoading = false;
@@ -128,14 +127,16 @@ export const updateWord = (answer: Answer): AppThunk => async (dispatch, getStat
 
   try {
     if (dictionary && word) {
-      let { occurs = [] } = word;
+      let { occurs = [], errors } = word;
       if (occurs.length === 0) {
         occurs = [dateStr];
       }
       if (answer === Answer.valid) {
         occurs = [...occurs, dateStr];
+      } else {
+        errors = [...(errors || []), dateStr];
       }
-      word = { ...word, occurs };
+      word = { ...word, occurs, errors };
 
       await updateStatistics(dictionary.id, word);
 
