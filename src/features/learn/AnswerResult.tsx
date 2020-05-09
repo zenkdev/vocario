@@ -1,8 +1,8 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import '../../app/ripple.scss';
 
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useCallback, useState } from 'react';
-import ReactPlayer from 'react-player';
+import React, { useCallback, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
@@ -37,9 +37,15 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(true);
-  const stopped = useCallback(() => setPlaying(false), []);
-  const toggle = useCallback(() => setPlaying(prev => !prev), []);
+  const toggle = useCallback(() => {
+    const el = audioRef.current;
+    if (el) {
+      if (playing) el.pause();
+      else el.play();
+    }
+  }, [playing]);
 
   return (
     <IonCard>
@@ -47,7 +53,15 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <ReactPlayer url={audioUrl} width={0} height={0} playing={playing} onEnded={stopped} />
+        <audio
+          src={audioUrl}
+          preload="auto"
+          ref={audioRef}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onEnded={() => setPlaying(false)}
+          autoPlay
+        />
         <IonFab vertical="top" horizontal="end" slot="fixed">
           <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>
             <IonIcon icon={playing ? stop : volumeHigh} />
