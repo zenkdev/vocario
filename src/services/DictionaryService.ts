@@ -60,6 +60,7 @@ class DictionaryService {
           /* eslint-enable no-param-reassign */
         }
       });
+      // console.table(words);
 
       // fix wordsCompleted
       const wordsCompleted = count(values, w => w.isCompleted);

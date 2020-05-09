@@ -9,7 +9,7 @@ import { RootState } from '../../app/rootReducer';
 import { nextOccur, Word } from '../../models';
 import { count, isEmpty, randomNumber } from '../../utils';
 
-const NEW_WORDS_PER_DAY = 20;
+const NEW_WORDS_PER_DAY = Number(process.env.REACT_APP_NEW_WORDS_PER_DAY);
 
 const isNew = ({ occurs }: Word): boolean => isEmpty(occurs);
 const isToday = (value: Date | string | undefined): boolean =>

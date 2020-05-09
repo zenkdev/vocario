@@ -4,7 +4,7 @@ import formatISO from 'date-fns/formatISO';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
-import { COUNT_TO_COMPLETE, Dictionary, Word } from '../../models';
+import { Dictionary, Word } from '../../models';
 import { dictionaryService, statisticsService, toastService } from '../../services';
 import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
 import { Answer } from '../../types';
@@ -14,6 +14,7 @@ import { selectWord, selectWordsToLearn } from './selectors';
 const { getDictionary } = dictionaryService;
 const { updateStatistics } = statisticsService;
 
+const COUNT_TO_COMPLETE = Number(process.env.REACT_APP_COUNT_TO_COMPLETE);
 const completed = (occurs?: string[]): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
 
 export type LearnState = {

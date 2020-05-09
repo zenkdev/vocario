@@ -1,4 +1,4 @@
-const COUNT_TO_COMPLETE = 3;
+const COUNT_TO_COMPLETE = Number(process.env.REACT_APP_COUNT_TO_COMPLETE);
 
 const isEmpty = <T>(value: Array<T> | undefined): boolean => value == null || !Array.isArray(value) || value.length === 0;
 

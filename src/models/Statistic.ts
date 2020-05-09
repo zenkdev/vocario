@@ -6,9 +6,9 @@ import { Word } from './Word';
 
 type DataSnapshot = firebase.database.DataSnapshot;
 
-export const COUNT_TO_COMPLETE = 3;
+const COUNT_TO_COMPLETE = Number(process.env.REACT_APP_COUNT_TO_COMPLETE);
 
-const completed = ({ occurs }: Word): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
+const completed = (occurs?: string[]): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
 
 export type Statistic = Word & {
   dictionaryId: string;
@@ -18,11 +18,11 @@ export type Statistic = Word & {
 
 export function createStatistic(payload: DataSnapshot): Statistic {
   const { dictionaryId, translation, category, partOfSpeech, isCompleted, occurs, mistakes, ...rest } = payload.val();
-  const texts = createTextArray(rest);
+
   return {
     id: defaultTo(payload.key, ''),
     dictionaryId: defaultTo(dictionaryId, ''),
-    texts: defaultTo(texts, []),
+    texts: defaultTo(createTextArray(rest), []),
     translation: defaultTo(translation, ''),
     category: defaultTo(category, ''),
     partOfSpeech: defaultTo(partOfSpeech, ''),
