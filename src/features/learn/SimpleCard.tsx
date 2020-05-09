@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../../app/rootReducer';
-import If from '../../components/If';
+import { If } from '../../components';
 import { Word } from '../../models';
 import wordUtils from '../../utils/wordUtils';
 import AnswerResult from './AnswerResult';

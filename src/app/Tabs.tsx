@@ -22,7 +22,7 @@ import { Redirect, Route, useHistory } from 'react-router-dom';
 
 import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 
-import PrivateRoute from '../components/PrivateRoute';
+import { PrivateRoute } from '../components';
 import Home from '../features/home/Home';
 import LearnPage from '../features/learn/LearnPage';
 import LoginPage from '../features/login/LoginPage';

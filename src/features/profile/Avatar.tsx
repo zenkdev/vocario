@@ -4,7 +4,7 @@ import React from 'react';
 
 import { IonAvatar, IonIcon, IonImg } from '@ionic/react';
 
-import If from '../../components/If';
+import { If } from '../../components';
 
 type AvatarProps = {
   photoURL?: string;
