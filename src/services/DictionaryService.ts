@@ -1,10 +1,10 @@
 import firebase from 'firebase/app';
 
-import { createDictionary, createStatistic, createWord, Dictionary, modelHelper, Statistic, Word } from '../models';
+import { createDictionary, createStatistic, createWord, Dictionary, Statistic, Word } from '../models';
+import count from '../utils/count';
 import firebaseInstance, { Firebase } from './Firebase';
 
 const { withTrace } = firebaseInstance;
-const { count, isCompleted } = modelHelper;
 
 type Database = firebase.database.Database;
 
@@ -54,14 +54,15 @@ class DictionaryService {
         const stat = statistics[word.id];
         if (stat) {
           /* eslint-disable no-param-reassign */
+          word.isCompleted = stat.isCompleted;
           word.occurs = stat.occurs;
-          word.errors = stat.errors;
+          word.mistakes = stat.mistakes;
           /* eslint-enable no-param-reassign */
         }
       });
 
       // fix wordsCompleted
-      const wordsCompleted = count(values, isCompleted);
+      const wordsCompleted = count(values, w => w.isCompleted);
       if (dictionary.wordsCompleted !== wordsCompleted) {
         dictionary.wordsCompleted = wordsCompleted;
       }

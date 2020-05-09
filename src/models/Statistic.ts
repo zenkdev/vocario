@@ -1,23 +1,24 @@
 import firebase from 'firebase/app';
 
-import { createTextArray, Text } from './Text';
 import defaultTo from '../utils/defaultTo';
+import isEmpty from '../utils/isEmpty';
+import { createTextArray } from './Text';
+import { Word } from './Word';
 
 type DataSnapshot = firebase.database.DataSnapshot;
 
-export type Statistic = {
-  id: string;
+export const COUNT_TO_COMPLETE = 3;
+
+const completed = ({ occurs }: Word): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
+
+export type Statistic = Word & {
   dictionaryId: string;
-  texts: Text[];
-  translation: string;
-  category: string;
-  partOfSpeech: string;
   occurs: string[];
-  errors: string[];
+  mistakes: string[];
 };
 
 export function createStatistic(payload: DataSnapshot): Statistic {
-  const { dictionaryId, translation, category, partOfSpeech, occurs, errors, ...rest } = payload.val();
+  const { dictionaryId, translation, category, partOfSpeech, isCompleted, occurs, mistakes, ...rest } = payload.val();
   const texts = createTextArray(rest);
   return {
     id: defaultTo(payload.key, ''),
@@ -26,7 +27,8 @@ export function createStatistic(payload: DataSnapshot): Statistic {
     translation: defaultTo(translation, ''),
     category: defaultTo(category, ''),
     partOfSpeech: defaultTo(partOfSpeech, ''),
+    isCompleted: defaultTo(isCompleted, completed(occurs)),
     occurs,
-    errors: defaultTo(errors, []),
+    mistakes: defaultTo(mistakes, []),
   };
 }

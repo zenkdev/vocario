@@ -1,20 +1,14 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import { modelHelper } from '../../models';
+import count from '../../utils/count';
 import { VisibilityFilters } from './filtersSlice';
 
 const selectStatistics = (state: RootState) => state.statistics;
-
 const selectVisibilityFilter = (state: RootState) => state.visibilityFilter;
 
-export const selectLearningCount = createSelector(selectStatistics, ({ data }) =>
-  modelHelper.count(data, s => !modelHelper.isCompleted(s)),
-);
-
-export const selectCompletedCount = createSelector(selectStatistics, ({ data }) =>
-  modelHelper.count(data, s => modelHelper.isCompleted(s)),
-);
+export const selectLearningCount = createSelector(selectStatistics, ({ data }) => count(data, w => !w.isCompleted));
+export const selectCompletedCount = createSelector(selectStatistics, ({ data }) => count(data, w => w.isCompleted));
 
 export const selectShowMore = createSelector(
   [selectLearningCount, selectCompletedCount, selectVisibilityFilter],

@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../../app/rootReducer';
 import If from '../../components/If';
-import { modelHelper, Word } from '../../models';
+import { Word } from '../../models';
+import wordUtils from '../../utils/wordUtils';
 import AnswerResult from './AnswerResult';
 import SimpleQuestion from './SimpleQuestion';
+
+const { getText, getTranscription } = wordUtils;
 
 type SimpleCardProps = {
   word: Word;
@@ -14,8 +17,8 @@ type SimpleCardProps = {
 const SimpleCard: React.FC<SimpleCardProps> = ({ word }) => {
   const { translation, category } = word;
   const answer = useSelector((state: RootState) => state.learn.answer);
-  const title = useMemo(() => modelHelper.getText(word), [word]);
-  const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
+  const title = useMemo(() => getText(word), [word]);
+  const transcription = useMemo(() => getTranscription(word), [word]);
 
   return (
     <section>

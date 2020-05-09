@@ -4,7 +4,8 @@ import Keyboard from 'react-simple-keyboard';
 
 import { AppDispatch } from '../../app/store';
 import Button from '../../components/Button';
-import { getFullInput, isLetter, isValidAnswer, unusedChars } from '../../utils/stringUtils';
+import isValidAnswer from '../../utils/isValidAnswer';
+import { getFullInput, isLetter, unusedChars } from '../../utils/stringUtils';
 import * as actions from './learnSlice';
 import MobileKeyboard from './MobileKeyboard';
 

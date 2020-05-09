@@ -6,10 +6,13 @@ import Keyboard from 'react-simple-keyboard';
 
 import { RootState } from '../../app/rootReducer';
 import If from '../../components/If';
-import { modelHelper, Word } from '../../models';
+import { Word } from '../../models';
+import wordUtils from '../../utils/wordUtils';
 import AnswerResult from './AnswerResult';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';
+
+const { getText, getTextWithLang, getTranscription } = wordUtils;
 
 type NormalCardProps = {
   word: Word;
@@ -20,9 +23,9 @@ const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
   const [input, setInput] = useState('');
   const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
   const answer = useSelector((state: RootState) => state.learn.answer);
-  const text = useMemo(() => modelHelper.getText(word), [word]);
-  const textWithLang = useMemo(() => modelHelper.getTextWithLang(word), [word]);
-  const transcription = useMemo(() => modelHelper.getTranscription(word), [word]);
+  const text = useMemo(() => getText(word), [word]);
+  const textWithLang = useMemo(() => getTextWithLang(word), [word]);
+  const transcription = useMemo(() => getTranscription(word), [word]);
 
   useEffect(() => {
     if (answer === null) {

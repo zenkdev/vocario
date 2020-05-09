@@ -4,8 +4,11 @@ import { useSelector } from 'react-redux';
 import { IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
-import { modelHelper, Statistic } from '../../models';
+import { Statistic } from '../../models';
+import wordUtils from '../../utils/wordUtils';
 import { VisibilityFilters } from '../filters/filtersSlice';
+
+const { getTextWithLang, getTranscription, nextOccurString } = wordUtils;
 
 function Count({ count }: { count: number }) {
   const items: JSX.Element[] = [];
@@ -23,9 +26,9 @@ type StatisticsListItemProps = {
 const StatisticsListItem: React.FC<StatisticsListItemProps> = ({ item }) => {
   const { translation, category } = item;
   const { filter } = useSelector((state: RootState) => state.visibilityFilter);
-  const textWithLang = useMemo(() => modelHelper.getTextWithLang(item), [item]);
-  const transcription = useMemo(() => modelHelper.getTranscription(item), [item]);
-  const nextOccurString = useMemo(() => modelHelper.nextOccurString(item), [item]);
+  const textWithLang = useMemo(() => getTextWithLang(item), [item]);
+  const transcription = useMemo(() => getTranscription(item), [item]);
+  const nextOccur = useMemo(() => nextOccurString(item), [item]);
   const count = item.occurs ? item.occurs.length - 1 : 0;
   const showCount = filter !== VisibilityFilters.SHOW_COMPLETED;
 
@@ -49,10 +52,10 @@ const StatisticsListItem: React.FC<StatisticsListItemProps> = ({ item }) => {
               <span className="small-text">{category}</span>
             </IonCol>
           </IonRow>
-          {nextOccurString && (
+          {nextOccur && (
             <IonRow>
               <IonCol>
-                <span className="small-text">{`Next occur: ${nextOccurString}`}</span>
+                <span className="small-text">{`Next occur: ${nextOccur}`}</span>
                 {showCount && <Count count={count} />}
               </IonCol>
             </IonRow>

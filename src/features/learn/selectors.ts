@@ -1,11 +1,25 @@
+import differenceInDays from 'date-fns/differenceInDays';
+import parseISO from 'date-fns/parseISO';
+import startOfDay from 'date-fns/startOfDay';
+import startOfToday from 'date-fns/startOfToday';
+
 import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import { modelHelper, Word } from '../../models';
-import { NEW_WORDS_PER_DAY } from '../../models/modelHelper';
+import { nextOccur, Word } from '../../models';
+import count from '../../utils/count';
+import isEmpty from '../../utils/isEmpty';
 import randomNumber from '../../utils/randomNumber';
 
-const { count, isFirstOccurToday, isNew, isNextOccurToday, isEmpty, isTodayExact, isCompleted } = modelHelper;
+const NEW_WORDS_PER_DAY = 20;
+
+const isNew = ({ occurs }: Word): boolean => isEmpty(occurs);
+const isToday = (value: Date | string | undefined): boolean =>
+  !!value && differenceInDays(startOfDay(typeof value === 'string' ? parseISO(value) : value), startOfToday()) <= 0;
+const isTodayExact = (value: Date | string | undefined): boolean =>
+  !!value && differenceInDays(startOfDay(typeof value === 'string' ? parseISO(value) : value), startOfToday()) === 0;
+const isFirstOccurToday = ({ occurs }: Word): boolean => !isEmpty(occurs) && isTodayExact(occurs[0]);
+const isNextOccurToday = (word: Word): boolean => isToday(nextOccur(word));
 
 const selectLearn = (state: RootState) => state.learn;
 
@@ -52,14 +66,18 @@ export const selectDailyStatistics = createSelector(selectLearn, ({ dictionary }
   const today = count(words, isFirstOccurToday);
   const first = Math.min(today < NEW_WORDS_PER_DAY ? count(words, isNew) : 0, NEW_WORDS_PER_DAY - today);
   const next = count(words, isNextOccurToday);
-  const completed = count(words, ({ occurs }) => !isEmpty(occurs) && isTodayExact((occurs as string[]).slice(-1)[0]));
+  const completed = count(words, ({ occurs }) => !isEmpty(occurs) && occurs.length > 1 && isTodayExact(occurs.slice(-1)[0]));
   const total = first + next + completed;
-  const more = words.some(w => !isCompleted(w));
-
-  // console.table(tbl(words, w => isFirstOccurToday(w)));
-  // console.table(tbl(words, w => isNew(w)));
-  // console.table(tbl(words, w => isNextOccurToday(w)));
-  // console.table(tbl(words, ({ count, occurs }) => count != null && !!occurs && isTodayExact(occurs[count])));
+  const more = words.some(w => !w.isCompleted);
 
   return { completed, total, more };
+});
+
+export const selectWordsToLearn = createSelector(selectLearn, ({ dictionary }): Word[] => {
+  if (!dictionary) {
+    return [];
+  }
+  const words = Object.values(dictionary.words);
+  const today = count(words, isFirstOccurToday);
+  return words.filter(w => (today < NEW_WORDS_PER_DAY && isNew(w)) || (!isNew(w) && isNextOccurToday(w) && !w.isCompleted));
 });

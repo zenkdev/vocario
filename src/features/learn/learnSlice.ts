@@ -4,16 +4,18 @@ import formatISO from 'date-fns/formatISO';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppThunk } from '../../app/store';
-import { Dictionary, modelHelper, Word } from '../../models';
+import { COUNT_TO_COMPLETE, Dictionary, Word } from '../../models';
 import { dictionaryService, statisticsService, toastService } from '../../services';
 import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
 import { Answer } from '../../types';
+import isEmpty from '../../utils/isEmpty';
 import randomNumber from '../../utils/randomNumber';
-import { selectWord } from './selectors';
+import { selectWord, selectWordsToLearn } from './selectors';
 
 const { getDictionary } = dictionaryService;
 const { updateStatistics } = statisticsService;
-const { isCompleted } = modelHelper;
+
+const completed = (occurs?: string[]): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
 
 export type LearnState = {
   isLoading: boolean;
@@ -50,7 +52,7 @@ const learnSlice = createSlice({
       const force = payload && payload.force;
 
       if (dictionary) {
-        const words = modelHelper.wordsToLearn(dictionary);
+        const words = selectWordsToLearn({ learn: state } as any);
         let newWordId = force ? null : wordId;
         if (words.length) {
           if (!words.some(({ id }) => id === newWordId)) {
@@ -82,7 +84,7 @@ const learnSlice = createSlice({
             ...words,
             [word.id]: word,
           },
-          wordsCompleted: Math.min(wordsCompleted + (isCompleted(word) ? 1 : 0), wordsCount),
+          wordsCompleted: Math.min(wordsCompleted + (word.isCompleted ? 1 : 0), wordsCount),
         };
 
         deleteWordId(dictionary.id);
@@ -127,16 +129,16 @@ export const updateWord = (answer: Answer): AppThunk => async (dispatch, getStat
 
   try {
     if (dictionary && word) {
-      let { occurs = [], errors } = word;
+      let { occurs = [], mistakes } = word;
       if (occurs.length === 0) {
         occurs = [dateStr];
       }
       if (answer === Answer.valid) {
         occurs = [...occurs, dateStr];
       } else {
-        errors = [...(errors || []), dateStr];
+        mistakes = [...(mistakes || []), dateStr];
       }
-      word = { ...word, occurs, errors };
+      word = { ...word, isCompleted: completed(occurs), occurs, mistakes };
 
       await updateStatistics(dictionary.id, word);
 
