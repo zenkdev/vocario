@@ -1,4 +1,4 @@
-import { isNumber } from '../utils/stringUtils';
+import { stringUtils } from '../utils';
 
 export type Text = {
   index: number;
@@ -12,7 +12,7 @@ function parseKey(value: string): [string, number] {
   let str = value;
   while (str && str.length) {
     const ch = str.charAt(str.length - 1);
-    if (!isNumber(ch)) {
+    if (!stringUtils.isNumber(ch)) {
       break;
     }
     index = ch + index;

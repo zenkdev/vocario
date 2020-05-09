@@ -5,7 +5,7 @@ import { IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
 import { Statistic } from '../../models';
-import wordUtils from '../../utils/wordUtils';
+import { wordUtils } from '../../utils';
 import { VisibilityFilters } from '../filters/filtersSlice';
 
 const { getTextWithLang, getTranscription, nextOccurString } = wordUtils;

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
 import { Word } from '../../models';
-import wordUtils from '../../utils/wordUtils';
+import { wordUtils } from '../../utils';
 import AnswerResult from './AnswerResult';
 import SimpleQuestion from './SimpleQuestion';
 

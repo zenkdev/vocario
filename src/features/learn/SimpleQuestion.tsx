@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import { RootState } from '../../app/rootReducer';
 import { AppDispatch } from '../../app/store';
-import Button from '../../components/Button';
-import isValidAnswer from '../../utils/isValidAnswer';
+import { Button } from '../../components';
+import { isValidAnswer } from '../../utils';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 

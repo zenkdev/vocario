@@ -8,8 +8,7 @@ import { COUNT_TO_COMPLETE, Dictionary, Word } from '../../models';
 import { dictionaryService, statisticsService, toastService } from '../../services';
 import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
 import { Answer } from '../../types';
-import isEmpty from '../../utils/isEmpty';
-import randomNumber from '../../utils/randomNumber';
+import { isEmpty, randomNumber } from '../../utils';
 import { selectWord, selectWordsToLearn } from './selectors';
 
 const { getDictionary } = dictionaryService;

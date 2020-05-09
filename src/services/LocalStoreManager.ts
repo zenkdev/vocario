@@ -1,4 +1,4 @@
-import jsonTryParse from '../utils/jsonTryParse';
+import { jsonTryParse } from '../utils';
 
 const NEXT_WORD_DATA_KEY_PREFIX = 'lexion:nextWord:';
 export const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';

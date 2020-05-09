@@ -1,8 +1,11 @@
-/* eslint-disable react/no-array-index-key */
-import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import React, { useMemo } from 'react';
 
-import { isLetter, isWhiteSpace, toCharArray, getFullInput } from '../../utils/stringUtils';
+/* eslint-disable react/no-array-index-key */
+import { IonCol, IonGrid, IonRow } from '@ionic/react';
+
+import { stringUtils } from '../../utils';
+
+const { isLetter, isWhiteSpace, toCharArray, getFullInput } = stringUtils;
 
 function displayChar(ch: string, index: number, fullInput: string) {
   if (isLetter(ch)) {

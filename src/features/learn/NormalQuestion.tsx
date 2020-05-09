@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import Keyboard from 'react-simple-keyboard';
 
 import { AppDispatch } from '../../app/store';
-import Button from '../../components/Button';
-import isValidAnswer from '../../utils/isValidAnswer';
-import { getFullInput, isLetter, unusedChars } from '../../utils/stringUtils';
+import { Button } from '../../components';
+import { isValidAnswer, stringUtils } from '../../utils';
 import * as actions from './learnSlice';
 import MobileKeyboard from './MobileKeyboard';
+
+const { getFullInput, isLetter, unusedChars } = stringUtils;
 
 type NormalQuestionOwnProps = {
   text: string;

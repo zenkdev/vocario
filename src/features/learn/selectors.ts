@@ -7,9 +7,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
 import { nextOccur, Word } from '../../models';
-import count from '../../utils/count';
-import isEmpty from '../../utils/isEmpty';
-import randomNumber from '../../utils/randomNumber';
+import { count, isEmpty, randomNumber } from '../../utils';
 
 const NEW_WORDS_PER_DAY = 20;
 

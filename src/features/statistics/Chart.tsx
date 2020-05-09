@@ -14,8 +14,7 @@ import { Group } from '@vx/group';
 import { scaleBand, scaleLinear } from '@vx/scale';
 import { Bar } from '@vx/shape';
 
-import defaultTo from '../../utils/defaultTo';
-import getLocale from '../../utils/getLocale';
+import { defaultTo, getLocale } from '../../utils';
 import { ChartData, selectChartData } from './selectors';
 
 // accessors

@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import Observable from 'zen-observable';
 
 import { createUserProfile, UserProfile } from '../models';
-import omitUndefined from '../utils/omitUndefined';
+import { omitUndefined } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 import localStoreManager, { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, getProfileOptions, SIMPLE_MODE_DATA_KEY } from './LocalStoreManager';
 

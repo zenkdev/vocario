@@ -3,8 +3,7 @@ import parseISO from 'date-fns/parseISO';
 import startOfDay from 'date-fns/startOfDay';
 import firebase from 'firebase/app';
 
-import defaultTo from '../utils/defaultTo';
-import isEmpty from '../utils/isEmpty';
+import { defaultTo, isEmpty } from '../utils';
 import { createTextArray, Text } from './Text';
 
 type DataSnapshot = firebase.database.DataSnapshot;

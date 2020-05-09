@@ -24,7 +24,7 @@ import { IonApp } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import { profileService, toastService } from '../services';
-import defaultTo from '../utils/defaultTo';
+import { defaultTo } from '../utils';
 import { setIsLoading, updateAppSettings } from './appSlice';
 import { RootState } from './rootReducer';
 import Splash from './Splash';

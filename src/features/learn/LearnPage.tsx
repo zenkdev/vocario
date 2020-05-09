@@ -7,7 +7,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, 
 import { RootState } from '../../app/rootReducer';
 import { AppDispatch } from '../../app/store';
 import { If } from '../../components';
-import percent from '../../utils/percent';
+import { percent } from '../../utils';
 import Congratulations from './Congratulations';
 import * as actions from './learnSlice';
 import NormalCard from './NormalCard';

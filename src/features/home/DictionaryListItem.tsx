@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { IonBadge, IonItem, IonLabel, IonProgressBar } from '@ionic/react';
 
 import { Dictionary } from '../../models';
-import percent from '../../utils/percent';
+import { percent } from '../../utils';
 
 const format = (value: number): string => (value < 1000 ? String(value) : `${Math.round(value / 100) / 10}k`);
 

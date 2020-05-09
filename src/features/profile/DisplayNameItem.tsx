@@ -22,7 +22,7 @@ import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
-import fileToDataUrl from '../../utils/fileToDataUrl';
+import { fileToDataUrl } from '../../utils';
 import Avatar from './Avatar';
 import * as profileSlice from './profileSlice';
 

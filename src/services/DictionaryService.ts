@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
 import { createDictionary, createStatistic, createWord, Dictionary, Statistic, Word } from '../models';
-import count from '../utils/count';
+import { count } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 
 const { withTrace } = firebaseInstance;

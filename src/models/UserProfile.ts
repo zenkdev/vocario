@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 
-import defaultTo from '../utils/defaultTo';
+import { defaultTo } from '../utils';
 
 type DataSnapshot = firebase.database.DataSnapshot;
 

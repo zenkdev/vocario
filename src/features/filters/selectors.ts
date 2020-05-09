@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
-import count from '../../utils/count';
+import { count } from '../../utils';
 import { VisibilityFilters } from './filtersSlice';
 
 const selectStatistics = (state: RootState) => state.statistics;

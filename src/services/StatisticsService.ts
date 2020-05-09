@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 
 import { createPlainJS, createStatistic, Statistic, Word } from '../models';
-import omitUndefined from '../utils/omitUndefined';
+import { omitUndefined } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 
 const { withTrace } = firebaseInstance;

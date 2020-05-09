@@ -1,11 +1,12 @@
-export const toCharArray = (value: string | null | undefined) => (value ? value.split('') : []);
-export const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
-export const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
-export const isNumber = (ch: string): boolean => /\d/.test(ch);
-export const compareStringsIgnoreCase = (str1?: string, str2?: string) =>
+const toCharArray = (value: string | null | undefined) => (value ? value.split('') : []);
+const isLetter = (ch: string): boolean => /[A-Za-z]/.test(ch);
+const isWhiteSpace = (ch: string): boolean => /\s/.test(ch);
+const isNumber = (ch: string): boolean => /\d/.test(ch);
+
+const compareStringsIgnoreCase = (str1?: string, str2?: string) =>
   typeof str1 === 'string' && typeof str2 === 'string' && str1.trim().toLocaleLowerCase() === str2.trim().toLocaleLowerCase();
 
-export function getFullInput(input: string, text: string) {
+function getFullInput(input: string, text: string) {
   let str = '';
   let iInd = 0;
   let tInd = 0;
@@ -38,7 +39,7 @@ export function getFullInput(input: string, text: string) {
   return str;
 }
 
-export function unusedChars(input: string, text: string) {
+function unusedChars(input: string, text: string) {
   const chars = toCharArray(text.toLocaleLowerCase())
     .filter(isLetter)
     .reduce((acc, ch) => {
@@ -55,3 +56,13 @@ export function unusedChars(input: string, text: string) {
     .filter(([, value]) => value > 0)
     .map(([key]) => key);
 }
+
+export default {
+  toCharArray,
+  isLetter,
+  isWhiteSpace,
+  isNumber,
+  compareStringsIgnoreCase,
+  getFullInput,
+  unusedChars,
+};
