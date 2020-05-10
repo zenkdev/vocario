@@ -2,7 +2,7 @@
 import '../../app/ripple.scss';
 
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
@@ -38,7 +38,7 @@ type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProp
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const toggle = useCallback(() => {
     const el = audioRef.current;
     if (el) {
@@ -46,6 +46,15 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
       else el.play();
     }
   }, [playing]);
+
+  useEffect(() => {
+    const el = audioRef.current;
+    if (el) {
+      setTimeout(() => el.play(), 100);
+      return () => el.pause();
+    }
+    return undefined;
+  }, [audioUrl]);
 
   return (
     <IonCard>
@@ -60,7 +69,6 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
-          autoPlay
         />
         <IonFab vertical="top" horizontal="end" slot="fixed">
           <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>
