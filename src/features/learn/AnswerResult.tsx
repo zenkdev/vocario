@@ -48,12 +48,13 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
   }, [playing]);
 
   useEffect(() => {
-    const el = audioRef.current;
-    if (el) {
-      setTimeout(() => el.play(), 100);
-      return () => el.pause();
-    }
-    return undefined;
+    const handle = setTimeout(() => {
+      const el = audioRef.current;
+      if (el) {
+        el.play();
+      }
+    }, 300);
+    return () => clearTimeout(handle);
   }, [audioUrl]);
 
   return (
