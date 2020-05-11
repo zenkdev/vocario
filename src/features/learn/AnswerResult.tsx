@@ -2,7 +2,8 @@
 import '../../app/ripple.scss';
 
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import ReactAudioPlayer from 'react-audio-player';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
@@ -37,25 +38,18 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const ref = useRef<ReactAudioPlayer>(null);
   const [playing, setPlaying] = useState(false);
   const toggle = useCallback(() => {
-    const el = audioRef.current;
+    const el = ref.current as any;
     if (el) {
-      if (playing) el.pause();
-      else el.play();
+      if (playing) {
+        el.audioEl.current.pause();
+      } else {
+        el.audioEl.current.play();
+      }
     }
   }, [playing]);
-
-  useEffect(() => {
-    const handle = setTimeout(() => {
-      const el = audioRef.current;
-      if (el) {
-        el.play();
-      }
-    }, 300);
-    return () => clearTimeout(handle);
-  }, [audioUrl]);
 
   return (
     <IonCard>
@@ -63,13 +57,13 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <audio
+        <ReactAudioPlayer
+          ref={ref}
           src={audioUrl}
-          preload="auto"
-          ref={audioRef}
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
           onEnded={() => setPlaying(false)}
+          autoPlay
         />
         <IonFab vertical="top" horizontal="end" slot="fixed">
           <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>

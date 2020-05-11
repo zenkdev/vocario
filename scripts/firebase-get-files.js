@@ -13,7 +13,6 @@ const defaultStorage = admin.storage();
 async function getFiles() {
   const bucket = defaultStorage.bucket();
   const [files] = await bucket.getFiles();
-  // console.log(files[0].metadata);
   console.table(
     files.map(({ name, metadata }) => {
       const { contentType, size, cacheControl, etag, timeCreated: created, updated } = metadata;
