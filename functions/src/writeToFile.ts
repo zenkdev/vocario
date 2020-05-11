@@ -1,9 +1,12 @@
+import { getType } from 'mime';
+
 import { File } from './types';
 
 export default function writeToFile(file: File, data: any): Promise<void> {
+  const contentType = getType(file.name) || 'audio/mpeg';
   return new Promise<void>((resolve, reject) => {
     const fs = file.createWriteStream({
-      contentType: 'audio/mpeg',
+      contentType,
       public: true,
       // Support for HTTP requests made with `Accept-Encoding: gzip`
       gzip: true,

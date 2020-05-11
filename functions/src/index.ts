@@ -2,9 +2,10 @@ import * as buildCors from 'cors';
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import { parse } from 'path';
 
 import sendFile from './sendFile';
-import textToSpeech from './textToSpeech';
+import textToSpeech, { audioEncodingFromExt } from './textToSpeech';
 import { createText, isCompleted, trimLeft } from './utils';
 import writeToFile from './writeToFile';
 
@@ -62,46 +63,41 @@ export const synthesize = functions.https.onRequest((req, res) => {
 
   // Enable CORS using the `cors` express middleware.
   return cors(req, res, async () => {
-    // word param starts with slash
-    const word = trimLeft(req.params['0'], '/');
+    // param starts with slash
+    const param = trimLeft(req.params['0'], '/');
 
-    if (!word) {
+    if (!param) {
       return res.status(404).end();
     }
+
+    const { name: word, ext } = parse(param);
+    const ensureExt = ext || '.mp3';
+    const filename = `synthesize/${word}${ensureExt}`;
 
     try {
       // Create a bucket
       const bucket = admin.storage().bucket();
 
-      // Create a filename to 'synthesize/word.mp3'
-      const filename = `synthesize/${word}.mp3`;
-
       const [files] = await bucket.getFiles({ maxResults: 1, prefix: filename });
       const exists = files.find(({ name }) => name === filename);
       if (exists) {
+        res.header('x-file-exists', 'true');
         return sendFile(res, exists);
       }
 
       const snapshot = await admin.database().ref(`word/${word}`).once('value');
-
       const payload = snapshot.val();
       if (!payload) {
         return res.status(404).end();
       }
 
-      const audioContent = await textToSpeech(createText(payload));
-
       const file = bucket.file(filename);
-
+      const audioEncoding = audioEncodingFromExt(ensureExt);
+      const audioContent = await textToSpeech(createText(payload), audioEncoding);
       await writeToFile(file, audioContent);
 
-      return res
-        .status(200)
-        .attachment(`${word}.mp3`)
-        .contentType('mp3')
-        .header('cache-control', 'public, max-age=86400')
-        .send(audioContent)
-        .end();
+      res.header('x-file-exists', 'false');
+      return sendFile(res, file);
     } catch (e) {
       return res
         .status(500)
