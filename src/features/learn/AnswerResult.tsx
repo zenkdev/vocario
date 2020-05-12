@@ -2,8 +2,7 @@
 import '../../app/ripple.scss';
 
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useCallback, useRef, useState } from 'react';
-import ReactAudioPlayer from 'react-audio-player';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
@@ -12,6 +11,7 @@ import { RootState } from '../../app/rootReducer';
 import { AppDispatch } from '../../app/store';
 import Button from '../../components/Button';
 import { Answer } from '../../types';
+import AudioPlayer from './AudioPlayer';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 
@@ -35,21 +35,24 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   },
 });
 
+const playButton = ({ playing, toggle }: { playing: boolean; toggle: () => void }) => (
+  <IonFab vertical="top" horizontal="end" slot="fixed">
+    <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>
+      <IonIcon icon={playing ? stop : volumeHigh} />
+    </IonFabButton>
+  </IonFab>
+);
+
 type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
-  const ref = useRef<ReactAudioPlayer>(null);
-  const [playing, setPlaying] = useState(false);
-  const toggle = useCallback(() => {
-    const el = ref.current as any;
+  const player = useRef<AudioPlayer>(null);
+  useEffect(() => {
+    const el = player.current;
     if (el) {
-      if (playing) {
-        el.audioEl.current.pause();
-      } else {
-        el.audioEl.current.play();
-      }
+      el.toggle();
     }
-  }, [playing]);
+  }, []);
 
   return (
     <IonCard>
@@ -57,19 +60,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <ReactAudioPlayer
-          ref={ref}
-          src={audioUrl}
-          onPlay={() => setPlaying(true)}
-          onPause={() => setPlaying(false)}
-          onEnded={() => setPlaying(false)}
-          autoPlay
-        />
-        <IonFab vertical="top" horizontal="end" slot="fixed">
-          <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>
-            <IonIcon icon={playing ? stop : volumeHigh} />
-          </IonFabButton>
-        </IonFab>
+        <AudioPlayer ref={player} src={audioUrl} customControls={playButton} />
         <IonText color={color} className="normal-text">
           {text}
         </IonText>
