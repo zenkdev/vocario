@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
 const getDictionaries = require('./dictionaries');
@@ -9,6 +8,31 @@ admin.initializeApp({
 });
 
 const db = admin.database();
+
+function defaultTo(value, defaultValue) {
+  if (value === undefined || value === null || Number.isNaN(value)) {
+    return defaultValue;
+  }
+  return value;
+}
+
+async function getStatistics() {
+  const snapshot = await db.ref(`statistics`).once('value');
+  const statistics = {};
+  snapshot.forEach(payload => {
+    payload.forEach(value => {
+      const { dictionaryId, isCompleted, occurs } = value.val();
+      const ensureIsCompleted = defaultTo(isCompleted, Array.isArray(occurs) && occurs.length > 3);
+      if (ensureIsCompleted) {
+        const dictionary = statistics[dictionaryId] || {};
+        const count = dictionary[payload.key] || 0;
+        dictionary[payload.key] = count + 1;
+        statistics[dictionaryId] = dictionary;
+      }
+    });
+  });
+  return statistics;
+}
 
 function uploadWord(dictionaryId, word, index) {
   // A word entity.
@@ -26,21 +50,27 @@ function uploadWord(dictionaryId, word, index) {
 }
 
 async function uploadDictionary({ id, words, ...rest }) {
-  // A dictionary entity.
   const entity = { ...rest, wordsCount: words.length };
-
-  // Write the new dictionary's data in the dictionary list.
   const updates = {
     [`/dictionary/${id}`]: entity,
   };
-
   await db.ref().update(updates);
   return Promise.all(words.map((word, index) => uploadWord(id, word, index)));
 }
 
 async function upload() {
+  const statistics = await getStatistics();
   const dictionaries = await getDictionaries();
-  return Promise.all(dictionaries.map(uploadDictionary));
+  return Promise.all(
+    dictionaries.map(dictionary => {
+      const wordsCompleted = statistics[dictionary.id];
+      if (wordsCompleted !== undefined) {
+        // eslint-disable-next-line no-param-reassign
+        dictionary.wordsCompleted = wordsCompleted;
+      }
+      return uploadDictionary(dictionary);
+    }),
+  );
 }
 
 upload()
