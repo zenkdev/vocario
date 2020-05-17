@@ -1,19 +1,39 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import '../../app/ripple.scss';
 
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
 import { AppDispatch } from '../../app/store';
+import { If } from '../../components';
 import Button from '../../components/Button';
 import { Answer } from '../../types';
 import AudioPlayer from './AudioPlayer';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
+
+type ButtonProps = { onClick: () => void };
+
+const PlayButton: React.FC<ButtonProps> = ({ onClick }) => (
+  <IonFabButton key="play" color="medium" size="small" onClick={onClick}>
+    <IonIcon icon={volumeHigh} />
+  </IonFabButton>
+);
+
+const StopButton: React.FC<ButtonProps> = ({ onClick }) => (
+  <IonFabButton key="stop" color="medium" size="small" className="ripple-button" onClick={onClick}>
+    <IonIcon icon={stop} />
+  </IonFabButton>
+);
+
+const customControls = ({ playing, toggle }: { playing: boolean; toggle: () => void }) => (
+  <IonFab vertical="top" horizontal="end" slot="fixed">
+    <If condition={playing} then={<StopButton onClick={toggle} />} else={<PlayButton onClick={toggle} />} />
+  </IonFab>
+);
 
 type AnswerResultOwnProps = {
   text: string;
@@ -35,14 +55,6 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   },
 });
 
-const playButton = ({ playing, toggle }: { playing: boolean; toggle: () => void }) => (
-  <IonFab vertical="top" horizontal="end" slot="fixed">
-    <IonFabButton color="medium" size="small" className={playing ? 'ripple-button' : undefined} onClick={toggle}>
-      <IonIcon icon={playing ? stop : volumeHigh} />
-    </IonFabButton>
-  </IonFab>
-);
-
 type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
@@ -60,7 +72,7 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
-        <AudioPlayer ref={player} src={audioUrl} customControls={playButton} />
+        <AudioPlayer ref={player} src={audioUrl} customControls={customControls} />
         <IonText color={color} className="normal-text">
           {text}
         </IonText>

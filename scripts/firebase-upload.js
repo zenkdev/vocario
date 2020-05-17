@@ -4,7 +4,7 @@ const getDictionaries = require('./dictionaries');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://vocabionic.firebaseio.com',
+  databaseURL: 'https://vocario.firebaseio.com',
 });
 
 const db = admin.database();

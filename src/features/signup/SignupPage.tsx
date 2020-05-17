@@ -98,7 +98,6 @@ const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
           </IonButton>
         </div>
         <IonLoading isOpen={isCreating} message="Creating..." />
-        <div>{JSON.stringify(formik, null, 2)}</div>
       </IonContent>
     </IonPage>
   );

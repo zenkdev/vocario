@@ -36,7 +36,7 @@ export const selectWord = createSelector(selectLearn, ({ dictionary, wordId }): 
 });
 
 export const selectAudioUrl = createSelector(selectLearn, ({ wordId }): string | undefined => {
-  return wordId ? `https://us-central1-vocabionic.cloudfunctions.net/synthesize/${wordId}` : undefined;
+  return wordId ? `https://us-central1-vocario.cloudfunctions.net/synthesize/${wordId}` : undefined;
 });
 
 export const selectOptions = createSelector([selectLearn, selectWord], ({ dictionary }, word) => {

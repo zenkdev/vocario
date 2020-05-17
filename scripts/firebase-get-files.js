@@ -3,8 +3,8 @@ const serviceAccount = require('./serviceAccountKey.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://vocabionic.firebaseio.com',
-  storageBucket: 'gs://vocabionic.appspot.com',
+  databaseURL: 'https://vocario.firebaseio.com',
+  storageBucket: 'gs://vocario.appspot.com',
 });
 
 // Get the Storage service for the default app
