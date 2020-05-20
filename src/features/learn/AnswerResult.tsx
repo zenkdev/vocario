@@ -1,37 +1,22 @@
-import '../../app/ripple.scss';
-
 import { stop, volumeHigh } from 'ionicons/icons';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonText } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonFab, IonFabButton, IonIcon, IonProgressBar, IonText } from '@ionic/react';
 
 import { RootState } from '../../app/rootReducer';
 import { AppDispatch } from '../../app/store';
-import { If } from '../../components';
 import Button from '../../components/Button';
 import { Answer } from '../../types';
 import AudioPlayer from './AudioPlayer';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
 
-type ButtonProps = { onClick: () => void };
-
-const PlayButton: React.FC<ButtonProps> = ({ onClick }) => (
-  <IonFabButton key="play" color="medium" size="small" onClick={onClick}>
-    <IonIcon icon={volumeHigh} />
-  </IonFabButton>
-);
-
-const StopButton: React.FC<ButtonProps> = ({ onClick }) => (
-  <IonFabButton key="stop" color="medium" size="small" className="ripple-button" onClick={onClick}>
-    <IonIcon icon={stop} />
-  </IonFabButton>
-);
-
 const customControls = ({ playing, toggle }: { playing: boolean; toggle: () => void }) => (
   <IonFab vertical="top" horizontal="end" slot="fixed">
-    <If condition={playing} then={<StopButton onClick={toggle} />} else={<PlayButton onClick={toggle} />} />
+    <IonFabButton key="play" color="medium" size="small" onClick={toggle}>
+      <IonIcon icon={playing ? stop : volumeHigh} />
+    </IonFabButton>
   </IonFab>
 );
 
@@ -59,6 +44,8 @@ type AnswerResultProps = AnswerResultOwnProps & ReturnType<typeof mapStateToProp
 
 const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, color, audioUrl, handleClick }) => {
   const player = useRef<AudioPlayer>(null);
+  const [playing, setPlaying] = useState(false);
+  const handlePlayingChange = useCallback((value: boolean) => setPlaying(value), [setPlaying]);
   useEffect(() => {
     const el = player.current;
     if (el) {
@@ -71,14 +58,17 @@ const AnswerResult: React.FC<AnswerResultProps> = ({ text, smallText, title, col
       <IonCardHeader color={color}>
         <IonCardTitle>{title}</IonCardTitle>
       </IonCardHeader>
-      <IonCardContent>
-        <AudioPlayer ref={player} src={audioUrl} customControls={customControls} />
-        <IonText color={color} className="normal-text">
-          {text}
-        </IonText>
-        {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
-        <div className="ion-padding-top ion-text-center">
-          <Button onClick={handleClick}>Next</Button>
+      <IonCardContent className="ion-no-padding">
+        <IonProgressBar type={playing ? 'indeterminate' : 'determinate'} value={0} />
+        <AudioPlayer ref={player} src={audioUrl} customControls={customControls} onPlayingChange={handlePlayingChange} />
+        <div className="ion-padding">
+          <IonText color={color} className="normal-text">
+            {text}
+          </IonText>
+          {smallText && <div className="ion-padding-top small-text">{smallText}</div>}
+          <div className="ion-padding-top ion-text-center">
+            <Button onClick={handleClick}>Next</Button>
+          </div>
         </div>
       </IonCardContent>
     </IonCard>

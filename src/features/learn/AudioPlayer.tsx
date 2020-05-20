@@ -6,6 +6,7 @@ type AudioPlayerProps = {
   autoPlay?: boolean;
   controls?: boolean;
   customControls?: (props: { playing: boolean; toggle: () => void }) => JSX.Element;
+  onPlayingChange?: (playing: boolean) => void;
 };
 
 type AudioPlayerState = {
@@ -34,7 +35,12 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
   };
 
   private setPlaying = (playing: boolean) => {
+    const { onPlayingChange } = this.props;
+
     this.setState({ playing });
+    if (onPlayingChange) {
+      onPlayingChange(playing);
+    }
   };
 
   render() {
