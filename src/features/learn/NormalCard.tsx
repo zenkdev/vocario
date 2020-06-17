@@ -7,10 +7,11 @@ import Keyboard from 'react-simple-keyboard';
 import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
 import { Word } from '../../models';
-import { wordUtils } from '../../utils';
+import { isEmpty, wordUtils } from '../../utils';
 import AnswerResult from './AnswerResult';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';
+import Title from './Title';
 
 const { getText, getTextWithLang, getTranscription } = wordUtils;
 
@@ -38,7 +39,7 @@ const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
 
   return (
     <section>
-      <h1 className="large-text ion-text-center">{title}</h1>
+      <Title text={title} isNew={isEmpty(word.occurs)} />
       {category && <div className="ion-padding small-text ion-text-center">{category}</div>}
       <StyledInput input={input} text={text} />
       <If
