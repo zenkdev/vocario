@@ -14,7 +14,7 @@ import * as serviceWorker from './serviceWorker';
 defineCustomElements(window);
 
 const render = () => {
-  // eslint-disable-next-line global-require
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const App = require('./app/App').default;
 
   ReactDOM.render(
