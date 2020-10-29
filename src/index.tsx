@@ -2,16 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
-
 import store from './app/store';
 import * as serviceWorker from './serviceWorker';
 
 // import { setupConfig } from '@ionic/react';
 
 // setupConfig({ mode: 'ios' });
-
-defineCustomElements(window);
 
 const render = () => {
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires

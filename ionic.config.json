@@ -1,6 +1,8 @@
 {
   "name": "vocario",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react",
   "id": "c088818b"
 }

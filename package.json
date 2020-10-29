@@ -18,11 +18,13 @@
   },
   "private": true,
   "dependencies": {
-    "@ionic/pwa-elements": "^3.0.1",
+    "@capacitor/core": "^2.4.2",
     "@ionic/react": "^5.4.1",
-    "@ionic/react-hooks": "0.0.8",
     "@ionic/react-router": "^5.4.1",
     "@reduxjs/toolkit": "^1.4.0",
+    "@testing-library/jest-dom": "^5.11.5",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "@vx/axis": "^0.0.197",
     "@vx/scale": "^0.0.197",
     "date-fns": "^2.16.1",
@@ -58,6 +60,7 @@
   },
   "description": "Simple vocabulary application made on React and Ionic with a backend on Firebase",
   "devDependencies": {
+    "@capacitor/cli": "^2.4.2",
     "@types/d3-array": "^2.4.0",
     "@types/jest": "^24.9.1",
     "@types/node": "^14.14.6",
