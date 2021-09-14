@@ -98,7 +98,7 @@ export const synthesize = functions.https.onRequest((req, res) => {
 
       res.header('x-file-exists', 'false');
       return sendFile(res, file);
-    } catch (e) {
+    } catch (e: any) {
       return res
         .status(500)
         .contentType('text/plain')
