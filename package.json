@@ -19,7 +19,7 @@
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.5.0",
-    "@ionic/react": "5.7.0",
+    "@ionic/react": "5.9.3",
     "@ionic/react-router": "5.7.0",
     "@reduxjs/toolkit": "1.6.1",
     "@testing-library/jest-dom": "5.14.1",
