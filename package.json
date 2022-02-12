@@ -63,7 +63,7 @@
     "@capacitor/cli": "3.0.0",
     "@types/d3-array": "2.12.3",
     "@types/jest": "27.0.1",
-    "@types/node": "14.17.15",
+    "@types/node": "14.18.11",
     "@types/react": "17.0.39",
     "@types/react-audio-player": "0.13.0",
     "@types/react-dom": "17.0.11",
