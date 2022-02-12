@@ -21,7 +21,7 @@
     "@capacitor/core": "2.5.0",
     "@ionic/react": "5.7.0",
     "@ionic/react-router": "5.7.0",
-    "@reduxjs/toolkit": "1.6.1",
+    "@reduxjs/toolkit": "1.7.2",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "13.2.1",
