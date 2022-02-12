@@ -62,7 +62,7 @@
   "devDependencies": {
     "@capacitor/cli": "3.4.1",
     "@types/d3-array": "3.0.2",
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.4.0",
     "@types/node": "16.11.24",
     "@types/react": "17.0.39",
     "@types/react-audio-player": "0.13.0",
