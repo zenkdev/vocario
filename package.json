@@ -22,7 +22,7 @@
     "@ionic/react": "5.9.3",
     "@ionic/react-router": "5.9.3",
     "@reduxjs/toolkit": "1.7.2",
-    "@testing-library/jest-dom": "5.14.1",
+    "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "13.5.0",
     "@vx/axis": "0.0.199",
