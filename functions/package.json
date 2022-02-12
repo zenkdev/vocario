@@ -16,7 +16,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@google-cloud/text-to-speech": "3.3.1",
+    "@google-cloud/text-to-speech": "3.4.0",
     "cors": "2.8.5",
     "firebase-admin": "10.0.2",
     "firebase-functions": "3.15.5"
