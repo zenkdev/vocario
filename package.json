@@ -28,7 +28,7 @@
     "@vx/axis": "0.0.199",
     "@vx/scale": "0.0.199",
     "date-fns": "2.23.0",
-    "firebase": "9.6.5",
+    "firebase": "9.6.6",
     "formik": "2.2.9",
     "ionicons": "5.5.3",
     "node-sass": "7.0.1",
