@@ -39,7 +39,7 @@
     "react-router": "6.2.1",
     "react-router-dom": "6.2.1",
     "react-scripts": "5.0.0",
-    "react-simple-keyboard": "3.4.58",
+    "react-simple-keyboard": "3.4.59",
     "react-sizeme": "3.0.2",
     "zen-observable": "0.8.15"
   },
