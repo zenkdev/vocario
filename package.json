@@ -20,7 +20,7 @@
   "dependencies": {
     "@capacitor/core": "3.4.1",
     "@ionic/react": "6.0.7",
-    "@ionic/react-router": "6.0.7",
+    "@ionic/react-router": "6.0.8",
     "@reduxjs/toolkit": "1.7.2",
     "@testing-library/jest-dom": "5.16.2",
     "@testing-library/react": "12.1.2",
