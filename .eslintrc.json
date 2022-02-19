@@ -18,6 +18,12 @@
     "import/no-extraneous-dependencies": "off",
     "no-unused-vars": "off",
     "no-use-before-define": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine":"auto"
+      }
+    ],
     "react/function-component-definition": [
       "error",
       {
