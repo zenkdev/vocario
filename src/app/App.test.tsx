@@ -5,6 +5,15 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
 
+jest.mock('../services/Firebase', () => ({
+  __esModule: true, // this property makes it work
+  default: {
+    auth: {
+      onAuthStateChanged: jest.fn(),
+    },
+  },
+}));
+
 jest.mock('../services/ProfileService', () => ({
   __esModule: true, // this property makes it work
   default: {
