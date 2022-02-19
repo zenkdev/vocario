@@ -10,14 +10,14 @@ import { VisibilityFilters } from '../filters/filtersSlice';
 
 const { getTextWithLang, getTranscription, nextOccurString } = wordUtils;
 
-function Count({ count }: { count: number }) {
+const Count = ({ count }: { count: number }) => {
   const items: JSX.Element[] = [];
   for (let n = 0; n < count; n += 1) {
     items.push(<li key={`item-${n}`} />);
   }
 
   return <ul className="count">{items}</ul>;
-}
+};
 
 type StatisticsListItemProps = {
   item: Statistic;

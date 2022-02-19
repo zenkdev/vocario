@@ -1,12 +1,10 @@
-import firebase from 'firebase/app';
+import { Database, ref, get, query, orderByChild, equalTo } from 'firebase/database';
 
 import { createDictionary, createStatistic, createWord, Dictionary, Statistic, Word } from '../models';
 import { count } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 
 const { withTrace } = firebaseInstance;
-
-type Database = firebase.database.Database;
 
 // Create a promise that resolves in <ms> milliseconds
 export const timeout = (ms: number) =>
@@ -34,7 +32,7 @@ class DictionaryService {
     return withTrace('getDictionaries', async () => {
       // await timeout(5 * 1000);
       // if (Date.now() !== 0) throw new Error('test error');
-      const snapshot = await this.db.ref('dictionary').once('value');
+      const snapshot = await get(ref(this.db, 'dictionary'));
       const arr: Dictionary[] = [];
       snapshot.forEach(payload => {
         arr.push(createDictionary(payload, this.uid));
@@ -73,14 +71,14 @@ class DictionaryService {
 
   private async getDictionaryById(id: string): Promise<Dictionary> {
     return withTrace('getDictionaryById', async () => {
-      const snapshot = await this.db.ref(`dictionary/${id}`).once('value');
+      const snapshot = await get(ref(this.db, `dictionary/${id}`));
       return createDictionary(snapshot, this.uid);
     });
   }
 
   private async getWords(dictionaryId: string): Promise<Record<string, Word>> {
     return withTrace('getWords', async () => {
-      const snapshot = await this.db.ref('word').orderByChild('dictionaryId').equalTo(dictionaryId).once('value');
+      const snapshot = await get(query(ref(this.db, 'word'), orderByChild('dictionaryId'), equalTo(dictionaryId)));
       const map: Record<string, Word> = {};
       snapshot.forEach(payload => {
         map[payload.key as string] = createWord(payload);
@@ -93,7 +91,7 @@ class DictionaryService {
     return withTrace('getStatistics', async () => {
       const map: Record<string, Statistic> = {};
       if (this.uid) {
-        const snapshot = await this.db.ref(`statistics/${this.uid}`).orderByChild('dictionaryId').equalTo(dictionaryId).once('value');
+        const snapshot = await get(query(ref(this.db, `statistics/${this.uid}`), orderByChild('dictionaryId'), equalTo(dictionaryId)));
         snapshot.forEach(payload => {
           map[payload.key as string] = createStatistic(payload);
         });

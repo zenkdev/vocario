@@ -1,8 +1,6 @@
-import firebase from 'firebase/app';
+import { DataSnapshot } from 'firebase/database';
 
 import { defaultTo } from '../utils';
-
-type DataSnapshot = firebase.database.DataSnapshot;
 
 export type UserProfile = {
   id: string;

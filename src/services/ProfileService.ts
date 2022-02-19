@@ -1,4 +1,12 @@
-import firebase from 'firebase/app';
+import {
+  User,
+  updateProfile,
+  reauthenticateWithCredential,
+  updateEmail as updateFirebaseEmail,
+  updatePassword as updateFirebasePassword,
+  EmailAuthProvider,
+} from 'firebase/auth';
+import { Database, ref, get, update } from 'firebase/database';
 import Observable from 'zen-observable';
 
 import { createUserProfile, UserProfile } from '../models';
@@ -7,9 +15,6 @@ import firebaseInstance, { Firebase } from './Firebase';
 import localStoreManager, { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, getProfileOptions, SIMPLE_MODE_DATA_KEY } from './LocalStoreManager';
 
 const { withTrace } = firebaseInstance;
-
-type Database = firebase.database.Database;
-type User = firebase.User;
 
 class ProfileService {
   private readonly db: Database;
@@ -44,8 +49,8 @@ class ProfileService {
         return createUserProfile(null, options);
       }
 
-      const ref = this.db.ref(`/userProfile/${this.currentUser.uid}`);
-      const snapshot = await ref.once('value');
+      const dbRef = ref(this.db, `/userProfile/${this.currentUser.uid}`);
+      const snapshot = await get(dbRef);
       return createUserProfile(snapshot, options);
     });
   };
@@ -53,7 +58,7 @@ class ProfileService {
   /** UPDATE profile name on the server */
   public updateProfile = async (displayName: string, photoURL?: string): Promise<void> => {
     if (this.currentUser) {
-      await this.currentUser.updateProfile({ displayName }); // can not store data urls
+      await updateProfile(this.currentUser, { displayName }); // can not store data urls
       await this.updateUserProfile(omitUndefined({ displayName, photoURL }));
       await this.raiseCurrentUserChanged();
     }
@@ -65,9 +70,9 @@ class ProfileService {
       if (this.currentUser.email == null) {
         throw new Error('Email can not be null');
       }
-      const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser.email, password);
-      await this.currentUser.reauthenticateWithCredential(credential);
-      await this.currentUser.updateEmail(newEmail);
+      const credential = EmailAuthProvider.credential(this.currentUser.email, password);
+      await reauthenticateWithCredential(this.currentUser, credential);
+      await updateFirebaseEmail(this.currentUser, newEmail);
       await this.updateUserProfile({ email: newEmail });
       await this.raiseCurrentUserChanged();
     }
@@ -79,9 +84,9 @@ class ProfileService {
       if (this.currentUser.email == null) {
         throw new Error('Email can not be null');
       }
-      const credential = firebase.auth.EmailAuthProvider.credential(this.currentUser.email, oldPassword);
-      await this.currentUser.reauthenticateWithCredential(credential);
-      await this.currentUser.updatePassword(newPassword);
+      const credential = EmailAuthProvider.credential(this.currentUser.email, oldPassword);
+      await reauthenticateWithCredential(this.currentUser, credential);
+      await updateFirebasePassword(this.currentUser, newPassword);
       await this.raiseCurrentUserChanged();
       // console.info('Password Changed');
     }
@@ -108,7 +113,7 @@ class ProfileService {
     await this.raiseCurrentUserChanged();
   };
 
-  private handleAuthStateChanged(user: firebase.User | null) {
+  private handleAuthStateChanged(user: User | null) {
     this.currentUser = user;
     // eslint-disable-next-line no-console
     this.raiseCurrentUserChanged().catch(console.error);
@@ -126,7 +131,7 @@ class ProfileService {
 
   private async updateUserProfile(values: Record<string, any>): Promise<void> {
     if (this.currentUser) {
-      await this.db.ref(`/userProfile/${this.currentUser.uid}`).update(values);
+      await update(ref(this.db, `/userProfile/${this.currentUser.uid}`), values);
     }
   }
 }

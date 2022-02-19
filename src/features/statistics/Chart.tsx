@@ -33,15 +33,10 @@ const Chart: React.FC<SizeMeProps> = ({ size }) => {
   const yMax = height - 100;
 
   // scales
-  const xScale = scaleBand<string>({
-    rangeRound: [0, xMax],
-    domain: data.map(x),
-    padding: 0.4,
-  });
-  const yScale = scaleLinear<number>({
-    rangeRound: [yMax, 0],
-    domain: [0, max(data, y) || 0],
-  });
+  const xScale = scaleBand<string>().domain(data.map(x)).padding(0.4).rangeRound([0, xMax]);
+  const yScale = scaleLinear<number>()
+    .domain([0, max(data, y) || 0])
+    .rangeRound([yMax, 0]);
 
   return (
     <div className="chart">
@@ -52,7 +47,7 @@ const Chart: React.FC<SizeMeProps> = ({ size }) => {
               const xd = x(d);
               const yd = y(d);
               const barWidth = xScale.bandwidth();
-              const barHeight = yMax - yScale(yd);
+              const barHeight = yMax - (yScale(yd) as number);
               return (
                 <Group key={`bar-${xd}`}>
                   <Bar width={barWidth} height={barHeight} x={xScale(xd)} y={yMax - barHeight} className="chart__bar" />

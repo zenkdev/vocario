@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   IonBackButton,
@@ -17,25 +17,17 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { Dispatch } from '@reduxjs/toolkit';
 
 import { RootState } from '../../app/rootReducer';
 import * as signupSlice from './signupSlice';
 
-const mapStateToProps = (state: RootState) => {
-  const { isCreating } = state.signup;
-  return {
-    isCreating,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  signupUser: ({ email, password }: { email: string; password: string }) => dispatch(signupSlice.signupUser(email, password) as any),
-});
-
-type SignupPageProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
+const SignupPage: React.FC = () => {
+  const isCreating = useSelector((state: RootState) => state.signup.isCreating);
+  const dispatch = useDispatch();
+  const signupUser = useCallback(
+    ({ email, password }: { email: string; password: string }) => dispatch(signupSlice.signupUser(email, password)),
+    [dispatch],
+  );
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -62,7 +54,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
       return errors;
     },
     validateOnMount: true,
-    onSubmit: signupUser,
+    onSubmit: signupUser as any,
   });
 
   const { handleChange, submitForm, values, isValid } = formik;
@@ -103,4 +95,4 @@ const SignupPage: React.FC<SignupPageProps> = ({ isCreating, signupUser }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
+export default SignupPage;

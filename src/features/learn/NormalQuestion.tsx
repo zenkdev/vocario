@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { connect } from 'react-redux';
-import Keyboard from 'react-simple-keyboard';
 
 import { AppDispatch } from '../../app/store';
 import { Button } from '../../components';
@@ -13,7 +12,7 @@ const { getFullInput, isLetter, unusedChars } = stringUtils;
 type NormalQuestionOwnProps = {
   text: string;
   input: string;
-  keyboardRef: (r: Keyboard) => void;
+  keyboardRef: (ref: any) => void;
   onChange: (value: string) => void;
 };
 

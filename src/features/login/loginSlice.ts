@@ -50,7 +50,7 @@ export const loginWithGithub = (): AppThunk => async dispatch => {
     await authService.loginWithGithub();
     goBack();
     dispatch(loginSuccess());
-  } catch (error) {
+  } catch (error: any) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));
   }
@@ -62,7 +62,7 @@ export const loginWithGoogle = (): AppThunk => async dispatch => {
     await authService.loginWithGoogle();
     goBack();
     dispatch(loginSuccess());
-  } catch (error) {
+  } catch (error: any) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));
   }
@@ -74,20 +74,22 @@ export const loginWithMicrosoft = (): AppThunk => async dispatch => {
     await authService.loginWithMicrosoft();
     goBack();
     dispatch(loginSuccess());
-  } catch (error) {
+  } catch (error: any) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));
   }
 };
 
-export const loginWithEmailAndPassword = (email: string, password: string): AppThunk => async dispatch => {
-  try {
-    dispatch(loginStart());
-    await authService.loginWithEmailAndPassword(email, password);
-    dispatch(loginSuccess());
-    goBack();
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(loginFailure(error.toString()));
-  }
-};
+export const loginWithEmailAndPassword =
+  (email: string, password: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(loginStart());
+      await authService.loginWithEmailAndPassword(email, password);
+      dispatch(loginSuccess());
+      goBack();
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(loginFailure(error.toString()));
+    }
+  };

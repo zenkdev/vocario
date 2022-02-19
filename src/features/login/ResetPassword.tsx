@@ -38,7 +38,7 @@ const ResetPassword: React.FC<RouteComponentProps> = ({ history }) => {
         buttons: [{ text: 'Ok', role: 'cancel', handler: () => history.goBack() }],
         color: 'success',
       });
-    } catch (error) {
+    } catch (error: any) {
       setShowLoading(false);
       toastService.showInfo(error);
     }

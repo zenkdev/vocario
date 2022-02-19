@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '../../app/rootReducer';
-import { AppDispatch } from '../../app/store';
 import { Button } from '../../components';
 import { isValidAnswer } from '../../utils';
 import * as actions from './learnSlice';
@@ -22,29 +20,28 @@ const OptionButton: React.FC<OptionButtonProps> = ({ option, onClick }) => {
   );
 };
 
-type SimpleQuestionOwnProps = {
+interface SimpleQuestionProps {
   text: string;
+}
+
+const SimpleQuestion: React.FC<SimpleQuestionProps> = ({ text }) => {
+  const options = useSelector(selectors.selectOptions);
+  const dispatch = useDispatch();
+  const handleClick = useCallback(
+    (option: string) => {
+      const isValid = isValidAnswer(text, option);
+      dispatch(actions.updateWord(isValid));
+    },
+    [dispatch, text],
+  );
+
+  return (
+    <div className="ion-padding">
+      {options.map(option => (
+        <OptionButton key={option} option={option} onClick={handleClick} />
+      ))}
+    </div>
+  );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  options: selectors.selectOptions(state),
-});
-
-const mapDispatchToProps = (dispatch: AppDispatch, { text }: SimpleQuestionOwnProps) => ({
-  handleClick: (option: string) => {
-    const isValid = isValidAnswer(text, option);
-    dispatch(actions.updateWord(isValid));
-  },
-});
-
-type SimpleQuestionProps = SimpleQuestionOwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const SimpleQuestion: React.FC<SimpleQuestionProps> = ({ options, handleClick }) => (
-  <div className="ion-padding">
-    {options.map(option => (
-      <OptionButton key={option} option={option} onClick={handleClick} />
-    ))}
-  </div>
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(SimpleQuestion);
+export default SimpleQuestion;

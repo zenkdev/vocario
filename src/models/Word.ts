@@ -1,12 +1,10 @@
 import addDays from 'date-fns/addDays';
 import parseISO from 'date-fns/parseISO';
 import startOfDay from 'date-fns/startOfDay';
-import firebase from 'firebase/app';
+import { DataSnapshot } from 'firebase/database';
 
 import { defaultTo, isEmpty } from '../utils';
 import { createTextArray, Text } from './Text';
-
-type DataSnapshot = firebase.database.DataSnapshot;
 
 export type Word = {
   id: string;

@@ -1,12 +1,22 @@
 /* eslint-disable no-console */
-import firebase from 'firebase/app';
+import {
+  Auth,
+  UserCredential,
+  signInWithEmailAndPassword,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  OAuthProvider,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithPopup,
+  AuthProvider,
+} from 'firebase/auth';
+import { ref, update, off } from 'firebase/database';
 
 import firebaseInstance from './Firebase';
 
-type UserCredential = firebase.auth.UserCredential;
-
 class AuthService {
-  private auth: firebase.auth.Auth;
+  private auth: Auth;
 
   constructor() {
     this.auth = firebaseInstance.auth;
@@ -14,49 +24,50 @@ class AuthService {
 
   public async loginWithEmailAndPassword(email: string, password: string): Promise<UserCredential> {
     console.log('Sign in with email');
-    await this.auth.setPersistence('local');
-    return this.auth.signInWithEmailAndPassword(email, password);
+    await this.auth.setPersistence({ type: 'LOCAL' });
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
   public async loginWithGithub(): Promise<UserCredential> {
     console.log('Sign in with github');
-    await this.auth.setPersistence('local');
-    return this.oauthSignIn(new firebase.auth.GithubAuthProvider());
+    await this.auth.setPersistence({ type: 'LOCAL' });
+    return this.oauthSignIn(new GithubAuthProvider());
   }
 
   public async loginWithGoogle(): Promise<UserCredential> {
     console.log('Sign in with google');
-    await this.auth.setPersistence('local');
-    return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
+    await this.auth.setPersistence({ type: 'LOCAL' });
+    return this.oauthSignIn(new GoogleAuthProvider());
   }
 
   public async loginWithMicrosoft(): Promise<UserCredential> {
     console.log('Sign in with microsoft');
-    await this.auth.setPersistence('local');
-    return this.oauthSignIn(new firebase.auth.OAuthProvider('microsoft.com'));
+    await this.auth.setPersistence({ type: 'LOCAL' });
+    return this.oauthSignIn(new OAuthProvider('microsoft.com'));
   }
 
   public async signupUser(email: string, password: string): Promise<UserCredential> {
-    const newUserCredential = await this.auth.createUserWithEmailAndPassword(email, password);
+    const newUserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
     if (newUserCredential.user == null) {
       throw new Error('user can not be null');
     }
     const { uid, displayName, photoURL } = newUserCredential.user;
     return new Promise<UserCredential>((resolve, reject) => {
-      firebaseInstance.db.ref(`/userProfile/${uid}`).update({ email, displayName, photoURL }, error => {
-        if (!error) {
+      update(ref(firebaseInstance.db, `/userProfile/${uid}`), { email, displayName, photoURL }).then(
+        () => {
           console.log('success', newUserCredential);
           resolve(newUserCredential);
-        } else {
-          console.log('error', error);
-          reject(error);
-        }
-      });
+        },
+        reason => {
+          console.log('error', reason);
+          reject(reason);
+        },
+      );
     });
   }
 
   public async resetPassword(email: string): Promise<void> {
-    return this.auth.sendPasswordResetEmail(email);
+    return sendPasswordResetEmail(this.auth, email);
   }
 
   public async logout(): Promise<void> {
@@ -64,13 +75,13 @@ class AuthService {
     if (!currentUser) {
       return;
     }
-    firebaseInstance.db.ref(`/userProfile/${currentUser.uid}`).off();
+    off(ref(firebaseInstance.db, `/userProfile/${currentUser.uid}`));
     await this.auth.signOut();
   }
 
-  private async oauthSignIn(provider: firebase.auth.AuthProvider): Promise<UserCredential> {
+  private async oauthSignIn(provider: AuthProvider): Promise<UserCredential> {
     // if (!(<any>window).cordova) {
-    const signInPromise = this.auth.signInWithPopup(provider);
+    const signInPromise = signInWithPopup(this.auth, provider);
     // } else {
     // signInPromise = this.afAuth.auth.signInWithRedirect(provider).then(() => {
     //   return this.afAuth.auth.getRedirectResult();
@@ -85,15 +96,16 @@ class AuthService {
     const { uid, displayName, email } = newUserCredential.user;
 
     return new Promise<UserCredential>((resolve, reject) => {
-      firebaseInstance.db.ref(`/userProfile/${uid}`).update({ displayName, email }, error => {
-        if (!error) {
+      update(ref(firebaseInstance.db, `/userProfile/${uid}`), { displayName, email }).then(
+        () => {
           console.log('success', newUserCredential);
           resolve(newUserCredential);
-        } else {
-          console.log('error', error);
-          reject(error);
-        }
-      });
+        },
+        reason => {
+          console.log('error', reason);
+          reject(reason);
+        },
+      );
     });
   }
 }

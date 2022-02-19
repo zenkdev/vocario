@@ -47,7 +47,7 @@ export const fetchStatistics = (): AppThunk => async dispatch => {
     dispatch(getStatisticsStart());
     const statistics = await getStatistics();
     dispatch(getStatisticsSuccess(statistics));
-  } catch (e) {
+  } catch (e: any) {
     toastService.showError(e);
     dispatch(getStatisticsFailure(e.toString()));
   }

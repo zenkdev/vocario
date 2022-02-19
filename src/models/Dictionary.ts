@@ -1,9 +1,7 @@
-import firebase from 'firebase/app';
+import { DataSnapshot } from 'firebase/database';
 
 import { defaultTo } from '../utils';
 import { Word } from './Word';
-
-type DataSnapshot = firebase.database.DataSnapshot;
 
 export type Dictionary = {
   id: string;

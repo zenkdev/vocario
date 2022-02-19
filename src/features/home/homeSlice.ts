@@ -47,7 +47,7 @@ export const fetchDictionaries = (): AppThunk => async dispatch => {
     dispatch(getDictionariesStart());
     const dictionaries = await getDictionaries();
     dispatch(getDictionariesSuccess(dictionaries));
-  } catch (e) {
+  } catch (e: any) {
     toastService.showError(e);
     dispatch(getDictionariesFailure(e.toString()));
   }

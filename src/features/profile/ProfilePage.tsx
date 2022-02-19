@@ -42,7 +42,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({ history }) => {
     try {
       await authService.logout();
       history.push('/login');
-    } catch (error) {
+    } catch (error: any) {
       toastService.showError(error);
     }
   }, [history]);

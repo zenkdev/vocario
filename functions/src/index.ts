@@ -58,16 +58,18 @@ export const statisticsOnWrite = functions.database.ref('/statistics/{uid}/{word
 
 export const synthesize = functions.https.onRequest((req, res) => {
   if (req.method !== 'GET') {
-    return res.status(403).send('Forbidden!').end();
+    res.status(403).send('Forbidden!').end();
+    return;
   }
 
   // Enable CORS using the `cors` express middleware.
-  return cors(req, res, async () => {
+  cors(req, res, async () => {
     // param starts with slash
     const param = trimLeft(req.params['0'], '/');
 
     if (!param) {
-      return res.status(404).end();
+      res.status(404).end();
+      return;
     }
 
     const { name: word, ext } = parse(param);
@@ -82,13 +84,15 @@ export const synthesize = functions.https.onRequest((req, res) => {
       const exists = files.find(({ name }) => name === filename);
       if (exists) {
         res.header('x-file-exists', 'true');
-        return sendFile(res, exists);
+        await sendFile(res, exists);
+        return;
       }
 
       const snapshot = await admin.database().ref(`word/${word}`).once('value');
       const payload = snapshot.val();
       if (!payload) {
-        return res.status(404).end();
+        res.status(404).end();
+        return;
       }
 
       const file = bucket.file(filename);
@@ -97,9 +101,9 @@ export const synthesize = functions.https.onRequest((req, res) => {
       await writeToFile(file, audioContent);
 
       res.header('x-file-exists', 'false');
-      return sendFile(res, file);
+      await sendFile(res, file);
     } catch (e: any) {
-      return res
+      res
         .status(500)
         .contentType('text/plain')
         .send(e.message || String(e))

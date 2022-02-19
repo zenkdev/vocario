@@ -20,7 +20,7 @@ interface KeyboardButtonTheme {
 }
 
 interface MobileKeyboardProps {
-  keyboardRef: (r: Keyboard) => void;
+  keyboardRef: (ref: any) => void;
   buttons?: string[];
   highlight?: string;
   inputPattern?: RegExp;

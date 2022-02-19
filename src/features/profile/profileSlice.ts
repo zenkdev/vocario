@@ -94,87 +94,97 @@ export const fetchProfile = (): AppThunk => async dispatch => {
     dispatch(getProfileStart());
     const profile = await getProfile();
     dispatch(getProfileSuccess(profile));
-  } catch (error) {
+  } catch (error: any) {
     toastService.showError(error);
     dispatch(getProfileFailure(error.toString()));
   }
 };
 
-export const saveProfile = (displayName: string, photoURL?: string): AppThunk => async dispatch => {
-  try {
-    dispatch(updateProfileStart());
-    await updateProfile(displayName, photoURL);
-    dispatch(displayNameEditingEnd());
-    dispatch(updateProfileSuccess({ displayName, photoURL }));
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(updateProfileFailure({ error: error.toString() }));
-  }
-};
+export const saveProfile =
+  (displayName: string, photoURL?: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(updateProfileStart());
+      await updateProfile(displayName, photoURL);
+      dispatch(displayNameEditingEnd());
+      dispatch(updateProfileSuccess({ displayName, photoURL }));
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(updateProfileFailure({ error: error.toString() }));
+    }
+  };
 
-export const saveEmail = (email: string, password: string): AppThunk => async dispatch => {
-  try {
-    dispatch(updateProfileStart());
-    await updateEmail(email, password);
-    dispatch(updateProfileSuccess({ email }));
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(updateProfileFailure({ error: error.toString() }));
-  }
-};
+export const saveEmail =
+  (email: string, password: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(updateProfileStart());
+      await updateEmail(email, password);
+      dispatch(updateProfileSuccess({ email }));
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(updateProfileFailure({ error: error.toString() }));
+    }
+  };
 
-export const saveDarkTheme = (newValue: boolean): AppThunk => async (dispatch, getState) => {
-  const state = getState().profile;
-  const {
-    profile: { darkTheme: oldValue },
-  } = state;
+export const saveDarkTheme =
+  (newValue: boolean): AppThunk =>
+  async (dispatch, getState) => {
+    const state = getState().profile;
+    const {
+      profile: { darkTheme: oldValue },
+    } = state;
 
-  try {
-    dispatch(updateProfileStart({ darkTheme: newValue }));
-    await updateDarkTheme(newValue);
-    dispatch(updateProfileSuccess());
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(updateProfileFailure({ profile: { darkTheme: oldValue }, error: error.toString() }));
-  }
-};
+    try {
+      dispatch(updateProfileStart({ darkTheme: newValue }));
+      await updateDarkTheme(newValue);
+      dispatch(updateProfileSuccess());
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(updateProfileFailure({ profile: { darkTheme: oldValue }, error: error.toString() }));
+    }
+  };
 
-export const saveFontSize = (newValue: number): AppThunk => async (dispatch, getState) => {
-  const state = getState().profile;
-  const {
-    profile: { fontSize: oldValue },
-  } = state;
+export const saveFontSize =
+  (newValue: number): AppThunk =>
+  async (dispatch, getState) => {
+    const state = getState().profile;
+    const {
+      profile: { fontSize: oldValue },
+    } = state;
 
-  try {
-    dispatch(updateProfileStart({ fontSize: newValue }));
-    await updateFontSize(newValue);
-    dispatch(updateProfileSuccess());
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(updateProfileFailure({ profile: { fontSize: oldValue }, error: error.toString() }));
-  }
-};
+    try {
+      dispatch(updateProfileStart({ fontSize: newValue }));
+      await updateFontSize(newValue);
+      dispatch(updateProfileSuccess());
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(updateProfileFailure({ profile: { fontSize: oldValue }, error: error.toString() }));
+    }
+  };
 
-export const saveSimpleMode = (newValue: boolean): AppThunk => async (dispatch, getState) => {
-  const state = getState().profile;
-  const {
-    profile: { simpleMode: oldValue },
-  } = state;
+export const saveSimpleMode =
+  (newValue: boolean): AppThunk =>
+  async (dispatch, getState) => {
+    const state = getState().profile;
+    const {
+      profile: { simpleMode: oldValue },
+    } = state;
 
-  try {
-    dispatch(updateProfileStart({ simpleMode: newValue }));
-    await updateSimpleMode(newValue);
-    dispatch(updateProfileSuccess());
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(updateProfileFailure({ profile: { simpleMode: oldValue }, error: error.toString() }));
-  }
-};
+    try {
+      dispatch(updateProfileStart({ simpleMode: newValue }));
+      await updateSimpleMode(newValue);
+      dispatch(updateProfileSuccess());
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(updateProfileFailure({ profile: { simpleMode: oldValue }, error: error.toString() }));
+    }
+  };
 
 export const doResetProgress = (): AppThunk => async dispatch => {
   try {
     await resetProgress();
-  } catch (error) {
+  } catch (error: any) {
     toastService.showError(error);
     dispatch(getProfileFailure(error.toString()));
   }

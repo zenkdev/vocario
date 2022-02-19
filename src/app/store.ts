@@ -1,7 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-import-module-exports */
 import { ThunkAction } from 'redux-thunk';
-
 import { Action, configureStore } from '@reduxjs/toolkit';
+import { Dispatch } from 'react';
 
 import rootReducer, { RootState } from './rootReducer';
 
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
   });
 }
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch | Dispatch<any>;
 
 export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
 

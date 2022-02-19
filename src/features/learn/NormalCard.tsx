@@ -2,7 +2,6 @@ import 'react-simple-keyboard/build/css/index.css';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Keyboard from 'react-simple-keyboard';
 
 import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
@@ -22,7 +21,7 @@ type NormalCardProps = {
 const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
   const { translation: title, category } = word;
   const [input, setInput] = useState('');
-  const [keyboardRef, setKeyboardRef] = useState<Keyboard>();
+  const [keyboardRef, setKeyboardRef] = useState<any>();
   const answer = useSelector((state: RootState) => state.learn.answer);
   const text = useMemo(() => getText(word), [word]);
   const textWithLang = useMemo(() => getTextWithLang(word), [word]);

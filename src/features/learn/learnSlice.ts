@@ -108,44 +108,48 @@ export { nextWord };
 
 export default learnSlice.reducer;
 
-export const fetchDictionary = (id: string): AppThunk => async dispatch => {
-  try {
-    dispatch(getDictionaryStart());
-    const dictionary = await getDictionary(id);
-    dispatch(getDictionarySuccess(dictionary));
-    dispatch(nextWord());
-  } catch (e) {
-    toastService.showError(e);
-    dispatch(loadingFailed(e.toString()));
-  }
-};
-
-export const updateWord = (answer: Answer): AppThunk => async (dispatch, getState) => {
-  const state = getState();
-  const dateStr = formatISO(Date.now());
-
-  const { dictionary } = state.learn;
-  let word = selectWord(state);
-
-  try {
-    if (dictionary && word) {
-      let { occurs = [], mistakes } = word;
-      if (occurs.length === 0) {
-        occurs = [dateStr];
-      }
-      if (answer === Answer.valid) {
-        occurs = [...occurs, dateStr];
-      } else {
-        mistakes = [...(mistakes || []), dateStr];
-      }
-      word = { ...word, isCompleted: completed(occurs), occurs, mistakes };
-
-      await updateStatistics(dictionary.id, word);
-
-      dispatch(updateWordSuccess({ word, answer }));
+export const fetchDictionary =
+  (id: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(getDictionaryStart());
+      const dictionary = await getDictionary(id);
+      dispatch(getDictionarySuccess(dictionary));
+      dispatch(nextWord());
+    } catch (e: any) {
+      toastService.showError(e);
+      dispatch(loadingFailed(e.toString()));
     }
-  } catch (e) {
-    toastService.showError(e);
-    dispatch(loadingFailed(e.toString()));
-  }
-};
+  };
+
+export const updateWord =
+  (answer: Answer): AppThunk =>
+  async (dispatch, getState) => {
+    const state = getState();
+    const dateStr = formatISO(Date.now());
+
+    const { dictionary } = state.learn;
+    let word = selectWord(state);
+
+    try {
+      if (dictionary && word) {
+        let { occurs = [], mistakes } = word;
+        if (occurs.length === 0) {
+          occurs = [dateStr];
+        }
+        if (answer === Answer.valid) {
+          occurs = [...occurs, dateStr];
+        } else {
+          mistakes = [...(mistakes || []), dateStr];
+        }
+        word = { ...word, isCompleted: completed(occurs), occurs, mistakes };
+
+        await updateStatistics(dictionary.id, word);
+
+        dispatch(updateWordSuccess({ word, answer }));
+      }
+    } catch (e: any) {
+      toastService.showError(e);
+      dispatch(loadingFailed(e.toString()));
+    }
+  };

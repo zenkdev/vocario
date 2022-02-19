@@ -1,22 +1,22 @@
+/* eslint-disable import/no-import-module-exports */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import store from './app/store';
-import * as serviceWorker from './serviceWorker';
-
-// import { setupConfig } from '@ionic/react';
-
-// setupConfig({ mode: 'ios' });
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
 
 const render = () => {
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const App = require('./app/App').default;
 
   ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
     document.getElementById('root'),
   );
 };
@@ -29,5 +29,10 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

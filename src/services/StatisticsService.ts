@@ -1,12 +1,10 @@
-import firebase from 'firebase/app';
+import { Database, DataSnapshot, ref, remove, update, get } from 'firebase/database';
 
 import { createPlainJS, createStatistic, Statistic, Word } from '../models';
 import { omitUndefined } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 
 const { withTrace } = firebaseInstance;
-
-type Database = firebase.database.Database;
 
 class StatisticsService {
   private readonly db: Database;
@@ -27,9 +25,9 @@ class StatisticsService {
         return [];
       }
 
-      const snapshot = await this.db.ref(`statistics/${this.uid}`).once('value');
+      const snapshot = await get(ref(this.db, `statistics/${this.uid}`));
       const arr: Statistic[] = [];
-      snapshot.forEach(payload => {
+      snapshot.forEach((payload: DataSnapshot) => {
         arr.push(createStatistic(payload));
       });
       return arr;
@@ -43,7 +41,7 @@ class StatisticsService {
         throw new Error('User UID can not be null');
       }
 
-      await this.db.ref(`statistics/${this.uid}`).remove();
+      await remove(ref(this.db, `statistics/${this.uid}`));
     });
   };
 
@@ -55,11 +53,11 @@ class StatisticsService {
       }
 
       const poco = createPlainJS(texts);
-      const ref = this.db.ref(`statistics/${this.uid}`);
+      const dbRef = ref(this.db, `statistics/${this.uid}`);
       const updates: Record<string, Partial<Statistic>> = {
         [id]: omitUndefined({ ...rest, ...poco, dictionaryId }),
       };
-      await ref.update(updates);
+      await update(dbRef, updates);
     });
   };
 }

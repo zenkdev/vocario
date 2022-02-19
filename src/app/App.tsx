@@ -20,7 +20,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { toastController } from '@ionic/core';
-import { IonApp } from '@ionic/react';
+import { IonApp, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 import { profileService, toastService } from '../services';
@@ -29,6 +29,8 @@ import { setIsLoading, updateAppSettings } from './appSlice';
 import { RootState } from './rootReducer';
 import Splash from './Splash';
 import Tabs from './Tabs';
+
+setupIonicReact();
 
 const App: React.FC = () => {
   const dispatch = useDispatch();

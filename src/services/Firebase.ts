@@ -1,32 +1,33 @@
-// Add the Firebase products that you want to use
-import 'firebase/auth';
-import 'firebase/database';
-import 'firebase/performance';
-
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import firebase from 'firebase/app';
+import { FirebaseApp, initializeApp } from 'firebase/app';
+// Add the Firebase products that you want to use
+import { getAuth, Auth } from 'firebase/auth';
+import { getDatabase, Database } from 'firebase/database';
+import { getPerformance, FirebasePerformance, trace as getTrace } from 'firebase/performance';
 
 import firebaseConfig from '../firebaseConfig';
 
 export class Firebase {
-  public readonly auth: firebase.auth.Auth;
+  private readonly app: FirebaseApp;
 
-  public readonly db: firebase.database.Database;
+  public readonly auth: Auth;
 
-  public readonly perf: firebase.performance.Performance;
+  public readonly db: Database;
+
+  public readonly perf: FirebasePerformance;
 
   constructor() {
-    firebase.initializeApp(firebaseConfig);
+    this.app = initializeApp(firebaseConfig);
 
-    this.auth = firebase.auth();
-    this.db = firebase.database();
-    this.perf = firebase.performance();
+    this.auth = getAuth(this.app);
+    this.db = getDatabase(this.app);
+    this.perf = getPerformance(this.app);
 
     this.withTrace = this.withTrace.bind(this);
   }
 
   public async withTrace<R>(traceName: string, callback: () => Promise<R>): Promise<R> {
-    const trace = this.perf.trace(traceName);
+    const trace = getTrace(this.perf, traceName);
     trace.start();
     const result = await callback();
     trace.stop();

@@ -36,14 +36,16 @@ const { signupStart, signupSuccess, signupFailure } = signupSlice.actions;
 
 export default signupSlice.reducer;
 
-export const signupUser = (email: string, password: string): AppThunk => async dispatch => {
-  try {
-    dispatch(signupStart());
-    await authService.signupUser(email, password);
-    dispatch(signupSuccess());
-    routerService.push('/home');
-  } catch (error) {
-    toastService.showError(error);
-    dispatch(signupFailure(error.toString()));
-  }
-};
+export const signupUser =
+  (email: string, password: string): AppThunk =>
+  async dispatch => {
+    try {
+      dispatch(signupStart());
+      await authService.signupUser(email, password);
+      dispatch(signupSuccess());
+      routerService.push('/home');
+    } catch (error: any) {
+      toastService.showError(error);
+      dispatch(signupFailure(error.toString()));
+    }
+  };

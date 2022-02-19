@@ -1,10 +1,8 @@
-import firebase from 'firebase/app';
+import { DataSnapshot } from 'firebase/database';
 
 import { defaultTo, isEmpty } from '../utils';
 import { createTextArray } from './Text';
 import { Word } from './Word';
-
-type DataSnapshot = firebase.database.DataSnapshot;
 
 const COUNT_TO_COMPLETE = Number(process.env.REACT_APP_COUNT_TO_COMPLETE);
 

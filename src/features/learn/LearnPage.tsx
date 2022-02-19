@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
 
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 
@@ -14,11 +13,13 @@ import NormalCard from './NormalCard';
 import * as selectors from './selectors';
 import SimpleCard from './SimpleCard';
 
-type LearnPageParams = {
-  id: string;
+type LearnPageOwnProps = {
+  match: {
+    params: {
+      id: string;
+    };
+  };
 };
-
-type LearnPageOwnProps = RouteComponentProps<LearnPageParams>;
 
 const mapStateToProps = (state: RootState) => {
   const { simpleMode } = state.app;
