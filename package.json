@@ -45,7 +45,7 @@
     "react-scripts": "5.0.0",
     "react-simple-keyboard": "3.4.64",
     "react-sizeme": "3.0.2",
-    "web-vitals": "0.2.4",
+    "web-vitals": "2.1.4",
     "workbox-background-sync": "5.1.4",
     "workbox-broadcast-update": "5.1.4",
     "workbox-cacheable-response": "5.1.4",
