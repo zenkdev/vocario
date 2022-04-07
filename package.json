@@ -43,7 +43,7 @@
     "react-router": "5.2.1",
     "react-router-dom": "5.3.0",
     "react-scripts": "5.0.0",
-    "react-simple-keyboard": "3.4.98",
+    "react-simple-keyboard": "3.4.99",
     "react-sizeme": "3.0.2",
     "web-vitals": "2.1.4",
     "workbox-background-sync": "6.5.2",
