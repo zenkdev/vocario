@@ -1,6 +1,6 @@
 /* eslint-disable import/no-import-module-exports */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import store from './app/store';
@@ -10,14 +10,15 @@ import reportWebVitals from './reportWebVitals';
 const render = () => {
   // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const App = require('./app/App').default;
+  const container = document.getElementById('app') as HTMLElement;
+  const root = createRoot(container);
 
-  ReactDOM.render(
+  root.render(
     <React.StrictMode>
       <Provider store={store}>
         <App />
       </Provider>
     </React.StrictMode>,
-    document.getElementById('root'),
   );
 };
 
