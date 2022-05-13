@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { PropsWithChildren } from 'react';
-import { useSelector } from 'react-redux';
 
 import { IonButton } from '@ionic/react';
 
-import { RootState } from '../app/rootReducer';
+import { useAppSelector } from '../hooks';
 
 function size(fontSize: number) {
   if (fontSize < 0.9) return 'small';
@@ -22,7 +21,7 @@ interface ButtonProps {
 }
 
 const Button = ({ children, ...props }: PropsWithChildren<ButtonProps>) => {
-  const { fontSize } = useSelector((state: RootState) => state.app);
+  const { fontSize } = useAppSelector(state => state.app);
 
   return (
     <IonButton size={size(fontSize)} {...props}>

@@ -1,10 +1,9 @@
 import 'react-simple-keyboard/build/css/index.css';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
 
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
+import { useAppSelector } from '../../hooks';
 import { Word } from '../../models';
 import { isEmpty, wordUtils } from '../../utils';
 import AnswerResult from './AnswerResult';
@@ -14,15 +13,15 @@ import Title from './Title';
 
 const { getText, getTextWithLang, getTranscription } = wordUtils;
 
-type NormalCardProps = {
+interface NormalCardProps {
   word: Word;
-};
+}
 
-const NormalCard: React.FC<NormalCardProps> = ({ word }) => {
+const NormalCard = ({ word }: NormalCardProps) => {
   const { translation: title, category } = word;
   const [input, setInput] = useState('');
   const [keyboardRef, setKeyboardRef] = useState<any>();
-  const answer = useSelector((state: RootState) => state.learn.answer);
+  const answer = useAppSelector(state => state.learn.answer);
   const text = useMemo(() => getText(word), [word]);
   const textWithLang = useMemo(() => getTextWithLang(word), [word]);
   const transcription = useMemo(() => getTranscription(word), [word]);

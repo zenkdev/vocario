@@ -1,6 +1,3 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import {
   IonBackButton,
   IonButtons,
@@ -15,16 +12,18 @@ import {
   RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
+import React, { useCallback } from 'react';
 
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Filter from '../filters/Filter';
 import Chart from './Chart';
 import { selectIsLoading } from './selectors';
 import StatisticsList from './StatisticsList';
 import { fetchStatistics } from './statisticsSlice';
 
-const StatisticsPage: React.FC = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
+const StatisticsPage = () => {
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(selectIsLoading);
   const fetchData = useCallback(() => dispatch(fetchStatistics()), [dispatch]);
   const doRefresh = useCallback(
     ({ detail: refresher }: CustomEvent<RefresherEventDetail>) => {

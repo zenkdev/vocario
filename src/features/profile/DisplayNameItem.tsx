@@ -1,8 +1,3 @@
-import { Formik } from 'formik';
-import { chevronForwardOutline } from 'ionicons/icons';
-import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
-
 import {
   IonButton,
   IonButtons,
@@ -18,46 +13,40 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { bindActionCreators } from '@reduxjs/toolkit';
+import { Formik } from 'formik';
+import { chevronForwardOutline } from 'ionicons/icons';
+import React, { useCallback } from 'react';
 
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { UserProfile } from '../../models';
 import { fileToDataUrl } from '../../utils';
 import Avatar from './Avatar';
 import * as profileSlice from './profileSlice';
-import { UserProfile } from '../../models';
 
-const mapStateToProps = (state: RootState) => {
-  const { isLoading, isDisplayNameEditing, isSaving, profile } = state.profile;
+const useDisplayNameItem = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, isDisplayNameEditing, isSaving, profile } = useAppSelector(state => state.profile);
+
   return {
     isLoading,
     isEditing: isDisplayNameEditing,
     isSaving,
     profile,
+    ...bindActionCreators(
+      {
+        startEdit: profileSlice.displayNameEditingStart,
+        cancelEdit: profileSlice.displayNameEditingEnd,
+        saveProfile: profileSlice.saveProfile,
+      },
+      dispatch,
+    ),
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      startEdit: profileSlice.displayNameEditingStart,
-      cancelEdit: profileSlice.displayNameEditingEnd,
-      saveProfile: profileSlice.saveProfile,
-    },
-    dispatch,
-  );
-
-type DisplayNameItemProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const DisplayNameItem: React.FC<DisplayNameItemProps> = ({
-  isLoading,
-  isEditing,
-  isSaving,
-  profile,
-  startEdit,
-  cancelEdit,
-  saveProfile,
-}) => {
+const DisplayNameItem = () => {
+  const { isLoading, isEditing, isSaving, profile, startEdit, cancelEdit, saveProfile } = useDisplayNameItem();
   const handleValidate = useCallback(({ displayName }: UserProfile) => {
     const errors: any = {};
     if (!displayName) {
@@ -129,4 +118,4 @@ const DisplayNameItem: React.FC<DisplayNameItemProps> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayNameItem);
+export default DisplayNameItem;

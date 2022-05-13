@@ -1,20 +1,18 @@
+import { IonIcon, IonItem, IonLabel, IonSkeletonText, IonToggle } from '@ionic/react';
 import { rocket } from 'ionicons/icons';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { IonIcon, IonItem, IonLabel, IonSkeletonText, IonToggle } from '@ionic/react';
-
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IonToggleEvent } from '../../types';
 import { saveSimpleMode } from './profileSlice';
 
 const SimpleModeItem: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     isLoading,
     profile: { simpleMode },
-  } = useSelector((state: RootState) => state.profile);
+  } = useAppSelector(state => state.profile);
   const handleChange = useCallback(
     (evt: IonToggleEvent) => {
       const { checked } = evt.detail;

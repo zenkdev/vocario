@@ -1,9 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-import { logOut } from 'ionicons/icons';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
-
 import {
   IonBackButton,
   IonButton,
@@ -24,8 +18,11 @@ import {
   RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
+import { logOut } from 'ionicons/icons';
+import React, { useCallback } from 'react';
+import { RouteComponentProps } from 'react-router';
 
-import { RootState } from '../../app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { authService, toastService } from '../../services';
 import DarkThemeItem from './DarkThemeItem';
 import DisplayNameItem from './DisplayNameItem';
@@ -36,8 +33,8 @@ import ResetProgress from './ResetProgress';
 import SimpleModeItem from './SimpleModeItem';
 
 const ProfilePage: React.FC<RouteComponentProps> = ({ history }) => {
-  const dispatch = useDispatch();
-  const { isLoading, isSaving } = useSelector((state: RootState) => state.profile);
+  const dispatch = useAppDispatch();
+  const { isLoading, isSaving } = useAppSelector(state => state.profile);
   const fetchData = useCallback(() => dispatch(fetchProfile()), [dispatch]);
   const handleLogout = useCallback(async () => {
     try {

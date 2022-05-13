@@ -1,8 +1,3 @@
-import { useFormik } from 'formik';
-import { logoGithub, logoGoogle, logoSkype } from 'ionicons/icons';
-import React from 'react';
-import { connect } from 'react-redux';
-
 import {
   IonButton,
   IonContent,
@@ -17,35 +12,36 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { Dispatch } from '@reduxjs/toolkit';
+import { useFormik } from 'formik';
+import { logoGithub, logoGoogle, logoSkype } from 'ionicons/icons';
+import React, { useCallback } from 'react';
 
-import { RootState } from '../../app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import * as loginSlice from './loginSlice';
 
-const mapStateToProps = (state: RootState) => {
-  const { isLoading } = state.login;
+const useLoginPage = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector(state => state.login);
+
+  const loginWithEmailAndPassword = useCallback(
+    ({ email, password }: { email: string; password: string }) => dispatch(loginSlice.loginWithEmailAndPassword(email, password)),
+    [dispatch],
+  );
+  const loginWithGithub = useCallback(() => dispatch(loginSlice.loginWithGithub()), [dispatch]);
+  const loginWithGoogle = useCallback(() => dispatch(loginSlice.loginWithGoogle()), [dispatch]);
+  const loginWithMicrosoft = useCallback(() => dispatch(loginSlice.loginWithMicrosoft()), [dispatch]);
+
   return {
     isLoading,
+    loginWithEmailAndPassword,
+    loginWithGithub,
+    loginWithGoogle,
+    loginWithMicrosoft,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  loginWithEmailAndPassword: ({ email, password }: { email: string; password: string }) =>
-    dispatch(loginSlice.loginWithEmailAndPassword(email, password) as any),
-  loginWithGithub: () => dispatch(loginSlice.loginWithGithub() as any),
-  loginWithGoogle: () => dispatch(loginSlice.loginWithGoogle() as any),
-  loginWithMicrosoft: () => dispatch(loginSlice.loginWithMicrosoft() as any),
-});
-
-type LoginPageProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const LoginPage: React.FC<LoginPageProps> = ({
-  isLoading,
-  loginWithGithub,
-  loginWithGoogle,
-  loginWithMicrosoft,
-  loginWithEmailAndPassword,
-}) => {
+const LoginPage = () => {
+  const { isLoading, loginWithGithub, loginWithGoogle, loginWithMicrosoft, loginWithEmailAndPassword } = useLoginPage();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -134,4 +130,4 @@ const LoginPage: React.FC<LoginPageProps> = ({
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;

@@ -1,20 +1,19 @@
 import { moon } from 'ionicons/icons';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { IonIcon, IonItem, IonLabel, IonSkeletonText, IonToggle } from '@ionic/react';
 
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
 import { IonToggleEvent } from '../../types';
 import { saveDarkTheme } from './profileSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-const DarkThemeItem: React.FC = () => {
-  const dispatch = useDispatch();
+const DarkThemeItem = () => {
+  const dispatch = useAppDispatch();
   const {
     isLoading,
     profile: { darkTheme },
-  } = useSelector((state: RootState) => state.profile);
+  } = useAppSelector(state => state.profile);
   const handleChange = useCallback(
     (evt: IonToggleEvent) => {
       const { checked } = evt.detail;

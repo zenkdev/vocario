@@ -1,20 +1,18 @@
+import { IonIcon, IonItem, IonLabel, IonRange, IonSkeletonText } from '@ionic/react';
 import { text } from 'ionicons/icons';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { IonIcon, IonItem, IonLabel, IonRange, IonSkeletonText } from '@ionic/react';
-
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IonRangeEvent } from '../../types';
 import { saveFontSize } from './profileSlice';
 
-const FontSizeItem: React.FC = () => {
-  const dispatch = useDispatch();
+const FontSizeItem = () => {
+  const dispatch = useAppDispatch();
   const {
     isLoading,
     profile: { fontSize },
-  } = useSelector((state: RootState) => state.profile);
+  } = useAppSelector(state => state.profile);
   const handleChange = useCallback(
     (evt: IonRangeEvent) => {
       const value = evt.detail.value as number;

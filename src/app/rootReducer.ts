@@ -20,6 +20,4 @@ const rootReducer = combineReducers({
   statistics: statisticsReducer,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-
 export default rootReducer;

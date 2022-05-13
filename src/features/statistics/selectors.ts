@@ -5,9 +5,9 @@ import startOfToday from 'date-fns/startOfToday';
 
 import { createSelector } from '@reduxjs/toolkit';
 
-import { RootState } from '../../app/rootReducer';
 import { defaultTo } from '../../utils';
 import { VisibilityFilters } from '../filters/filtersSlice';
+import { RootState } from '../../app/store';
 
 export type ChartData = {
   date: string;

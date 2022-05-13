@@ -1,13 +1,12 @@
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
 import { IonAlert } from '@ionic/react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '../../components/Button';
+import { useAppDispatch } from '../../hooks';
 import { doResetProgress } from './profileSlice';
 
-const ResetProgress: React.FC = () => {
-  const dispatch = useDispatch();
+const ResetProgress = () => {
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const handleReset = useCallback(() => {
     setIsOpen(false);

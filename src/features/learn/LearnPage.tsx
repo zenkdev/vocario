@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonLoading, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
+import React, { useCallback, useEffect } from 'react';
 
-import { RootState } from '../../app/rootReducer';
-import { AppDispatch } from '../../app/store';
 import { If } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { percent } from '../../utils';
 import Congratulations from './Congratulations';
 import * as actions from './learnSlice';
@@ -13,7 +10,7 @@ import NormalCard from './NormalCard';
 import * as selectors from './selectors';
 import SimpleCard from './SimpleCard';
 
-type LearnPageOwnProps = {
+type LearnPageProps = {
   match: {
     params: {
       id: string;
@@ -21,32 +18,28 @@ type LearnPageOwnProps = {
   };
 };
 
-const mapStateToProps = (state: RootState) => {
-  const { simpleMode } = state.app;
-  const { isLoading } = state.learn;
-  const { completed, total, more } = selectors.selectDailyStatistics(state);
+const useLearnPage = () => {
+  const { simpleMode } = useAppSelector(state => state.app);
+  const { isLoading } = useAppSelector(state => state.learn);
+  const { completed, total, more } = useAppSelector(selectors.selectDailyStatistics);
+  const title = useAppSelector(selectors.selectTitle);
+  const word = useAppSelector(selectors.selectWord);
+
   return {
     simpleMode,
     isLoading,
-    title: selectors.selectTitle(state),
-    word: selectors.selectWord(state),
+    title,
+    word,
     progress: percent(completed, total),
     hasMore: more,
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch, { match }: LearnPageOwnProps) => {
-  const { id } = match.params;
-  return {
-    fetchData: () => {
-      dispatch(actions.fetchDictionary(id));
-    },
-  };
-};
+const LearnPage: React.FC<LearnPageProps> = ({ match }: LearnPageProps) => {
+  const dispatch = useAppDispatch();
+  const { title, simpleMode, isLoading, word, progress, hasMore } = useLearnPage();
+  const fetchData = useCallback(() => dispatch(actions.fetchDictionary(match.params.id)), [dispatch, match.params.id]);
 
-type LearnPageProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const LearnPage: React.FC<LearnPageProps> = ({ title, simpleMode, isLoading, word, progress, hasMore, fetchData }) => {
   useEffect(fetchData, [fetchData]);
 
   return (
@@ -69,4 +62,4 @@ const LearnPage: React.FC<LearnPageProps> = ({ title, simpleMode, isLoading, wor
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LearnPage);
+export default LearnPage;

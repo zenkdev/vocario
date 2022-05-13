@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
-import { RootState } from '../../app/rootReducer';
 import { count } from '../../utils';
 import { VisibilityFilters } from './filtersSlice';
 

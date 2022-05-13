@@ -1,23 +1,22 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
+import { useAppSelector } from '../../hooks';
 import { Word } from '../../models';
-import { wordUtils, isEmpty } from '../../utils';
+import { isEmpty, wordUtils } from '../../utils';
 import AnswerResult from './AnswerResult';
 import SimpleQuestion from './SimpleQuestion';
 import Title from './Title';
 
 const { getText, getTranscription } = wordUtils;
 
-type SimpleCardProps = {
+interface SimpleCardProps {
   word: Word;
-};
+}
 
-const SimpleCard: React.FC<SimpleCardProps> = ({ word }) => {
+const SimpleCard = ({ word }: SimpleCardProps) => {
   const { translation, category } = word;
-  const answer = useSelector((state: RootState) => state.learn.answer);
+  const answer = useAppSelector(state => state.learn.answer);
   const title = useMemo(() => getText(word), [word]);
   const transcription = useMemo(() => getTranscription(word), [word]);
 

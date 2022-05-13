@@ -1,8 +1,3 @@
-import { Formik } from 'formik';
-import { chevronForwardOutline, mail } from 'ionicons/icons';
-import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
-
 import {
   IonButton,
   IonButtons,
@@ -18,35 +13,37 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
+import { bindActionCreators } from '@reduxjs/toolkit';
+import { Formik } from 'formik';
+import { chevronForwardOutline, mail } from 'ionicons/icons';
+import React, { useCallback } from 'react';
 
-import { RootState } from '../../app/rootReducer';
 import { If } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import * as profileSlice from './profileSlice';
 
-const mapStateToProps = (state: RootState) => {
-  const { isLoading, isEmailEditing, isSaving, profile } = state.profile;
+const useEmailItem = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading, isEmailEditing, isSaving, profile } = useAppSelector(state => state.profile);
+
   return {
     isLoading,
     isEditing: isEmailEditing,
     isSaving,
     profile,
+    ...bindActionCreators(
+      {
+        startEdit: profileSlice.emailEditingStart,
+        cancelEdit: profileSlice.emailEditingEnd,
+        saveEmail: profileSlice.saveEmail,
+      },
+      dispatch,
+    ),
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      startEdit: profileSlice.emailEditingStart,
-      cancelEdit: profileSlice.emailEditingEnd,
-      saveEmail: profileSlice.saveEmail,
-    },
-    dispatch,
-  );
-
-type EmailItemProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
-
-const EmailItem: React.FC<EmailItemProps> = ({ isLoading, isEditing, isSaving, profile, startEdit, cancelEdit, saveEmail }) => {
+const EmailItem = () => {
+  const { isLoading, isEditing, isSaving, profile, startEdit, cancelEdit, saveEmail } = useEmailItem();
   const handleValidate = useCallback(({ email, password }: { email: string; password: string }) => {
     const errors: any = {};
     if (!email) {
@@ -113,4 +110,4 @@ const EmailItem: React.FC<EmailItemProps> = ({ isLoading, isEditing, isSaving, p
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailItem);
+export default EmailItem;

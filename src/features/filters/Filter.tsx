@@ -1,18 +1,16 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/react';
+import React, { useCallback } from 'react';
 
-import { RootState } from '../../app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IonSegmentChangeEvent } from '../../types';
 import { setVisibilityFilter, VisibilityFilters } from './filtersSlice';
 import { selectCompletedCount, selectLearningCount } from './selectors';
 
 const Filter: React.FC = () => {
-  const dispatch = useDispatch();
-  const { filter } = useSelector((state: RootState) => state.visibilityFilter);
-  const learning = useSelector(selectLearningCount);
-  const completed = useSelector(selectCompletedCount);
+  const dispatch = useAppDispatch();
+  const { filter } = useAppSelector(state => state.visibilityFilter);
+  const learning = useAppSelector(selectLearningCount);
+  const completed = useAppSelector(selectCompletedCount);
   const handleIonSegmentChange = useCallback(
     (e: IonSegmentChangeEvent) => dispatch(setVisibilityFilter(e.detail.value as VisibilityFilters)),
     [dispatch],

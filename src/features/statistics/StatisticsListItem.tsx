@@ -1,9 +1,7 @@
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
-
 import { IonCol, IonGrid, IonItem, IonLabel, IonRow } from '@ionic/react';
+import React, { useMemo } from 'react';
 
-import { RootState } from '../../app/rootReducer';
+import { useAppSelector } from '../../hooks';
 import { Statistic } from '../../models';
 import { wordUtils } from '../../utils';
 import { VisibilityFilters } from '../filters/filtersSlice';
@@ -19,13 +17,13 @@ const Count = ({ count }: { count: number }) => {
   return <ul className="count">{items}</ul>;
 };
 
-type StatisticsListItemProps = {
+interface StatisticsListItemProps {
   item: Statistic;
-};
+}
 
-const StatisticsListItem: React.FC<StatisticsListItemProps> = ({ item }) => {
+const StatisticsListItem = ({ item }: StatisticsListItemProps) => {
   const { translation, category } = item;
-  const { filter } = useSelector((state: RootState) => state.visibilityFilter);
+  const { filter } = useAppSelector(state => state.visibilityFilter);
   const textWithLang = useMemo(() => getTextWithLang(item), [item]);
   const transcription = useMemo(() => getTranscription(item), [item]);
   const nextOccur = useMemo(() => nextOccurString(item), [item]);

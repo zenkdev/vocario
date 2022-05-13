@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { isValidAnswer } from '../../utils';
 import * as actions from './learnSlice';
 import * as selectors from './selectors';
@@ -25,8 +25,8 @@ interface SimpleQuestionProps {
 }
 
 const SimpleQuestion: React.FC<SimpleQuestionProps> = ({ text }) => {
-  const options = useSelector(selectors.selectOptions);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const options = useAppSelector(selectors.selectOptions);
   const handleClick = useCallback(
     (option: string) => {
       const isValid = isValidAnswer(text, option);

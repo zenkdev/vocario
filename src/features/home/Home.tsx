@@ -1,6 +1,3 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import {
   IonContent,
   IonHeader,
@@ -13,14 +10,15 @@ import {
   RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
+import React, { useCallback } from 'react';
 
-import { RootState } from '../../app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import DictionaryList from './DictionaryList';
 import { fetchDictionaries } from './homeSlice';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const { isLoading, data } = useSelector((state: RootState) => state.home);
+  const dispatch = useAppDispatch();
+  const { isLoading, data } = useAppSelector(state => state.home);
   const fetchData = useCallback(() => {
     dispatch(fetchDictionaries());
   }, [dispatch]);

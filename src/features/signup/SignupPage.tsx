@@ -1,7 +1,3 @@
-import { useFormik } from 'formik';
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 import {
   IonBackButton,
   IonButton,
@@ -17,13 +13,15 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import { useFormik } from 'formik';
+import React, { useCallback } from 'react';
 
-import { RootState } from '../../app/rootReducer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import * as signupSlice from './signupSlice';
 
 const SignupPage: React.FC = () => {
-  const isCreating = useSelector((state: RootState) => state.signup.isCreating);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const isCreating = useAppSelector(state => state.signup.isCreating);
   const signupUser = useCallback(
     ({ email, password }: { email: string; password: string }) => dispatch(signupSlice.signupUser(email, password)),
     [dispatch],

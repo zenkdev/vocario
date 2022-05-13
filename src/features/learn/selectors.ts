@@ -5,9 +5,9 @@ import startOfToday from 'date-fns/startOfToday';
 
 import { createSelector } from '@reduxjs/toolkit';
 
-import { RootState } from '../../app/rootReducer';
 import { nextOccur, Word } from '../../models';
 import { count, isEmpty, randomNumber } from '../../utils';
+import { RootState } from '../../app/store';
 
 const NEW_WORDS_PER_DAY = Number(process.env.REACT_APP_NEW_WORDS_PER_DAY);
 
