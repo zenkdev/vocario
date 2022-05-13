@@ -9,10 +9,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { SizeMeProps, withSize } from 'react-sizeme';
 
-import { AxisBottom } from '@vx/axis';
-import { Group } from '@vx/group';
-import { scaleBand, scaleLinear } from '@vx/scale';
-import { Bar } from '@vx/shape';
+import { AxisBottom } from '@visx/axis';
+import { Group } from '@visx/group';
+import { scaleBand, scaleLinear } from '@visx/scale';
+import { Bar } from '@visx/shape';
 
 import { defaultTo, getLocale } from '../../utils';
 import { ChartData, selectChartData } from './selectors';
