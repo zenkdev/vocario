@@ -6,8 +6,6 @@ import format from 'date-fns/format';
 import getDay from 'date-fns/getDay';
 import parseISO from 'date-fns/parseISO';
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { SizeMeProps, withSize } from 'react-sizeme';
 
 import { AxisBottom } from '@visx/axis';
 import { Group } from '@visx/group';
@@ -16,14 +14,20 @@ import { Bar } from '@visx/shape';
 
 import { defaultTo, getLocale } from '../../utils';
 import { ChartData, selectChartData } from './selectors';
+import { useAppSelector } from '../../hooks';
+
+const WIDTH = 1200;
+const HEIGHT = (WIDTH / 4) * 3 * 0.2; // 4:3 20%
 
 // accessors
 const x = (d: ChartData): string => d.date;
 const y = (d: ChartData): number => d.count;
 
-const Chart: React.FC<SizeMeProps> = ({ size }) => {
+const Chart = () => {
+  // todo: resize does not work with React 18
+  const size = { width: WIDTH, height: HEIGHT };
   const locale = getLocale();
-  const data = useSelector(selectChartData);
+  const data = useAppSelector(selectChartData);
 
   const width = Math.round(Math.max(defaultTo(size.width, 0) - 32, 200));
   const height = Math.round(Math.max(defaultTo(size.height, 0) - 16, 100));
@@ -40,8 +44,8 @@ const Chart: React.FC<SizeMeProps> = ({ size }) => {
 
   return (
     <div className="chart">
-      <div className="chart__wrapper" style={{ height: `${height}px` }}>
-        <svg width={width} height={height}>
+      <div className="chart__wrapper">
+        <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} width="100%">
           <Group top={30}>
             {data.map(d => {
               const xd = x(d);
@@ -88,4 +92,4 @@ const Chart: React.FC<SizeMeProps> = ({ size }) => {
   );
 };
 
-export default withSize({ monitorHeight: true })(Chart);
+export default Chart;

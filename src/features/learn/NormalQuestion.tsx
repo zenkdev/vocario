@@ -1,34 +1,29 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { connect } from 'react-redux';
 
-import { AppDispatch } from '../../app/store';
 import { Button } from '../../components';
+import { useAppDispatch } from '../../hooks';
 import { isValidAnswer, stringUtils } from '../../utils';
 import * as actions from './learnSlice';
 import MobileKeyboard from './MobileKeyboard';
 
 const { getFullInput, isLetter, unusedChars } = stringUtils;
 
-type NormalQuestionOwnProps = {
+interface NormalQuestionProps {
   text: string;
   input: string;
   keyboardRef: (ref: any) => void;
   onChange: (value: string) => void;
-};
+}
 
-const mapDispatchToProps = (dispatch: AppDispatch, { text, input }: NormalQuestionOwnProps) => ({
-  handleClick: () => {
-    const isValid = isValidAnswer(text, getFullInput(input, text));
-    dispatch(actions.updateWord(isValid));
-  },
-});
-
-type NormalQuestionProps = NormalQuestionOwnProps & ReturnType<typeof mapDispatchToProps>;
-
-const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRef, onChange, handleClick }) => {
+const NormalQuestion = ({ text, input, keyboardRef, onChange }: NormalQuestionProps) => {
+  const dispatch = useAppDispatch();
   const [highlight, setHighlight] = useState<string>();
   const fullInput = useMemo(() => getFullInput(input, text), [input, text]);
   const buttons = useMemo(() => ['{backspace}', ...unusedChars(input, text)], [input, text]);
+  const handleClick = useCallback(() => {
+    const isValid = isValidAnswer(text, getFullInput(input, text));
+    dispatch(actions.updateWord(isValid));
+  }, [dispatch, input, text]);
 
   const handleInput = useCallback(
     (value: string) => {
@@ -74,4 +69,4 @@ const NormalQuestion: React.FC<NormalQuestionProps> = ({ text, input, keyboardRe
   );
 };
 
-export default connect(null, mapDispatchToProps)(NormalQuestion);
+export default NormalQuestion;
