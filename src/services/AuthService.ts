@@ -1,17 +1,20 @@
 /* eslint-disable no-console */
 import {
   Auth,
-  UserCredential,
-  signInWithEmailAndPassword,
+  AuthProvider,
+  browserLocalPersistence,
+  createUserWithEmailAndPassword,
   GithubAuthProvider,
   GoogleAuthProvider,
   OAuthProvider,
-  createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  setPersistence,
+  signInWithEmailAndPassword,
   signInWithPopup,
-  AuthProvider,
+  signOut,
+  UserCredential,
 } from 'firebase/auth';
-import { ref, update, off } from 'firebase/database';
+import { off, ref, update } from 'firebase/database';
 
 import firebaseInstance from './Firebase';
 
@@ -24,25 +27,25 @@ class AuthService {
 
   public async loginWithEmailAndPassword(email: string, password: string): Promise<UserCredential> {
     console.log('Sign in with email');
-    await this.auth.setPersistence({ type: 'LOCAL' });
+    await setPersistence(this.auth, browserLocalPersistence);
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
   public async loginWithGithub(): Promise<UserCredential> {
     console.log('Sign in with github');
-    await this.auth.setPersistence({ type: 'LOCAL' });
+    await setPersistence(this.auth, browserLocalPersistence);
     return this.oauthSignIn(new GithubAuthProvider());
   }
 
   public async loginWithGoogle(): Promise<UserCredential> {
     console.log('Sign in with google');
-    await this.auth.setPersistence({ type: 'LOCAL' });
+    await setPersistence(this.auth, browserLocalPersistence);
     return this.oauthSignIn(new GoogleAuthProvider());
   }
 
   public async loginWithMicrosoft(): Promise<UserCredential> {
     console.log('Sign in with microsoft');
-    await this.auth.setPersistence({ type: 'LOCAL' });
+    await setPersistence(this.auth, browserLocalPersistence);
     return this.oauthSignIn(new OAuthProvider('microsoft.com'));
   }
 
@@ -76,7 +79,7 @@ class AuthService {
       return;
     }
     off(ref(firebaseInstance.db, `/userProfile/${currentUser.uid}`));
-    await this.auth.signOut();
+    signOut(this.auth);
   }
 
   private async oauthSignIn(provider: AuthProvider): Promise<UserCredential> {
