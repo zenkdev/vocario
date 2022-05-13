@@ -21,6 +21,7 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
 
@@ -47,7 +48,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({ history }) => {
     }
   }, [history]);
   const doRefresh = useCallback(
-    ({ target: refresher }) => {
+    ({ detail: refresher }: CustomEvent<RefresherEventDetail>) => {
       fetchData();
       refresher.complete();
     },

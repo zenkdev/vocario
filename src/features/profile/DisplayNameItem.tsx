@@ -25,6 +25,7 @@ import { If } from '../../components';
 import { fileToDataUrl } from '../../utils';
 import Avatar from './Avatar';
 import * as profileSlice from './profileSlice';
+import { UserProfile } from '../../models';
 
 const mapStateToProps = (state: RootState) => {
   const { isLoading, isDisplayNameEditing, isSaving, profile } = state.profile;
@@ -57,7 +58,7 @@ const DisplayNameItem: React.FC<DisplayNameItemProps> = ({
   cancelEdit,
   saveProfile,
 }) => {
-  const handleValidate = useCallback(({ displayName }) => {
+  const handleValidate = useCallback(({ displayName }: UserProfile) => {
     const errors: any = {};
     if (!displayName) {
       errors.displayName = 'Name is required';
@@ -65,7 +66,7 @@ const DisplayNameItem: React.FC<DisplayNameItemProps> = ({
     return errors;
   }, []);
   const handleSubmit = useCallback(
-    ({ displayName, photoURL }) => {
+    ({ displayName, photoURL }: UserProfile) => {
       saveProfile(displayName, photoURL);
     },
     [saveProfile],

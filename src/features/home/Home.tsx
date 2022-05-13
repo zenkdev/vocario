@@ -10,6 +10,7 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
 
@@ -24,7 +25,7 @@ const Home: React.FC = () => {
     dispatch(fetchDictionaries());
   }, [dispatch]);
   const doRefresh = useCallback(
-    ({ target: refresher }) => {
+    ({ detail: refresher }: CustomEvent<RefresherEventDetail>) => {
       fetchData();
       refresher.complete();
     },

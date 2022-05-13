@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 type EmailItemProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const EmailItem: React.FC<EmailItemProps> = ({ isLoading, isEditing, isSaving, profile, startEdit, cancelEdit, saveEmail }) => {
-  const handleValidate = useCallback(({ email, password }) => {
+  const handleValidate = useCallback(({ email, password }: { email: string; password: string }) => {
     const errors: any = {};
     if (!email) {
       errors.displayName = 'Email is required';
@@ -60,7 +60,7 @@ const EmailItem: React.FC<EmailItemProps> = ({ isLoading, isEditing, isSaving, p
     return errors;
   }, []);
   const handleSubmit = useCallback(
-    ({ email, password }) => {
+    ({ email, password }: { email: string; password: string }) => {
       saveEmail(email, password);
     },
     [saveEmail],

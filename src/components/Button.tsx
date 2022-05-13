@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 
 import { IonButton } from '@ionic/react';
@@ -21,7 +21,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
+const Button = ({ children, ...props }: PropsWithChildren<ButtonProps>) => {
   const { fontSize } = useSelector((state: RootState) => state.app);
 
   return (

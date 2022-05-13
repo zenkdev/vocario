@@ -12,6 +12,7 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
 
@@ -26,7 +27,7 @@ const StatisticsPage: React.FC = () => {
   const isLoading = useSelector(selectIsLoading);
   const fetchData = useCallback(() => dispatch(fetchStatistics()), [dispatch]);
   const doRefresh = useCallback(
-    ({ target: refresher }) => {
+    ({ detail: refresher }: CustomEvent<RefresherEventDetail>) => {
       fetchData();
       refresher.complete();
     },
