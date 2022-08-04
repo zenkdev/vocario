@@ -32,7 +32,7 @@
     "@visx/axis": "2.11.1",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
-    "@visx/shape": "^2.10.0",
+    "@visx/shape": "2.12.2",
     "date-fns": "2.29.1",
     "firebase": "9.9.1",
     "formik": "2.2.9",
