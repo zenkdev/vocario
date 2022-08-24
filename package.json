@@ -44,7 +44,7 @@
     "react-router": "5.3.3",
     "react-router-dom": "5.3.3",
     "react-scripts": "5.0.1",
-    "react-simple-keyboard": "3.4.190",
+    "react-simple-keyboard": "3.4.191",
     "sass": "1.54.5",
     "web-vitals": "2.1.4",
     "workbox-background-sync": "6.5.4",
