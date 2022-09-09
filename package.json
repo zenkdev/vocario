@@ -19,7 +19,7 @@
   "private": true,
   "dependencies": {
     "@capacitor/app": "1.1.1",
-    "@capacitor/core": "3.7.0",
+    "@capacitor/core": "3.8.0",
     "@capacitor/haptics": "1.1.4",
     "@capacitor/keyboard": "1.2.3",
     "@capacitor/status-bar": "1.0.8",
@@ -75,7 +75,7 @@
   },
   "description": "Simple vocabulary application made on React and Ionic with a backend on Firebase",
   "devDependencies": {
-    "@capacitor/cli": "3.7.0",
+    "@capacitor/cli": "3.8.0",
     "@types/d3-array": "3.0.3",
     "@types/jest": "28.1.8",
     "@types/node": "16.11.58",
