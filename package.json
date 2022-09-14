@@ -81,7 +81,7 @@
     "@types/node": "16.11.59",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
-    "@types/react-router": "5.1.18",
+    "@types/react-router": "5.1.19",
     "@types/react-router-dom": "5.3.3",
     "@types/webpack-env": "1.18.0",
     "@types/zen-observable": "0.8.3",
