@@ -78,7 +78,7 @@
     "@capacitor/cli": "3.8.0",
     "@types/d3-array": "3.0.3",
     "@types/jest": "28.1.8",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.65",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/react-router": "5.1.19",
