@@ -19,7 +19,7 @@
     "@google-cloud/text-to-speech": "4.0.4",
     "cors": "2.8.5",
     "firebase-admin": "11.4.1",
-    "firebase-functions": "3.24.1"
+    "firebase-functions": "4.2.1"
   },
   "devDependencies": {
     "@types/cors": "2.8.12",
