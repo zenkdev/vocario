@@ -76,7 +76,7 @@
   "description": "Simple vocabulary application made on React and Ionic with a backend on Firebase",
   "devDependencies": {
     "@capacitor/cli": "3.9.0",
-    "@types/d3-array": "3.0.3",
+    "@types/d3-array": "3.0.4",
     "@types/jest": "29.5.0",
     "@types/node": "18.15.9",
     "@types/react": "18.0.25",
