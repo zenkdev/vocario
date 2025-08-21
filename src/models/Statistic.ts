@@ -1,10 +1,10 @@
 import { DataSnapshot } from 'firebase/database';
 
-import { defaultTo, isEmpty } from '../utils';
+import type { Word } from './Word';
 import { createTextArray } from './Text';
-import { Word } from './Word';
+import { defaultTo, isEmpty } from '../utils';
 
-const COUNT_TO_COMPLETE = Number(process.env.REACT_APP_COUNT_TO_COMPLETE);
+const COUNT_TO_COMPLETE = Number(import.meta.env.REACT_APP_COUNT_TO_COMPLETE);
 
 const completed = (occurs?: string[]): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
 

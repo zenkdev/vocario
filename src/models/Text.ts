@@ -21,10 +21,13 @@ function parseKey(value: string): [string, number] {
   return [str, Number(index)];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createTextArray(payload: any): Text[] {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return Object.entries(payload).reduce((acc: any[], [k, value]) => {
     if (k.startsWith('text') || k.startsWith('transcription') || k.startsWith('lang')) {
       const [key, index] = parseKey(k);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const option: any = acc.find(x => x.index === index);
       if (option) {
         option[key] = value;
@@ -37,6 +40,7 @@ export function createTextArray(payload: any): Text[] {
 }
 
 export function createPlainJS(texts: Text[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const poco: any = {};
   for (let i = 0; i < texts.length; i += 1) {
     const { index, ...rest } = texts[i];

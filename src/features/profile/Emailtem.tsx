@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Formik } from 'formik';
 import {
   IonButton,
   IonButtons,
@@ -14,13 +17,12 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { Formik } from 'formik';
 import { chevronForwardOutline, mail } from 'ionicons/icons';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
+import * as profileSlice from './profileSlice';
 import { If } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import * as profileSlice from './profileSlice';
 
 const useEmailItem = () => {
   const dispatch = useAppDispatch();

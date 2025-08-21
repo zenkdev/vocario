@@ -1,35 +1,16 @@
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-/* Theme variables */
-import '../theme/variables.css';
-import '../theme/variables.dark.css';
-import './styles.scss';
-
-import { home, person, statsChart } from 'ionicons/icons';
 import React from 'react';
-import { Redirect, Route, useHistory } from 'react-router-dom';
-
 import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
+import { Redirect, Route, useHistory } from 'react-router-dom';
+import { home, person, statsChart } from 'ionicons/icons';
 
-import { PrivateRoute } from '../components';
 import Home from '../features/home/Home';
 import LearnPage from '../features/learn/LearnPage';
 import LoginPage from '../features/login/LoginPage';
-import ResetPassword from '../features/login/ResetPassword';
 import ProfilePage from '../features/profile/ProfilePage';
+import ResetPassword from '../features/login/ResetPassword';
 import SignupPage from '../features/signup/SignupPage';
 import StatisticsPage from '../features/statistics/StatisticsPage';
+import { PrivateRoute } from '../components';
 import { routerService } from '../services';
 
 const Tabs: React.FC = () => {

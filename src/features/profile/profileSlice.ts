@@ -1,8 +1,7 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../../app/store';
-import { createUserProfile, UserProfile } from '../../models';
+import type { AppThunk } from '../../app/store';
+import { createUserProfile, type UserProfile } from '../../models';
 import { profileService, statisticsService, toastService } from '../../services';
 import { getProfileOptions } from '../../services/LocalStoreManager';
 
@@ -94,6 +93,7 @@ export const fetchProfile = (): AppThunk => async dispatch => {
     dispatch(getProfileStart());
     const profile = await getProfile();
     dispatch(getProfileSuccess(profile));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     toastService.showError(error);
     dispatch(getProfileFailure(error.toString()));
@@ -108,6 +108,7 @@ export const saveProfile =
       await updateProfile(displayName, photoURL);
       dispatch(displayNameEditingEnd());
       dispatch(updateProfileSuccess({ displayName, photoURL }));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(updateProfileFailure({ error: error.toString() }));
@@ -121,6 +122,7 @@ export const saveEmail =
       dispatch(updateProfileStart());
       await updateEmail(email, password);
       dispatch(updateProfileSuccess({ email }));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(updateProfileFailure({ error: error.toString() }));
@@ -139,6 +141,7 @@ export const saveDarkTheme =
       dispatch(updateProfileStart({ darkTheme: newValue }));
       await updateDarkTheme(newValue);
       dispatch(updateProfileSuccess());
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(updateProfileFailure({ profile: { darkTheme: oldValue }, error: error.toString() }));
@@ -157,6 +160,7 @@ export const saveFontSize =
       dispatch(updateProfileStart({ fontSize: newValue }));
       await updateFontSize(newValue);
       dispatch(updateProfileSuccess());
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(updateProfileFailure({ profile: { fontSize: oldValue }, error: error.toString() }));
@@ -175,6 +179,7 @@ export const saveSimpleMode =
       dispatch(updateProfileStart({ simpleMode: newValue }));
       await updateSimpleMode(newValue);
       dispatch(updateProfileSuccess());
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(updateProfileFailure({ profile: { simpleMode: oldValue }, error: error.toString() }));
@@ -184,6 +189,7 @@ export const saveSimpleMode =
 export const doResetProgress = (): AppThunk => async dispatch => {
   try {
     await resetProgress();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     toastService.showError(error);
     dispatch(getProfileFailure(error.toString()));

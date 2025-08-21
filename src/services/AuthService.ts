@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
 import {
-  Auth,
-  AuthProvider,
+  type Auth,
+  type AuthProvider,
   browserLocalPersistence,
   createUserWithEmailAndPassword,
   GithubAuthProvider,
@@ -12,7 +11,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  UserCredential,
+  type UserCredential,
 } from 'firebase/auth';
 import { off, ref, update } from 'firebase/database';
 

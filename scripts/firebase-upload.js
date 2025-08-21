@@ -65,7 +65,7 @@ async function upload() {
     dictionaries.map(dictionary => {
       const wordsCompleted = statistics[dictionary.id];
       if (wordsCompleted !== undefined) {
-        // eslint-disable-next-line no-param-reassign
+         
         dictionary.wordsCompleted = wordsCompleted;
       }
       return uploadDictionary(dictionary);

@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-wrap-multilines */
-import { person } from 'ionicons/icons';
 import React from 'react';
-
 import { IonAvatar, IonIcon, IonImg } from '@ionic/react';
+import { person } from 'ionicons/icons';
 
 import { If } from '../../components';
 

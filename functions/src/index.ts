@@ -1,23 +1,24 @@
-import * as buildCors from 'cors';
-// The Firebase Admin SDK to access the Firebase Realtime Database.
 import * as admin from 'firebase-admin';
+import * as buildCors from 'cors';
 import * as functions from 'firebase-functions';
 import { parse } from 'path';
 
 import sendFile from './sendFile';
+import writeToFile from './writeToFile';
 import textToSpeech, { audioEncodingFromExt } from './textToSpeech';
 import { createText, isCompleted, trimLeft } from './utils';
-import writeToFile from './writeToFile';
+
+// The Firebase Admin SDK to access the Firebase Realtime Database.
 
 admin.initializeApp();
 
 // CORS Express middleware to enable CORS Requests.
 const cors = buildCors({ origin: true });
 
-export const statisticsOnWrite = functions.database.ref('/statistics/{uid}/{wordId}').onWrite(async (snapshot, context) => {
-  const { uid } = context.params;
-  const before = snapshot.before && snapshot.before.val();
-  const after = snapshot.after && snapshot.after.val();
+export const statisticsOnWrite = functions.database.onValueWritten('/statistics/{uid}/{wordId}', async ({ params, data }) => {
+  const { uid } = params;
+  const before = data.before && data.before.val();
+  const after = data.after && data.after.val();
 
   let dictionaryId = '';
   let occursBefore = [];
@@ -102,7 +103,9 @@ export const synthesize = functions.https.onRequest((req, res) => {
 
       res.header('x-file-exists', 'false');
       await sendFile(res, file);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
+      console.log(e);
       res
         .status(500)
         .contentType('text/plain')

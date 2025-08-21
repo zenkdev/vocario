@@ -1,15 +1,14 @@
-import differenceInDays from 'date-fns/differenceInDays';
-import parseISO from 'date-fns/parseISO';
-import startOfDay from 'date-fns/startOfDay';
-import startOfToday from 'date-fns/startOfToday';
-
 import { createSelector } from '@reduxjs/toolkit';
+import { differenceInDays } from 'date-fns/differenceInDays';
+import { parseISO } from 'date-fns/parseISO';
+import { startOfDay } from 'date-fns/startOfDay';
+import { startOfToday } from 'date-fns/startOfToday';
 
-import { nextOccur, Word } from '../../models';
+import type { RootState } from '../../app/store';
+import { type Word, nextOccur } from '../../models';
 import { count, isEmpty, randomNumber } from '../../utils';
-import { RootState } from '../../app/store';
 
-const NEW_WORDS_PER_DAY = Number(process.env.REACT_APP_NEW_WORDS_PER_DAY);
+const NEW_WORDS_PER_DAY = Number(import.meta.env.REACT_APP_NEW_WORDS_PER_DAY);
 
 const isNew = ({ occurs }: Word): boolean => isEmpty(occurs);
 const isToday = (value: Date | string | undefined): boolean =>

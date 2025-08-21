@@ -1,9 +1,7 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 const NUMBER_OF_ITEMS = 20;
 
-// eslint-disable-next-line no-shadow
 export enum VisibilityFilters {
   SHOW_LEARNING = 'SHOW_LEARNING',
   SHOW_COMPLETED = 'SHOW_COMPLETED',

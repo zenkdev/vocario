@@ -1,6 +1,7 @@
-import { History, Location, LocationState, Path } from 'history';
+import type { History, Location, LocationState, Path } from 'history';
 
 class RouterService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private h: History = undefined as any;
 
   public get history(): History {

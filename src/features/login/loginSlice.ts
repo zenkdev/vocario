@@ -1,7 +1,6 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../../app/store';
+import type { AppThunk } from '../../app/store';
 import { authService, toastService, routerService } from '../../services';
 
 export type LoginState = {
@@ -50,6 +49,7 @@ export const loginWithGithub = (): AppThunk => async dispatch => {
     await authService.loginWithGithub();
     goBack();
     dispatch(loginSuccess());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));
@@ -62,6 +62,7 @@ export const loginWithGoogle = (): AppThunk => async dispatch => {
     await authService.loginWithGoogle();
     goBack();
     dispatch(loginSuccess());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));
@@ -74,6 +75,7 @@ export const loginWithMicrosoft = (): AppThunk => async dispatch => {
     await authService.loginWithMicrosoft();
     goBack();
     dispatch(loginSuccess());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     toastService.showError(error);
     dispatch(loginFailure(error.toString()));
@@ -88,6 +90,7 @@ export const loginWithEmailAndPassword =
       await authService.loginWithEmailAndPassword(email, password);
       dispatch(loginSuccess());
       goBack();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(loginFailure(error.toString()));

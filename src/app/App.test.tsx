@@ -1,33 +1,32 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import '@testing-library/jest-dom';
+
 import { Provider } from 'react-redux';
+import { it, vi } from 'vitest';
+import { render } from '@testing-library/react';
 
 import App from './App';
 import store from './store';
 
-jest.mock('../services/Firebase', () => ({
-  __esModule: true, // this property makes it work
+vi.mock('../services/Firebase', () => ({
   default: {
     auth: {
-      onAuthStateChanged: jest.fn(),
+      onAuthStateChanged: vi.fn(),
     },
   },
 }));
 
-jest.mock('../services/ProfileService', () => ({
-  __esModule: true, // this property makes it work
+vi.mock('../services/ProfileService', () => ({
   default: {
-    onCurrentUserChanged: jest.fn(),
+    onCurrentUserChanged: vi.fn().mockImplementation(() => ({ unsubscribe: vi.fn() })),
   },
 }));
 
 it('renders without crashing', () => {
-  const container = document.createElement('div');
-  const root = createRoot(container);
-  root.render(
+  const { getByText } = render(
     <Provider store={store}>
       <App />
     </Provider>,
   );
-  root.unmount();
+
+  expect(getByText('Please wait while app is loading')).toBeInTheDocument();
 });

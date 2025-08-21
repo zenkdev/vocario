@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { PropsWithChildren } from 'react';
-
 import { IonButton } from '@ionic/react';
+import type { PropsWithChildren } from 'react';
 
 import { useAppSelector } from '../hooks';
 

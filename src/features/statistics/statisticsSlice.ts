@@ -1,8 +1,7 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../../app/store';
-import { Statistic } from '../../models';
+import type { AppThunk } from '../../app/store';
+import type { Statistic } from '../../models';
 import { statisticsService, toastService } from '../../services';
 
 const { getStatistics } = statisticsService;
@@ -47,6 +46,7 @@ export const fetchStatistics = (): AppThunk => async dispatch => {
     dispatch(getStatisticsStart());
     const statistics = await getStatistics();
     dispatch(getStatisticsSuccess(statistics));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     toastService.showError(e);
     dispatch(getStatisticsFailure(e.toString()));

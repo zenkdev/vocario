@@ -1,15 +1,15 @@
 import 'react-simple-keyboard/build/css/index.css';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { If } from '../../components';
-import { useAppSelector } from '../../hooks';
-import { Word } from '../../models';
-import { isEmpty, wordUtils } from '../../utils';
 import AnswerResult from './AnswerResult';
 import NormalQuestion from './NormalQuestion';
 import StyledInput from './StyledInput';
 import Title from './Title';
+import { If } from '../../components';
+import type { Word } from '../../models';
+import { isEmpty, wordUtils } from '../../utils';
+import { useAppSelector } from '../../hooks';
 
 const { getText, getTextWithLang, getTranscription } = wordUtils;
 
@@ -20,6 +20,7 @@ interface NormalCardProps {
 const NormalCard = ({ word }: NormalCardProps) => {
   const { translation: title, category } = word;
   const [input, setInput] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [keyboardRef, setKeyboardRef] = useState<any>();
   const answer = useAppSelector(state => state.learn.answer);
   const text = useMemo(() => getText(word), [word]);

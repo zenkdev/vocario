@@ -12,6 +12,7 @@ export type UserProfile = {
   darkTheme: boolean;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createUserProfile(payload: DataSnapshot | null, options?: any): UserProfile {
   if (payload == null) {
     return {

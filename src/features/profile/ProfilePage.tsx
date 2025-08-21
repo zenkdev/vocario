@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import {
   IonBackButton,
   IonButton,
@@ -15,22 +16,21 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-  RefresherEventDetail,
+  type RefresherEventDetail,
   useIonViewWillEnter,
 } from '@ionic/react';
+import type { RouteComponentProps } from 'react-router';
 import { logOut } from 'ionicons/icons';
-import React, { useCallback } from 'react';
-import { RouteComponentProps } from 'react-router';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { authService, toastService } from '../../services';
 import DarkThemeItem from './DarkThemeItem';
 import DisplayNameItem from './DisplayNameItem';
 import EmailItem from './Emailtem';
 import FontSizeItem from './FontSizeItem';
-import { fetchProfile } from './profileSlice';
 import ResetProgress from './ResetProgress';
 import SimpleModeItem from './SimpleModeItem';
+import { authService, toastService } from '../../services';
+import { fetchProfile } from './profileSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const ProfilePage: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useAppDispatch();
@@ -40,6 +40,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({ history }) => {
     try {
       await authService.logout();
       history.push('/login');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
     }
@@ -86,7 +87,7 @@ const ProfilePage: React.FC<RouteComponentProps> = ({ history }) => {
         <ResetProgress />
         <div className="ion-padding">
           <span className="small-text" style={{ textTransform: 'capitalize' }}>
-            {process.env.REACT_APP_NAME} version: {process.env.REACT_APP_VERSION}
+            {import.meta.env.REACT_APP_NAME} version: {import.meta.env.REACT_APP_VERSION}
           </span>
         </div>
         <IonLoading isOpen={isLoading} message="Loading..." />

@@ -1,20 +1,18 @@
-/* eslint-disable no-param-reassign */
-import formatISO from 'date-fns/formatISO';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { formatISO } from 'date-fns/formatISO';
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { AppThunk } from '../../app/store';
-import { Dictionary, Word } from '../../models';
-import { dictionaryService, statisticsService, toastService } from '../../services';
-import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
 import { Answer } from '../../types';
+import type { AppThunk } from '../../app/store';
+import type { Dictionary, Word } from '../../models';
+import { deleteWordId, getWordId, setWordId } from '../../services/LocalStoreManager';
+import { dictionaryService, statisticsService, toastService } from '../../services';
 import { isEmpty, randomNumber } from '../../utils';
 import { selectWord, selectWordsToLearn } from './selectors';
 
 const { getDictionary } = dictionaryService;
 const { updateStatistics } = statisticsService;
 
-const COUNT_TO_COMPLETE = Number(process.env.REACT_APP_COUNT_TO_COMPLETE);
+const COUNT_TO_COMPLETE = Number(import.meta.env.REACT_APP_COUNT_TO_COMPLETE);
 const completed = (occurs?: string[]): boolean => !isEmpty(occurs) && occurs.length > COUNT_TO_COMPLETE;
 
 export type LearnState = {
@@ -52,6 +50,7 @@ const learnSlice = createSlice({
       const force = payload && payload.force;
 
       if (dictionary) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const words = selectWordsToLearn({ learn: state } as any);
         let newWordId = force ? null : wordId;
         if (words.length) {
@@ -116,6 +115,7 @@ export const fetchDictionary =
       const dictionary = await getDictionary(id);
       dispatch(getDictionarySuccess(dictionary));
       dispatch(nextWord());
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       toastService.showError(e);
       dispatch(loadingFailed(e.toString()));
@@ -148,6 +148,7 @@ export const updateWord =
 
         dispatch(updateWordSuccess({ word, answer }));
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       toastService.showError(e);
       dispatch(loadingFailed(e.toString()));

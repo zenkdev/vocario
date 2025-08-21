@@ -1,19 +1,16 @@
 import '../../app/chart.scss';
 
-/* eslint-disable import/no-extraneous-dependencies */
-import { max } from 'd3-array';
-import format from 'date-fns/format';
-import getDay from 'date-fns/getDay';
-import parseISO from 'date-fns/parseISO';
-import React from 'react';
-
 import { AxisBottom } from '@visx/axis';
-import { Group } from '@visx/group';
-import { scaleBand, scaleLinear } from '@visx/scale';
 import { Bar } from '@visx/shape';
+import { Group } from '@visx/group';
+import { format } from 'date-fns/format';
+import { getDay } from 'date-fns/getDay';
+import { max } from 'd3-array';
+import { parseISO } from 'date-fns/parseISO';
+import { scaleBand, scaleLinear } from '@visx/scale';
 
+import { type ChartData, selectChartData } from './selectors';
 import { defaultTo, getLocale } from '../../utils';
-import { ChartData, selectChartData } from './selectors';
 import { useAppSelector } from '../../hooks';
 
 const WIDTH = 1200;

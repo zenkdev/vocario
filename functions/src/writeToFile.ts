@@ -1,9 +1,10 @@
-import { getType } from 'mime';
+import mime from 'mime';
 
 import { File } from './types';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function writeToFile(file: File, data: any): Promise<void> {
-  const contentType = getType(file.name) || 'audio/mpeg';
+  const contentType = mime.getType(file.name) || 'audio/mpeg';
   return new Promise<void>((resolve, reject) => {
     const fs = file.createWriteStream({
       contentType,

@@ -1,5 +1,5 @@
 import {
-  User,
+  type User,
   updateProfile,
   reauthenticateWithCredential,
   updateEmail as updateFirebaseEmail,
@@ -9,7 +9,7 @@ import {
 import { Database, ref, get, update } from 'firebase/database';
 import Observable from 'zen-observable';
 
-import { createUserProfile, UserProfile } from '../models';
+import { createUserProfile, type UserProfile } from '../models';
 import { omitUndefined } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 import localStoreManager, { DARK_THEME_DATA_KEY, FONT_SIZE_DATA_KEY, getProfileOptions, SIMPLE_MODE_DATA_KEY } from './LocalStoreManager';
@@ -36,6 +36,7 @@ class ProfileService {
 
   public onCurrentUserChanged = (
     onNext: (value: UserProfile | null) => void,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError?: (error: any) => void,
     onComplete?: () => void,
   ): ZenObservable.Subscription => this.currentUserChanged$.subscribe(onNext, onError, onComplete);
@@ -115,7 +116,7 @@ class ProfileService {
 
   private handleAuthStateChanged(user: User | null) {
     this.currentUser = user;
-    // eslint-disable-next-line no-console
+
     this.raiseCurrentUserChanged().catch(console.error);
   }
 
@@ -129,6 +130,7 @@ class ProfileService {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async updateUserProfile(values: Record<string, any>): Promise<void> {
     if (this.currentUser) {
       await update(ref(this.db, `/userProfile/${this.currentUser.uid}`), values);

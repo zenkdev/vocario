@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { ToastOptions } from '@ionic/core';
 import Observable from 'zen-observable';
+import type { ToastOptions } from '@ionic/core';
 
 /*
 export interface ToastOptions {

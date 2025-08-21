@@ -1,8 +1,7 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import 'react-simple-keyboard/build/css/index.css';
 
-import React, { useMemo } from 'react';
 import Keyboard from 'react-simple-keyboard';
+import React, { useMemo } from 'react';
 
 const keyboardConfig = {
   layout: {
@@ -20,10 +19,12 @@ interface KeyboardButtonTheme {
 }
 
 interface MobileKeyboardProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   keyboardRef: (ref: any) => void;
   buttons?: string[];
   highlight?: string;
   inputPattern?: RegExp;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   maxLength?: any;
   onChange?: (input: string) => void;
   onKeyPress?: (button: string) => void;

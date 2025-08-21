@@ -8,6 +8,7 @@ export interface CreateReadStreamOptions {
   decompress?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export declare type Metadata = any;
 
 export declare type PredefinedAcl =
@@ -39,6 +40,7 @@ export interface CreateWriteStreamOptions extends CreateResumableUploadOptions {
 
 export type File = {
   name: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata: any;
   createReadStream(options?: CreateReadStreamOptions): Readable;
   createWriteStream(options?: CreateWriteStreamOptions): Writable;

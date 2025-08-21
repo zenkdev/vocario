@@ -1,4 +1,4 @@
-import { SegmentChangeEventDetail } from '@ionic/react';
+import type { SegmentChangeEventDetail } from '@ionic/react';
 
 type RangeValue =
   | number
@@ -12,7 +12,6 @@ export type IonToggleEvent = CustomEvent<{ checked: boolean; value: string | nul
 export type IonRangeEvent = CustomEvent<{ value: RangeValue }>;
 export type IonSegmentChangeEvent = CustomEvent<SegmentChangeEventDetail>;
 
-// eslint-disable-next-line no-shadow
 export enum Answer {
   empty = 'empty',
   valid = 'valid',

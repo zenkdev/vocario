@@ -1,16 +1,17 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
-import { Button } from '../../components';
-import { useAppDispatch } from '../../hooks';
-import { isValidAnswer, stringUtils } from '../../utils';
 import * as actions from './learnSlice';
 import MobileKeyboard from './MobileKeyboard';
+import { Button } from '../../components';
+import { isValidAnswer, stringUtils } from '../../utils';
+import { useAppDispatch } from '../../hooks';
 
 const { getFullInput, isLetter, unusedChars } = stringUtils;
 
 interface NormalQuestionProps {
   text: string;
   input: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   keyboardRef: (ref: any) => void;
   onChange: (value: string) => void;
 }

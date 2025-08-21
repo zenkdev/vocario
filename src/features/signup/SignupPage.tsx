@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import React, { useCallback } from 'react';
 import {
   IonBackButton,
   IonButton,
@@ -14,10 +17,9 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { useFormik } from 'formik';
-import React, { useCallback } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import * as signupSlice from './signupSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const SignupPage: React.FC = () => {
   const dispatch = useAppDispatch();

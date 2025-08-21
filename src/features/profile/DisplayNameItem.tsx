@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Formik } from 'formik';
 import {
   IonButton,
   IonButtons,
@@ -14,16 +17,15 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { Formik } from 'formik';
 import { chevronForwardOutline } from 'ionicons/icons';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
-import { If } from '../../components';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { UserProfile } from '../../models';
-import { fileToDataUrl } from '../../utils';
-import Avatar from './Avatar';
 import * as profileSlice from './profileSlice';
+import Avatar from './Avatar';
+import { If } from '../../components';
+import type { UserProfile } from '../../models';
+import { fileToDataUrl } from '../../utils';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const useDisplayNameItem = () => {
   const dispatch = useAppDispatch();

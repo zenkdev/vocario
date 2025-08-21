@@ -5,7 +5,6 @@ export const SIMPLE_MODE_DATA_KEY = 'lexion:simpleMode';
 export const FONT_SIZE_DATA_KEY = 'lexion:fontSize';
 export const DARK_THEME_DATA_KEY = 'lexion:darkTheme';
 
-/* eslint-disable class-methods-use-this */
 /**
  * Provides a wrapper for accessing the web storage API and synchronizing session storage across tabs/windows.
  */
@@ -34,6 +33,7 @@ export class LocalStoreManager {
     localStorage.clear();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public saveSessionData(key: string, data: any) {
     this.testForInvalidKeys(key);
 
@@ -41,6 +41,7 @@ export class LocalStoreManager {
     this.sessionStorageSetItem(key, data);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public savePermanentData(key: string, data: any) {
     this.testForInvalidKeys(key);
 
@@ -123,10 +124,12 @@ export class LocalStoreManager {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private localStorageSetItem(key: string, data: any) {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private sessionStorageSetItem(key: string, data: any) {
     sessionStorage.setItem(key, JSON.stringify(data));
   }

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function omitUndefined<T extends Record<string, any>>(value: T): T {
   const clone = { ...value };
   const keys = Object.keys(clone);

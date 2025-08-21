@@ -1,9 +1,9 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import { FirebaseApp, initializeApp } from 'firebase/app';
+import { type FirebaseApp, initializeApp } from 'firebase/app';
 // Add the Firebase products that you want to use
-import { getAuth, Auth } from 'firebase/auth';
+import { getAuth, type Auth } from 'firebase/auth';
 import { getDatabase, Database } from 'firebase/database';
-import { getPerformance, FirebasePerformance, trace as getTrace } from 'firebase/performance';
+import { getPerformance, type FirebasePerformance, trace as getTrace } from 'firebase/performance';
 
 import firebaseConfig from '../firebaseConfig';
 
@@ -21,8 +21,9 @@ export class Firebase {
 
     this.auth = getAuth(this.app);
     this.db = getDatabase(this.app);
-    this.perf = getPerformance(this.app);
-
+    if (typeof window !== 'undefined') {
+      this.perf = getPerformance(this.app);
+    }
     this.withTrace = this.withTrace.bind(this);
   }
 

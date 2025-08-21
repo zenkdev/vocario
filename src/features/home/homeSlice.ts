@@ -1,8 +1,7 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../../app/store';
-import { Dictionary } from '../../models';
+import type { AppThunk } from '../../app/store';
+import type { Dictionary } from '../../models';
 import { dictionaryService, toastService } from '../../services';
 
 const { getDictionaries } = dictionaryService;
@@ -47,6 +46,7 @@ export const fetchDictionaries = (): AppThunk => async dispatch => {
     dispatch(getDictionariesStart());
     const dictionaries = await getDictionaries();
     dispatch(getDictionariesSuccess(dictionaries));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     toastService.showError(e);
     dispatch(getDictionariesFailure(e.toString()));

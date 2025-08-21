@@ -1,6 +1,6 @@
 import { Database, ref, get, query, orderByChild, equalTo } from 'firebase/database';
 
-import { createDictionary, createStatistic, createWord, Dictionary, Statistic, Word } from '../models';
+import { createDictionary, createStatistic, createWord, type Dictionary, type Statistic, type Word } from '../models';
 import { count } from '../utils';
 import firebaseInstance, { Firebase } from './Firebase';
 
@@ -51,11 +51,9 @@ class DictionaryService {
       values.forEach(word => {
         const stat = statistics[word.id];
         if (stat) {
-          /* eslint-disable no-param-reassign */
           word.isCompleted = stat.isCompleted;
           word.occurs = stat.occurs;
           word.mistakes = stat.mistakes;
-          /* eslint-enable no-param-reassign */
         }
       });
       // console.table(words);

@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React, { createRef, type JSX } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
 type AudioPlayerProps = {
@@ -22,6 +22,7 @@ class AudioPlayer extends React.Component<AudioPlayerProps, AudioPlayerState> {
   }
 
   public toggle = () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const el = this.ref.current as any;
     const { playing } = this.state;
     if (el) {

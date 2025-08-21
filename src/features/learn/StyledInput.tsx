@@ -1,6 +1,4 @@
 import React, { useMemo } from 'react';
-
-/* eslint-disable react/no-array-index-key */
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
 
 import { stringUtils } from '../../utils';

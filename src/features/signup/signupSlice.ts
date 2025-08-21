@@ -1,7 +1,6 @@
-/* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../../app/store';
+import type { AppThunk } from '../../app/store';
 import { authService, toastService, routerService } from '../../services';
 
 export type SignupState = {
@@ -44,6 +43,7 @@ export const signupUser =
       await authService.signupUser(email, password);
       dispatch(signupSuccess());
       routerService.push('/home');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toastService.showError(error);
       dispatch(signupFailure(error.toString()));

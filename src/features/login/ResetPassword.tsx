@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
-import { RouteComponentProps } from 'react-router';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
+import React, { useCallback, useState } from 'react';
 import {
   IonBackButton,
   IonButton,
@@ -16,9 +16,10 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import type { RouteComponentProps } from 'react-router';
 
+import type { IonInputEvent } from '../../types';
 import { authService, toastService } from '../../services';
-import { IonInputEvent } from '../../types';
 
 const ResetPassword: React.FC<RouteComponentProps> = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -60,7 +61,7 @@ const ResetPassword: React.FC<RouteComponentProps> = ({ history }) => {
         <IonList lines="full" class="ion-no-margin ion-no-padding">
           <IonItem>
             <IonLabel position="stacked">Email</IonLabel>
-            <IonInput type="email" value={email} onIonChange={handleEmailChange} />
+            <IonInput type="email" value={email} onIonChange={handleEmailChange as any} />
           </IonItem>
         </IonList>
         <div className="ion-padding">

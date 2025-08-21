@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {
   IonButton,
   IonContent,
@@ -12,12 +14,12 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { useFormik } from 'formik';
 import { logoGithub, logoGoogle, logoSkype } from 'ionicons/icons';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
+import { useFormik } from 'formik';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import * as loginSlice from './loginSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 const useLoginPage = () => {
   const dispatch = useAppDispatch();
