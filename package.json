@@ -19,8 +19,8 @@
   },
   "private": true,
   "dependencies": {
-    "@ionic/react": "8.7.2",
-    "@ionic/react-router": "8.7.2",
+    "@ionic/react": "8.7.3",
+    "@ionic/react-router": "8.7.3",
     "@reduxjs/toolkit": "2.8.2",
     "@visx/axis": "3.4.0",
     "@visx/group": "3.3.0",
