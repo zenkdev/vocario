@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as initialize from 'firebase-functions-test';
-import { afterAll, afterEach, describe, expect, it, jest } from '@jest/globals';
+import initialize from 'firebase-functions-test';
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
 
 import { statisticsOnWrite, synthesize } from '../src';
 
 const test = initialize();
 
-const mockedTransaction = jest.fn<(...args: any[]) => any>();
+const mockedTransaction = vi.fn<(...args: any[]) => any>();
 
-jest.mock('firebase-admin', () => ({
-  initializeApp: jest.fn(),
+vi.mock('firebase-admin', () => ({
+  initializeApp: vi.fn(),
   database: () => ({
     ref: () => ({
       transaction: mockedTransaction,
@@ -19,31 +19,31 @@ jest.mock('firebase-admin', () => ({
       }),
     }),
   }),
-  storage: jest.fn(() => ({
-    bucket: jest.fn(() => ({
-      getFiles: jest.fn(() => [[]]),
-      file: jest.fn((fileName: string) => {
+  storage: vi.fn(() => ({
+    bucket: vi.fn(() => ({
+      getFiles: vi.fn(() => [[]]),
+      file: vi.fn((fileName: string) => {
         const file = new File([], fileName);
         Object.assign(file, {
-          createReadStream: jest.fn(() => ({
-            on: jest.fn((event, cb) => {
+          createReadStream: vi.fn(() => ({
+            on: vi.fn((event, cb) => {
               if (event === 'end') (cb as () => void)();
               return this;
             }),
-            end: jest.fn((cb: () => void) => {
+            end: vi.fn((cb: () => void) => {
               cb();
             }),
-            pipe: jest.fn(),
+            pipe: vi.fn(),
           })),
-          createWriteStream: jest.fn(() => ({
-            on: jest.fn((event, cb) => {
+          createWriteStream: vi.fn(() => ({
+            on: vi.fn((event, cb) => {
               if (event === 'finish') (cb as () => void)();
               return this;
             }),
-            end: jest.fn((cb: () => void) => {
+            end: vi.fn((cb: () => void) => {
               cb();
             }),
-            write: jest.fn((_data: any, cb: () => void) => {
+            write: vi.fn((_data: any, cb: () => void) => {
               cb();
             }),
           })),
@@ -55,15 +55,15 @@ jest.mock('firebase-admin', () => ({
   })),
 }));
 
-jest.mock('mime', () => ({
+vi.mock('mime', () => ({
   default: {
-    getType: jest.fn(() => null),
+    getType: vi.fn(() => null),
   },
 }));
 
-jest.mock('../src/textToSpeech', () => ({
-  default: jest.fn(() => Buffer.alloc(1, 0)),
-  audioEncodingFromExt: jest.fn(),
+vi.mock('../src/textToSpeech', () => ({
+  default: vi.fn(() => Buffer.alloc(1, 0)),
+  audioEncodingFromExt: vi.fn(),
 }));
 
 const dictionaryId = 'd111';
@@ -192,75 +192,78 @@ describe('functions', () => {
     expect(value.wordsCompleted).toHaveProperty(uid, 1);
   });
 
-  it('should return 403 for non GET requests', done => {
-    // A fake request object
-    const req: any = { method: 'POST', headers: {}, params: {} };
-    // A fake response object
-    const res: any = {
-      getHeader: jest.fn(),
-      setHeader: jest.fn(),
-      attachment: jest.fn(() => res),
-      contentType: jest.fn(() => res),
-      status: jest.fn(() => res),
-      send: jest.fn(() => res),
-      end: () => {
-        expect(res.status).toHaveBeenCalledWith(403);
-        expect(res.send).toHaveBeenCalledWith('Forbidden!');
-        done();
-      },
-    };
+  it('should return 403 for non GET requests', async () =>
+    new Promise<void>(done => {
+      // A fake request object
+      const req: any = { method: 'POST', headers: {}, params: {} };
+      // A fake response object
+      const res: any = {
+        getHeader: vi.fn(),
+        setHeader: vi.fn(),
+        attachment: vi.fn(() => res),
+        contentType: vi.fn(() => res),
+        status: vi.fn(() => res),
+        send: vi.fn(() => res),
+        end: () => {
+          expect(res.status).toHaveBeenCalledWith(403);
+          expect(res.send).toHaveBeenCalledWith('Forbidden!');
+          done();
+        },
+      };
 
-    // Invoke synthesize with our fake request and response objects.
-    // This will cause the assertions in the response object to be evaluated.
-    synthesize(req, res);
-  });
+      // Invoke synthesize with our fake request and response objects.
+      // This will cause the assertions in the response object to be evaluated.
+      synthesize(req, res);
+    }));
 
-  it('should return 404 if no word was sent', done => {
-    // A fake request object
-    const req: any = { method: 'GET', headers: {}, params: {} };
-    // A fake response object
-    const res: any = {
-      getHeader: jest.fn(),
-      setHeader: jest.fn(),
-      attachment: jest.fn(() => res),
-      contentType: jest.fn(() => res),
-      status: jest.fn(() => res),
-      send: jest.fn(() => res),
-      end: () => {
-        expect(res.status).toHaveBeenCalledWith(404);
-        done();
-      },
-    };
+  it('should return 404 if no word was sent', async () =>
+    new Promise<void>(done => {
+      // A fake request object
+      const req: any = { method: 'GET', headers: {}, params: {} };
+      // A fake response object
+      const res: any = {
+        getHeader: vi.fn(),
+        setHeader: vi.fn(),
+        attachment: vi.fn(() => res),
+        contentType: vi.fn(() => res),
+        status: vi.fn(() => res),
+        send: vi.fn(() => res),
+        end: () => {
+          expect(res.status).toHaveBeenCalledWith(404);
+          done();
+        },
+      };
 
-    // Invoke synthesize with our fake request and response objects.
-    // This will cause the assertions in the response object to be evaluated.
-    synthesize(req, res);
-  });
+      // Invoke synthesize with our fake request and response objects.
+      // This will cause the assertions in the response object to be evaluated.
+      synthesize(req, res);
+    }));
 
-  it('should return mp3 file if valid word was sent', done => {
-    // A fake request object
-    const req: any = { method: 'GET', headers: {}, params: { 0: wordId } };
-    // A fake response object
-    const res: any = {
-      header: jest.fn(),
-      getHeader: jest.fn(),
-      setHeader: jest.fn(),
-      attachment: jest.fn(() => res),
-      contentType: jest.fn(() => res),
-      status: jest.fn(() => res),
-      send: jest.fn(() => res),
-      end: () => {
-        expect(res.status).toHaveBeenCalledWith(200);
-        expect(res.contentType).toHaveBeenCalledWith('.mp3');
-        expect(res.send).toHaveBeenCalled();
-        // const args = res.send.mock.calls[0];
-        // expect(args[0]).toBeInstanceOf(Buffer);
-        done();
-      },
-    };
+  it('should return mp3 file if valid word was sent', async () =>
+    new Promise<void>(done => {
+      // A fake request object
+      const req: any = { method: 'GET', headers: {}, params: { 0: wordId } };
+      // A fake response object
+      const res: any = {
+        header: vi.fn(),
+        getHeader: vi.fn(),
+        setHeader: vi.fn(),
+        attachment: vi.fn(() => res),
+        contentType: vi.fn(() => res),
+        status: vi.fn(() => res),
+        send: vi.fn(() => res),
+        end: () => {
+          expect(res.status).toHaveBeenCalledWith(200);
+          expect(res.contentType).toHaveBeenCalledWith('.mp3');
+          expect(res.send).toHaveBeenCalled();
+          // const args = res.send.mock.calls[0];
+          // expect(args[0]).toBeInstanceOf(Buffer);
+          done();
+        },
+      };
 
-    // Invoke synthesize with our fake request and response objects.
-    // This will cause the assertions in the response object to be evaluated.
-    synthesize(req, res);
-  });
+      // Invoke synthesize with our fake request and response objects.
+      // This will cause the assertions in the response object to be evaluated.
+      synthesize(req, res);
+    }));
 });

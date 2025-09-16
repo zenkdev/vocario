@@ -1,13 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    ":automergeMinor"
-  ],
-  "packageRules": [
-    {
-      "groupName": "ionic packages",
-      "matchPackagePrefixes": ["@ionic/"]
-    }
-  ]
+  "extends": ["config:base", ":automergeMinor"],
+  "packageRules": []
 }

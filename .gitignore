@@ -10,7 +10,6 @@ lerna-debug.log*
 node_modules
 coverage
 dist
-dist-ssr
 *.local
 
 # Editor directories and files
@@ -27,3 +26,4 @@ dist-ssr
 .firebase
 src/firebaseConfig.ts
 scripts/serviceAccountKey.json
+certificates
