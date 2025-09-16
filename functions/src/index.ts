@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
-import * as buildCors from 'cors';
 import * as functions from 'firebase-functions';
+import buildCors from 'cors';
 import { parse } from 'path';
 
 import sendFile from './sendFile';
