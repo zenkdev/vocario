@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: echo $'export default {};' > ./src/firebaseConfig.ts
+      - run: echo $'export default {};' > ./apps/web/src/firebaseConfig.ts
       - run: npm ci
       - run: npm run lint
       - run: npm run build --if-present
