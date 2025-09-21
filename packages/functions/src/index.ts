@@ -3,10 +3,10 @@ import * as functions from 'firebase-functions';
 import buildCors from 'cors';
 import { parse } from 'path';
 
-import sendFile from './sendFile';
-import writeToFile from './writeToFile';
-import textToSpeech, { audioEncodingFromExt } from './textToSpeech';
-import { createText, isCompleted, trimLeft } from './utils';
+import sendFile from './send-file';
+import writeToFile from './write-to-file';
+import textToSpeech, { audioEncodingFromExt } from './text-to-speech';
+import { createText, isCompleted, trimLeft } from './helpers';
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 
@@ -105,7 +105,7 @@ export const synthesize = functions.https.onRequest((req, res) => {
       await sendFile(res, file);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      console.log(e);
+      console.error('error:', e);
       res
         .status(500)
         .contentType('text/plain')

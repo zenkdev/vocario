@@ -1,7 +1,7 @@
 import StoreProvider from '@/app/store-provider';
 import ThemeProvider from '@/app/theme-provider';
-import { ReactElement, ReactNode } from 'react';
-import { RenderOptions, render } from '@testing-library/react';
+import type { ReactElement, ReactNode } from 'react';
+import { type RenderOptions, render } from '@testing-library/react';
 
 const AllTheProviders = ({ children }: { children: ReactNode }) => {
   return (

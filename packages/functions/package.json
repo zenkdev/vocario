@@ -1,14 +1,14 @@
 {
   "name": "functions",
   "scripts": {
+    "build": "rimraf ./lib && tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "build": "rimraf ./lib && tsc",
-    "test": "jest --watch --detectOpenHandles",
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "cross-env GOOGLE_APPLICATION_CREDENTIALS=C:\\_projects_\\vocario-firebase-adminsdk-2q80y-97508346f6.json firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
@@ -29,20 +29,15 @@
     "@types/express": "4.17.23",
     "@types/jest": "30.0.0",
     "@types/node": "22.17.2",
-    "cross-env": "10.0.0",
     "eslint": "9.33.0",
     "firebase-functions-test": "3.4.1",
     "globals": "16.3.0",
-    "jest": "30.0.5",
     "jiti": "2.5.1",
     "prettier": "3.6.2",
-    "ts-jest": "29.4.1",
-    "typescript": "4.9.5",
-    "typescript-eslint": "8.40.0"
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.40.0",
+    "vite": "7.1.6",
+    "vitest": "3.2.4"
   },
-  "private": true,
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
-  }
+  "private": true
 }

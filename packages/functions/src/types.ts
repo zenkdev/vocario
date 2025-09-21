@@ -40,8 +40,7 @@ export interface CreateWriteStreamOptions extends CreateResumableUploadOptions {
 
 export type File = {
   name: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  metadata: any;
+  metadata?: Record<string, unknown>;
   createReadStream(options?: CreateReadStreamOptions): Readable;
   createWriteStream(options?: CreateWriteStreamOptions): Writable;
 };

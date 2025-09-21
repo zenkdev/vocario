@@ -3,7 +3,7 @@
 import initialize from 'firebase-functions-test';
 import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
 
-import { statisticsOnWrite, synthesize } from '../src';
+import { statisticsOnWrite, synthesize } from '../index';
 
 const test = initialize();
 
@@ -61,7 +61,7 @@ vi.mock('mime', () => ({
   },
 }));
 
-vi.mock('../src/textToSpeech', () => ({
+vi.mock('../text-to-speech', () => ({
   default: vi.fn(() => Buffer.alloc(1, 0)),
   audioEncodingFromExt: vi.fn(),
 }));
@@ -252,14 +252,12 @@ describe('functions', () => {
         contentType: vi.fn(() => res),
         status: vi.fn(() => res),
         send: vi.fn(() => res),
-        end: () => {
+        end: vi.fn(() => {
           expect(res.status).toHaveBeenCalledWith(200);
           expect(res.contentType).toHaveBeenCalledWith('.mp3');
           expect(res.send).toHaveBeenCalled();
-          // const args = res.send.mock.calls[0];
-          // expect(args[0]).toBeInstanceOf(Buffer);
           done();
-        },
+        }),
       };
 
       // Invoke synthesize with our fake request and response objects.

@@ -15,4 +15,10 @@ export default tseslint.config([
       globals: globals.browser,
     },
   },
+  {
+    files: ['**/tests/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ]);
