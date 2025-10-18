@@ -11,7 +11,7 @@ const createNotification = (type: AlertColor, message: ReactNode, title?: ReactN
   createdAt: Date.now(),
   type,
   title,
-  message,
+  message: typeof message === 'object' && message !== null ? message.toString() : message,
   pauseDuration: 0,
   ...opts,
   id: opts?.id || genId(),

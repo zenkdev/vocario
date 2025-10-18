@@ -40,6 +40,8 @@ function ResetPasswordPage() {
           value={email}
           onChange={event => setEmail(event.target.value || '')}
           slotProps={{ inputLabel: { shrink: true } }}
+          autoComplete="email"
+          autoFocus
           fullWidth
         />
         <Button color="primary" variant="contained" disabled={!email} onClick={resetPassword}>

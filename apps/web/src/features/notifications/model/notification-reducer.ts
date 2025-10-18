@@ -1,5 +1,5 @@
 import type { AlertColor } from '@mui/material/Alert';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { DefaultNotificationOptions, Notification } from './types';
 
@@ -119,12 +119,7 @@ export const defaultTimeouts: Record<AlertColor, number> = {
 
 export const useStore = (notificationOptions: DefaultNotificationOptions = {}): State => {
   const [state, setState] = useState<State>(memoryState);
-  const initial = useRef(memoryState);
-
   useEffect(() => {
-    if (initial.current !== memoryState) {
-      setState(memoryState);
-    }
     listeners.push(setState);
 
     return () => {
