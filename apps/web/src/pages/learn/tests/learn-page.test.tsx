@@ -24,6 +24,37 @@ vi.mock('../use-learn-page', () => ({
   })),
 }));
 
+vi.mock('@/shared/api/firebase', () => ({
+  Firebase: vi.fn().mockImplementation(() => ({
+    auth: {
+      onAuthStateChanged: vi.fn(),
+      currentUser: null,
+    },
+    db: {},
+    perf: {
+      app: {},
+      dataCollectionEnabled: false,
+      instrumentationEnabled: false,
+    },
+    withTrace: vi.fn((_traceName, callback) => callback()),
+    logEvent: vi.fn(),
+  })),
+  firebaseInstance: {
+    auth: {
+      onAuthStateChanged: vi.fn(),
+      currentUser: null,
+    },
+    db: {},
+    perf: {
+      app: {},
+      dataCollectionEnabled: false,
+      instrumentationEnabled: false,
+    },
+    withTrace: vi.fn((_traceName, callback) => callback()),
+    logEvent: vi.fn(),
+  },
+}));
+
 describe('LearnPage', () => {
   it('renders without crashing', async () => {
     render(<LearnPage />);

@@ -12,6 +12,37 @@ vi.mock('react-router', async importOriginal => ({
   Link: vi.fn(() => null),
 }));
 
+vi.mock('@/shared/api/firebase', () => ({
+  Firebase: vi.fn().mockImplementation(() => ({
+    auth: {
+      onAuthStateChanged: vi.fn(),
+      currentUser: null,
+    },
+    db: {},
+    perf: {
+      app: {},
+      dataCollectionEnabled: false,
+      instrumentationEnabled: false,
+    },
+    withTrace: vi.fn((_traceName, callback) => callback()),
+    logEvent: vi.fn(),
+  })),
+  firebaseInstance: {
+    auth: {
+      onAuthStateChanged: vi.fn(),
+      currentUser: null,
+    },
+    db: {},
+    perf: {
+      app: {},
+      dataCollectionEnabled: false,
+      instrumentationEnabled: false,
+    },
+    withTrace: vi.fn((_traceName, callback) => callback()),
+    logEvent: vi.fn(),
+  },
+}));
+
 describe('HomePage', () => {
   it('renders without crashing', () => {
     render(<HomePage />);
