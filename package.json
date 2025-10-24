@@ -6,14 +6,17 @@
     "dev": "turbo run dev",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
     "firebase:login": "firebase login",
     "firebase:deploy-web": "turbo run build --filter=./apps/web && firebase deploy --only hosting:web",
     "firebase:deploy-functions": "turbo run build --filter=functions && cross-env GOOGLE_APPLICATION_CREDENTIALS=C:\\_projects_\\vocario-firebase-adminsdk-2q80y-97508346f6.json firebase deploy --only functions",
     "firebase:upload": "node ./scripts/firebase-upload.js",
-    "firebase:get-files": "node ./scripts/firebase-get-files.js"
+    "firebase:get-files": "node ./scripts/firebase-get-files.js",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "16.2.6",
     "prettier": "^3.6.2",
     "turbo": "^2.5.8",
     "typescript": "5.9.3"
@@ -25,5 +28,19 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run format",
+      "npm run lint"
+    ],
+    "*.{md,json}": [
+      "npm run format"
+    ]
+  }
 }
