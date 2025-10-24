@@ -7,6 +7,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig(
   globalIgnores(['dist', 'src/serviceWorker.ts']),
+  { languageOptions: { parserOptions: { tsconfigRootDir: import.meta.dirname } } },
   js.configs.recommended,
   tseslint.configs.recommended,
   reactHooks.configs.flat.recommended,

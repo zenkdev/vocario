@@ -1,9 +1,9 @@
-import type { Response } from 'express';
+import * as express from 'express';
 import { parse } from 'path';
 
 import type { File } from './types';
 
-export default function sendFile(res: Response, file: File): Promise<void> {
+export default function sendFile(res: express.Response, file: File): Promise<void> {
   const metadata = file.metadata || {};
   const cacheControl = (metadata.cacheControl || 'public, max-age=86400') as string;
   const etag = metadata.etag as string | undefined;

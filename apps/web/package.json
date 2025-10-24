@@ -22,8 +22,8 @@
     "@fontsource/roboto": "5.2.8",
     "@mui/icons-material": "7.3.4",
     "@mui/material": "7.3.4",
-    "@mui/x-charts": "8.14.1",
-    "@reduxjs/toolkit": "2.9.1",
+    "@mui/x-charts": "8.15.0",
+    "@reduxjs/toolkit": "2.9.2",
     "date-fns": "4.1.0",
     "firebase": "12.4.0",
     "formik": "2.4.6",
@@ -66,16 +66,16 @@
     "globals": "^16.4.0",
     "husky": "9.1.7",
     "jsdom": "27.0.1",
-    "lint-staged": "16.2.4",
+    "lint-staged": "16.2.6",
     "mime": "4.1.0",
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
     "steiger": "0.5.11",
     "typescript": "5.9.3",
-    "typescript-eslint": "^8.46.1",
-    "vite": "^7.1.11",
+    "typescript-eslint": "^8.46.2",
+    "vite": "^7.1.12",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "3.2.4"
+    "vitest": "4.0.2"
   },
   "husky": {
     "hooks": {
