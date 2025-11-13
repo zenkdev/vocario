@@ -30,7 +30,7 @@
     "react-audio-player": "0.17.0",
     "react-dom": "19.2.0",
     "react-redux": "9.2.0",
-    "react-router": "7.9.5",
+    "react-router": "7.9.6",
     "react-simple-keyboard": "3.8.134",
     "web-vitals": "5.1.0",
     "workbox-background-sync": "7.3.0",
