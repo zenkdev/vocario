@@ -5,19 +5,19 @@ import '@fontsource/roboto/700.css';
 
 import '../index.css';
 
+import Notifications from '@/features/notifications';
 import HomePage from '@/pages/home';
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import LearnPage from '@/pages/learn';
 import LoginPage from '@/pages/login';
-import Notifications from '@/features/notifications';
 import ProfilePage from '@/pages/profile';
 import ResetPasswordPage from '@/pages/reset-password';
 import SignupPage from '@/pages/signup';
 import StatisticsPage from '@/pages/stats';
-import { BrowserRouter, Route, Routes } from 'react-router';
 import { Redirect } from '@/shared/ui';
-
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import Loader from './loader';
+import PWABadge from './pwa-badge';
 import StoreProvider from './store-provider';
 import ThemeProvider from './theme-provider';
 
@@ -42,6 +42,7 @@ export default function AppRoot() {
             </Loader>
           </BrowserRouter>
           <Notifications />
+          <PWABadge />
         </ThemeProvider>
       </StoreProvider>
     </>

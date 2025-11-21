@@ -41,49 +41,53 @@ function LoginPage() {
 
   return (
     <AppPage title="Login" variant="form">
-      <Stack direction="column" gap={2} px={2}>
-        <TextField
-          label="Email"
-          type="email"
-          name="email"
-          placeholder="Your email address"
-          value={values.email}
-          onChange={handleChange}
-          slotProps={{ inputLabel: { shrink: true } }}
-          fullWidth
-        />
-        <TextField
-          label="Password"
-          type="password"
-          name="password"
-          placeholder="Your email password"
-          value={values.password}
-          onChange={handleChange}
-          slotProps={{ inputLabel: { shrink: true } }}
-          fullWidth
-        />
-        <Button size="large" color="primary" variant="contained" disabled={!isValid} onClick={() => submitForm()}>
-          Log in
-        </Button>
-        <Stack direction="row" justifyContent="center">
-          <Link component={RouterLink} to="/reset-password">
-            I forgot my password :(
-          </Link>
+      <form onSubmit={submitForm}>
+        <Stack direction="column" gap={2} px={2}>
+          <TextField
+            label="Email"
+            type="email"
+            name="email"
+            placeholder="Your email address"
+            value={values.email}
+            onChange={handleChange}
+            slotProps={{ inputLabel: { shrink: true } }}
+            autoComplete="email"
+            fullWidth
+          />
+          <TextField
+            label="Password"
+            type="password"
+            name="password"
+            placeholder="Your email password"
+            value={values.password}
+            onChange={handleChange}
+            slotProps={{ inputLabel: { shrink: true } }}
+            autoComplete="current-password"
+            fullWidth
+          />
+          <Button size="large" color="primary" variant="contained" disabled={!isValid} type="submit">
+            Log in
+          </Button>
+          <Stack direction="row" justifyContent="center">
+            <Link component={RouterLink} to="/reset-password">
+              I forgot my password :(
+            </Link>
+          </Stack>
+          <LoginDivider />
+          <Button startIcon={<GitHubIcon />} color="info" variant="contained" onClick={loginWithGithub}>
+            Log in with Github
+          </Button>
+          <Button startIcon={<GoogleIcon />} color="info" variant="contained" onClick={loginWithGoogle}>
+            Log in with Google
+          </Button>
+          <Button startIcon={<MicrosoftIcon />} color="info" variant="contained" onClick={loginWithMicrosoft}>
+            Log in with Microsoft
+          </Button>
+          <Button color="success" variant="contained" onClick={gotoSignup}>
+            Create a new account
+          </Button>
         </Stack>
-        <LoginDivider />
-        <Button startIcon={<GitHubIcon />} color="info" variant="contained" onClick={loginWithGithub}>
-          Log in with Github
-        </Button>
-        <Button startIcon={<GoogleIcon />} color="info" variant="contained" onClick={loginWithGoogle}>
-          Log in with Google
-        </Button>
-        <Button startIcon={<MicrosoftIcon />} color="info" variant="contained" onClick={loginWithMicrosoft}>
-          Log in with Microsoft
-        </Button>
-        <Button color="success" variant="contained" onClick={gotoSignup}>
-          Create a new account
-        </Button>
-      </Stack>
+      </form>
       <AppLoader loading={isLoading} />
     </AppPage>
   );

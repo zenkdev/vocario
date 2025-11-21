@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 coverage
 dist
+dev-dist
 *.local
 
 # Editor directories and files

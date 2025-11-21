@@ -1,6 +1,6 @@
 {
   "name": "vocario",
-  "version": "0.0.41",
+  "version": "0.1.0",
   "author": "zenkdev",
   "homepage": "https://vocario.web.app/",
   "type": "module",
@@ -33,18 +33,6 @@
     "react-router": "7.9.6",
     "react-simple-keyboard": "3.8.137",
     "web-vitals": "5.1.0",
-    "workbox-background-sync": "7.4.0",
-    "workbox-broadcast-update": "7.4.0",
-    "workbox-cacheable-response": "7.4.0",
-    "workbox-core": "7.4.0",
-    "workbox-expiration": "7.4.0",
-    "workbox-google-analytics": "7.4.0",
-    "workbox-navigation-preload": "7.4.0",
-    "workbox-precaching": "7.4.0",
-    "workbox-range-requests": "7.4.0",
-    "workbox-routing": "7.4.0",
-    "workbox-strategies": "7.4.0",
-    "workbox-streams": "7.4.0",
     "zen-observable": "0.10.0"
   },
   "description": "A simple vocabulary app build using React, Mui and a Firebase backend",
@@ -71,7 +59,11 @@
     "typescript": "5.9.3",
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.12",
+    "vite-plugin-mkcert": "1.17.9",
+    "vite-plugin-pwa": "1.1.0",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "4.0.12"
+    "vitest": "4.0.12",
+    "workbox-core": "7.4.0",
+    "workbox-window": "7.4.0"
   }
 }
