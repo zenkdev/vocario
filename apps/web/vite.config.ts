@@ -3,11 +3,11 @@ import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
+import type { PluginOption } from 'vite';
 
 export default defineConfig({
   plugins: [
     react(),
-    tsconfigPaths(),
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
@@ -61,7 +61,6 @@ export default defineConfig({
         theme_color: '#000000',
         background_color: '#ffffff',
       },
-      includeAssets: ['assets/splash/*.png'],
       workbox: {
         maximumFileSizeToCacheInBytes: 25 * 1024 * 1024, // 25MB
         globPatterns: ['**/*.{js,css,html,svg,png,ico,manifest,woff,woff2}'],
@@ -75,6 +74,8 @@ export default defineConfig({
         type: 'module',
       },
     }),
+    tsconfigPaths(),
+    htmlLinkPlugin(),
     mkcert(),
   ],
 
@@ -96,3 +97,23 @@ export default defineConfig({
     dir: './src',
   },
 });
+
+function htmlLinkPlugin() {
+  let basePath = '';
+  return {
+    name: 'html-link-plugin',
+    enforce: 'post',
+    configResolved(config) {
+      basePath = config.base;
+    },
+    transformIndexHtml(html, { bundle }) {
+      if (bundle) {
+        for (const asset of Object.values(bundle).filter(asset => asset.fileName.includes('.woff'))) {
+          const linkTag = `<link rel="preload" href="${basePath}${asset.fileName}" as="font" crossorigin="anonymous">\n`;
+          html = html.replace('</head>', linkTag + '</head>');
+        }
+      }
+      return html;
+    },
+  } as PluginOption;
+}

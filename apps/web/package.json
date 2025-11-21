@@ -32,7 +32,6 @@
     "react-redux": "9.2.0",
     "react-router": "7.9.6",
     "react-simple-keyboard": "3.8.137",
-    "web-vitals": "5.1.0",
     "zen-observable": "0.10.0"
   },
   "description": "A simple vocabulary app build using React, Mui and a Firebase backend",
@@ -63,6 +62,7 @@
     "vite-plugin-pwa": "1.1.0",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "4.0.12",
+    "web-vitals": "5.1.0",
     "workbox-core": "7.4.0",
     "workbox-window": "7.4.0"
   }
