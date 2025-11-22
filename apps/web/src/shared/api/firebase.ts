@@ -3,7 +3,7 @@ import { type FirebaseApp, initializeApp } from 'firebase/app';
 // Add the Firebase products that you want to use
 import { getAuth, type Auth } from 'firebase/auth';
 import { getDatabase, Database } from 'firebase/database';
-import { type AnalyticsCallOptions, logEvent } from 'firebase/analytics';
+import { type AnalyticsCallOptions, type Analytics, getAnalytics, logEvent } from 'firebase/analytics';
 import { getPerformance, type FirebasePerformance, trace as getTrace } from 'firebase/performance';
 
 import firebaseConfig from '../../firebaseConfig';
@@ -16,6 +16,8 @@ export class Firebase {
   public readonly db: Database;
 
   public readonly perf: FirebasePerformance;
+
+  private analytics: Analytics | null = null;
 
   constructor() {
     this.app = initializeApp(firebaseConfig);
@@ -39,7 +41,10 @@ export class Firebase {
   }
 
   public logEvent(eventName: string, eventParams?: Record<string, unknown>, options?: AnalyticsCallOptions) {
-    logEvent({ app: this.app }, eventName, eventParams, options);
+    if (!this.analytics) {
+      this.analytics = getAnalytics(this.app);
+    }
+    logEvent(this.analytics, eventName, eventParams, options);
   }
 }
 

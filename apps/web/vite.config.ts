@@ -11,6 +11,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
+      includeAssets: ['assets/icon/favicon.png', 'assets/splash/*.png'],
       manifest: {
         short_name: 'Vocario',
         name: 'Vocario',
@@ -63,7 +64,6 @@ export default defineConfig({
       },
       workbox: {
         maximumFileSizeToCacheInBytes: 25 * 1024 * 1024, // 25MB
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,manifest,woff,woff2}'],
         cleanupOutdatedCaches: true,
         clientsClaim: true,
       },
