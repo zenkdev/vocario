@@ -4,8 +4,15 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
 import type { PluginOption } from 'vite';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineConfig({
+  // Explicitly set the directory for .env files
+  envDir: resolve(__dirname, '.'),
   plugins: [
     react(),
     VitePWA({

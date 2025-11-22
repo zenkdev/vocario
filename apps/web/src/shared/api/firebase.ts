@@ -6,7 +6,16 @@ import { getDatabase, Database } from 'firebase/database';
 import { type AnalyticsCallOptions, type Analytics, getAnalytics, logEvent } from 'firebase/analytics';
 import { getPerformance, type FirebasePerformance, trace as getTrace } from 'firebase/performance';
 
-import firebaseConfig from '../../firebaseConfig';
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: 'vocario.firebaseapp.com',
+  databaseURL: 'https://vocario.firebaseio.com',
+  projectId: 'vocario',
+  storageBucket: 'vocario.appspot.com',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+};
 
 export class Firebase {
   private readonly app: FirebaseApp;

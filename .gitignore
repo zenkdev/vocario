@@ -46,5 +46,4 @@ logs
 
 # Firebase
 .firebase
-src/firebaseConfig.ts
 scripts/serviceAccountKey.json

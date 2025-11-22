@@ -25,6 +25,5 @@ dev-dist
 *.sw?
 
 .firebase
-src/firebaseConfig.ts
 scripts/serviceAccountKey.json
 certificates
