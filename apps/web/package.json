@@ -21,7 +21,7 @@
     "@fontsource/roboto": "5.2.9",
     "@mui/icons-material": "7.3.5",
     "@mui/material": "7.3.5",
-    "@mui/x-charts": "8.19.0",
+    "@mui/x-charts": "8.20.0",
     "@reduxjs/toolkit": "2.11.0",
     "date-fns": "4.1.0",
     "firebase": "12.6.0",
