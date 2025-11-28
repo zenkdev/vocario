@@ -52,7 +52,7 @@
     "globals": "^16.4.0",
     "jsdom": "27.2.0",
     "mime": "4.1.0",
-    "prettier": "3.7.1",
+    "prettier": "3.7.2",
     "rimraf": "6.1.2",
     "steiger": "0.5.11",
     "typescript": "5.9.3",
