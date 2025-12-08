@@ -22,7 +22,7 @@
     "@mui/icons-material": "7.3.6",
     "@mui/material": "7.3.6",
     "@mui/x-charts": "8.21.0",
-    "@reduxjs/toolkit": "2.11.0",
+    "@reduxjs/toolkit": "2.11.1",
     "date-fns": "4.1.0",
     "firebase": "12.6.0",
     "formik": "2.4.9",
