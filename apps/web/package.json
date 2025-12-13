@@ -1,12 +1,12 @@
 {
   "name": "vocario",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "zenkdev",
   "homepage": "https://vocario.web.app/",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsgo && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -43,6 +43,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/zen-observable": "0.8.7",
+    "@typescript/native-preview": "7.0.0-dev.20251213.1",
     "@vitejs/plugin-react-swc": "^4.1.0",
     "csv-parse": "6.1.0",
     "eslint": "^9.38.0",
