@@ -175,3 +175,16 @@ export const getProfileOptions = () => {
   const darkTheme = localStoreManager.getDataObject<boolean>(DARK_THEME_DATA_KEY);
   return { simpleMode, fontSize, darkTheme };
 };
+
+export const updateProfileOptions = (payload: { simpleMode: boolean; fontSize: number; darkTheme: boolean }) => {
+  const options = getProfileOptions();
+  if (options.simpleMode !== payload.simpleMode) {
+    localStoreManager.savePermanentData(SIMPLE_MODE_DATA_KEY, payload.simpleMode);
+  }
+  if (options.fontSize !== payload.fontSize) {
+    localStoreManager.savePermanentData(FONT_SIZE_DATA_KEY, payload.fontSize);
+  }
+  if (options.darkTheme !== payload.darkTheme) {
+    localStoreManager.savePermanentData(DARK_THEME_DATA_KEY, payload.darkTheme);
+  }
+};
