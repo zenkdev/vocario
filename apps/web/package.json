@@ -62,7 +62,7 @@
     "vite-plugin-mkcert": "1.17.9",
     "vite-plugin-pwa": "1.2.0",
     "vite-tsconfig-paths": "6.0.4",
-    "vitest": "4.0.16",
+    "vitest": "4.0.17",
     "web-vitals": "5.1.0",
     "workbox-core": "7.4.0",
     "workbox-window": "7.4.0"
