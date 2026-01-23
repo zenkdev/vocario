@@ -32,7 +32,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260122.4",
     "eslint": "9.39.2",
     "firebase-functions-test": "3.4.1",
-    "globals": "17.0.0",
+    "globals": "17.1.0",
     "jiti": "2.6.1",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
