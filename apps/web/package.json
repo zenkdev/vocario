@@ -31,7 +31,7 @@
     "react-dom": "19.2.4",
     "react-redux": "9.2.0",
     "react-router": "7.13.1",
-    "react-simple-keyboard": "3.8.162",
+    "react-simple-keyboard": "3.8.164",
     "zen-observable": "0.10.0"
   },
   "description": "A simple vocabulary app build using React, Mui and a Firebase backend",
