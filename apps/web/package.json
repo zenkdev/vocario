@@ -56,7 +56,7 @@
     "prettier": "3.8.1",
     "rimraf": "6.1.3",
     "steiger": "0.5.11",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.12",
     "vite-plugin-mkcert": "1.17.10",
