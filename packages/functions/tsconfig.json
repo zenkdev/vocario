@@ -6,6 +6,7 @@
     "esModuleInterop": true,
 
     /* Bundler mode */
+    "rootDir": "src",
     "outDir": "lib",
     "sourceMap": true,
 
@@ -21,5 +22,5 @@
     "types": ["jest", "node"]
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "exclude": ["*.config.ts"]
 }

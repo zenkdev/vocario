@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig(
-  globalIgnores(['dist', 'src/serviceWorker.ts']),
+  globalIgnores(['dist', 'dev-dist', 'src/serviceWorker.ts']),
   { languageOptions: { parserOptions: { tsconfigRootDir: import.meta.dirname } } },
   js.configs.recommended,
   tseslint.configs.recommended,
