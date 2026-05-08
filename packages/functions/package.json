@@ -28,7 +28,7 @@
     "@types/cors": "2.8.19",
     "@types/express": "4.17.25",
     "@types/jest": "30.0.0",
-    "@types/node": "22.19.17",
+    "@types/node": "22.19.18",
     "@typescript/native-preview": "7.0.0-dev.20260507.1",
     "eslint": "10.3.0",
     "firebase-functions-test": "3.4.1",
