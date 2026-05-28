@@ -29,7 +29,7 @@
     "@types/express": "4.17.25",
     "@types/jest": "30.0.0",
     "@types/node": "22.19.19",
-    "@typescript/native-preview": "7.0.0-dev.20260527.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.2",
     "eslint": "10.4.0",
     "firebase-functions-test": "3.5.0",
     "globals": "17.6.0",
