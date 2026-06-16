@@ -24,7 +24,7 @@
     "@mui/x-charts": "9.4.0",
     "@reduxjs/toolkit": "2.12.0",
     "date-fns": "4.4.0",
-    "firebase": "12.14.0",
+    "firebase": "12.15.0",
     "formik": "2.4.9",
     "react": "19.2.7",
     "react-audio-player": "0.17.0",
