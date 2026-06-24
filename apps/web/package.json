@@ -50,7 +50,7 @@
     "eslint": "9.39.4",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "firebase-admin": "13.10.0",
+    "firebase-admin": "14.1.0",
     "globals": "^17.4.0",
     "jsdom": "29.1.1",
     "mime": "4.1.0",
