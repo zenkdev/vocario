@@ -46,7 +46,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260624.1",
     "@vitejs/plugin-react-swc": "^4.3.0",
     "baseline-browser-mapping": "2.10.40",
-    "csv-parse": "6.2.1",
+    "csv-parse": "7.0.0",
     "eslint": "9.39.4",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
