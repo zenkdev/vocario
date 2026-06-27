@@ -30,7 +30,7 @@
     "react-audio-player": "0.17.0",
     "react-dom": "19.2.7",
     "react-redux": "9.3.0",
-    "react-router": "7.18.0",
+    "react-router": "8.0.1",
     "react-simple-keyboard": "3.8.228",
     "zen-observable": "0.10.0"
   },
