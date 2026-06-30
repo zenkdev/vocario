@@ -47,3 +47,4 @@ logs
 # Firebase
 .firebase
 scripts/serviceAccountKey.json
+.npmrc
