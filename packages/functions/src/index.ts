@@ -1,4 +1,6 @@
-import * as admin from 'firebase-admin';
+import { initializeApp } from 'firebase-admin/app';
+import { getDatabase } from 'firebase-admin/database';
+import { getStorage } from 'firebase-admin/storage';
 import * as functions from 'firebase-functions';
 import buildCors from 'cors';
 import { parse } from 'path';
@@ -10,7 +12,7 @@ import { createText, isCompleted, trimLeft } from './helpers';
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 
-admin.initializeApp();
+initializeApp();
 
 // CORS Express middleware to enable CORS Requests.
 const cors = buildCors({ origin: true });
@@ -35,8 +37,7 @@ export const statisticsOnWrite = functions.database.onValueWritten('/statistics/
   if (isCompleted(occursAfter) !== isCompleted(occursBefore)) {
     const addition = isCompleted(occursAfter) && !isCompleted(occursBefore) ? 1 : -1;
 
-    await admin
-      .database()
+    await getDatabase()
       .ref(`dictionary/${dictionaryId}`)
       .transaction(data => {
         if (data) {
@@ -79,7 +80,7 @@ export const synthesize = functions.https.onRequest((req, res) => {
 
     try {
       // Create a bucket
-      const bucket = admin.storage().bucket();
+      const bucket = getStorage().bucket();
 
       const [files] = await bucket.getFiles({ maxResults: 1, prefix: filename });
       const exists = files.find(({ name }) => name === filename);
@@ -89,7 +90,7 @@ export const synthesize = functions.https.onRequest((req, res) => {
         return;
       }
 
-      const snapshot = await admin.database().ref(`word/${word}`).once('value');
+      const snapshot = await getDatabase().ref(`word/${word}`).once('value');
       const payload = snapshot.val();
       if (!payload) {
         res.status(404).end();

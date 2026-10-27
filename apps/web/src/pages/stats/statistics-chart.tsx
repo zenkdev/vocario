@@ -44,10 +44,10 @@ export default function StatisticsChart() {
             valueFormatter(value: number | null) {
               return value ? `${value} words` : 'no data';
             },
+            barLabel: 'value',
           },
         ]}
         height={180}
-        barLabel="value"
       />
       <Typography sx={{ width: '100%', textAlign: 'center', textTransform: 'uppercase', mb: 2 }}>Daily progress</Typography>
     </Paper>

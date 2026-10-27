@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import initialize from 'firebase-functions-test';
 import { afterAll, afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -9,9 +7,11 @@ const test = initialize();
 
 const mockedTransaction = vi.fn<(...args: any[]) => any>();
 
-vi.mock('firebase-admin', () => ({
+vi.mock('firebase-admin/app', () => ({
   initializeApp: vi.fn(),
-  database: () => ({
+}));
+vi.mock('firebase-admin/database', () => ({
+  getDatabase: () => ({
     ref: () => ({
       transaction: mockedTransaction,
       once: () => ({
@@ -19,7 +19,9 @@ vi.mock('firebase-admin', () => ({
       }),
     }),
   }),
-  storage: vi.fn(() => ({
+}));
+vi.mock('firebase-admin/storage', () => ({
+  getStorage: vi.fn(() => ({
     bucket: vi.fn(() => ({
       getFiles: vi.fn(() => [[]]),
       file: vi.fn((fileName: string) => {

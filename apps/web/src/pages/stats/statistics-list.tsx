@@ -16,7 +16,7 @@ function StatisticsList() {
   const handleClick = useCallback(() => dispatch(increaceNumberOfItems()), [dispatch]);
 
   return (
-    <Stack direction="column" gap={2} px={2}>
+    <Stack direction="column" sx={{ gap: 2, px: 2 }}>
       {!statistics.length && (
         <Typography variant="h5" sx={{ alignSelf: 'center' }}>
           No Statistics

@@ -48,7 +48,7 @@ function ProfilePage() {
       showBackButton
       showFooter
     >
-      <Stack direction="column" gap={2} px={2}>
+      <Stack direction="column" sx={{ gap: 2, px: 2 }}>
         <Stack direction="row">
           <Typography variant="h6">Personal Information</Typography>
           <IconButton onClick={() => fetchData()} sx={{ ml: 'auto' }}>

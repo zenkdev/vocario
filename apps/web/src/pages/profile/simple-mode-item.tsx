@@ -23,7 +23,7 @@ function SimpleModeItem() {
   const control = <Switch checked={simpleMode} onChange={handleChange} />;
 
   return (
-    <Stack direction="row" alignItems="center" gap={3}>
+    <Stack direction="row" sx={{ alignItems: 'center', gap: 3 }}>
       <RocketIcon fontSize="large" color="primary" />
       <FormControlLabel
         label="Simple Mode"

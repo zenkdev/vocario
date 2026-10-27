@@ -29,7 +29,7 @@ function StatisticsPage() {
       showBackButton
       showFooter
     >
-      <Stack direction="column" gap={2} px={2}>
+      <Stack direction="column" sx={{ gap: 2, px: 2 }}>
         <StatisticsChart />
         <Filter />
         <StatisticsList />

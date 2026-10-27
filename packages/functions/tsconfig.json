@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "types": ["jest", "node"]
+    "types": ["node"]
   },
   "compileOnSave": true,
   "exclude": ["*.config.ts"]

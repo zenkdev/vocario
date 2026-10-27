@@ -31,8 +31,8 @@ export default function Loader({ children }: { children: ReactNode }) {
 
   if (isLoading) {
     return (
-      <Stack direction="column" alignItems="center" justifyContent="center" sx={{ position: 'fixed', inset: '0' }}>
-        <Stack direction="column" gap={1}>
+      <Stack direction="column" sx={{ position: 'fixed', inset: '0', alignItems: 'center', justifyContent: 'center' }}>
+        <Stack direction="column" sx={{ gap: 1 }}>
           <Typography>Please wait while app is loading</Typography>
           <LinearProgress color="info" />
         </Stack>
