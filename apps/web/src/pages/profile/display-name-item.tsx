@@ -69,7 +69,7 @@ function DisplayNameItem() {
   );
 
   return (
-    <Stack direction="row" alignItems="center" gap={3}>
+    <Stack direction="row" sx={{ alignItems: 'center', gap: 3 }}>
       <Avatar photoURL={profile.photoURL} />
       {isLoading ? <Skeleton>{control}</Skeleton> : control}
       <IconButton title="Edit" aria-label="Edit" onClick={() => startEdit()}>
@@ -81,9 +81,9 @@ function DisplayNameItem() {
             <>
               <DialogTitle>Edit Name</DialogTitle>
               <DialogContent>
-                <Stack padding={2} gap={3}>
+                <Stack sx={{ padding: 2, gap: 3 }}>
                   <TextField label="Name" type="text" name="email" value={values.displayName} onChange={handleChange} fullWidth />
-                  <Stack direction="row" gap={3}>
+                  <Stack direction="row" sx={{ gap: 3 }}>
                     <Avatar photoURL={values.photoURL} />
                     <MuiButton component="label" role={undefined} variant="contained" tabIndex={-1} startIcon={<CloudUploadIcon />}>
                       Upload Photo

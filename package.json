@@ -17,9 +17,10 @@
   "devDependencies": {
     "husky": "9.1.7",
     "lint-staged": "17.6.0",
+    "oxlint": "^1.90.0",
     "prettier": "3.9.10",
     "turbo": "2.11.10",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   },
   "engines": {
     "node": "22"
@@ -50,5 +51,20 @@
     "fsevents@2.3.3": true,
     "unrs-resolver@1.11.1": true,
     "protobufjs@7.6.4": true
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.14.1",
+    "@grpc/grpc-js": "^1.14.6",
+    "@vitejs/plugin-react": "^6.1.2",
+    "firebase": "^13.1.0",
+    "firebase-admin": "^14.5.0",
+    "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "firebase": {
+      "@firebase/firestore": {
+        "@grpc/grpc-js": "1.14.6"
+      }
+    }
   }
 }

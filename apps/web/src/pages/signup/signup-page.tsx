@@ -48,7 +48,7 @@ function SignupPage() {
 
   return (
     <AppPage title="Signup" variant="form" showBackButton>
-      <Stack direction="column" gap={2} px={2}>
+      <Stack direction="column" sx={{ gap: 2, px: 2 }}>
         <TextField label="Email" type="email" name="email" value={values.email} onChange={handleChange} fullWidth />
         <TextField label="Password" type="password" name="password" value={values.password} onChange={handleChange} fullWidth />
         <TextField

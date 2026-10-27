@@ -9,7 +9,7 @@ type TitleProps = {
 
 function Title({ text, isNew }: TitleProps) {
   return (
-    <Stack direction="row" justifyContent="space-between" alignItems="center">
+    <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
       <Typography component="h1" variant="h3">
         {text}
       </Typography>

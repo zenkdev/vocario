@@ -65,7 +65,7 @@ const profileSlice = createSlice({
       state.error = null;
     },
     updateProfileFailure(state: ProfileState, { payload }: PayloadAction<{ profile?: Partial<UserProfile>; error: string }>) {
-      state.profile = { ...state.profile, ...(payload.profile || {}) };
+      state.profile = { ...state.profile, ...payload.profile };
       state.isSaving = false;
       state.error = payload.error;
     },

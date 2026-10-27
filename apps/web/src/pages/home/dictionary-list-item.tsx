@@ -19,9 +19,9 @@ function DictionaryListItem({ item }: DictionaryListItemProps) {
   const navigate = useNavigate();
 
   return (
-    <Stack direction="column" paddingBottom={1} borderBottom={1} borderColor="divider">
+    <Stack direction="column" sx={{ paddingBottom: 1, borderBottom: 1, borderBlock: 'divider' }}>
       <Button endIcon={<ChevronRightIcon />} onClick={() => navigate(`/learn/${item.id}`)} fullWidth>
-        <Stack direction="row" justifyContent="space-between" alignItems="center" gap={3} width="100%">
+        <Stack direction="row" sx={{ justifyContent: 'space-between', alignItems: 'center', gap: 3, width: '100%' }}>
           {item.name}
           <Chip color="info" label={format(item.wordsCount)} />
         </Stack>

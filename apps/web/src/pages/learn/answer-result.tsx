@@ -54,7 +54,7 @@ function AnswerResult({ text, smallText }: AnswerResultProps) {
   }, []);
 
   return (
-    <Stack py={1} gap={2}>
+    <Stack sx={{ py: 1, gap: 2 }}>
       <Typography variant="body2" color={color}>
         {title}
       </Typography>
@@ -64,7 +64,7 @@ function AnswerResult({ text, smallText }: AnswerResultProps) {
         {text}
       </Typography>
       {smallText && <Typography variant="subtitle1">{smallText}</Typography>}
-      <Stack alignItems="center">
+      <Stack sx={{ alignItems: 'center' }}>
         <Button variant="outlined" onClick={handleClick}>
           Next
         </Button>

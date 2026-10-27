@@ -18,7 +18,7 @@ function LearnPage() {
 
   return (
     <AppPage title={title} showBackButton showFooter>
-      <Stack direction="column" gap={2} px={2}>
+      <Stack direction="column" sx={{ gap: 2, px: 2 }}>
         <LinearProgress variant="determinate" value={progress * 100} />
         {word && <>{simpleMode ? <SimpleCard key={word.id} word={word} /> : <NormalCard key={word.id} word={word} />}</>}
         {!isLoading && !word && <Congratulations more={hasMore} />}

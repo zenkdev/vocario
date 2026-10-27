@@ -26,13 +26,13 @@ function FontSizeItem() {
   );
 
   return (
-    <Stack direction="row" alignItems="center" gap={3}>
+    <Stack direction="row" sx={{ alignItems: 'center', gap: 3 }}>
       <TextDecreaseIcon fontSize="large" color="primary" />
       <FormControlLabel
         label="Font Size"
         labelPlacement="start"
         control={isLoading ? <Skeleton sx={{ ml: 2 }}>{control}</Skeleton> : control}
-        slotProps={{ typography: { whiteSpace: 'nowrap', mr: 3 } }}
+        slotProps={{ typography: { sx: { whiteSpace: 'nowrap', mr: 3 } } }}
         sx={{ flex: 1 }}
       />
       <TextIncreaseIcon fontSize="large" color="primary" />

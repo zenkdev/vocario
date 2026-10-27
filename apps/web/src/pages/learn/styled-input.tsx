@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { stringUtils } from '@/shared/lib';
 
 const { isLetter, isWhiteSpace, toCharArray, getFullInput } = stringUtils;
@@ -36,9 +36,9 @@ function StyledInput({ input, text }: StyledInputProps) {
   const fullInput = useMemo(() => getFullInput(input, text), [input, text]);
 
   return (
-    <Stack direction="row" gap={1} flexWrap="nowrap">
+    <Stack direction="row" sx={{ gap: 1, flexWrap: 'nowrap' }}>
       {toCharArray(text).map((ch, index) => (
-        <Box key={`ch${index}`} flexGrow="unset" sx={isLetter(ch) ? sx.box : undefined}>
+        <Box key={`ch${index}`} sx={{ ...(isLetter(ch) ? sx.box : {}), flexGrow: 'unset' }}>
           <Typography variant="monospace" sx={isLetter(ch) ? sx.typography : undefined}>
             {displayChar(ch, index, fullInput)}
           </Typography>

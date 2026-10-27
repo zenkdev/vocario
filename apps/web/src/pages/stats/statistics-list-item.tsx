@@ -23,7 +23,7 @@ function StatisticsListItem({ item }: StatisticsListItemProps) {
   const nextOccur = useMemo(() => nextOccurString(item), [item]);
 
   return (
-    <Stack direction="column" paddingBottom={1} borderBottom={1} borderColor="divider">
+    <Stack direction="column" sx={{ paddingBottom: 1, borderBottom: 1, borderColor: 'divider' }}>
       <Grid container>
         <Grid size={6}>
           <Typography variant="subtitle2">{textWithLang}</Typography>

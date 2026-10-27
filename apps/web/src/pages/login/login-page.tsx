@@ -42,7 +42,7 @@ function LoginPage() {
   return (
     <AppPage title="Login" variant="form">
       <form onSubmit={submitForm}>
-        <Stack direction="column" gap={2} px={2}>
+        <Stack direction="column" sx={{ gap: 2, px: 2 }}>
           <TextField
             label="Email"
             type="email"
@@ -68,7 +68,7 @@ function LoginPage() {
           <Button size="large" color="primary" variant="contained" disabled={!isValid} type="submit">
             Log in
           </Button>
-          <Stack direction="row" justifyContent="center">
+          <Stack direction="row" sx={{ justifyContent: 'center' }}>
             <Link component={RouterLink} to="/reset-password">
               I forgot my password :(
             </Link>

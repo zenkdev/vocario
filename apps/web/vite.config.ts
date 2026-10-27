@@ -1,6 +1,5 @@
 import mkcert from 'vite-plugin-mkcert';
-import react from '@vitejs/plugin-react-swc';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
 import type { PluginOption } from 'vite';
@@ -81,10 +80,13 @@ export default defineConfig({
         type: 'module',
       },
     }),
-    tsconfigPaths(),
     htmlLinkPlugin(),
     mkcert(),
   ],
+
+  resolve: {
+    tsconfigPaths: true,
+  },
 
   server: { https: {}, open: true, port: 3000 },
 
