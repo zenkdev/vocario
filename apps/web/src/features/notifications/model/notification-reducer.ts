@@ -5,38 +5,32 @@ import type { DefaultNotificationOptions, Notification } from './types';
 
 const NOTIFICATION_LIMIT = 20;
 
-export enum ActionType {
-  ADD_NOTIFICATION,
-  UPDATE_NOTIFICATION,
-  UPSERT_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  START_PAUSE,
-  END_PAUSE,
-}
+export type ActionType =
+  'ADD_NOTIFICATION' | 'UPDATE_NOTIFICATION' | 'UPSERT_NOTIFICATION' | 'REMOVE_NOTIFICATION' | 'START_PAUSE' | 'END_PAUSE';
 
 type Action =
   | {
-      type: ActionType.ADD_NOTIFICATION;
+      type: 'ADD_NOTIFICATION';
       notification: Notification;
     }
   | {
-      type: ActionType.UPSERT_NOTIFICATION;
+      type: 'UPSERT_NOTIFICATION';
       notification: Notification;
     }
   | {
-      type: ActionType.UPDATE_NOTIFICATION;
+      type: 'UPDATE_NOTIFICATION';
       notification: Partial<Notification>;
     }
   | {
-      type: ActionType.REMOVE_NOTIFICATION;
+      type: 'REMOVE_NOTIFICATION';
       notificationId?: string;
     }
   | {
-      type: ActionType.START_PAUSE;
+      type: 'START_PAUSE';
       time: number;
     }
   | {
-      type: ActionType.END_PAUSE;
+      type: 'END_PAUSE';
       time: number;
     };
 
@@ -47,25 +41,25 @@ interface State {
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case ActionType.ADD_NOTIFICATION:
+    case 'ADD_NOTIFICATION':
       return {
         ...state,
         notifications: [action.notification, ...state.notifications].slice(0, NOTIFICATION_LIMIT),
       };
 
-    case ActionType.UPDATE_NOTIFICATION:
+    case 'UPDATE_NOTIFICATION':
       return {
         ...state,
         notifications: state.notifications.map(t => (t.id === action.notification.id ? { ...t, ...action.notification } : t)),
       };
 
-    case ActionType.UPSERT_NOTIFICATION:
+    case 'UPSERT_NOTIFICATION':
       return reducer(state, {
-        type: state.notifications.find(t => t.id === action.notification.id) ? ActionType.UPDATE_NOTIFICATION : ActionType.ADD_NOTIFICATION,
+        type: state.notifications.find(t => t.id === action.notification.id) ? 'UPDATE_NOTIFICATION' : 'ADD_NOTIFICATION',
         notification: action.notification,
       });
 
-    case ActionType.REMOVE_NOTIFICATION:
+    case 'REMOVE_NOTIFICATION':
       if (action.notificationId === undefined) {
         return {
           ...state,
@@ -78,13 +72,13 @@ export const reducer = (state: State, action: Action): State => {
         notifications: state.notifications.filter(t => t.id !== action.notificationId),
       };
 
-    case ActionType.START_PAUSE:
+    case 'START_PAUSE':
       return {
         ...state,
         pausedAt: action.time,
       };
 
-    case ActionType.END_PAUSE: {
+    case 'END_PAUSE': {
       const diff = action.time - (state.pausedAt || 0);
 
       return {

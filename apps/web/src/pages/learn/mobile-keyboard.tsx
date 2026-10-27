@@ -2,7 +2,7 @@ import 'react-simple-keyboard/build/css/index.css';
 
 import Keyboard from 'react-simple-keyboard';
 import Paper from '@mui/material/Paper';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { styled } from '@mui/material/styles';
 
 const keyboardConfig = {

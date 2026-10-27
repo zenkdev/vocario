@@ -31,7 +31,7 @@ function ResetPasswordPage() {
 
   return (
     <AppPage title="Reset password" variant="form" showBackButton>
-      <Stack direction="column" gap={2} px={2}>
+      <Stack direction="column" sx={{ gap: 2, px: 2 }}>
         <TextField
           label="Email"
           type="email"

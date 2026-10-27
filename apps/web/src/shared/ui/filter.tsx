@@ -12,7 +12,7 @@ export function Filter() {
   const completed = useAppSelector(selectCompletedCount);
 
   return (
-    <Stack direction="row" justifyContent="center" borderBottom={1} borderColor="divider">
+    <Stack direction="row" sx={{ justifyContent: 'center', borderBottom: 1, borderColor: 'divider' }}>
       <Tabs value={filter} onChange={(_e, value) => dispatch(setVisibilityFilter(value as VisibilityFilters))} aria-label="filter tabs">
         <Tab label={`Learning ${learning}`} value={VisibilityFilters.SHOW_LEARNING} />
         <Tab label={`Completed ${completed}`} value={VisibilityFilters.SHOW_COMPLETED} />

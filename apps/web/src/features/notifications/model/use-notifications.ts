@@ -1,10 +1,10 @@
 import { useCallback, useEffect } from 'react';
 
-import { ActionType, dispatch, useStore } from './notification-reducer';
+import { dispatch, useStore } from './notification-reducer';
 import type { DefaultNotificationOptions } from './types';
 import { store } from './notification-store';
 
-const startPause = () => dispatch({ type: ActionType.START_PAUSE, time: Date.now() });
+const startPause = () => dispatch({ type: 'START_PAUSE', time: Date.now() });
 
 export const useNotifications = (notificationOptions?: DefaultNotificationOptions) => {
   const { notifications, pausedAt } = useStore(notificationOptions);
@@ -38,7 +38,7 @@ export const useNotifications = (notificationOptions?: DefaultNotificationOption
 
   const endPause = useCallback(() => {
     if (pausedAt) {
-      dispatch({ type: ActionType.END_PAUSE, time: Date.now() });
+      dispatch({ type: 'END_PAUSE', time: Date.now() });
     }
   }, [pausedAt]);
 

@@ -24,7 +24,7 @@ function DarkThemeItem() {
   const control = <Switch checked={darkTheme} onChange={handleChange} />;
 
   return (
-    <Stack direction="row" alignItems="center" gap={3}>
+    <Stack direction="row" sx={{ alignItems: 'center', gap: 3 }}>
       <DarkModeIcon fontSize="large" color="primary" />
       <FormControlLabel
         label="Dark Theme"
