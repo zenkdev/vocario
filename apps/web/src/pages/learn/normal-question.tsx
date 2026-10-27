@@ -50,9 +50,9 @@ const NormalQuestion = ({ text, input, onChange }: NormalQuestionProps) => {
   );
 
   return (
-    <Stack py={1} gap={2}>
+    <Stack sx={{ py: 1, gap: 2 }}>
       <MobileKeyboard buttons={buttons} highlight={highlight} onChange={handleInput} onKeyPress={handleKeyPress} />
-      <Stack alignItems="center">
+      <Stack sx={{ alignItems: 'center' }}>
         <Button variant="outlined" onClick={handleClick} disabled={text.length > fullInput.length}>
           Validate
         </Button>

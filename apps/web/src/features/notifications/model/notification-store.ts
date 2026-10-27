@@ -1,7 +1,7 @@
 import type { AlertColor } from '@mui/material/Alert';
 import type { ReactNode } from 'react';
 
-import { ActionType, dispatch } from './notification-reducer';
+import { dispatch } from './notification-reducer';
 import type { Notification, NotificationOptions } from './types';
 import { genId } from './gen-id';
 
@@ -21,7 +21,7 @@ const createHandler =
   (type: AlertColor): NotificationHandler =>
   (message, title, options) => {
     const notification = createNotification(type, message, title, options);
-    dispatch({ type: ActionType.UPSERT_NOTIFICATION, notification });
+    dispatch({ type: 'UPSERT_NOTIFICATION', notification });
 
     return notification.id;
   };
@@ -31,5 +31,5 @@ export const store = {
   success: createHandler('success'),
   error: createHandler('error'),
   warning: createHandler('warning'),
-  remove: (notificationId?: string) => dispatch({ type: ActionType.REMOVE_NOTIFICATION, notificationId }),
+  remove: (notificationId?: string) => dispatch({ type: 'REMOVE_NOTIFICATION', notificationId }),
 };

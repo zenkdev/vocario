@@ -68,7 +68,7 @@ function EmailItem() {
   );
 
   return (
-    <Stack direction="row" alignItems="center" gap={3}>
+    <Stack direction="row" sx={{ alignItems: 'center', gap: 3 }}>
       <EmailIcon fontSize="large" color="primary" />
       {isLoading ? <Skeleton>{control}</Skeleton> : control}
       <IconButton title="Edit" aria-label="Edit" onClick={() => startEdit()}>
@@ -80,7 +80,7 @@ function EmailItem() {
             <>
               <DialogTitle>Edit Email</DialogTitle>
               <DialogContent>
-                <Stack padding={2} gap={3}>
+                <Stack sx={{ padding: 2, gap: 3 }}>
                   <TextField label="Email" type="email" name="email" value={values.email} onChange={handleChange} fullWidth />
                   <TextField label="Password" type="password" name="password" value={values.password} onChange={handleChange} fullWidth />
                 </Stack>

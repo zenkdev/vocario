@@ -10,7 +10,7 @@ type DictionaryListProps = {
 
 function DictionaryList({ dictionaries }: DictionaryListProps) {
   return (
-    <Stack direction="column" gap={2} px={2}>
+    <Stack direction="column" sx={{ gap: 2, px: 2 }}>
       {!dictionaries.length && (
         <Typography variant="h5" sx={{ alignSelf: 'center' }}>
           No Dictionaries Found
